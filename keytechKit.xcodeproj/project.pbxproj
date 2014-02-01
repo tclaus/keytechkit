@@ -9,12 +9,31 @@
 /* Begin PBXBuildFile section */
 		650857E3189CE73300399949 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857E2189CE73300399949 /* Cocoa.framework */; };
 		650857ED189CE73300399949 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 650857EB189CE73300399949 /* InfoPlist.strings */; };
-		650857F1189CE73300399949 /* keytechKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 650857F0189CE73300399949 /* keytechKit.m */; };
 		650857F8189CE73300399949 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857F7189CE73300399949 /* XCTest.framework */; };
 		650857F9189CE73300399949 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857E2189CE73300399949 /* Cocoa.framework */; };
-		650857FC189CE73300399949 /* keytechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857DF189CE73300399949 /* keytechKit.framework */; };
+		650857FC189CE73300399949 /* keytechKit.Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857DF189CE73300399949 /* keytechKit.Framework.framework */; };
 		65085802189CE73300399949 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65085800189CE73300399949 /* InfoPlist.strings */; };
 		65085804189CE73300399949 /* keytechKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085803189CE73300399949 /* keytechKitTests.m */; };
+		65085813189CEA9B00399949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085812189CEA9B00399949 /* Foundation.framework */; };
+		65085820189CEA9B00399949 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857F7189CE73300399949 /* XCTest.framework */; };
+		65085821189CEA9B00399949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085812189CEA9B00399949 /* Foundation.framework */; };
+		65085823189CEA9B00399949 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085822189CEA9B00399949 /* UIKit.framework */; };
+		65085826189CEA9B00399949 /* libkeytechKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085811189CEA9B00399949 /* libkeytechKit.a */; };
+		65085846189CEC6800399949 /* RestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085841189CEBB300399949 /* RestKit.framework */; };
+		65085847189CEC7500399949 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857E6189CE73300399949 /* CoreData.framework */; };
+		65085849189CEC7C00399949 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085848189CEC7C00399949 /* CoreServices.framework */; };
+		6508584B189CEC8500399949 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508584A189CEC8500399949 /* Security.framework */; };
+		6508584D189CEC8E00399949 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508584C189CEC8E00399949 /* SystemConfiguration.framework */; };
+		6508584F189CECC400399949 /* RestKit.framework in Copy RestKit */ = {isa = PBXBuildFile; fileRef = 65085841189CEBB300399949 /* RestKit.framework */; };
+		65085852189CED7B00399949 /* keytech.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085850189CED7B00399949 /* keytech.h */; };
+		65085853189CED7B00399949 /* keytech.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085851189CED7B00399949 /* keytech.m */; };
+		65085854189CED7B00399949 /* keytech.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085851189CED7B00399949 /* keytech.m */; };
+		65085857189CEDE800399949 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508583D189CEBB300399949 /* libRestKit.a */; };
+		65085859189CEE1C00399949 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085858189CEE1C00399949 /* CFNetwork.framework */; };
+		6508585B189CEE2200399949 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585A189CEE2200399949 /* CoreData.framework */; };
+		6508585D189CEE2900399949 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585C189CEE2900399949 /* MobileCoreServices.framework */; };
+		6508585F189CEE3100399949 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585E189CEE3100399949 /* Security.framework */; };
+		65085861189CEE3800399949 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085860189CEE3800399949 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,10 +44,82 @@
 			remoteGlobalIDString = 650857DE189CE73300399949;
 			remoteInfo = keytechKit;
 		};
+		65085824189CEA9B00399949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 650857D6189CE73300399949 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65085810189CEA9B00399949;
+			remoteInfo = keytechKit;
+		};
+		6508583C189CEBB300399949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65085835189CEBB300399949 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D1614564E810060A5C5;
+			remoteInfo = RestKit;
+		};
+		6508583E189CEBB300399949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65085835189CEBB300399949 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D2614564E820060A5C5;
+			remoteInfo = RestKitTests;
+		};
+		65085840189CEBB300399949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65085835189CEBB300399949 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E62145651060060A5C5;
+			remoteInfo = RestKitFramework;
+		};
+		65085842189CEBB300399949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65085835189CEBB300399949 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E78145651060060A5C5;
+			remoteInfo = RestKitFrameworkTests;
+		};
+		65085844189CEC2D00399949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65085835189CEBB300399949 /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 25160E61145651060060A5C5;
+			remoteInfo = RestKitFramework;
+		};
+		65085855189CEDDF00399949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65085835189CEBB300399949 /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 25160D1514564E810060A5C5;
+			remoteInfo = RestKit;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		6508580F189CEA9B00399949 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6508584E189CEC9F00399949 /* Copy RestKit */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6508584F189CECC400399949 /* RestKit.framework in Copy RestKit */,
+			);
+			name = "Copy RestKit";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		650857DF189CE73300399949 /* keytechKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = keytechKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		650857DF189CE73300399949 /* keytechKit.Framework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = keytechKit.Framework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		650857E2189CE73300399949 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		650857E5189CE73300399949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		650857E6189CE73300399949 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -36,13 +127,26 @@
 		650857EA189CE73300399949 /* keytechKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "keytechKit-Info.plist"; sourceTree = "<group>"; };
 		650857EC189CE73300399949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		650857EE189CE73300399949 /* keytechKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "keytechKit-Prefix.pch"; sourceTree = "<group>"; };
-		650857EF189CE73300399949 /* keytechKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = keytechKit.h; sourceTree = "<group>"; };
-		650857F0189CE73300399949 /* keytechKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = keytechKit.m; sourceTree = "<group>"; };
 		650857F6189CE73300399949 /* keytechKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = keytechKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		650857F7189CE73300399949 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		650857FF189CE73300399949 /* keytechKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "keytechKitTests-Info.plist"; sourceTree = "<group>"; };
 		65085801189CE73300399949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		65085803189CE73300399949 /* keytechKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = keytechKitTests.m; sourceTree = "<group>"; };
+		65085811189CEA9B00399949 /* libkeytechKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libkeytechKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		65085812189CEA9B00399949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6508581F189CEA9B00399949 /* keytechKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = keytechKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		65085822189CEA9B00399949 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		65085835189CEBB300399949 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
+		65085848189CEC7C00399949 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		6508584A189CEC8500399949 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		6508584C189CEC8E00399949 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		65085850189CED7B00399949 /* keytech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = keytech.h; sourceTree = "<group>"; };
+		65085851189CED7B00399949 /* keytech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = keytech.m; sourceTree = "<group>"; };
+		65085858189CEE1C00399949 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
+		6508585A189CEE2200399949 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		6508585C189CEE2900399949 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
+		6508585E189CEE3100399949 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		65085860189CEE3800399949 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +154,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6508584D189CEC8E00399949 /* SystemConfiguration.framework in Frameworks */,
+				6508584B189CEC8500399949 /* Security.framework in Frameworks */,
+				65085849189CEC7C00399949 /* CoreServices.framework in Frameworks */,
+				65085847189CEC7500399949 /* CoreData.framework in Frameworks */,
+				65085846189CEC6800399949 /* RestKit.framework in Frameworks */,
 				650857E3189CE73300399949 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,7 +169,32 @@
 			files = (
 				650857F9189CE73300399949 /* Cocoa.framework in Frameworks */,
 				650857F8189CE73300399949 /* XCTest.framework in Frameworks */,
-				650857FC189CE73300399949 /* keytechKit.framework in Frameworks */,
+				650857FC189CE73300399949 /* keytechKit.Framework.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6508580E189CEA9B00399949 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65085861189CEE3800399949 /* SystemConfiguration.framework in Frameworks */,
+				6508585F189CEE3100399949 /* Security.framework in Frameworks */,
+				6508585D189CEE2900399949 /* MobileCoreServices.framework in Frameworks */,
+				6508585B189CEE2200399949 /* CoreData.framework in Frameworks */,
+				65085859189CEE1C00399949 /* CFNetwork.framework in Frameworks */,
+				65085857189CEDE800399949 /* libRestKit.a in Frameworks */,
+				65085813189CEA9B00399949 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6508581C189CEA9B00399949 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65085820189CEA9B00399949 /* XCTest.framework in Frameworks */,
+				65085823189CEA9B00399949 /* UIKit.framework in Frameworks */,
+				65085826189CEA9B00399949 /* libkeytechKit.a in Frameworks */,
+				65085821189CEA9B00399949 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +204,7 @@
 		650857D5189CE73300399949 = {
 			isa = PBXGroup;
 			children = (
+				65085835189CEBB300399949 /* RestKit.xcodeproj */,
 				650857E8189CE73300399949 /* keytechKit */,
 				650857FD189CE73300399949 /* keytechKitTests */,
 				650857E1189CE73300399949 /* Frameworks */,
@@ -80,8 +215,10 @@
 		650857E0189CE73300399949 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				650857DF189CE73300399949 /* keytechKit.framework */,
+				650857DF189CE73300399949 /* keytechKit.Framework.framework */,
 				650857F6189CE73300399949 /* keytechKitTests.xctest */,
+				65085811189CEA9B00399949 /* libkeytechKit.a */,
+				6508581F189CEA9B00399949 /* keytechKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,8 +226,18 @@
 		650857E1189CE73300399949 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				65085860189CEE3800399949 /* SystemConfiguration.framework */,
+				6508585E189CEE3100399949 /* Security.framework */,
+				6508585C189CEE2900399949 /* MobileCoreServices.framework */,
+				6508585A189CEE2200399949 /* CoreData.framework */,
+				65085858189CEE1C00399949 /* CFNetwork.framework */,
+				6508584C189CEC8E00399949 /* SystemConfiguration.framework */,
+				6508584A189CEC8500399949 /* Security.framework */,
+				65085848189CEC7C00399949 /* CoreServices.framework */,
 				650857E2189CE73300399949 /* Cocoa.framework */,
 				650857F7189CE73300399949 /* XCTest.framework */,
+				65085812189CEA9B00399949 /* Foundation.framework */,
+				65085822189CEA9B00399949 /* UIKit.framework */,
 				650857E4189CE73300399949 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -109,8 +256,6 @@
 		650857E8189CE73300399949 /* keytechKit */ = {
 			isa = PBXGroup;
 			children = (
-				650857EF189CE73300399949 /* keytechKit.h */,
-				650857F0189CE73300399949 /* keytechKit.m */,
 				650857E9189CE73300399949 /* Supporting Files */,
 			);
 			path = keytechKit;
@@ -122,6 +267,8 @@
 				650857EA189CE73300399949 /* keytechKit-Info.plist */,
 				650857EB189CE73300399949 /* InfoPlist.strings */,
 				650857EE189CE73300399949 /* keytechKit-Prefix.pch */,
+				65085850189CED7B00399949 /* keytech.h */,
+				65085851189CED7B00399949 /* keytech.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -144,6 +291,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		65085836189CEBB300399949 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6508583D189CEBB300399949 /* libRestKit.a */,
+				6508583F189CEBB300399949 /* RestKitTests.octest */,
+				65085841189CEBB300399949 /* RestKit.framework */,
+				65085843189CEBB300399949 /* RestKitFrameworkTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -151,33 +309,36 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65085852189CED7B00399949 /* keytech.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		650857DE189CE73300399949 /* keytechKit */ = {
+		650857DE189CE73300399949 /* keytechKit.Framework */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 65085807189CE73300399949 /* Build configuration list for PBXNativeTarget "keytechKit" */;
+			buildConfigurationList = 65085807189CE73300399949 /* Build configuration list for PBXNativeTarget "keytechKit.Framework" */;
 			buildPhases = (
 				650857DA189CE73300399949 /* Sources */,
 				650857DB189CE73300399949 /* Frameworks */,
 				650857DC189CE73300399949 /* Headers */,
 				650857DD189CE73300399949 /* Resources */,
+				6508584E189CEC9F00399949 /* Copy RestKit */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				65085845189CEC2D00399949 /* PBXTargetDependency */,
 			);
-			name = keytechKit;
+			name = keytechKit.Framework;
 			productName = keytechKit;
-			productReference = 650857DF189CE73300399949 /* keytechKit.framework */;
+			productReference = 650857DF189CE73300399949 /* keytechKit.Framework.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		650857F5189CE73300399949 /* keytechKitTests */ = {
+		650857F5189CE73300399949 /* keytechKitFrameworkTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6508580A189CE73300399949 /* Build configuration list for PBXNativeTarget "keytechKitTests" */;
+			buildConfigurationList = 6508580A189CE73300399949 /* Build configuration list for PBXNativeTarget "keytechKitFrameworkTests" */;
 			buildPhases = (
 				650857F2189CE73300399949 /* Sources */,
 				650857F3189CE73300399949 /* Frameworks */,
@@ -188,9 +349,45 @@
 			dependencies = (
 				650857FB189CE73300399949 /* PBXTargetDependency */,
 			);
-			name = keytechKitTests;
+			name = keytechKitFrameworkTests;
 			productName = keytechKitTests;
 			productReference = 650857F6189CE73300399949 /* keytechKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		65085810189CEA9B00399949 /* keytechKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6508582F189CEA9B00399949 /* Build configuration list for PBXNativeTarget "keytechKit" */;
+			buildPhases = (
+				6508580D189CEA9B00399949 /* Sources */,
+				6508580E189CEA9B00399949 /* Frameworks */,
+				6508580F189CEA9B00399949 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65085856189CEDDF00399949 /* PBXTargetDependency */,
+			);
+			name = keytechKit;
+			productName = keytechKit;
+			productReference = 65085811189CEA9B00399949 /* libkeytechKit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		6508581E189CEA9B00399949 /* keytechKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65085832189CEA9B00399949 /* Build configuration list for PBXNativeTarget "keytechKitTests" */;
+			buildPhases = (
+				6508581B189CEA9B00399949 /* Sources */,
+				6508581C189CEA9B00399949 /* Frameworks */,
+				6508581D189CEA9B00399949 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65085825189CEA9B00399949 /* PBXTargetDependency */,
+			);
+			name = keytechKitTests;
+			productName = keytechKitTests;
+			productReference = 6508581F189CEA9B00399949 /* keytechKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -205,6 +402,9 @@
 					650857F5189CE73300399949 = {
 						TestTargetID = 650857DE189CE73300399949;
 					};
+					6508581E189CEA9B00399949 = {
+						TestTargetID = 650857DE189CE73300399949;
+					};
 				};
 			};
 			buildConfigurationList = 650857D9189CE73300399949 /* Build configuration list for PBXProject "keytechKit" */;
@@ -217,13 +417,52 @@
 			mainGroup = 650857D5189CE73300399949;
 			productRefGroup = 650857E0189CE73300399949 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 65085836189CEBB300399949 /* Products */;
+					ProjectRef = 65085835189CEBB300399949 /* RestKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
-				650857DE189CE73300399949 /* keytechKit */,
-				650857F5189CE73300399949 /* keytechKitTests */,
+				650857DE189CE73300399949 /* keytechKit.Framework */,
+				650857F5189CE73300399949 /* keytechKitFrameworkTests */,
+				65085810189CEA9B00399949 /* keytechKit */,
+				6508581E189CEA9B00399949 /* keytechKitTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		6508583D189CEBB300399949 /* libRestKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRestKit.a;
+			remoteRef = 6508583C189CEBB300399949 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6508583F189CEBB300399949 /* RestKitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitTests.octest;
+			remoteRef = 6508583E189CEBB300399949 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		65085841189CEBB300399949 /* RestKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RestKit.framework;
+			remoteRef = 65085840189CEBB300399949 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		65085843189CEBB300399949 /* RestKitFrameworkTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitFrameworkTests.octest;
+			remoteRef = 65085842189CEBB300399949 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		650857DD189CE73300399949 /* Resources */ = {
@@ -242,6 +481,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6508581D189CEA9B00399949 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -249,7 +495,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				650857F1189CE73300399949 /* keytechKit.m in Sources */,
+				65085853189CED7B00399949 /* keytech.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,13 +507,43 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6508580D189CEA9B00399949 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65085854189CED7B00399949 /* keytech.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6508581B189CEA9B00399949 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		650857FB189CE73300399949 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 650857DE189CE73300399949 /* keytechKit */;
+			target = 650857DE189CE73300399949 /* keytechKit.Framework */;
 			targetProxy = 650857FA189CE73300399949 /* PBXContainerItemProxy */;
+		};
+		65085825189CEA9B00399949 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65085810189CEA9B00399949 /* keytechKit */;
+			targetProxy = 65085824189CEA9B00399949 /* PBXContainerItemProxy */;
+		};
+		65085845189CEC2D00399949 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RestKitFramework;
+			targetProxy = 65085844189CEC2D00399949 /* PBXContainerItemProxy */;
+		};
+		65085856189CEDDF00399949 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RestKit;
+			targetProxy = 65085855189CEDDF00399949 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -368,7 +644,16 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "keytechKit/keytechKit-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+				);
 				INFOPLIST_FILE = "keytechKit/keytechKit-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -383,7 +668,16 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "keytechKit/keytechKit-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+				);
 				INFOPLIST_FILE = "keytechKit/keytechKit-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -392,7 +686,7 @@
 		6508580B189CE73300399949 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/keytechKit.framework/Versions/A/keytechKit";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/keytechKit.Framework.framework/Versions/A/keytechKit.Framework";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -414,7 +708,7 @@
 		6508580C189CE73300399949 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/keytechKit.framework/Versions/A/keytechKit";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/keytechKit.Framework.framework/Versions/A/keytechKit.Framework";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -425,6 +719,108 @@
 				INFOPLIST_FILE = "keytechKitTests/keytechKitTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		65085830189CEA9B00399949 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
+				DSTROOT = /tmp/keytechKit.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "keytechKit/keytechKit-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		65085831189CEA9B00399949 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
+				DSTROOT = /tmp/keytechKit.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "keytechKit/keytechKit-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		65085833189CEA9B00399949 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/keytechKit.Framework.framework/Versions/A/keytechKit.Framework";
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "keytechKit/keytechKit-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "keytechKitTests/keytechKitTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		65085834189CEA9B00399949 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/keytechKit.Framework.framework/Versions/A/keytechKit.Framework";
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "keytechKit/keytechKit-Prefix.pch";
+				INFOPLIST_FILE = "keytechKitTests/keytechKitTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -441,19 +837,37 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		65085807189CE73300399949 /* Build configuration list for PBXNativeTarget "keytechKit" */ = {
+		65085807189CE73300399949 /* Build configuration list for PBXNativeTarget "keytechKit.Framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				65085808189CE73300399949 /* Debug */,
 				65085809189CE73300399949 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		6508580A189CE73300399949 /* Build configuration list for PBXNativeTarget "keytechKitTests" */ = {
+		6508580A189CE73300399949 /* Build configuration list for PBXNativeTarget "keytechKitFrameworkTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6508580B189CE73300399949 /* Debug */,
 				6508580C189CE73300399949 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6508582F189CEA9B00399949 /* Build configuration list for PBXNativeTarget "keytechKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65085830189CEA9B00399949 /* Debug */,
+				65085831189CEA9B00399949 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		65085832189CEA9B00399949 /* Build configuration list for PBXNativeTarget "keytechKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65085833189CEA9B00399949 /* Debug */,
+				65085834189CEA9B00399949 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

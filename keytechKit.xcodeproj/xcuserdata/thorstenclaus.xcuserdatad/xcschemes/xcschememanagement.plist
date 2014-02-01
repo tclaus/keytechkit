@@ -4,7 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>keytechKit.xcscheme</key>
+		<key>keytechKit IOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>keytechKitFramework OSX.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -18,6 +23,16 @@
 			<true/>
 		</dict>
 		<key>650857F5189CE73300399949</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>65085810189CEA9B00399949</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6508581E189CEA9B00399949</key>
 		<dict>
 			<key>primary</key>
 			<true/>

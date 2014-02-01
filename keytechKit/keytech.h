@@ -1,5 +1,5 @@
 //
-//  keytechKit.h
+//  keytech.h
 //  keytechKit
 //
 //  Created by Thorsten Claus on 01.02.14.
@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface keytechKit : NSObject
+@interface keytech : NSObject
 
 @end
