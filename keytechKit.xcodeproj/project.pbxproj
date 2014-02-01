@@ -12,8 +12,6 @@
 		650857F8189CE73300399949 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857F7189CE73300399949 /* XCTest.framework */; };
 		650857F9189CE73300399949 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857E2189CE73300399949 /* Cocoa.framework */; };
 		650857FC189CE73300399949 /* keytechKit.Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857DF189CE73300399949 /* keytechKit.Framework.framework */; };
-		65085802189CE73300399949 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65085800189CE73300399949 /* InfoPlist.strings */; };
-		65085804189CE73300399949 /* keytechKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085803189CE73300399949 /* keytechKitTests.m */; };
 		65085813189CEA9B00399949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085812189CEA9B00399949 /* Foundation.framework */; };
 		65085820189CEA9B00399949 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857F7189CE73300399949 /* XCTest.framework */; };
 		65085821189CEA9B00399949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085812189CEA9B00399949 /* Foundation.framework */; };
@@ -129,9 +127,6 @@
 		650857EE189CE73300399949 /* keytechKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "keytechKit-Prefix.pch"; sourceTree = "<group>"; };
 		650857F6189CE73300399949 /* keytechKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = keytechKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		650857F7189CE73300399949 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		650857FF189CE73300399949 /* keytechKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "keytechKitTests-Info.plist"; sourceTree = "<group>"; };
-		65085801189CE73300399949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		65085803189CE73300399949 /* keytechKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = keytechKitTests.m; sourceTree = "<group>"; };
 		65085811189CEA9B00399949 /* libkeytechKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libkeytechKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		65085812189CEA9B00399949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6508581F189CEA9B00399949 /* keytechKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = keytechKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,8 +200,9 @@
 			isa = PBXGroup;
 			children = (
 				65085835189CEBB300399949 /* RestKit.xcodeproj */,
+				65085863189CEF9D00399949 /* Tests */,
+				65085862189CEF5A00399949 /* Code */,
 				650857E8189CE73300399949 /* keytechKit */,
-				650857FD189CE73300399949 /* keytechKitTests */,
 				650857E1189CE73300399949 /* Frameworks */,
 				650857E0189CE73300399949 /* Products */,
 			);
@@ -273,24 +269,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		650857FD189CE73300399949 /* keytechKitTests */ = {
-			isa = PBXGroup;
-			children = (
-				65085803189CE73300399949 /* keytechKitTests.m */,
-				650857FE189CE73300399949 /* Supporting Files */,
-			);
-			path = keytechKitTests;
-			sourceTree = "<group>";
-		};
-		650857FE189CE73300399949 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				650857FF189CE73300399949 /* keytechKitTests-Info.plist */,
-				65085800189CE73300399949 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		65085836189CEBB300399949 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,6 +278,22 @@
 				65085843189CEBB300399949 /* RestKitFrameworkTests.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		65085862189CEF5A00399949 /* Code */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Code;
+			path = keytechKit/Code;
+			sourceTree = "<group>";
+		};
+		65085863189CEF9D00399949 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Tests;
+			path = keytechKit/Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -477,7 +471,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65085802189CE73300399949 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,7 +496,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65085804189CE73300399949 /* keytechKitTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,14 +544,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				650857EC189CE73300399949 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		65085800189CE73300399949 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				65085801189CE73300399949 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
