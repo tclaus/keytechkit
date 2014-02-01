@@ -32,6 +32,132 @@
 		6508585D189CEE2900399949 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585C189CEE2900399949 /* MobileCoreServices.framework */; };
 		6508585F189CEE3100399949 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585E189CEE3100399949 /* Security.framework */; };
 		65085861189CEE3800399949 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085860189CEE3800399949 /* SystemConfiguration.framework */; };
+		650858A8189CF08E00399949 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 65085864189CF08E00399949 /* en.lproj */; };
+		650858A9189CF08E00399949 /* keytechFoundation-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65085865189CF08E00399949 /* keytechFoundation-Info.plist */; };
+		650858AA189CF08E00399949 /* keytechFoundation-IOS-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 65085866189CF08E00399949 /* keytechFoundation-IOS-Prefix.pch */; };
+		650858AB189CF08E00399949 /* keytechFoundation-OSX-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 65085867189CF08E00399949 /* keytechFoundation-OSX-Prefix.pch */; };
+		650858AC189CF08E00399949 /* KTAttributeMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085868189CF08E00399949 /* KTAttributeMapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858AD189CF08E00399949 /* KTAttributeMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085869189CF08E00399949 /* KTAttributeMapping.m */; };
+		650858AE189CF08E00399949 /* KTAttributeMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085869189CF08E00399949 /* KTAttributeMapping.m */; };
+		650858AF189CF08E00399949 /* KTBomItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586A189CF08E00399949 /* KTBomItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858B0189CF08E00399949 /* KTBomItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508586B189CF08E00399949 /* KTBomItem.m */; };
+		650858B1189CF08E00399949 /* KTBomItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508586B189CF08E00399949 /* KTBomItem.m */; };
+		650858B2189CF08E00399949 /* KTChangeAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586C189CF08E00399949 /* KTChangeAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858B3189CF08E00399949 /* KTChangeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508586D189CF08E00399949 /* KTChangeAction.m */; };
+		650858B4189CF08E00399949 /* KTChangeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508586D189CF08E00399949 /* KTChangeAction.m */; };
+		650858B5189CF08E00399949 /* KTElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586E189CF08E00399949 /* KTElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858B6189CF08E00399949 /* KTElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508586F189CF08E00399949 /* KTElement.m */; };
+		650858B7189CF08E00399949 /* KTElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508586F189CF08E00399949 /* KTElement.m */; };
+		650858B8189CF08E00399949 /* KTFileInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085870189CF08E00399949 /* KTFileInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858B9189CF08E00399949 /* KTFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085871189CF08E00399949 /* KTFileInfo.m */; };
+		650858BA189CF08E00399949 /* KTFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085871189CF08E00399949 /* KTFileInfo.m */; };
+		650858BB189CF08E00399949 /* KTFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085872189CF08E00399949 /* KTFont.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858BC189CF08E00399949 /* KTFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085873189CF08E00399949 /* KTFont.m */; };
+		650858BD189CF08E00399949 /* KTFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085873189CF08E00399949 /* KTFont.m */; };
+		650858BE189CF08E00399949 /* KTGlobalSetting.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085874189CF08E00399949 /* KTGlobalSetting.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858BF189CF08E00399949 /* KTGlobalSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085875189CF08E00399949 /* KTGlobalSetting.m */; };
+		650858C0189CF08E00399949 /* KTGlobalSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085875189CF08E00399949 /* KTGlobalSetting.m */; };
+		650858C1189CF08E00399949 /* KTGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085876189CF08E00399949 /* KTGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858C2189CF08E00399949 /* KTGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085877189CF08E00399949 /* KTGroup.m */; };
+		650858C3189CF08E00399949 /* KTGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085877189CF08E00399949 /* KTGroup.m */; };
+		650858C4189CF08E00399949 /* KTIdentifiedDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085878189CF08E00399949 /* KTIdentifiedDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858C5189CF08E00399949 /* KTKeytech.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085879189CF08E00399949 /* KTKeytech.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858C6189CF08E00399949 /* KTKeytech.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587A189CF08E00399949 /* KTKeytech.m */; };
+		650858C7189CF08E00399949 /* KTKeytech.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587A189CF08E00399949 /* KTKeytech.m */; };
+		650858C8189CF08E00399949 /* KTKeytechLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587B189CF08E00399949 /* KTKeytechLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858C9189CF08E00399949 /* KTKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587C189CF08E00399949 /* KTKeyValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858CA189CF08E00399949 /* KTKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587D189CF08E00399949 /* KTKeyValue.m */; };
+		650858CB189CF08E00399949 /* KTKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587D189CF08E00399949 /* KTKeyValue.m */; };
+		650858CC189CF08E00399949 /* KTLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587E189CF08E00399949 /* KTLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858CD189CF08E00399949 /* KTLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587F189CF08E00399949 /* KTLayout.m */; };
+		650858CE189CF08E00399949 /* KTLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587F189CF08E00399949 /* KTLayout.m */; };
+		650858CF189CF08E00399949 /* KTLayouts.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085880189CF08E00399949 /* KTLayouts.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858D0189CF08E00399949 /* KTLayouts.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085881189CF08E00399949 /* KTLayouts.m */; };
+		650858D1189CF08E00399949 /* KTLayouts.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085881189CF08E00399949 /* KTLayouts.m */; };
+		650858D2189CF08E00399949 /* KTLoaderInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085882189CF08E00399949 /* KTLoaderInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858D3189CF08E00399949 /* KTLoaderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085883189CF08E00399949 /* KTLoaderInfo.m */; };
+		650858D4189CF08E00399949 /* KTLoaderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085883189CF08E00399949 /* KTLoaderInfo.m */; };
+		650858D5189CF08E00399949 /* KTNoteItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085884189CF08E00399949 /* KTNoteItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858D6189CF08E00399949 /* KTNoteItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085885189CF08E00399949 /* KTNoteItem.m */; };
+		650858D7189CF08E00399949 /* KTNoteItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085885189CF08E00399949 /* KTNoteItem.m */; };
+		650858D8189CF08E00399949 /* KTNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085886189CF08E00399949 /* KTNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858D9189CF08E00399949 /* KTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085887189CF08E00399949 /* KTNotifications.m */; };
+		650858DA189CF08E00399949 /* KTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085887189CF08E00399949 /* KTNotifications.m */; };
+		650858DB189CF08E00399949 /* KTPermission.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085888189CF08E00399949 /* KTPermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858DC189CF08E00399949 /* KTPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085889189CF08E00399949 /* KTPermission.m */; };
+		650858DD189CF08E00399949 /* KTPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085889189CF08E00399949 /* KTPermission.m */; };
+		650858DE189CF08E00399949 /* KTPosition.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508588A189CF08E00399949 /* KTPosition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858DF189CF08E00399949 /* KTPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508588B189CF08E00399949 /* KTPosition.m */; };
+		650858E0189CF08E00399949 /* KTPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508588B189CF08E00399949 /* KTPosition.m */; };
+		650858E1189CF08E00399949 /* KTPreferencesConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508588C189CF08E00399949 /* KTPreferencesConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858E2189CF08E00399949 /* KTPreferencesConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508588D189CF08E00399949 /* KTPreferencesConnection.m */; };
+		650858E3189CF08E00399949 /* KTPreferencesConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508588D189CF08E00399949 /* KTPreferencesConnection.m */; };
+		650858E4189CF08E00399949 /* KTResponseLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508588E189CF08E00399949 /* KTResponseLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858E5189CF08E00399949 /* KTResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508588F189CF08E00399949 /* KTResponseLoader.m */; };
+		650858E6189CF08E00399949 /* KTResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508588F189CF08E00399949 /* KTResponseLoader.m */; };
+		650858E7189CF08E00399949 /* KTSignedBy.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085890189CF08E00399949 /* KTSignedBy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858E8189CF08E00399949 /* KTSignedBy.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085891189CF08E00399949 /* KTSignedBy.m */; };
+		650858E9189CF08E00399949 /* KTSignedBy.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085891189CF08E00399949 /* KTSignedBy.m */; };
+		650858EA189CF08E00399949 /* KTSimpleControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085892189CF08E00399949 /* KTSimpleControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858EB189CF08E00399949 /* KTSimpleControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085893189CF08E00399949 /* KTSimpleControl.m */; };
+		650858EC189CF08E00399949 /* KTSimpleControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085893189CF08E00399949 /* KTSimpleControl.m */; };
+		650858ED189CF08E00399949 /* KTSimpleFavorite.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085894189CF08E00399949 /* KTSimpleFavorite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858EE189CF08E00399949 /* KTSimpleFavorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085895189CF08E00399949 /* KTSimpleFavorite.m */; };
+		650858EF189CF08E00399949 /* KTSimpleFavorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085895189CF08E00399949 /* KTSimpleFavorite.m */; };
+		650858F0189CF08E00399949 /* KTSize.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085896189CF08E00399949 /* KTSize.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858F1189CF08E00399949 /* KTSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085897189CF08E00399949 /* KTSize.m */; };
+		650858F2189CF08E00399949 /* KTSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085897189CF08E00399949 /* KTSize.m */; };
+		650858F3189CF08E00399949 /* KTStatusHistoryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085898189CF08E00399949 /* KTStatusHistoryItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858F4189CF08E00399949 /* KTStatusHistoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085899189CF08E00399949 /* KTStatusHistoryItem.m */; };
+		650858F5189CF08E00399949 /* KTStatusHistoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085899189CF08E00399949 /* KTStatusHistoryItem.m */; };
+		650858F6189CF08E00399949 /* KTStatusItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589A189CF08E00399949 /* KTStatusItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858F7189CF08E00399949 /* KTStatusItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589B189CF08E00399949 /* KTStatusItem.m */; };
+		650858F8189CF08E00399949 /* KTStatusItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589B189CF08E00399949 /* KTStatusItem.m */; };
+		650858F9189CF08E00399949 /* KTSystemManagement.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589C189CF08E00399949 /* KTSystemManagement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858FA189CF08E00399949 /* KTSystemManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589D189CF08E00399949 /* KTSystemManagement.m */; };
+		650858FB189CF08E00399949 /* KTSystemManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589D189CF08E00399949 /* KTSystemManagement.m */; };
+		650858FC189CF08E00399949 /* KTTargetLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589E189CF08E00399949 /* KTTargetLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858FD189CF08E00399949 /* KTTargetLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589F189CF08E00399949 /* KTTargetLink.m */; };
+		650858FE189CF08E00399949 /* KTTargetLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589F189CF08E00399949 /* KTTargetLink.m */; };
+		650858FF189CF08E00399949 /* KTTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A0189CF08E00399949 /* KTTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65085900189CF08E00399949 /* KTTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A1189CF08E00399949 /* KTTask.m */; };
+		65085901189CF08E00399949 /* KTTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A1189CF08E00399949 /* KTTask.m */; };
+		65085902189CF08E00399949 /* KTUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A2189CF08E00399949 /* KTUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65085903189CF08E00399949 /* KTUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A3189CF08E00399949 /* KTUser.m */; };
+		65085904189CF08E00399949 /* KTUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A3189CF08E00399949 /* KTUser.m */; };
+		65085905189CF08E00399949 /* SimpleKeyValuePair.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A4189CF08E00399949 /* SimpleKeyValuePair.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65085906189CF08E00399949 /* SimpleKeyValuePair.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A5189CF08E00399949 /* SimpleKeyValuePair.m */; };
+		65085907189CF08E00399949 /* SimpleKeyValuePair.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A5189CF08E00399949 /* SimpleKeyValuePair.m */; };
+		65085908189CF08E00399949 /* Webservice.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A6189CF08E00399949 /* Webservice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65085909189CF08E00399949 /* Webservice.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A7189CF08E00399949 /* Webservice.m */; };
+		6508590A189CF08E00399949 /* Webservice.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A7189CF08E00399949 /* Webservice.m */; };
+		6508591B189CF0B100399949 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6508590B189CF0B100399949 /* en.lproj */; };
+		6508591C189CF0B100399949 /* keytechKitFramework Tests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6508590C189CF0B100399949 /* keytechKitFramework Tests-Info.plist */; };
+		6508591D189CF0B100399949 /* keytechKitFramework Tests-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 6508590D189CF0B100399949 /* keytechKitFramework Tests-Prefix.pch */; };
+		65085937189CF0F400399949 /* ResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508590F189CF0B100399949 /* ResponseLoader.m */; };
+		65085938189CF0F400399949 /* testAttributeMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085910189CF0B100399949 /* testAttributeMappings.m */; };
+		65085939189CF0F400399949 /* testBaseKeytechKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085911189CF0B100399949 /* testBaseKeytechKit.m */; };
+		6508593A189CF0F400399949 /* testClasses.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085912189CF0B100399949 /* testClasses.m */; };
+		6508593B189CF0F400399949 /* testEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085913189CF0B100399949 /* testEnvironment.m */; };
+		6508593C189CF0F400399949 /* testFileManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085914189CF0B100399949 /* testFileManagement.m */; };
+		6508593D189CF0F400399949 /* testFolderManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085915189CF0B100399949 /* testFolderManagement.m */; };
+		6508593E189CF0F400399949 /* testGlobalSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085916189CF0B100399949 /* testGlobalSettings.m */; };
+		6508593F189CF0F400399949 /* testKeytechElements.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085917189CF0B100399949 /* testKeytechElements.m */; };
+		65085940189CF0F400399949 /* testRequestServers.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085918189CF0B100399949 /* testRequestServers.m */; };
+		65085941189CF0F400399949 /* testStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085919189CF0B100399949 /* testStatus.m */; };
+		65085942189CF0F400399949 /* testUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508591A189CF0B100399949 /* testUserSettings.m */; };
+		65085943189CF0F500399949 /* ResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508590F189CF0B100399949 /* ResponseLoader.m */; };
+		65085944189CF0F500399949 /* testAttributeMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085910189CF0B100399949 /* testAttributeMappings.m */; };
+		65085945189CF0F500399949 /* testBaseKeytechKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085911189CF0B100399949 /* testBaseKeytechKit.m */; };
+		65085946189CF0F500399949 /* testClasses.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085912189CF0B100399949 /* testClasses.m */; };
+		65085947189CF0F500399949 /* testEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085913189CF0B100399949 /* testEnvironment.m */; };
+		65085948189CF0F500399949 /* testFileManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085914189CF0B100399949 /* testFileManagement.m */; };
+		65085949189CF0F500399949 /* testFolderManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085915189CF0B100399949 /* testFolderManagement.m */; };
+		6508594A189CF0F500399949 /* testGlobalSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085916189CF0B100399949 /* testGlobalSettings.m */; };
+		6508594B189CF0F500399949 /* testKeytechElements.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085917189CF0B100399949 /* testKeytechElements.m */; };
+		6508594C189CF0F500399949 /* testRequestServers.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085918189CF0B100399949 /* testRequestServers.m */; };
+		6508594D189CF0F500399949 /* testStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085919189CF0B100399949 /* testStatus.m */; };
+		6508594E189CF0F500399949 /* testUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508591A189CF0B100399949 /* testUserSettings.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +268,90 @@
 		6508585C189CEE2900399949 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		6508585E189CEE3100399949 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		65085860189CEE3800399949 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		65085864189CF08E00399949 /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = en.lproj; sourceTree = "<group>"; };
+		65085865189CF08E00399949 /* keytechFoundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "keytechFoundation-Info.plist"; sourceTree = "<group>"; };
+		65085866189CF08E00399949 /* keytechFoundation-IOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "keytechFoundation-IOS-Prefix.pch"; sourceTree = "<group>"; };
+		65085867189CF08E00399949 /* keytechFoundation-OSX-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "keytechFoundation-OSX-Prefix.pch"; sourceTree = "<group>"; };
+		65085868189CF08E00399949 /* KTAttributeMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTAttributeMapping.h; sourceTree = "<group>"; };
+		65085869189CF08E00399949 /* KTAttributeMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTAttributeMapping.m; sourceTree = "<group>"; };
+		6508586A189CF08E00399949 /* KTBomItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTBomItem.h; sourceTree = "<group>"; };
+		6508586B189CF08E00399949 /* KTBomItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTBomItem.m; sourceTree = "<group>"; };
+		6508586C189CF08E00399949 /* KTChangeAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTChangeAction.h; sourceTree = "<group>"; };
+		6508586D189CF08E00399949 /* KTChangeAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTChangeAction.m; sourceTree = "<group>"; };
+		6508586E189CF08E00399949 /* KTElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTElement.h; sourceTree = "<group>"; };
+		6508586F189CF08E00399949 /* KTElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTElement.m; sourceTree = "<group>"; };
+		65085870189CF08E00399949 /* KTFileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTFileInfo.h; sourceTree = "<group>"; };
+		65085871189CF08E00399949 /* KTFileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTFileInfo.m; sourceTree = "<group>"; };
+		65085872189CF08E00399949 /* KTFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTFont.h; sourceTree = "<group>"; };
+		65085873189CF08E00399949 /* KTFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTFont.m; sourceTree = "<group>"; };
+		65085874189CF08E00399949 /* KTGlobalSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTGlobalSetting.h; sourceTree = "<group>"; };
+		65085875189CF08E00399949 /* KTGlobalSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTGlobalSetting.m; sourceTree = "<group>"; };
+		65085876189CF08E00399949 /* KTGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTGroup.h; sourceTree = "<group>"; };
+		65085877189CF08E00399949 /* KTGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTGroup.m; sourceTree = "<group>"; };
+		65085878189CF08E00399949 /* KTIdentifiedDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTIdentifiedDataSource.h; sourceTree = "<group>"; };
+		65085879189CF08E00399949 /* KTKeytech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKeytech.h; sourceTree = "<group>"; };
+		6508587A189CF08E00399949 /* KTKeytech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTKeytech.m; sourceTree = "<group>"; };
+		6508587B189CF08E00399949 /* KTKeytechLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKeytechLoader.h; sourceTree = "<group>"; };
+		6508587C189CF08E00399949 /* KTKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKeyValue.h; sourceTree = "<group>"; };
+		6508587D189CF08E00399949 /* KTKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTKeyValue.m; sourceTree = "<group>"; };
+		6508587E189CF08E00399949 /* KTLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTLayout.h; sourceTree = "<group>"; };
+		6508587F189CF08E00399949 /* KTLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTLayout.m; sourceTree = "<group>"; };
+		65085880189CF08E00399949 /* KTLayouts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTLayouts.h; sourceTree = "<group>"; };
+		65085881189CF08E00399949 /* KTLayouts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTLayouts.m; sourceTree = "<group>"; };
+		65085882189CF08E00399949 /* KTLoaderInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTLoaderInfo.h; sourceTree = "<group>"; };
+		65085883189CF08E00399949 /* KTLoaderInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTLoaderInfo.m; sourceTree = "<group>"; };
+		65085884189CF08E00399949 /* KTNoteItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTNoteItem.h; sourceTree = "<group>"; };
+		65085885189CF08E00399949 /* KTNoteItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTNoteItem.m; sourceTree = "<group>"; };
+		65085886189CF08E00399949 /* KTNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTNotifications.h; sourceTree = "<group>"; };
+		65085887189CF08E00399949 /* KTNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTNotifications.m; sourceTree = "<group>"; };
+		65085888189CF08E00399949 /* KTPermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPermission.h; sourceTree = "<group>"; };
+		65085889189CF08E00399949 /* KTPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPermission.m; sourceTree = "<group>"; };
+		6508588A189CF08E00399949 /* KTPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPosition.h; sourceTree = "<group>"; };
+		6508588B189CF08E00399949 /* KTPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPosition.m; sourceTree = "<group>"; };
+		6508588C189CF08E00399949 /* KTPreferencesConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPreferencesConnection.h; sourceTree = "<group>"; };
+		6508588D189CF08E00399949 /* KTPreferencesConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPreferencesConnection.m; sourceTree = "<group>"; };
+		6508588E189CF08E00399949 /* KTResponseLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTResponseLoader.h; sourceTree = "<group>"; };
+		6508588F189CF08E00399949 /* KTResponseLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTResponseLoader.m; sourceTree = "<group>"; };
+		65085890189CF08E00399949 /* KTSignedBy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTSignedBy.h; sourceTree = "<group>"; };
+		65085891189CF08E00399949 /* KTSignedBy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSignedBy.m; sourceTree = "<group>"; };
+		65085892189CF08E00399949 /* KTSimpleControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTSimpleControl.h; sourceTree = "<group>"; };
+		65085893189CF08E00399949 /* KTSimpleControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSimpleControl.m; sourceTree = "<group>"; };
+		65085894189CF08E00399949 /* KTSimpleFavorite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTSimpleFavorite.h; sourceTree = "<group>"; };
+		65085895189CF08E00399949 /* KTSimpleFavorite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSimpleFavorite.m; sourceTree = "<group>"; };
+		65085896189CF08E00399949 /* KTSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTSize.h; sourceTree = "<group>"; };
+		65085897189CF08E00399949 /* KTSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSize.m; sourceTree = "<group>"; };
+		65085898189CF08E00399949 /* KTStatusHistoryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTStatusHistoryItem.h; sourceTree = "<group>"; };
+		65085899189CF08E00399949 /* KTStatusHistoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTStatusHistoryItem.m; sourceTree = "<group>"; };
+		6508589A189CF08E00399949 /* KTStatusItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTStatusItem.h; sourceTree = "<group>"; };
+		6508589B189CF08E00399949 /* KTStatusItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTStatusItem.m; sourceTree = "<group>"; };
+		6508589C189CF08E00399949 /* KTSystemManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTSystemManagement.h; sourceTree = "<group>"; };
+		6508589D189CF08E00399949 /* KTSystemManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSystemManagement.m; sourceTree = "<group>"; };
+		6508589E189CF08E00399949 /* KTTargetLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTTargetLink.h; sourceTree = "<group>"; };
+		6508589F189CF08E00399949 /* KTTargetLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTTargetLink.m; sourceTree = "<group>"; };
+		650858A0189CF08E00399949 /* KTTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTTask.h; sourceTree = "<group>"; };
+		650858A1189CF08E00399949 /* KTTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTTask.m; sourceTree = "<group>"; };
+		650858A2189CF08E00399949 /* KTUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTUser.h; sourceTree = "<group>"; };
+		650858A3189CF08E00399949 /* KTUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTUser.m; sourceTree = "<group>"; };
+		650858A4189CF08E00399949 /* SimpleKeyValuePair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleKeyValuePair.h; sourceTree = "<group>"; };
+		650858A5189CF08E00399949 /* SimpleKeyValuePair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleKeyValuePair.m; sourceTree = "<group>"; };
+		650858A6189CF08E00399949 /* Webservice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Webservice.h; sourceTree = "<group>"; };
+		650858A7189CF08E00399949 /* Webservice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Webservice.m; sourceTree = "<group>"; };
+		6508590B189CF0B100399949 /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = en.lproj; sourceTree = "<group>"; };
+		6508590C189CF0B100399949 /* keytechKitFramework Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "keytechKitFramework Tests-Info.plist"; sourceTree = "<group>"; };
+		6508590D189CF0B100399949 /* keytechKitFramework Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "keytechKitFramework Tests-Prefix.pch"; sourceTree = "<group>"; };
+		6508590E189CF0B100399949 /* ResponseLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseLoader.h; sourceTree = "<group>"; };
+		6508590F189CF0B100399949 /* ResponseLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseLoader.m; sourceTree = "<group>"; };
+		65085910189CF0B100399949 /* testAttributeMappings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testAttributeMappings.m; sourceTree = "<group>"; };
+		65085911189CF0B100399949 /* testBaseKeytechKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testBaseKeytechKit.m; sourceTree = "<group>"; };
+		65085912189CF0B100399949 /* testClasses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testClasses.m; sourceTree = "<group>"; };
+		65085913189CF0B100399949 /* testEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testEnvironment.m; sourceTree = "<group>"; };
+		65085914189CF0B100399949 /* testFileManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testFileManagement.m; sourceTree = "<group>"; };
+		65085915189CF0B100399949 /* testFolderManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testFolderManagement.m; sourceTree = "<group>"; };
+		65085916189CF0B100399949 /* testGlobalSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testGlobalSettings.m; sourceTree = "<group>"; };
+		65085917189CF0B100399949 /* testKeytechElements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testKeytechElements.m; sourceTree = "<group>"; };
+		65085918189CF0B100399949 /* testRequestServers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testRequestServers.m; sourceTree = "<group>"; };
+		65085919189CF0B100399949 /* testStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testStatus.m; sourceTree = "<group>"; };
+		6508591A189CF0B100399949 /* testUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testUserSettings.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +493,74 @@
 		65085862189CEF5A00399949 /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				65085864189CF08E00399949 /* en.lproj */,
+				65085865189CF08E00399949 /* keytechFoundation-Info.plist */,
+				65085866189CF08E00399949 /* keytechFoundation-IOS-Prefix.pch */,
+				65085867189CF08E00399949 /* keytechFoundation-OSX-Prefix.pch */,
+				65085868189CF08E00399949 /* KTAttributeMapping.h */,
+				65085869189CF08E00399949 /* KTAttributeMapping.m */,
+				6508586A189CF08E00399949 /* KTBomItem.h */,
+				6508586B189CF08E00399949 /* KTBomItem.m */,
+				6508586C189CF08E00399949 /* KTChangeAction.h */,
+				6508586D189CF08E00399949 /* KTChangeAction.m */,
+				6508586E189CF08E00399949 /* KTElement.h */,
+				6508586F189CF08E00399949 /* KTElement.m */,
+				65085870189CF08E00399949 /* KTFileInfo.h */,
+				65085871189CF08E00399949 /* KTFileInfo.m */,
+				65085872189CF08E00399949 /* KTFont.h */,
+				65085873189CF08E00399949 /* KTFont.m */,
+				65085874189CF08E00399949 /* KTGlobalSetting.h */,
+				65085875189CF08E00399949 /* KTGlobalSetting.m */,
+				65085876189CF08E00399949 /* KTGroup.h */,
+				65085877189CF08E00399949 /* KTGroup.m */,
+				65085878189CF08E00399949 /* KTIdentifiedDataSource.h */,
+				65085879189CF08E00399949 /* KTKeytech.h */,
+				6508587A189CF08E00399949 /* KTKeytech.m */,
+				6508587B189CF08E00399949 /* KTKeytechLoader.h */,
+				6508587C189CF08E00399949 /* KTKeyValue.h */,
+				6508587D189CF08E00399949 /* KTKeyValue.m */,
+				6508587E189CF08E00399949 /* KTLayout.h */,
+				6508587F189CF08E00399949 /* KTLayout.m */,
+				65085880189CF08E00399949 /* KTLayouts.h */,
+				65085881189CF08E00399949 /* KTLayouts.m */,
+				65085882189CF08E00399949 /* KTLoaderInfo.h */,
+				65085883189CF08E00399949 /* KTLoaderInfo.m */,
+				65085884189CF08E00399949 /* KTNoteItem.h */,
+				65085885189CF08E00399949 /* KTNoteItem.m */,
+				65085886189CF08E00399949 /* KTNotifications.h */,
+				65085887189CF08E00399949 /* KTNotifications.m */,
+				65085888189CF08E00399949 /* KTPermission.h */,
+				65085889189CF08E00399949 /* KTPermission.m */,
+				6508588A189CF08E00399949 /* KTPosition.h */,
+				6508588B189CF08E00399949 /* KTPosition.m */,
+				6508588C189CF08E00399949 /* KTPreferencesConnection.h */,
+				6508588D189CF08E00399949 /* KTPreferencesConnection.m */,
+				6508588E189CF08E00399949 /* KTResponseLoader.h */,
+				6508588F189CF08E00399949 /* KTResponseLoader.m */,
+				65085890189CF08E00399949 /* KTSignedBy.h */,
+				65085891189CF08E00399949 /* KTSignedBy.m */,
+				65085892189CF08E00399949 /* KTSimpleControl.h */,
+				65085893189CF08E00399949 /* KTSimpleControl.m */,
+				65085894189CF08E00399949 /* KTSimpleFavorite.h */,
+				65085895189CF08E00399949 /* KTSimpleFavorite.m */,
+				65085896189CF08E00399949 /* KTSize.h */,
+				65085897189CF08E00399949 /* KTSize.m */,
+				65085898189CF08E00399949 /* KTStatusHistoryItem.h */,
+				65085899189CF08E00399949 /* KTStatusHistoryItem.m */,
+				6508589A189CF08E00399949 /* KTStatusItem.h */,
+				6508589B189CF08E00399949 /* KTStatusItem.m */,
+				6508589C189CF08E00399949 /* KTSystemManagement.h */,
+				6508589D189CF08E00399949 /* KTSystemManagement.m */,
+				6508589E189CF08E00399949 /* KTTargetLink.h */,
+				6508589F189CF08E00399949 /* KTTargetLink.m */,
+				650858A0189CF08E00399949 /* KTTask.h */,
+				650858A1189CF08E00399949 /* KTTask.m */,
+				650858A2189CF08E00399949 /* KTUser.h */,
+				650858A3189CF08E00399949 /* KTUser.m */,
+				650858A4189CF08E00399949 /* SimpleKeyValuePair.h */,
+				650858A5189CF08E00399949 /* SimpleKeyValuePair.m */,
+				650858A6189CF08E00399949 /* Webservice.h */,
+				650858A7189CF08E00399949 /* Webservice.m */,
 			);
 			name = Code;
 			path = keytechKit/Code;
@@ -291,6 +569,22 @@
 		65085863189CEF9D00399949 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				6508590B189CF0B100399949 /* en.lproj */,
+				6508590C189CF0B100399949 /* keytechKitFramework Tests-Info.plist */,
+				6508590D189CF0B100399949 /* keytechKitFramework Tests-Prefix.pch */,
+				6508590E189CF0B100399949 /* ResponseLoader.h */,
+				6508590F189CF0B100399949 /* ResponseLoader.m */,
+				65085910189CF0B100399949 /* testAttributeMappings.m */,
+				65085911189CF0B100399949 /* testBaseKeytechKit.m */,
+				65085912189CF0B100399949 /* testClasses.m */,
+				65085913189CF0B100399949 /* testEnvironment.m */,
+				65085914189CF0B100399949 /* testFileManagement.m */,
+				65085915189CF0B100399949 /* testFolderManagement.m */,
+				65085916189CF0B100399949 /* testGlobalSettings.m */,
+				65085917189CF0B100399949 /* testKeytechElements.m */,
+				65085918189CF0B100399949 /* testRequestServers.m */,
+				65085919189CF0B100399949 /* testStatus.m */,
+				6508591A189CF0B100399949 /* testUserSettings.m */,
 			);
 			name = Tests;
 			path = keytechKit/Tests;
@@ -303,7 +597,43 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				650858F6189CF08E00399949 /* KTStatusItem.h in Headers */,
+				650858F3189CF08E00399949 /* KTStatusHistoryItem.h in Headers */,
+				650858C1189CF08E00399949 /* KTGroup.h in Headers */,
+				650858AB189CF08E00399949 /* keytechFoundation-OSX-Prefix.pch in Headers */,
+				650858AC189CF08E00399949 /* KTAttributeMapping.h in Headers */,
+				650858EA189CF08E00399949 /* KTSimpleControl.h in Headers */,
+				650858D5189CF08E00399949 /* KTNoteItem.h in Headers */,
+				650858ED189CF08E00399949 /* KTSimpleFavorite.h in Headers */,
+				650858D8189CF08E00399949 /* KTNotifications.h in Headers */,
+				650858AA189CF08E00399949 /* keytechFoundation-IOS-Prefix.pch in Headers */,
+				650858D2189CF08E00399949 /* KTLoaderInfo.h in Headers */,
+				650858C8189CF08E00399949 /* KTKeytechLoader.h in Headers */,
+				650858CF189CF08E00399949 /* KTLayouts.h in Headers */,
+				65085905189CF08E00399949 /* SimpleKeyValuePair.h in Headers */,
+				650858B2189CF08E00399949 /* KTChangeAction.h in Headers */,
+				650858DB189CF08E00399949 /* KTPermission.h in Headers */,
+				650858AF189CF08E00399949 /* KTBomItem.h in Headers */,
+				650858B8189CF08E00399949 /* KTFileInfo.h in Headers */,
+				650858E4189CF08E00399949 /* KTResponseLoader.h in Headers */,
 				65085852189CED7B00399949 /* keytech.h in Headers */,
+				650858BE189CF08E00399949 /* KTGlobalSetting.h in Headers */,
+				65085902189CF08E00399949 /* KTUser.h in Headers */,
+				650858E7189CF08E00399949 /* KTSignedBy.h in Headers */,
+				650858E1189CF08E00399949 /* KTPreferencesConnection.h in Headers */,
+				650858F0189CF08E00399949 /* KTSize.h in Headers */,
+				650858C4189CF08E00399949 /* KTIdentifiedDataSource.h in Headers */,
+				650858FC189CF08E00399949 /* KTTargetLink.h in Headers */,
+				650858DE189CF08E00399949 /* KTPosition.h in Headers */,
+				650858BB189CF08E00399949 /* KTFont.h in Headers */,
+				65085908189CF08E00399949 /* Webservice.h in Headers */,
+				650858FF189CF08E00399949 /* KTTask.h in Headers */,
+				650858C9189CF08E00399949 /* KTKeyValue.h in Headers */,
+				650858CC189CF08E00399949 /* KTLayout.h in Headers */,
+				650858C5189CF08E00399949 /* KTKeytech.h in Headers */,
+				650858F9189CF08E00399949 /* KTSystemManagement.h in Headers */,
+				650858B5189CF08E00399949 /* KTElement.h in Headers */,
+				6508591D189CF0B100399949 /* keytechKitFramework Tests-Prefix.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +793,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6508591B189CF0B100399949 /* en.lproj in Resources */,
+				650858A9189CF08E00399949 /* keytechFoundation-Info.plist in Resources */,
+				6508591C189CF0B100399949 /* keytechKitFramework Tests-Info.plist in Resources */,
+				650858A8189CF08E00399949 /* en.lproj in Resources */,
 				650857ED189CE73300399949 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -488,6 +822,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				650858CA189CF08E00399949 /* KTKeyValue.m in Sources */,
+				650858D6189CF08E00399949 /* KTNoteItem.m in Sources */,
+				650858DC189CF08E00399949 /* KTPermission.m in Sources */,
+				650858C2189CF08E00399949 /* KTGroup.m in Sources */,
+				650858CD189CF08E00399949 /* KTLayout.m in Sources */,
+				65085900189CF08E00399949 /* KTTask.m in Sources */,
+				650858F1189CF08E00399949 /* KTSize.m in Sources */,
+				650858B6189CF08E00399949 /* KTElement.m in Sources */,
+				650858D9189CF08E00399949 /* KTNotifications.m in Sources */,
+				650858BC189CF08E00399949 /* KTFont.m in Sources */,
+				650858E2189CF08E00399949 /* KTPreferencesConnection.m in Sources */,
+				650858D3189CF08E00399949 /* KTLoaderInfo.m in Sources */,
+				650858F7189CF08E00399949 /* KTStatusItem.m in Sources */,
+				650858DF189CF08E00399949 /* KTPosition.m in Sources */,
+				650858D0189CF08E00399949 /* KTLayouts.m in Sources */,
+				650858BF189CF08E00399949 /* KTGlobalSetting.m in Sources */,
+				650858B0189CF08E00399949 /* KTBomItem.m in Sources */,
+				650858EB189CF08E00399949 /* KTSimpleControl.m in Sources */,
+				650858E5189CF08E00399949 /* KTResponseLoader.m in Sources */,
+				65085903189CF08E00399949 /* KTUser.m in Sources */,
+				650858AD189CF08E00399949 /* KTAttributeMapping.m in Sources */,
+				650858C6189CF08E00399949 /* KTKeytech.m in Sources */,
+				65085909189CF08E00399949 /* Webservice.m in Sources */,
+				650858B3189CF08E00399949 /* KTChangeAction.m in Sources */,
+				650858EE189CF08E00399949 /* KTSimpleFavorite.m in Sources */,
+				650858B9189CF08E00399949 /* KTFileInfo.m in Sources */,
+				650858FA189CF08E00399949 /* KTSystemManagement.m in Sources */,
+				650858F4189CF08E00399949 /* KTStatusHistoryItem.m in Sources */,
+				65085906189CF08E00399949 /* SimpleKeyValuePair.m in Sources */,
+				650858FD189CF08E00399949 /* KTTargetLink.m in Sources */,
+				650858E8189CF08E00399949 /* KTSignedBy.m in Sources */,
 				65085853189CED7B00399949 /* keytech.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -496,6 +861,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6508594D189CF0F500399949 /* testStatus.m in Sources */,
+				65085949189CF0F500399949 /* testFolderManagement.m in Sources */,
+				6508594A189CF0F500399949 /* testGlobalSettings.m in Sources */,
+				65085943189CF0F500399949 /* ResponseLoader.m in Sources */,
+				65085947189CF0F500399949 /* testEnvironment.m in Sources */,
+				6508594C189CF0F500399949 /* testRequestServers.m in Sources */,
+				65085945189CF0F500399949 /* testBaseKeytechKit.m in Sources */,
+				6508594B189CF0F500399949 /* testKeytechElements.m in Sources */,
+				65085946189CF0F500399949 /* testClasses.m in Sources */,
+				6508594E189CF0F500399949 /* testUserSettings.m in Sources */,
+				65085948189CF0F500399949 /* testFileManagement.m in Sources */,
+				65085944189CF0F500399949 /* testAttributeMappings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,6 +880,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				650858CB189CF08E00399949 /* KTKeyValue.m in Sources */,
+				650858D7189CF08E00399949 /* KTNoteItem.m in Sources */,
+				650858DD189CF08E00399949 /* KTPermission.m in Sources */,
+				650858C3189CF08E00399949 /* KTGroup.m in Sources */,
+				650858CE189CF08E00399949 /* KTLayout.m in Sources */,
+				65085901189CF08E00399949 /* KTTask.m in Sources */,
+				650858F2189CF08E00399949 /* KTSize.m in Sources */,
+				650858B7189CF08E00399949 /* KTElement.m in Sources */,
+				650858DA189CF08E00399949 /* KTNotifications.m in Sources */,
+				650858BD189CF08E00399949 /* KTFont.m in Sources */,
+				650858E3189CF08E00399949 /* KTPreferencesConnection.m in Sources */,
+				650858D4189CF08E00399949 /* KTLoaderInfo.m in Sources */,
+				650858F8189CF08E00399949 /* KTStatusItem.m in Sources */,
+				650858E0189CF08E00399949 /* KTPosition.m in Sources */,
+				650858D1189CF08E00399949 /* KTLayouts.m in Sources */,
+				650858C0189CF08E00399949 /* KTGlobalSetting.m in Sources */,
+				650858B1189CF08E00399949 /* KTBomItem.m in Sources */,
+				650858EC189CF08E00399949 /* KTSimpleControl.m in Sources */,
+				650858E6189CF08E00399949 /* KTResponseLoader.m in Sources */,
+				65085904189CF08E00399949 /* KTUser.m in Sources */,
+				650858AE189CF08E00399949 /* KTAttributeMapping.m in Sources */,
+				650858C7189CF08E00399949 /* KTKeytech.m in Sources */,
+				6508590A189CF08E00399949 /* Webservice.m in Sources */,
+				650858B4189CF08E00399949 /* KTChangeAction.m in Sources */,
+				650858EF189CF08E00399949 /* KTSimpleFavorite.m in Sources */,
+				650858BA189CF08E00399949 /* KTFileInfo.m in Sources */,
+				650858FB189CF08E00399949 /* KTSystemManagement.m in Sources */,
+				650858F5189CF08E00399949 /* KTStatusHistoryItem.m in Sources */,
+				65085907189CF08E00399949 /* SimpleKeyValuePair.m in Sources */,
+				650858FE189CF08E00399949 /* KTTargetLink.m in Sources */,
+				650858E9189CF08E00399949 /* KTSignedBy.m in Sources */,
 				65085854189CED7B00399949 /* keytech.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,6 +919,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65085941189CF0F400399949 /* testStatus.m in Sources */,
+				6508593D189CF0F400399949 /* testFolderManagement.m in Sources */,
+				6508593E189CF0F400399949 /* testGlobalSettings.m in Sources */,
+				65085937189CF0F400399949 /* ResponseLoader.m in Sources */,
+				6508593B189CF0F400399949 /* testEnvironment.m in Sources */,
+				65085940189CF0F400399949 /* testRequestServers.m in Sources */,
+				65085939189CF0F400399949 /* testBaseKeytechKit.m in Sources */,
+				6508593F189CF0F400399949 /* testKeytechElements.m in Sources */,
+				6508593A189CF0F400399949 /* testClasses.m in Sources */,
+				65085942189CF0F400399949 /* testUserSettings.m in Sources */,
+				6508593C189CF0F400399949 /* testFileManagement.m in Sources */,
+				65085938189CF0F400399949 /* testAttributeMappings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

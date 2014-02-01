@@ -1,0 +1,35 @@
+//
+//  KTPermission.m
+//  keytechFoundation
+//
+//  Created by Thorsten Claus on 30.07.13.
+//  Copyright (c) 2013 Claus-Software. All rights reserved.
+//
+
+#import "KTPermission.h"
+#import <RestKit/RestKit.h>
+
+@implementation KTPermission
+static RKObjectMapping* _mapping = nil; /** contains the mapping*/
+
+
+
++(id)setMapping{
+    if (!_mapping){
+        _mapping = [RKObjectMapping mappingForClass:[KTPermission class]];
+        
+        [_mapping addAttributeMappingsFromDictionary:@{@"DisplayName":@"displayname",
+                                                      @"PermissionContext":@"permissionContext",
+                                                      @"PermissionKey":@"permissionKey",
+                                                      @"PermissionType":@"permissionType",
+                                                      @"AssignedByMembership":@"isPermissionSetByMembership",
+                                                      @"":@""
+                                                    }];
+    }
+    
+    
+    return _mapping;
+    
+}
+
+@end
