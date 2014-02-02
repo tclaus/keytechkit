@@ -34,8 +34,6 @@
 		65085861189CEE3800399949 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085860189CEE3800399949 /* SystemConfiguration.framework */; };
 		650858A8189CF08E00399949 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 65085864189CF08E00399949 /* en.lproj */; };
 		650858A9189CF08E00399949 /* keytechFoundation-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65085865189CF08E00399949 /* keytechFoundation-Info.plist */; };
-		650858AA189CF08E00399949 /* keytechFoundation-IOS-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 65085866189CF08E00399949 /* keytechFoundation-IOS-Prefix.pch */; };
-		650858AB189CF08E00399949 /* keytechFoundation-OSX-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 65085867189CF08E00399949 /* keytechFoundation-OSX-Prefix.pch */; };
 		650858AC189CF08E00399949 /* KTAttributeMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085868189CF08E00399949 /* KTAttributeMapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858AD189CF08E00399949 /* KTAttributeMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085869189CF08E00399949 /* KTAttributeMapping.m */; };
 		650858AE189CF08E00399949 /* KTAttributeMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085869189CF08E00399949 /* KTAttributeMapping.m */; };
@@ -250,7 +248,6 @@
 		650857E7189CE73300399949 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		650857EA189CE73300399949 /* keytechKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "keytechKit-Info.plist"; sourceTree = "<group>"; };
 		650857EC189CE73300399949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		650857EE189CE73300399949 /* keytechKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "keytechKit-Prefix.pch"; sourceTree = "<group>"; };
 		650857F6189CE73300399949 /* keytechKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = keytechKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		650857F7189CE73300399949 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		65085811189CEA9B00399949 /* libkeytechKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libkeytechKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -270,8 +267,8 @@
 		65085860189CEE3800399949 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		65085864189CF08E00399949 /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = en.lproj; sourceTree = "<group>"; };
 		65085865189CF08E00399949 /* keytechFoundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "keytechFoundation-Info.plist"; sourceTree = "<group>"; };
-		65085866189CF08E00399949 /* keytechFoundation-IOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "keytechFoundation-IOS-Prefix.pch"; sourceTree = "<group>"; };
-		65085867189CF08E00399949 /* keytechFoundation-OSX-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "keytechFoundation-OSX-Prefix.pch"; sourceTree = "<group>"; };
+		65085866189CF08E00399949 /* keytechFoundation-IOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "keytechFoundation-IOS-Prefix.pch"; path = "Code/keytechFoundation-IOS-Prefix.pch"; sourceTree = "<group>"; };
+		65085867189CF08E00399949 /* keytechFoundation-OSX-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "keytechFoundation-OSX-Prefix.pch"; path = "Code/keytechFoundation-OSX-Prefix.pch"; sourceTree = "<group>"; };
 		65085868189CF08E00399949 /* KTAttributeMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTAttributeMapping.h; sourceTree = "<group>"; };
 		65085869189CF08E00399949 /* KTAttributeMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTAttributeMapping.m; sourceTree = "<group>"; };
 		6508586A189CF08E00399949 /* KTBomItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTBomItem.h; sourceTree = "<group>"; };
@@ -470,9 +467,10 @@
 		650857E9189CE73300399949 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				65085866189CF08E00399949 /* keytechFoundation-IOS-Prefix.pch */,
+				65085867189CF08E00399949 /* keytechFoundation-OSX-Prefix.pch */,
 				650857EA189CE73300399949 /* keytechKit-Info.plist */,
 				650857EB189CE73300399949 /* InfoPlist.strings */,
-				650857EE189CE73300399949 /* keytechKit-Prefix.pch */,
 				65085850189CED7B00399949 /* keytech.h */,
 				65085851189CED7B00399949 /* keytech.m */,
 			);
@@ -495,8 +493,6 @@
 			children = (
 				65085864189CF08E00399949 /* en.lproj */,
 				65085865189CF08E00399949 /* keytechFoundation-Info.plist */,
-				65085866189CF08E00399949 /* keytechFoundation-IOS-Prefix.pch */,
-				65085867189CF08E00399949 /* keytechFoundation-OSX-Prefix.pch */,
 				65085868189CF08E00399949 /* KTAttributeMapping.h */,
 				65085869189CF08E00399949 /* KTAttributeMapping.m */,
 				6508586A189CF08E00399949 /* KTBomItem.h */,
@@ -600,13 +596,11 @@
 				650858F6189CF08E00399949 /* KTStatusItem.h in Headers */,
 				650858F3189CF08E00399949 /* KTStatusHistoryItem.h in Headers */,
 				650858C1189CF08E00399949 /* KTGroup.h in Headers */,
-				650858AB189CF08E00399949 /* keytechFoundation-OSX-Prefix.pch in Headers */,
 				650858AC189CF08E00399949 /* KTAttributeMapping.h in Headers */,
 				650858EA189CF08E00399949 /* KTSimpleControl.h in Headers */,
 				650858D5189CF08E00399949 /* KTNoteItem.h in Headers */,
 				650858ED189CF08E00399949 /* KTSimpleFavorite.h in Headers */,
 				650858D8189CF08E00399949 /* KTNotifications.h in Headers */,
-				650858AA189CF08E00399949 /* keytechFoundation-IOS-Prefix.pch in Headers */,
 				650858D2189CF08E00399949 /* KTLoaderInfo.h in Headers */,
 				650858C8189CF08E00399949 /* KTKeytechLoader.h in Headers */,
 				650858CF189CF08E00399949 /* KTLayouts.h in Headers */,
@@ -1047,7 +1041,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "keytechKit/keytechKit-Prefix.pch";
+				GCC_PREFIX_HEADER = "keytechKit/Code/keytechFoundation-OSX-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -1071,7 +1065,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "keytechKit/keytechKit-Prefix.pch";
+				GCC_PREFIX_HEADER = "keytechKit/Code/keytechFoundation-OSX-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -1134,7 +1128,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DSTROOT = /tmp/keytechKit.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "keytechKit/keytechKit-Prefix.pch";
+				GCC_PREFIX_HEADER = "keytechKit/Code/keytechFoundation-IOS-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1148,6 +1142,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
+					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1162,7 +1157,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DSTROOT = /tmp/keytechKit.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "keytechKit/keytechKit-Prefix.pch";
+				GCC_PREFIX_HEADER = "keytechKit/Code/keytechFoundation-IOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -1172,6 +1167,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
+					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
