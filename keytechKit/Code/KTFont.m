@@ -14,7 +14,7 @@ static RKObjectMapping* _mapping;
 @implementation KTFont
 
 
-+(id)setMapping{
++(id)mapping{
     if (!_mapping) {
         
         _mapping = [RKObjectMapping mappingForClass:[KTFont class]];

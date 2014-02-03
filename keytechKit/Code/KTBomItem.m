@@ -54,18 +54,18 @@ static RKObjectMapping* _mapping;
 
 
 // Sets the Object mapping for JSON
-+(id)setMapping{
++(id)mapping{
     
     if (_mapping==nil){
         _mapping = [RKObjectMapping mappingForClass:[self class]];
 
         RKRelationshipMapping *simpleElemenRelationship =
         [RKRelationshipMapping relationshipMappingFromKeyPath:@"SimpleElement"
-                                                    toKeyPath:@"element" withMapping:[KTElement setMapping]];
+                                                    toKeyPath:@"element" withMapping:[KTElement mapping]];
         
         RKRelationshipMapping *keyValueMapping =
         [RKRelationshipMapping relationshipMappingFromKeyPath:@"KeyValueList"
-                                                    toKeyPath:@"keyValueList" withMapping:[KTKeyValue setMapping]];
+                                                    toKeyPath:@"keyValueList" withMapping:[KTKeyValue mapping]];
 
         
         [_mapping addPropertyMapping:simpleElemenRelationship];

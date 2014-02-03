@@ -10,10 +10,10 @@
 
 @interface KTFont : NSObject
 
-/*
- Ruft ein ObjektMapping ab und weist das Mapping dem MappingManager zu
+/**
+ Sets the object mapping for this class
  */
-+(id)setMapping;
++(id)mapping;
 
 @property (nonatomic,copy) NSString* FontName;
 @property (nonatomic,copy) NSString* FontStyle;

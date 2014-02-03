@@ -14,7 +14,11 @@
  Multiple signs can be nessesary before a status change can be made.
  */
 @interface KTSignedBy : NSObject
-+(id)setMapping;
+
+/**
+ Sets the object mapping for this class
+ */
++(id)mapping;
 
 /**
  Long username og who did sign a status change

@@ -15,7 +15,9 @@
 @property (nonatomic) NSInteger x;
 @property (nonatomic) NSInteger y;
 
-
-+(id)setMapping;
+/**
+ Sets the object mapping for this class
+ */
++(id)mapping;
 
 @end

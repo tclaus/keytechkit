@@ -15,9 +15,9 @@
 @interface KTUser : NSObject <KTLoaderDelegate,KTIdentifiedDataSource>
 
 /**
- Sets the JSOn mapping
+ Sets the object mapping for this class
  */
-+(id)setMapping;
++(id)mapping;
 
 /**
  Returns YES if this user is active. (Means it's allowed to login and can use services.

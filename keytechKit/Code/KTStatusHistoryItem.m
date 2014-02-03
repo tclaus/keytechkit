@@ -14,8 +14,8 @@
 
 
 
-// Setzt das Mapping
-+(id)setMapping{
+/// Stets the object mapping
++(id)mapping{
     
     if (!_mapping){
         
@@ -26,7 +26,7 @@
                                                        @"TargetStatus":@"historyTargetStatus"
                                                     }];
 
-        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"SignedByList" toKeyPath:@"historySignedBy" withMapping:[KTSignedBy setMapping]]];
+        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"SignedByList" toKeyPath:@"historySignedBy" withMapping:[KTSignedBy mapping]]];
         
     }
     

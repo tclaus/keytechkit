@@ -9,9 +9,9 @@
 #import <XCTest/XCTest.h>
 #import "Webservice.h"
 #import "Restkit/Restkit.h"
-#import "ResponseLoader.h"
+#import "testResponseLoader.h"
 #import "KTFileInfo.h"
-#import "KTSimpleItem.h"
+#import "KTElement.h"
 
 /**
  Tests file related thinks
@@ -85,7 +85,7 @@ NSTimeInterval _timeOut = 12;
 */
 - (void)testElementHasFiles
 {
-    KTSimpleItem* item = [[KTSimpleItem alloc]init];
+    KTElement* item = [[KTElement alloc]init];
     item.itemKey = elementKeyWithStructure;
     
     NSMutableArray* filesList =  item.itemFilesList;
@@ -109,7 +109,7 @@ NSTimeInterval _timeOut = 12;
  Fetching a file
  */
 -(void)testFetchingFile{
-    KTSimpleItem* item = [[KTSimpleItem alloc]init];
+    KTElement* item = [[KTElement alloc]init];
     item.itemKey = elementKeyWithStructure;
     
     NSMutableArray* filesList =  item.itemFilesList;

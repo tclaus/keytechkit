@@ -10,10 +10,13 @@
 #import "KTElement.h"
 
 @interface KTSimpleFavorite : NSObject
-+(RKObjectMapping*)setMapping;
+/**
+ Returns the object mapping
+ */
++(RKObjectMapping*)mapping;
 
-/*
- Enthält die eindeutige, nummerische ID dieses Favoriten-Elements
+/**
+ Unique ID of this favorite
  */
 @property (nonatomic) NSInteger parentFolderID;
 @property (nonatomic,retain) NSString* folderName;
@@ -22,5 +25,5 @@
 @property (nonatomic) NSInteger folderID;
 @property (readonly) NSString* ItemClassKey; // Nur der Classkey - Anteil, ohne ElementID
 @property (readonly) NSString* ItemClassType;  // DO / MI // FD - ruft den vereinfachten Klassentypen ab
-@property (nonatomic,retain) KTSimpleItem* element;
+@property (nonatomic,retain) KTElement* element;
 @end

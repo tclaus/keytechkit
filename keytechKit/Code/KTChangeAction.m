@@ -56,7 +56,7 @@ static RKObjectMapping* _mapping;
 }
 
 
-+(id)setMapping{
++(id)mapping{
         
         if (_mapping==nil){
             

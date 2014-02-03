@@ -15,7 +15,7 @@
 
 
 // Sets the JSON mapping
-+(id)setMapping{
++(id)mapping{
     
     if (!_mapping){
         

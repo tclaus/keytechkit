@@ -13,7 +13,7 @@ static RKObjectMapping* _mapping;
 
 @implementation KTKeyValue
 
-+(id)setMapping{
++(id)mapping{
     
     if (!_mapping) {
         
@@ -55,7 +55,7 @@ static RKObjectMapping* _mapping;
     }
     
     // Could not interpret the value
-    return nil;
+    return NO;
 }
 
 

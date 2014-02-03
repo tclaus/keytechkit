@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "Webservice.h"
 #import "Restkit/Restkit.h"
-#import "ResponseLoader.h"
+#import "testResponseLoader.h"
 @interface testAttributeMappings : XCTestCase
 
 @end
@@ -37,7 +37,7 @@
 /// Gets a fulllist of attribute mappings
 -(void)testGetAttributeMappings{
     KTSystemManagement* systemManagement = [[KTSystemManagement alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc] init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     [systemManagement performGetAttributeMappings:responseLoader ];
     [responseLoader waitForResponse];

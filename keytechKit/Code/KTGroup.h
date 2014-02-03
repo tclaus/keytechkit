@@ -16,9 +16,9 @@
 @interface KTGroup : NSObject <KTLoaderDelegate, KTIdentifiedDataSource>
 
 /**
- Sets the JSOn mapping
+ Sets the object mapping for this class
  */
-+(id)setMapping;
++(id)mapping;
 
 /**
  The uniqe key. Represents the shortname (loginname)

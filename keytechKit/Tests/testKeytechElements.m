@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "Webservice.h"
-#import "KTSimpleItem.h"
+#import "KTElement.h"
 
 
 
@@ -86,7 +86,7 @@ Webservice* _webservice;
 
 
 -(void)testGenerateClassKeyFromElementKey{
-    KTSimpleItem* item = [[KTSimpleItem alloc]init];
+    KTElement* item = [[KTElement alloc]init];
 
     item.itemKey = @"3dmisc_SLDPRW:1234"; // DO ;
     XCTAssertTrue( [item.itemClassType isEqualToString:@"DO"],@"Document did not return 'DO' as classtype");                
@@ -114,7 +114,7 @@ Webservice* _webservice;
 - (void)testGetElementStructure
 {
     
-    KTSimpleItem* item = [[KTSimpleItem alloc]init];
+    KTElement* item = [[KTElement alloc]init];
     item.itemKey = elementKeyWithStructure;
     
     NSMutableArray* structure =  item.itemStructureList;
@@ -136,7 +136,7 @@ Webservice* _webservice;
 - (void)testGetElementWhereUsed
 {
     
-    KTSimpleItem* item = [[KTSimpleItem alloc]init];
+    KTElement* item = [[KTElement alloc]init];
     item.itemKey = elementKeyWithStructure;
     
     NSMutableArray* structure =  item.itemWhereUsedList;
@@ -158,7 +158,7 @@ Webservice* _webservice;
  */
 - (void)testGetElementFileList
 {
-    KTSimpleItem* item = [[KTSimpleItem alloc]init];
+    KTElement* item = [[KTElement alloc]init];
     item.itemKey = elementKeyWithStructure;
     
     NSMutableArray* structure =  item.itemFilesList;
@@ -180,7 +180,7 @@ Webservice* _webservice;
  */
 - (void)testGetElementNotesList
 {
-    KTSimpleItem* item = [[KTSimpleItem alloc]init];
+    KTElement* item = [[KTElement alloc]init];
     item.itemKey = elementKeyWithNotes;
     
     NSMutableArray* structure =  item.itemNotesList;
@@ -204,7 +204,7 @@ Performs a GET on an Elements BOM (Bill of Material)s list.
  */
 - (void)testGetElementBOM
 {
-    KTSimpleItem* item = [[KTSimpleItem alloc]init];
+    KTElement* item = [[KTElement alloc]init];
     item.itemKey = elementKeyWithStructure;
     
     NSMutableArray* structure =  item.itemBomList;
@@ -220,7 +220,7 @@ Performs a GET on an Elements BOM (Bill of Material)s list.
     
     // Now Test a real article with a bom list
     
-    KTSimpleItem* bomitem = [[KTSimpleItem alloc]init];
+    KTElement* bomitem = [[KTElement alloc]init];
     bomitem.itemKey = elementKeyItem;
     
     structure = bomitem.itemBomList;
@@ -242,7 +242,7 @@ Performs a GET on an Elements BOM (Bill of Material)s list.
  */
 - (void)testGetElementNextAvailableStatus
 {
-    KTSimpleItem* item = [[KTSimpleItem alloc]init];
+    KTElement* item = [[KTElement alloc]init];
     item.itemKey = elementKeyWithStateWork;
     
     NSMutableArray* structure =  item.itemNextAvailableStatusList;
@@ -261,10 +261,14 @@ Performs a GET on an Elements BOM (Bill of Material)s list.
  Get a defered thumbnail or classimage for a test element.
  */
 -(void)testGetElementThumbnail{
-    KTSimpleItem* item = [[KTSimpleItem alloc]init];
+    KTElement* item = [[KTElement alloc]init];
     item.itemKey = elementKeyWithNotes;
-    
+    #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
     NSImage* image = item.itemThumbnail;
+    #else
+    UIImage* image =item.itemThumbnail;
+    #endif
+    
     image=nil;
     
     [item addObserver:self forKeyPath:@"itemThumbnail" options:NSKeyValueObservingOptionNew context:nil];

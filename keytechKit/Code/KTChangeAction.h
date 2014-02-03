@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface KTChangeAction : NSObject
-/**
- Sets the JSON mapping+
-*/
 
-+(id)setMapping;
+/**
+ Sets the object mapping for this class
+*/
++(id)mapping;
 
 @property (nonatomic,copy) NSString* actionName;
 @property (nonatomic,assign) NSMutableArray* classList;

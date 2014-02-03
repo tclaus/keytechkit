@@ -423,35 +423,29 @@ Getting lister layout data for the given classkey and the current logged in user
 
 // gets a Element
 -(void)performGetElement:(NSString*)elementKey withMetaData:(bool)metadata loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate{
-/*
+
  
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
     // Requests full Elements Metadata
     if (metadata) {
-        rpcData[@"attributes"] = @"Editor"; // Editor / Lister / Full / None
+        rpcData[@"attributes"] = @"Editor"; // Editor / Lister / ALL / None
     }
     
     // ResourcePath zusammenbauen
     NSString* resourcePath =  [NSString stringWithFormat:@"/Elements/%@",elementKey];
     
-    NSString* resourcePathWithQueryParameters = [resourcePath stringByAppendingQueryParameters:rpcData];
     
-    
-    RKObjectMapping* itemMapping = [KTSimpleItem setMapping];
-    itemMapping.rootKeyPath = @"ElementList";
-    
-    // Proxy for loading responses
-    //KTResponseLoader* responseLoader = [[KTResponseLoader alloc]init];
-    //responseLoader.delegate = loaderDelegate;
-    
-    [manager loadObjectsAtResourcePath:resourcePathWithQueryParameters usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = Nil;
-        loader.serializationMIMEType = RKMIMETypeJSON;
+    // Initilize the mapping
+    [KTElement mapping];
+    [manager getObject:nil path:nil parameters:rpcData success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        [loaderDelegate requestDidProceed:mappingResult.firstObject fromResourcePath:@"/Elements"];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        
+        [loaderDelegate requestProceedWithError:[[KTLoaderInfo alloc]init]  error:error];
     }];
-    */
+    
+
+
 }
 
 /**
@@ -630,35 +624,24 @@ Gets the filelist of given elementKey
 /// Stats a Search by its queryID
 -(void)performSearchByQuery:(NSInteger)queryID page:(NSInteger)page withSize:(NSInteger)size loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate{
 
-/*
-        
-        
-        RKObjectManager *manager = [RKObjectManager sharedManager];
-        
-        
-        NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
-        rpcData[@"byQuery"] = @((int)queryID);
-        rpcData[@"page"] = @((int)page);
-        rpcData[@"size"] = @((int)size);
-        
-        
-        // ResourcePath zusammenbauen
-        NSString* resourcePath = @"/SearchItems";
-        NSString* resourcePathWithQueryParemeters = [resourcePath stringByAppendingQueryParameters:rpcData];
-        
-        [KTSimpleItem setMapping];
-        
-        RKObjectMapping* articleMapping = [[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[KTSimpleItem class]];
-        articleMapping.rootKeyPath = @"ElementList";
-        
-        [manager loadObjectsAtResourcePath:resourcePathWithQueryParemeters usingBlock:^(RKObjectLoader *loader) {
-            loader.userData = @"KTKeytech";
-            loader.method = RKRequestMethodGET;
-            loader.objectMapping = articleMapping;
-            loader.delegate = self;
-            loader.targetObject = nil;
-        }];
- */
+
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    
+    
+    // Creating Query Parameter
+    
+    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
+    rpcData[@"byQuery"] = @((int)queryID);
+    rpcData[@"page"] = @((int)page);
+    rpcData[@"size"] = @((int)size);
+    
+    [manager getObject:nil path:@"/Searchitsm" parameters:rpcData
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                   NSLog(@"Success");
+               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   NSLog(@"Failed");
+               }];
+    
 
 }
 
@@ -669,18 +652,18 @@ Gets the filelist of given elementKey
 
 -(void)performSearch:(NSString *)searchToken page:(NSInteger)page withSize:(NSInteger)size withScope:(KTSearchScopeType)scope loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
 
-    /*
     
-    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
    
+    // Initialize the mapping if not already done
+    [KTElement mapping];
     
+    // Creating Query Parameter
     
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
     rpcData[@"q"] = searchToken;
     rpcData[@"page"] = @((int)page);
     rpcData[@"size"] = @((int)size);
-   // rpcData[@"scope"] = @((int)scope);
-
     
     switch (scope) {
         case KTScopeAll:
@@ -702,25 +685,16 @@ Gets the filelist of given elementKey
             // No Scope - get all
             break;
     }
+    
+    [manager getObject:nil path:@"/Searchitems" parameters:rpcData
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                   NSLog(@"Success");
+                   [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:@"/Searchitems"];
+               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   NSLog(@"Failed");
+                   [loaderDelegate requestProceedWithError:nil error:nil];
+               }];
 
-    
-    // ResourcePath zusammenbauen
-    NSString* resourcePath = @"/SearchItems";
-    NSString* resourcePathWithQueryParemeters = [resourcePath stringByAppendingQueryParameters:rpcData];
-    
-    [KTSimpleItem setMapping];
-    
-    RKObjectMapping* articleMapping = [[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[KTSimpleItem class]];
-    articleMapping.rootKeyPath = @"ElementList";
-    
-    [manager loadObjectsAtResourcePath:resourcePathWithQueryParemeters usingBlock:^(RKObjectLoader *loader) {
-        loader.userData = @"KTKeytech";
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = articleMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-    }];
-     */
 }
 
 

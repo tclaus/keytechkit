@@ -11,7 +11,7 @@
 #import "KTSystemManagement.h"
 
 #import "Restkit/Restkit.h"
-#import "ResponseLoader.h"
+#import "testResponseLoader.h"
 #import "KTStatusItem.h"
 
 @interface testStatus : XCTestCase
@@ -41,7 +41,7 @@
 // / Status transitions
 -(void)testGetStatus{
     KTSystemManagement* systemManagement = [[KTSystemManagement alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc] init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     [systemManagement performGetAvailableStatusList:responseLoader ];
     [responseLoader waitForResponse];
@@ -57,7 +57,7 @@
 
 -(void)testGetStatusChangeActions{
     KTSystemManagement* systemManagement = [[KTSystemManagement alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc] init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     [systemManagement performGetStatusChangeActionList:responseLoader];
     [responseLoader waitForResponse];

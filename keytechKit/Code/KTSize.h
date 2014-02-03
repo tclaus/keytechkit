@@ -8,14 +8,23 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ Provides a size for a layout control
+ */
 @interface KTSize : NSObject
 
-/*
- Ruft ein ObjektMapping ab und weist das Mapping dem MappingManager zu
+/**
+ Sets the object mapping for this class
  */
-+(id)setMapping;
++(id)mapping;
 
+/**
+ The height in points
+ */
 @property (nonatomic) NSInteger height;
+/**
+ The width in points
+ */
 @property (nonatomic) NSInteger width;
 
 @end

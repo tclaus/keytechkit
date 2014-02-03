@@ -24,9 +24,7 @@
 
 -(void)objectLoader:(NSObject *)objectLoader didFailWithError:(NSError *)error{
     
-    if ([self.delegate respondsToSelector:@selector(searchProceedWithError:error:)]){
 
-    }
     
 }
 

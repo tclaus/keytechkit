@@ -33,7 +33,7 @@
 static RKObjectMapping* _mapping = nil;
 
 // Sets the mapping
-+(id)setMapping{
++(id)mapping{
 
     if (!_mapping){
     
@@ -51,11 +51,11 @@ static RKObjectMapping* _mapping = nil;
         
         
         [_mapping addPropertyMapping:
-         [RKRelationshipMapping relationshipMappingFromKeyPath:@"Position" toKeyPath:@"controlPosition" withMapping:[KTPosition setMapping]]];
+         [RKRelationshipMapping relationshipMappingFromKeyPath:@"Position" toKeyPath:@"controlPosition" withMapping:[KTPosition mapping]]];
         [_mapping addPropertyMapping:
-         [RKRelationshipMapping relationshipMappingFromKeyPath:@"Size" toKeyPath:@"controlSize" withMapping:[KTSize setMapping]]];
+         [RKRelationshipMapping relationshipMappingFromKeyPath:@"Size" toKeyPath:@"controlSize" withMapping:[KTSize mapping]]];
         [_mapping addPropertyMapping:
-         [RKRelationshipMapping relationshipMappingFromKeyPath:@"Font" toKeyPath:@"font" withMapping:[KTFont setMapping]]];
+         [RKRelationshipMapping relationshipMappingFromKeyPath:@"Font" toKeyPath:@"font" withMapping:[KTFont mapping]]];
 
 
     }
@@ -68,47 +68,27 @@ static RKObjectMapping* _mapping = nil;
     _controlAlignmentIntern = [value copy];
 }
 
-#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
+//#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 /**
  Returns the NSTextAlignment enum for correct behavior in Views.
  */
 -(CTTextAlignment)textAlignment{
     if ([_controlAlignmentIntern isEqualToString:@"LEFT"]){ // from keytech API: Left
-        return NSLeftTextAlignment;
+        return kCTLeftTextAlignment;
     }
 
     if ([_controlAlignmentIntern isEqualToString:@"CENTER"]){ // from keytech API: Center
-        return NSCenterTextAlignment;
+        return kCTCenterTextAlignment;
     }
     if ([_controlAlignmentIntern isEqualToString:@"RIGHT"]){ // from keytech API: Right
-        return NSRightTextAlignment;
+        return kCTRightTextAlignment;
     }
     
     // Return meaningful defaultvalue
-    return NSNaturalTextAlignment;
+    return kCTNaturalTextAlignment;
 }
 
-#else
-// IOS (Dont try to setup a keytech Editor on IOS!)
-/**
- Returns the NSTextAlignment enum for correct behavior in Views.
- */
--(NSTextAlignment)textAlignment{
-    if ([_controlAlignmentIntern isEqualToString:@"LEFT"]){ // from keytech API: Left
-        return NSTextAlignmentLeft;
-    }
-    
-    if ([_controlAlignmentIntern isEqualToString:@"CENTER"]){ // from keytech API: Center
-        return NSTextAlignmentCenter;
-    }
-    if ([_controlAlignmentIntern isEqualToString:@"RIGHT"]){ // from keytech API: Right
-        return NSTextAlignmentRight;
-    }
-    
-    // Return meaningful defaultvalue
-    return NSTextAlignmentNatural;
-}
-#endif
+
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 // Returns a rect structure to describe the boundaries of this control

@@ -14,7 +14,11 @@
  Provides an item of Status change. Who and When signed the element.
  */
 @interface KTStatusHistoryItem : NSObject
-+(id)setMapping;
+
+/**
+ Sets the object mapping for this class
+ */
++(id)mapping;
 
 @property (copy) NSString* historyDescription;
 @property (copy) NSString* historySourceStatus;

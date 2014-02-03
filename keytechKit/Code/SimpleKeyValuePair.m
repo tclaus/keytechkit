@@ -14,7 +14,7 @@
 RKObjectMapping *_mapping;
 
 
-+(RKObjectMapping*)setMapping{
++(RKObjectMapping*)mapping{
     
     if (!_mapping){
     

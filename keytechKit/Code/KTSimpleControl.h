@@ -48,6 +48,9 @@ Returns position and size as rect-Structure. Measurement is same as in keytech p
 @property (nonatomic) CTTextAlignment textAlignment;
 @property (nonatomic) NSInteger controlFontStyle; // 1=Bold, 2=Italic, 4= Underline, kombinierbar
 
+/**
+ Sets the object mapping for this class
+ */
 +(id)setMapping;
 
 @end

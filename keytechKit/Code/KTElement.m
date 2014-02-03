@@ -123,21 +123,19 @@ if(components.count>=2)
 
 
 // Sets the Object mapping for JSON 
-+(RKObjectMapping*)setMapping{
++(RKObjectMapping*)mapping{
     
     if (_mapping==nil){
+        RKObjectManager *manager = [RKObjectManager sharedManager];
         
-        
-        
-        
-    _mapping = [RKObjectMapping mappingForClass:[KTElement class]];
+        _mapping = [RKObjectMapping mappingForClass:[KTElement class]];
         
         [_mapping addAttributeMappingsFromDictionary:@{@"ElementDescription":@"itemDescription",
                                                       @"ElementTypeDisplayName":@"itemDisplayTypeName",
                                                       @"ElementKey":@"itemKey",
                                                       @"ElementName":@"itemName",
-                                                      @"ElementStatus":@"itemName",
-                                                      @"ElementVersion":@"itemStatus",
+                                                      @"ElementStatus":@"itemStatus",
+                                                      @"ElementVersion":@"itemVersion",
                                                       @"CreatedAt":@"itemCreatedAt",
                                                       @"CreatedBy":@"itemCreatedBy",
                                                       @"CreatedByLong":@"itemCreatedByLong",
@@ -147,8 +145,8 @@ if(components.count>=2)
                                                       @"ThumbnailHint":@"itemThumbnailHint"
                                                       }];
          
-         RKMapping *keyValueMapping;
-         
+        RKMapping *keyValueMapping = [KTKeyValue mapping];
+        
          RKRelationshipMapping *KeyalueRelationShip =
          [RKRelationshipMapping relationshipMappingFromKeyPath:@"KeyValueList"
                                                      toKeyPath:@"keyValueList"
@@ -156,7 +154,29 @@ if(components.count>=2)
         
          [_mapping addPropertyMapping:KeyalueRelationShip];
 
+        // Zentralisiert ?
+        NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
+        RKResponseDescriptor *elementDescriptor = [RKResponseDescriptor
+                                                   responseDescriptorWithMapping:_mapping
+                                                   method:RKRequestMethodAny
+                                                   pathPattern:nil keyPath:@"ElementList" statusCodes:statusCodes];
+
+        // Path Argument
+        [manager.router.routeSet addRoute:[RKRoute
+                                                 routeWithClass:[KTElement class]
+                                                 pathPattern:@"/elements/:elementKey"
+                                                 method:RKRequestMethodGET]] ;
+        [manager.router.routeSet addRoute:[RKRoute
+                                                 routeWithClass:[KTElement class]
+                                                 pathPattern:@"/elements"
+                                                 method:RKRequestMethodPOST]] ;
+        [manager.router.routeSet addRoute:[RKRoute
+                                           routeWithClass:[KTElement class]
+                                           pathPattern:@"/elements/:elementKey"
+                                           method:RKRequestMethodPUT]] ;
         
+        
+        [manager addResponseDescriptorsFromArray:@[ elementDescriptor ]];
     }
     
     return _mapping;

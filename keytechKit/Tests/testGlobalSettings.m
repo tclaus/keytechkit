@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "Webservice.h"
 #import "Restkit/Restkit.h"
-#import "ResponseLoader.h"
+#import "testResponseLoader.h"
 #import "keytechKit/KTSystemManagement.h"
 
 @interface testGlobalSettings : XCTestCase
@@ -36,7 +36,7 @@
 
 -(void)testLoadGlobalSettingContextList{
     KTSystemManagement* ktSystemManagement = [[KTSystemManagement alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     [ktSystemManagement performGetGlobalSettingContexts:responseLoader];
     
@@ -50,7 +50,7 @@
 
 -(void)testLoadGlobalSettingsBySearch{
     KTSystemManagement* ktSystemManagement = [[KTSystemManagement alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     
     [ktSystemManagement performGetGlobalSettingsBySearchString:@"acad" returnFullResults:NO loaderDelegate:responseLoader];
@@ -66,7 +66,7 @@
 // Loads globalsetings by contextlist
 -(void)testLoadGlobalSettingsListByContexts{
     KTSystemManagement* ktSystemManagement = [[KTSystemManagement alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     
     [ktSystemManagement performGetGlobalSettingContexts:responseLoader];
@@ -90,7 +90,7 @@
 - (void)testLoadGlobalSettingsForUser
 {
     KTSystemManagement* ktSystemManagement = [[KTSystemManagement alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     
     [ktSystemManagement performGetGlobalSetting:@"" forUser:@"jgrant" loaderDelegate:responseLoader];

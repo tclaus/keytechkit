@@ -14,7 +14,7 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
 
 
 
-+(id)setMapping{
++(id)mapping{
     if (!_mapping){
         _mapping = [RKObjectMapping mappingForClass:[KTPermission class]];
         
@@ -22,8 +22,7 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
                                                       @"PermissionContext":@"permissionContext",
                                                       @"PermissionKey":@"permissionKey",
                                                       @"PermissionType":@"permissionType",
-                                                      @"AssignedByMembership":@"isPermissionSetByMembership",
-                                                      @"":@""
+                                                      @"AssignedByMembership":@"isPermissionSetByMembership"
                                                     }];
     }
     

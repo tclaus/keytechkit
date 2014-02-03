@@ -13,8 +13,10 @@
 @class KTSimpleItem;
 @interface KTBomItem : NSObject
 
-///Provides the JSON mapping.
-+(id)setMapping;
+/**
+ Returns the object mapping
+ */
++(id)mapping;
 
 /**
  Provides the element which is represented by this bom

@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "Webservice.h"
 #import "Restkit/Restkit.h"
-#import "ResponseLoader.h"
+#import "testResponseLoader.h"
 
 @interface testFolderManagement : XCTestCase
 
@@ -37,7 +37,7 @@
  */
 - (void)testGetRootFolderes
 {
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
 
     [[webservice ktKeytech] performGetRootFolder:responseLoader];
     [responseLoader waitForResponse];

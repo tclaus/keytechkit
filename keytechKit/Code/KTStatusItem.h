@@ -12,7 +12,10 @@
 
 @interface KTStatusItem : NSObject
 
-+(id)setMapping;
+/**
+ Sets the object mapping for this class
+ */
++(id)mapping;
 
 /**
  The name of an image which represents this status

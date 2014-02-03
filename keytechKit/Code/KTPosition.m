@@ -13,7 +13,7 @@
 
 static RKObjectMapping *_mapping = nil;
 
-+(id)setMapping{
++(id)mapping{
     
     if (!_mapping){
     

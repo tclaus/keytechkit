@@ -9,9 +9,10 @@
 #import <XCTest/XCTest.h>
 #import "Webservice.h"
 #import "Restkit/Restkit.h"
-#import "ResponseLoader.h"
-#import "keytechKit/KTUser.h"
-#import "keytechKit/KTGroup.h"
+#import "testResponseLoader.h"
+
+#import "KTUser.h"
+#import "KTGroup.h"
 
 
 @interface testUserSettings : XCTestCase
@@ -43,7 +44,7 @@
 -(void)testGetDirectPermissionsForUser{
     
     KTKeytech* keytech  = [[KTKeytech alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     
     NSLog(@"Get permissionslist for %@",[Webservice sharedWebservice].username);
@@ -62,7 +63,7 @@
 -(void)testGetIndirectPermissionsForUser{
     
     KTKeytech* keytech  = [[KTKeytech alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     [keytech performGetPermissionsForUser:[Webservice sharedWebservice].username findPermissionName:nil findEffective:YES loaderDelegate:responseLoader];
     
@@ -78,7 +79,7 @@
 
 -(void)testGetGroupList{
     KTKeytech* keytch = [[KTKeytech alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     [keytch performGetGroupList:responseLoader];
     [responseLoader waitForResponse];
@@ -95,7 +96,7 @@
  */
 -(void)testGetGroupsForUser{
     KTKeytech* keytch = [[KTKeytech alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     [keytch performGetGroupsWithUser:@"jgrant" loaderDelegate:responseLoader];
     [responseLoader waitForResponse];
@@ -114,7 +115,7 @@
  */
 -(void)testGetUsersInGroupList{
     KTKeytech* keytch = [[KTKeytech alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     // GRP_DMS, GRP_RELEASE, GRP_RESEARCH
     [keytch performGetUsersInGroup:@"GRP_DMS" loaderDelegate:responseLoader];

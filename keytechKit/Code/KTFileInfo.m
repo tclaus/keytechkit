@@ -32,7 +32,7 @@
 /**
  Sets the object mapping
  */
-+(id)setMapping{
++(id)mapping{
     
     if (!_mapping){
         _mapping = [RKObjectMapping mappingForClass:[KTFileInfo class]];

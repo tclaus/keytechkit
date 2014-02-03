@@ -14,8 +14,8 @@ static RKObjectMapping* _mapping = nil;
 
 
 
-// Setzt das Object-Mapping
-+(id)setMapping{
+/// Stets the object mapping
++(id)mapping{
     if (_mapping==nil){
         _mapping = [RKObjectMapping mappingForClass:[KTSignedBy class]];
         [_mapping addAttributeMappingsFromDictionary:@{@"SignedByLong":@"signedByLong",

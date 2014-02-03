@@ -11,9 +11,9 @@
 @interface KTKeyValue : NSObject
 
 /**
- Sets the obkect mapping
+ Sets the object mapping
  */
-+(id)setMapping;
++(id)mapping;
 
 /**
  Returns or stets the key that identifies the value. 

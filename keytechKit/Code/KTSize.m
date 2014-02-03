@@ -13,7 +13,7 @@ static RKObjectMapping* _mapping;
 @implementation KTSize
 
 
-+(id)setMapping{
++(id)mapping{
     
     if (!_mapping) {
      

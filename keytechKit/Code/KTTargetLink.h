@@ -12,9 +12,9 @@
 @interface KTTargetLink : NSObject
 
 /**
- Sets the mapping
+ Sets the object mapping for this class
  */
-+(id)setMapping;
++(id)mapping;
 
 /*
 Gets the unique link ID

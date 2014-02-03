@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "Webservice.h"
 #import "Restkit/Restkit.h"
-#import "ResponseLoader.h"
+#import "testResponseLoader.h"
 
 @interface testEnvironment : XCTestCase
 
@@ -41,7 +41,8 @@
 
 /// Performs a global Search.
 -(void)testPerformSearch{
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+    
     [keytech performSearch:testSearchString loaderDelegate:responseLoader];
     
     [responseLoader waitForResponse];
@@ -55,7 +56,7 @@
 
 /// Performs a global Search with minimal Pagesize of 1.
 -(void)testPerformSearchWithMinimalPageSize{
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     [keytech performSearch:testSearchString page:1 withSize:2 withScope:KTScopeAll loaderDelegate:responseLoader];
     
     [responseLoader waitForResponse];
@@ -69,7 +70,7 @@
 
 /// Performs a Search with user defined query with minimal Pagesize of 1.
 -(void)testPerformSearchByUserQuery{
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     [keytech performSearchByQuery:380 page:1 withSize:500 loaderDelegate:responseLoader];
     
     [responseLoader waitForResponse];

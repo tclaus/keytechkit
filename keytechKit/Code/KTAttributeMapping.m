@@ -12,7 +12,7 @@
 @implementation KTAttributeMapping
 static RKObjectMapping* _mapping;
 
-+(id)setMapping{
++(id)mapping{
     if (!_mapping) {
         
         _mapping = [RKObjectMapping mappingForClass:[KTAttributeMapping class]];

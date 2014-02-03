@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "Webservice.h"
 #import "Restkit/Restkit.h"
-#import "ResponseLoader.h"
+#import "testResponseLoader.h"
 
 
 /**
@@ -44,11 +44,6 @@
 }
 
 
-
-
-
-
-
 - (void)testExample
 {
     XCTAssertTrue(YES, @"True");
@@ -76,8 +71,6 @@
  */
 -(void)testHasSimpleCredentials{
     
-    XCTAssertNotNil([RKObjectManager sharedManager].client.username,@"default username should not be nil");
-    XCTAssertNotNil([RKObjectManager sharedManager].client.password,@"default password should not be nil");
 }
 
 /**
@@ -87,8 +80,7 @@
     
     KTKeytech* keytech = [[KTKeytech alloc]init];
     
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
-    
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     [keytech performGetElement:@"dummyItem" withMetaData:YES loaderDelegate:responseLoader];
     [responseLoader waitForResponse];
@@ -106,7 +98,7 @@
 -(void)testGetValidElement{
     
     KTKeytech* keytech = [[KTKeytech alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
 
     [keytech performGetElement:elementKeyWithStructure withMetaData:NO loaderDelegate:responseLoader];
@@ -127,7 +119,8 @@
 -(void)testSearch{
     
     KTKeytech* keytech = [[KTKeytech alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+
     
     [keytech performSearch:@"dampf" page:1 withSize:25 withScope:KTScopeAll loaderDelegate:responseLoader];
     
@@ -147,7 +140,7 @@
 -(void)testSearchWithPageNumberZero{
     
     KTKeytech* keytech = [[KTKeytech alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     // Page:0 should return the first page
     [keytech performSearch:@"dampf" page:0 withSize:25 withScope:KTScopeAll loaderDelegate:responseLoader];
@@ -168,7 +161,7 @@
 -(void)testGetFilesFromInvalidElement{
     
     KTKeytech* keytech = [[KTKeytech alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     // Fetching a files List with an invalid elementkey
     [keytech performGetFileList:@"invalidItemKey" loaderDelegate:responseLoader];
@@ -189,7 +182,7 @@
 -(void)testGetFilesFromValidElement{
     
     KTKeytech* keytech = [[KTKeytech alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     // Fetching a files List. Element 3DMISC_SLDASM:2220 should have some files
     [keytech performGetFileList:@"3DMISC_SLDASM:2220" loaderDelegate:responseLoader];
@@ -210,7 +203,7 @@
 -(void)testGetNotesFromInvalidElement{
     
     KTKeytech* keytech = [[KTKeytech alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     // Fetching a notes List. Element 3DMISC_SLDASM:2220 should have some files
     [keytech performGetElementNotes:@"invalidItemKey" loaderDelegate:responseLoader];
@@ -231,7 +224,7 @@
 -(void)testGetElementNotes{
     
     KTKeytech* keytech = [[KTKeytech alloc]init];
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     // Fetching a notes List. Element 3DMISC_SLDASM:2220 should have some files
     [keytech performGetElementNotes:@"2DMISC_SLDDRW:2221" loaderDelegate:responseLoader];

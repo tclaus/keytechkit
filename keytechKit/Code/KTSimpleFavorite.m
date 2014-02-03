@@ -31,8 +31,8 @@ static RKObjectMapping* _mapping = nil;
     
 }
 
-// Setzt das REST-Mapping
-+(RKObjectMapping*)setMapping{
+/// Sets the mapping
++(RKObjectMapping*)mapping{
     if (!_mapping){
     _mapping = [RKObjectMapping mappingForClass:[KTSimpleFavorite class]];
         [_mapping addAttributeMappingsFromDictionary:@{@"ParentFolderID":@"parentFolderID",
@@ -45,10 +45,11 @@ static RKObjectMapping* _mapping = nil;
         RKRelationshipMapping *elementRelationship =
         [RKRelationshipMapping relationshipMappingFromKeyPath:@"Element"
                                                     toKeyPath:@"Element"
-                                                  withMapping:[KTElement setMapping]];
+                                                  withMapping:[KTElement mapping]];
 
         [_mapping addPropertyMapping:elementRelationship];
     }
+
     return _mapping;
 }
 

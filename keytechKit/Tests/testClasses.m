@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "Webservice.h"
 #import "Restkit/Restkit.h"
-#import "ResponseLoader.h"
+#import "testResponseLoader.h"
 
 @interface testClasses : XCTestCase
 
@@ -51,7 +51,7 @@
 
 /// Gets a editorlayout for the requested element.
 -(void)testGetEditorLayoutForElement{
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
 
     
     [keytech performGetClassEditorLayoutForClassKey:classKey loaderDelegate:responseLoader];
@@ -69,7 +69,7 @@
 /// Gets a Lister layout for the requested Element
 -(void)testGetListerLayoutForElement{
     
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     [keytech performGetClassListerLayout:classKey loaderDelegate:responseLoader];
     
     [responseLoader waitForResponse];
@@ -84,7 +84,7 @@
 
 /// Gets the default BOM lister layout for the element.
 -(void)testGetBomListerlayout{
-    ResponseLoader* responseLoader = [[ResponseLoader alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     [keytech performGetClassBOMListerLayout:responseLoader];
     
     [responseLoader waitForResponse];

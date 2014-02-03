@@ -17,7 +17,7 @@
 
 static RKObjectMapping* _mapping;
 
-+(id)setMapping{
++(id)mapping{
     if (!_mapping) {
         
         _mapping = [RKObjectMapping requestMapping];
@@ -31,7 +31,7 @@ static RKObjectMapping* _mapping;
         [[RKObjectManager sharedManager] addRequestDescriptor:
         [RKRequestDescriptor requestDescriptorWithMapping:_mapping
                                               objectClass:[KTGlobalSetting class]
-                                               rootKeyPath:@"GlobalsettingsList" method:nil]];
+                                               rootKeyPath:@"GlobalsettingsList" method:RKRequestMethodAny]];
 
     }
     return _mapping;

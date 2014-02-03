@@ -15,9 +15,9 @@
 @interface KTNoteItem : NSObject
 
 /**
- Sets the object mapping. 
+ Sets the object mapping for this class
  */
-+(id)setMapping;
++(id)mapping;
 
 /**
  Unique nummeric noteID

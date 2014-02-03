@@ -44,8 +44,8 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
 }
 
 
-// Setzt das REST-Mapping
-+(id)setMapping{
+/// Stets the object mapping
++(id)mapping{
     if (!_mapping){
     _mapping = [RKObjectMapping mappingForClass:[KTTargetLink class]];
         [_mapping addAttributeMappingsFromDictionary:@{

@@ -78,7 +78,10 @@
     
     [manager getObject:nil path:resourcePath parameters:nil
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                   NSLog(@"Success");
+                    NSLog(@"Success");
+                   [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:@""];
+                   
+                  
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                    NSLog(@"Failed");
                }];

@@ -39,7 +39,7 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
     return self;
 }
 
-+(id)setMapping{
++(id)mapping{
     if (!_mapping){
         
         _mapping = [RKObjectMapping requestMapping];
@@ -51,7 +51,7 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
     
 
         [[RKObjectManager sharedManager] addRequestDescriptor:
-         [RKRequestDescriptor requestDescriptorWithMapping:_mapping objectClass:[KTGroup class] rootKeyPath:@"MembersList" method:nil]];
+         [RKRequestDescriptor requestDescriptorWithMapping:_mapping objectClass:[KTGroup class] rootKeyPath:@"MembersList" method:RKRequestMethodAny]];
         
     }
     

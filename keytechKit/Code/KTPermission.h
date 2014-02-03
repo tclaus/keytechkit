@@ -13,7 +13,7 @@
 /**
  Sets the mapping
  */
-+(id)setMapping;
++(id)mapping;
 
 /**
  Returns or sets the user visible displayname

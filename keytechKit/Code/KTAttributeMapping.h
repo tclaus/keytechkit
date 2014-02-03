@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface KTAttributeMapping : NSObject
-/// Provides the JSON Mapping. For internal Use unly.
-+(id)setMapping;
+/// Provides the obejct mapping. For internal Use unly.
++(id)mapping;
 
 /**
  The classkey that identifies the target class of the mapping.

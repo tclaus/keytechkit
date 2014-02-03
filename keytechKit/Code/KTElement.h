@@ -24,7 +24,7 @@
 /**
  Provides the object Mapping for this class
  */
-+(RKObjectMapping*)setMapping;
++(RKObjectMapping*)mapping;
 
 /**
  Unique item name

@@ -14,7 +14,10 @@
  */
 @interface KTFileInfo : NSObject
 
-+(id)setMapping;
+/**
+ Sets the object mapping for this class
+ */
++(id)mapping;
 
 /**
  Gets the unique fileID

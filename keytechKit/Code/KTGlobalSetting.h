@@ -10,7 +10,10 @@
 
 @interface KTGlobalSetting : NSObject
 
-+(id)setMapping;
+/**
+ Sets the object mapping for this class
+ */
++(id)mapping;
 
 /**
  A short user or groupname (key) can also be 'none' for not in use or 'ALL' for globally valid.

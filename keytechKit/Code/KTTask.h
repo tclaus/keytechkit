@@ -10,8 +10,10 @@
 
 @interface KTTask : NSObject
 
-/// Sets the attribute-Mapping
-+(id)setMapping;
+/**
+ Sets the object mapping for this class
+ */
++(id)mapping;
 
 
 @property (nonatomic,copy) NSString* assignedUserName;
