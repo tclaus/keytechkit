@@ -10,6 +10,7 @@
 #import "Webservice.h"
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
+#import  "KTElement.h"
 
 
 /**
@@ -51,7 +52,7 @@
 
 -(void)testAllocWebservice
 {
-    Webservice* web = [[Webservice alloc]init];
+    Webservice* web = [Webservice sharedWebservice];
     
     if (!web) XCTFail(@"could not allocate webservice Class");
     
@@ -87,7 +88,7 @@
     
     NSArray* array = [responseLoader objects];
     
-    if (array==nil) XCTFail(@"The results array should not be nil");
+    if (array!=nil) XCTFail(@"The results array should be nil");
 
     
 }
@@ -104,10 +105,31 @@
     [keytech performGetElement:elementKeyWithStructure withMetaData:NO loaderDelegate:responseLoader];
     [responseLoader waitForResponse];
     
-    NSArray* array = [responseLoader objects];
+    NSObject *theElement = [responseLoader firstObject];
     
-    if (array==nil) XCTFail(@"The results array should not be nil");
-    if ([array count]==0) XCTFail(@"One Element was expected");
+    if (theElement==nil) XCTFail(@"The result should not be nil");
+
+}
+
+-(void)testGetValidElementWithFullAttributes{
+    
+    KTKeytech* keytech = [[KTKeytech alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+    
+    
+    [keytech performGetElement:elementKeyWithStructure withMetaData:KTResponseFullAttributes loaderDelegate:responseLoader];
+    [responseLoader waitForResponse];
+    
+    NSObject *theResponse = [responseLoader firstObject];
+    
+    if (theResponse==nil) XCTFail(@"The result should not be nil");
+    
+    KTElement *theElement = (KTElement*)theResponse;
+    
+    if (theElement.keyValueList.count==0) {
+        XCTFail(@"Key Value LIst should not be empty");
+    }
+        
     
     
 }
@@ -121,8 +143,7 @@
     KTKeytech* keytech = [[KTKeytech alloc]init];
     testResponseLoader* responseLoader = [testResponseLoader responseLoader];
 
-    
-    [keytech performSearch:@"dampf" page:1 withSize:25 withScope:KTScopeAll loaderDelegate:responseLoader];
+    [keytech performSearch:@"dampf" loaderDelegate:responseLoader];
     
     [responseLoader waitForResponse];
     
@@ -131,26 +152,111 @@
     if (array==nil) XCTFail(@"The results array should not be nil");
     if ([array count]==0) XCTFail(@"At least one element was expected but we found %d",(int)[array count]);
     
-    
 }
 
-/**
- Try to request a search Result with page number 0. Should return the first page.
- */
--(void)testSearchWithPageNumberZero{
+-(void)testSearchByFields{
     
     KTKeytech* keytech = [[KTKeytech alloc]init];
     testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
-    // Page:0 should return the first page
-    [keytech performSearch:@"dampf" page:0 withSize:25 withScope:KTScopeAll loaderDelegate:responseLoader];
-
+    NSArray *fields = @[@"as_do__status=in Arbeit",@"as_do__version=-"];
+    
+    
+    [keytech performSearch:nil fields:fields inClass:nil withScope:KTScopeAll page:1 pageSize:25 loaderDelegate:responseLoader];
+    
     [responseLoader waitForResponse];
     
     NSArray* array = [responseLoader objects];
     
     if (array==nil) XCTFail(@"The results array should not be nil");
     if ([array count]==0) XCTFail(@"At least one element was expected but we found %d",(int)[array count]);
+    
+    // Response should only have items with this fields
+    for (KTElement* element in array) {
+        
+        if (![element.itemVersion isEqualToString:@"-"]) {
+            XCTFail(@"An invalid element (version) was returned");
+            return;
+        }
+        if (![element.itemStatus isEqualToString:@"in Arbeit"]) {
+            XCTFail(@"An invalid element (status) was returned");
+            return;
+        }
+        
+    }
+}
+
+-(void)testSearchByFieldsAndFullText{
+    
+    KTKeytech* keytech = [[KTKeytech alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+    
+    NSArray *fields = @[@"as_do__status=in Arbeit",@"as_do__version=-"];
+    
+    
+    [keytech performSearch:@"dampf" fields:fields inClass:nil withScope:KTScopeAll page:1 pageSize:25 loaderDelegate:responseLoader];
+    
+    [responseLoader waitForResponse];
+    
+    NSArray* array = [responseLoader objects];
+    
+    if (array==nil) XCTFail(@"The results array should not be nil");
+    if ([array count]==0) XCTFail(@"At least one element was expected but we found %d",(int)[array count]);
+    
+    // Response should only have items with this fields
+    for (KTElement* element in array) {
+        
+        if (![element.itemVersion isEqualToString:@"-"]) {
+            XCTFail(@"An invalid element (version) was returned");
+            return;
+        }
+        if (![element.itemStatus isEqualToString:@"in Arbeit"]) {
+            XCTFail(@"An invalid element (status) was returned");
+            return;
+        }
+        
+    }
+
+    
+}
+
+
+-(void)testSearchByFieldsAndFullTextAndInClasses{
+    
+    KTKeytech* keytech = [[KTKeytech alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+    
+    NSArray *fields = @[@"as_do__status=in Arbeit",@"as_do__version=-"];
+    
+    
+    [keytech performSearch:@"dampf" fields:fields inClass:@"" withScope:KTScopeDocuments page:1 pageSize:25 loaderDelegate:responseLoader];
+    
+    [responseLoader waitForResponse];
+    
+    NSArray* array = [responseLoader objects];
+    
+    if (array==nil) XCTFail(@"The results array should not be nil");
+    if ([array count]==0) XCTFail(@"At least one element was expected but we found %d",(int)[array count]);
+    
+    // Response should only have items with this fields
+    for (KTElement* element in array) {
+        
+        if (![element.itemVersion isEqualToString:@"-"]) {
+            XCTFail(@"An invalid element (version) was returned");
+            return;
+        }
+        if (![element.itemStatus isEqualToString:@"in Arbeit"]) {
+            XCTFail(@"An invalid element (status) was returned");
+            return;
+        }
+        
+        if(![element.itemClassType isEqualToString:@"DO"]){
+            XCTFail(@"An invalid element (Classtype!=DO) was returned");
+            return;
+            
+        }
+        
+    }
     
     
 }
@@ -170,7 +276,7 @@
     
     NSArray* array = [responseLoader objects];
     
-    if (array==nil) XCTFail(@"The results array should not be nil");
+    if (array!=nil) XCTFail(@"The results array should be nil");
    // if ([array count]==0) XCTFail(@"At least one element was expected but we found %d",[array count]);
     
     
@@ -212,15 +318,32 @@
     
     NSArray* array = [responseLoader objects];
     
-    if (array==nil) XCTFail(@"The results array should not be nil");
+    if (array!=nil) XCTFail(@"The results array should be nil");
     //if ([array count]==0) XCTFail(@"At least one element was expected but we found %d",[array count]);
     
     
 }
 
 /**
- Fetching some notes
+ Fetching the whereused list
  */
+-(void)testGetElementWhereUsed{
+    
+    KTKeytech* keytech = [[KTKeytech alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+    
+    [keytech performGetElementWhereUsed:@"2DMISC_SLDDRW:2221" loaderDelegate:responseLoader];
+    
+    [responseLoader waitForResponse];
+    
+    NSArray* array = [responseLoader objects];
+    
+    if (array==nil) XCTFail(@"The results array should not be nil");
+    if ([array count]==0) XCTFail(@"At least one note was expected but we found %ld",(long)[array count]);
+    
+    
+}
+
 -(void)testGetElementNotes{
     
     KTKeytech* keytech = [[KTKeytech alloc]init];
@@ -238,7 +361,41 @@
     
     
 }
+-(void)testGetElementBOM{
+    
+    KTKeytech* keytech = [[KTKeytech alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+    
+    [keytech performGetElementBom:@"Default_MI:2088" loaderDelegate:responseLoader];
+    
+    [responseLoader waitForResponse];
+    
+    NSArray* array = [responseLoader objects];
+    
+    if (array==nil) XCTFail(@"The results array should not be nil");
+    if ([array count]==0) XCTFail(@"At least one note was expected but we found %ld",(long)[array count]);
+    
+    
+}
 
+
+-(void)testGetElementStructure{
+    
+    KTKeytech* keytech = [[KTKeytech alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+    
+    // Fetching a notes List. Element 3DMISC_SLDASM:2220 should have some files
+    [keytech performGetElementStructure:@"2DMISC_SLDDRW:2221" loaderDelegate:responseLoader];
+    
+    [responseLoader waitForResponse];
+    
+    NSArray* array = [responseLoader objects];
+    
+    if (array==nil) XCTFail(@"The results array should not be nil");
+    if ([array count]==0) XCTFail(@"At least one note was expected but we found %ld",(long)[array count]);
+    
+    
+}
 
 
 

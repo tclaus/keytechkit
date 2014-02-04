@@ -41,6 +41,14 @@
                                                        @"FileSize":@"fileSize",
                                                        }];
 
+        NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
+        RKResponseDescriptor *notesDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                                                             method:RKRequestMethodAny
+                                                                                        pathPattern:nil
+                                                                                            keyPath:@"FileInfos" statusCodes:statusCodes];
+        
+        [[RKObjectManager sharedManager]addResponseDescriptor:notesDescriptor];
+        
     }
     return _mapping;
 }
@@ -121,6 +129,9 @@ Checks if the file is already transferd to local machine
     if (![self isLocalLoaded] && !_isLoading){
         NSString* fileURL = [NSString stringWithFormat:@"/files/%ld",(long)self.fileID];
     
+     NSMutableURLRequest* request =    [[RKObjectManager sharedManager].HTTPClient requestWithMethod:@"GET" path:fileURL parameters:nil];
+        
+        
 
         _isLoading = YES;
         return nil;

@@ -310,86 +310,62 @@ static  RKObjectManager *manager;
 
 // Getting notes
 -(void)performGetElementNotes:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-/*
 
  
-    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
-    rpcData[@"elementKey"] = elementKey;
-
-
-    RKObjectMapping* itemMapping = [KTNoteItem setMapping];
-    itemMapping.rootKeyPath = @"NotesList";
+    [KTNoteItem mapping];
     
     NSString* resourcePath = [NSString stringWithFormat:@"/elements/%@/notes", elementKey];
     
     
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        //loader.params = [RKRequestSerialization serializationWithData:[json dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON] ;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-        loader.serializationMIMEType = RKMIMETypeJSON;
-    }];
-*/
+    [manager getObjectsAtPath:resourcePath
+                   parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[[KTLoaderInfo alloc]init] error:error];
+                      }];
+
 }
 
 /**
  Getting the default BOM lister layout
  */
 -(void)performGetClassBOMListerLayout:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-/*
- 
+
     
-    //RKObjectMapping* itemMapping = [[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[KTSimpleControl class]];
+    [KTSimpleControl mapping];
     
-    RKObjectMapping* itemMapping = [KTSimpleControl setMapping];
-    
-    itemMapping.rootKeyPath = @"DesignerControls";
+    // itemMapping.rootKeyPath = @"DesignerControls";
     
     NSString* resourcePath = @"/classes/bom/listerlayout";
     
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                      }];
     
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-        loader.serializationMIMEType = RKMIMETypeJSON;
-    }];
-    */
 }
 
 /**
 Getting lister layout data for the given classkey and the current logged in user.
  */
 -(void)performGetClassListerLayout:(NSString *)classKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-/*
- 
-    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
-    rpcData[@"classKey"] = classKey;
-    
-    [KTSimpleControl setMapping];
-    
-    // This did not work in unit Tests
-    //RKObjectMapping* itemMapping = [[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[KTSimpleControl class]];
-    
-    // This works in unit-Tests also
-    RKObjectMapping* itemMapping = [KTSimpleControl setMapping];
-    itemMapping.rootKeyPath = @"DesignerControls";
+
+    [KTSimpleControl mapping];
+
     
     NSString* resourcePath = [NSString stringWithFormat:@"/classes/%@/listerlayout", classKey];
+    [manager getObjectsAtPath:resourcePath
+                   parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                      }];
     
-    
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        //loader.params = [RKRequestSerialization serializationWithData:[json dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON] ;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-        loader.serializationMIMEType = RKMIMETypeJSON;
-    }];
-    */
     
 }
 
@@ -398,37 +374,48 @@ Getting lister layout data for the given classkey and the current logged in user
  Ruft das Editor-Layout der angegebenen Klasse ab
  */
 -(void)performGetClassEditorLayoutForClassKey:(NSString *)classKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-/*
  
-    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
-    rpcData[@"classKey"] = classKey;
+
+    [KTSimpleControl mapping];
     
-    
-    RKObjectMapping* itemMapping = [KTSimpleControl setMapping];
-    itemMapping.rootKeyPath = @"DesignerControls";
+    //itemMapping.rootKeyPath = @"DesignerControls";
     
     NSString* resourcePath = [NSString stringWithFormat:@"/classes/%@/editorlayout", classKey];
     
     
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        //loader.params = [RKRequestSerialization serializationWithData:[json dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON] ;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-        loader.serializationMIMEType = RKMIMETypeJSON;
-    }];
-    */
+    [manager getObjectsAtPath:resourcePath
+                   parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                          
+                      }];
+    
 }
 
 // gets a Element
--(void)performGetElement:(NSString*)elementKey withMetaData:(bool)metadata loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate{
+-(void)performGetElement:(NSString*)elementKey withMetaData:(KTResponseAttributes)metadata loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate{
 
  
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
     // Requests full Elements Metadata
-    if (metadata) {
-        rpcData[@"attributes"] = @"Editor"; // Editor / Lister / ALL / None
+    switch (metadata) {
+        case KTResponseNoneAttributes:
+            // No special treatment
+            break;
+        case KTResponseFullAttributes:
+            rpcData[@"attributes"] = @"ALL";
+            break;
+        case KTRespnseEditorAttributes:
+            rpcData[@"attributes"] = @"Editor";
+            break;
+        case KTResponseListerAttributes:
+            rpcData[@"attributes"] = @"Lister";
+            break;
+        default:
+            break;
     }
     
     // ResourcePath zusammenbauen
@@ -437,10 +424,12 @@ Getting lister layout data for the given classkey and the current logged in user
     
     // Initilize the mapping
     [KTElement mapping];
-    [manager getObject:nil path:nil parameters:rpcData success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        [loaderDelegate requestDidProceed:mappingResult.firstObject fromResourcePath:@"/Elements"];
+    
+    [manager getObject:nil path:resourcePath parameters:rpcData
+    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:@"/Elements"];
+    
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        
         [loaderDelegate requestProceedWithError:[[KTLoaderInfo alloc]init]  error:error];
     }];
     
@@ -452,34 +441,23 @@ Getting lister layout data for the given classkey and the current logged in user
 Gets the filelist of given elementKey
  */
 -(void)performGetFileList:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-    /*
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
-    rpcData[@"elementKey"] = elementKey;
-    
-    //Parsing rpcData to JSON!
-    //id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:RKMIMETypeJSON];
-    //NSError *error = nil;
-    //NSString *json = [parser stringFromObject:rpcData error:&error];
-    
-    RKObjectMapping* itemMapping = [KTFileInfo setMapping];
-    itemMapping.rootKeyPath = @"GetElementFileListResult";
+
+    [KTFileInfo mapping];
     
     
     NSString* resourcePath = [NSString stringWithFormat:@"/elements/%@/files", elementKey];
     
-        [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        //loader.params = [RKRequestSerialization serializationWithData:[json dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON] ;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-        loader.serializationMIMEType = RKMIMETypeJSON;
-
-    }];
-    */
+   [manager getObjectsAtPath:resourcePath
+                  parameters:nil
+                     success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                         [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                         
+                     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                         [loaderDelegate requestProceedWithError:[[KTLoaderInfo alloc]init] error:error];
+                     }];
 
 }
 
@@ -508,22 +486,20 @@ Gets the filelist of given elementKey
 
 // Gets the List of parent elements which links to the given element
 -(void)performGetElementWhereUsed:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-    /*
     
+    [KTElement mapping];
     
-    RKObjectMapping* itemMapping = [KTSimpleItem setMapping];
-    itemMapping.rootKeyPath = @"ElementList";
     
     NSString* resourcePath = [NSString stringWithFormat:@"/elements/%@/whereused",elementKey];
     
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-        loader.serializationMIMEType = RKMIMETypeJSON;
-    }];
-     */
+    [manager getObjectsAtPath:resourcePath
+                   parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                      }];
     
 }
 
@@ -554,71 +530,66 @@ Gets the filelist of given elementKey
 }
 
 // Queries a full list of root folder without any parents.
--(void)performGetRootFolderWithPage:(NSInteger)page withSize:(NSInteger)pageSize delegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-/*
+-(void)performGetRootFolderWithPage:(NSInteger)page withSize:(NSInteger)pageSize loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
+
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    
-    RKObjectMapping* itemMapping = [KTSimpleItem setMapping];
-    itemMapping.rootKeyPath = @"ElementList";
+    [KTElement mapping];
     
     NSString* resourcePath = @"/folder/rootfolder";
     
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-        loader.serializationMIMEType = RKMIMETypeJSON;
-    }];
+[manager getObjectsAtPath:resourcePath
+               parameters:nil
+                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                      [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                      
+                  } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                      [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                      
+                  }];
     
- */
+
 }
 
 // Gets the Bom of provided element
--(void)performGetElementBom:(NSString *)elementKey searchDeleagte:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-/*
+-(void)performGetElementBom:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    
-    RKObjectMapping* itemMapping = [KTBomItem setMapping];
-    itemMapping.rootKeyPath = @"BomElementList";
-    
+    [KTBomItem mapping];
+        
     NSString* resourcePath = [NSString stringWithFormat:@"/elements/%@/bom",elementKey];
     
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-    }];
- */
+    [manager getObjectsAtPath:resourcePath
+                   parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                      }];
+ 
 }
 
 
 
-//Queries the underlying element structure.
+/// Queries the underlying element structure.
 -(void)performGetElementStructure:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
 
-    /*
    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-
-    
-    RKObjectMapping* itemMapping = [KTSimpleItem setMapping];
-    itemMapping.rootKeyPath = @"ElementList";
+    [KTElement mapping];
     
     NSString* resourcePath = [NSString stringWithFormat:@"/elements/%@/structure",elementKey];
     
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-    }];
-*/
+    [manager getObjectsAtPath:resourcePath parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+        
+         } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+             [loaderDelegate requestProceedWithError:[[KTLoaderInfo alloc]init] error:error];
+         }];
+
 }
 
 /// Stats a Search by its queryID
@@ -635,7 +606,7 @@ Gets the filelist of given elementKey
     rpcData[@"page"] = @((int)page);
     rpcData[@"size"] = @((int)size);
     
-    [manager getObject:nil path:@"/Searchitsm" parameters:rpcData
+    [manager getObject:nil path:@"/Searchitems" parameters:rpcData
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    NSLog(@"Success");
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -645,13 +616,54 @@ Gets the filelist of given elementKey
 
 }
 
-// Searchs for ALL with pagesize 500
--(void)performSearch:(NSString *)searchToken loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-    [self performSearch:searchToken page:1 withSize:500 withScope:KTScopeAll loaderDelegate:loaderDelegate];
+
+-(NSString*)tokenForSearchScope:(int)scope{
+    switch (scope) {
+        case KTScopeAll:
+            return @"ALL";
+            break;
+        case KTScopeDocuments:
+            return @"Document";
+            break;
+            
+        case KTScopeFolder:
+            return  @"Folder";
+            break;
+            
+        case KTScopeMasteritems:
+            return @"Item";
+            break;
+            
+        default:
+            // No Scope - get all
+            return @"ALL";
+    }
 }
 
--(void)performSearch:(NSString *)searchToken page:(NSInteger)page withSize:(NSInteger)size withScope:(KTSearchScopeType)scope loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
+/// Searchs for ALL with pagesize 500
+-(void)performSearch:(NSString *)searchToken loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
+    
+    [self performSearch:searchToken
+                 fields:nil
+                inClass:nil
+              withScope:KTScopeAll
+                   page:1
+               pageSize:500
+         loaderDelegate:loaderDelegate];
+    
+}
 
+
+/// The search
+-(void)performSearch:(NSString *)searchToken
+        fields:(NSArray*)searchFields
+        inClass:(NSString*)inClass
+        withScope:(KTSearchScopeType)scope
+        page:(NSInteger)page
+        pageSize:(NSInteger)size
+        loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
+
+        
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
    
@@ -661,37 +673,38 @@ Gets the filelist of given elementKey
     // Creating Query Parameter
     
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
-    rpcData[@"q"] = searchToken;
+    if (searchToken) {
+        rpcData[@"q"] = searchToken;
+    }
+    
+    if (inClass) {
+        rpcData[@"inClasses"] = inClass;
+    }
+    if (searchFields) {
+        NSMutableString *fields = [NSMutableString stringWithString:@""];
+        for (NSString* item in searchFields) {
+            if ([fields length]>0){
+                
+            [fields appendString:@":"]; // add a new string
+            }
+            [fields appendString:item];
+        }
+        
+        rpcData[@"fields"] = fields;
+    }
+
+    
+    rpcData[@"scope"] = [self tokenForSearchScope:scope];    
     rpcData[@"page"] = @((int)page);
     rpcData[@"size"] = @((int)size);
+
     
-    switch (scope) {
-        case KTScopeAll:
-            rpcData[@"scope"] =@"ALL";
-            break;
-        case KTScopeDocuments:
-            rpcData[@"scope"] = @"Document";
-            break;
-            
-        case KTScopeFolder:
-            rpcData[@"scope"] = @"Folder";
-            break;
-            
-        case KTScopeMasteritems:
-            rpcData[@"scope"] = @"Item";
-            break;
-            
-        default:
-            // No Scope - get all
-            break;
-    }
     
     [manager getObject:nil path:@"/Searchitems" parameters:rpcData
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                   NSLog(@"Success");
                    [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:@"/Searchitems"];
+                   
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   NSLog(@"Failed");
                    [loaderDelegate requestProceedWithError:nil error:nil];
                }];
 

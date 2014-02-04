@@ -42,7 +42,15 @@
                                                        @"CreatedAt":@"noteCreatedAt",
                                                        @"CreatedBy":@"noteCreatedBy",
                                                        @"CreatedByLong":@"noteCreatedByLong"
-                                                       }];
+                                                    }];
+        
+        NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
+        RKResponseDescriptor *elementDescriptor = [RKResponseDescriptor
+                                                   responseDescriptorWithMapping:_mapping
+                                                   method:RKRequestMethodAny
+                                                   pathPattern:nil keyPath:@"NotesList" statusCodes:statusCodes];
+
+        [[RKObjectManager sharedManager] addResponseDescriptor:elementDescriptor];
         
     }
     return _mapping;

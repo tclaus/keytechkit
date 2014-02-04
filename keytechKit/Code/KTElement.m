@@ -259,7 +259,7 @@ if(components.count>=2)
         return _itemBomList;
     }else {
         _isItemBomListLoading = YES;
-        [ktManager performGetElementBom:self.itemKey searchDeleagte:self];
+        [ktManager performGetElementBom:self.itemKey loaderDelegate:self];
         return _itemBomList;
     }
 }
@@ -351,7 +351,7 @@ Performs lazy loading of structural data. Every elementtype might have structura
             
             // Set by KVC
             [self willChangeValueForKey:@"itemStructureList"];
-            [self.itemStructureList setArray:searchResult];
+            [_itemStructureList setArray:searchResult];
             [self didChangeValueForKey:@"itemStructureList"];
         }
         
@@ -364,7 +364,7 @@ Performs lazy loading of structural data. Every elementtype might have structura
         _isWhereUsedListLoaded = YES;
         //Set by KVC
         [self willChangeValueForKey:@"itemWhereUsedList"];
-        [[self itemWhereUsedList] setArray:searchResult];
+        [_itemWhereUsedList setArray:searchResult];
         [self didChangeValueForKey:@"itemWhereUsedList"];
         
         return;
@@ -383,7 +383,7 @@ Performs lazy loading of structural data. Every elementtype might have structura
             
             // Set by KVC
             [self willChangeValueForKey:@"itemBomList"];
-            [self.itemBomList setArray:searchResult];
+            [_itemBomList setArray:searchResult];
             [self didChangeValueForKey:@"itemBomList"];
         }
         
@@ -396,7 +396,7 @@ Performs lazy loading of structural data. Every elementtype might have structura
         _isStatusHistoryLoaded = YES;
         //Set by KVC
         [self willChangeValueForKey:@"itemStatusHistory"];
-        [[self itemStatusHistory] setArray:searchResult];
+        [_itemStatusHistory setArray:searchResult];
         [self didChangeValueForKey:@"itemStatusHistory"];
         
         return;
@@ -414,7 +414,7 @@ Performs lazy loading of structural data. Every elementtype might have structura
             
             [self willChangeValueForKey:@"itemNextAvailableStatusList"];
             
-            [[self itemNextAvailableStatusList]setArray:searchResult];
+            [_itemNextAvailableStatusList setArray:searchResult];
             [self didChangeValueForKey:@"itemNextAvailableStatusList"];
             
         }
@@ -433,7 +433,7 @@ Performs lazy loading of structural data. Every elementtype might have structura
         }else {
             //set by KVC
             [self willChangeValueForKey:@"itemFilesList"];
-            [[self itemFilesList] setArray:searchResult];
+            [_itemFilesList setArray:searchResult];
             [self didChangeValueForKey:@"itemFilesList"];
         }
         
@@ -450,7 +450,7 @@ Performs lazy loading of structural data. Every elementtype might have structura
         }else {
             //set by KVC
             [self willChangeValueForKey:@"itemNotesList"];
-            [[self itemNotesList] setArray:searchResult];
+            [_itemNotesList setArray:searchResult];
             [self didChangeValueForKey:@"itemNotesList"];
         }
         

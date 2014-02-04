@@ -16,6 +16,8 @@
  The collection of objects loaded from the RKObjectLoader the receiver is acting as the delegate for.
  */
 @property (nonatomic) NSArray *objects;
+@property (nonatomic) NSObject *firstObject;
+@property (nonatomic) NSError *error;
 
 + (testResponseLoader *)responseLoader;
 

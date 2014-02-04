@@ -20,7 +20,8 @@
 {
     @private
     NSString* elementKeyWithStructure;// = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API
-    NSString* elementKeyWithNotes;// = @"3dmisc_sldasm:2221"; //* Element with notes on Test API
+    NSString* elementKeyWithBOM;
+    NSString* elementKeyWithNotes;// = @"3dmisc_sldasm:2220"; //* Element with notes on Test API
     NSString* elementKeyWithStatusHistory;// = @"3dmisc_sldprt:2156"; //* Element with some status changed´s in the past. Will provide a status history
     NSString* elementKeyWithStateWork; // = 3DMISC_SLDPRT:2133 // Sollte "In Arbeit" sein.
     NSString* elementKeyItem; //* DEFAULT_MI:2088  // Item with BOM List
@@ -44,11 +45,11 @@ Webservice* _webservice;
     
     _webservice = [Webservice sharedWebservice];
     elementKeyWithStructure = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API
-    elementKeyWithNotes = @"3dmisc_sldasm:2221"; //* Element with notes on Test API
+    elementKeyWithNotes = @"3dmisc_sldasm:2220"; //* Element with notes on Test API
     elementKeyWithStatusHistory = @"3dmisc_sldprt:2156"; //* Element with some status changed´s in the past. Will provide a status history
     elementKeyItem = @"DEFAULT_MI:2088";  //* Represents an item with bom structure
     elementKeyWithStateWork = @"3DMISC_SLDPRT:21332";
-    
+    elementKeyWithBOM = @"DEFAULT_MI:2088";
 }
 
 - (void)tearDown
@@ -205,7 +206,7 @@ Performs a GET on an Elements BOM (Bill of Material)s list.
 - (void)testGetElementBOM
 {
     KTElement* item = [[KTElement alloc]init];
-    item.itemKey = elementKeyWithStructure;
+    item.itemKey = elementKeyWithBOM;
     
     NSMutableArray* structure =  item.itemBomList;
     

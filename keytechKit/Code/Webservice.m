@@ -161,9 +161,8 @@ static Webservice* _sharedWebservice = nil;
 
         manager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.servername]]] ;// @"http://192.168.0.10:8080/keytech"];
         
- //       [RKObjectMapping setDefaultDateFormatters:[NSArray arrayWithObject:[RKDotNetDateFormatter dotNetDateFormatterWithTimeZone:[NSTimeZone systemTimeZone]]]];
-
-   //     [RKObjectMapping setPreferredDateFormatter: [RKDotNetDateFormatter dotNetDateFormatterWithTimeZone:nil]];
+        [[RKValueTransformer defaultValueTransformer]addValueTransformer:[RKDotNetDateFormatter dotNetDateFormatterWithTimeZone:[NSTimeZone localTimeZone]]];
+        
 
         
         [manager.HTTPClient setAuthorizationHeaderWithUsername:self.username password:self.password];

@@ -22,17 +22,22 @@ static RKObjectMapping* _mapping;
         
         _mapping = [RKObjectMapping requestMapping];
         [_mapping addAttributeMappingsFromDictionary:@{@"Account":@"settingAccount",
-                                                      @"Name":@"settingAccount",
+                                                      @"Name":@"settingName",
                                                       @"Context":@"settingContext",
                                                       @"Description":@"settingDescription",
                                                       @"Value":@"settingValue"
                                                        }];
         
-        [[RKObjectManager sharedManager] addRequestDescriptor:
-        [RKRequestDescriptor requestDescriptorWithMapping:_mapping
-                                              objectClass:[KTGlobalSetting class]
-                                               rootKeyPath:@"GlobalsettingsList" method:RKRequestMethodAny]];
+        NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
+        
+        [[RKObjectManager sharedManager] addResponseDescriptor:
+        [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                     method:RKRequestMethodAny
+                                                pathPattern:nil keyPath:@"GlobalsettingList"
+                                                statusCodes:statusCodes]];
 
+
+        
     }
     return _mapping;
 }

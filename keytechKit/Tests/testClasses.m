@@ -49,11 +49,23 @@
     [super tearDown];
 }
 
+
+
+/// Gets a full classlist
+-(void)testGetClasslist{
+
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+    
+    [keytech performGetClassEditorLayoutForClassKey:classKey loaderDelegate:responseLoader];
+
+    
+    XCTFail(@"To be implemented");
+}
+
 /// Gets a editorlayout for the requested element.
 -(void)testGetEditorLayoutForElement{
     testResponseLoader* responseLoader = [testResponseLoader responseLoader];
 
-    
     [keytech performGetClassEditorLayoutForClassKey:classKey loaderDelegate:responseLoader];
     
     [responseLoader waitForResponse];

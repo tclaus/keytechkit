@@ -17,6 +17,8 @@
 NSString * const TestResponseLoaderTimeoutException = @"TestResponseLoaderTimeoutException";
 
 @synthesize objects = _objects;
+@synthesize firstObject = _firstObject;
+@synthesize error =_error;
 
 // Loads a new responseLoader object
 
@@ -41,8 +43,9 @@ NSString * const TestResponseLoaderTimeoutException = @"TestResponseLoaderTimeou
     while (awaitingResponse) {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         if ([[NSDate date] timeIntervalSinceDate:startDate] > timeout) {
-            [NSException raise:TestResponseLoaderTimeoutException format:@"*** Operation timed out after %d seconds...", timeout];
             awaitingResponse = NO;
+            //[NSException raise:TestResponseLoaderTimeoutException format:@"*** Operation timed out after %d seconds...", timeout];
+            
         }
     }
 }
@@ -50,11 +53,18 @@ NSString * const TestResponseLoaderTimeoutException = @"TestResponseLoaderTimeou
 -(void)requestDidProceed:(NSArray *)searchResult fromResourcePath:(NSString *)resourcePath{
     awaitingResponse = NO;
     self.objects = searchResult;
+    
+    if (searchResult !=nil)
+        if (searchResult.count>0)
+            self.firstObject = searchResult[0];
+    
 
 }
 
 -(void)requestProceedWithError:(id)loaderInfo error:(NSError *)theError{
     awaitingResponse = NO;
+    self.error = theError;
+    
 }
 
 

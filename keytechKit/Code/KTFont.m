@@ -20,7 +20,7 @@ static RKObjectMapping* _mapping;
         _mapping = [RKObjectMapping mappingForClass:[KTFont class]];
         
         [_mapping addAttributeMappingsFromDictionary:@{@"FontName":@"fontName",
-                                                       @"FontSize":@"FontSize",
+                                                       @"FontSize":@"fontSize",
                                                        @"FontStyle":@"fontStyle"}];
         
         RKResponseDescriptor *fonts = [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny pathPattern:nil keyPath:@"Font" statusCodes:nil];
@@ -34,7 +34,7 @@ static RKObjectMapping* _mapping;
 
 // Find the underline token
 -(BOOL)isUnderlined{
-    if ([self.FontStyle rangeOfString:@"UNDERLINE" options:NSCaseInsensitiveSearch].location !=NSNotFound){
+    if ([self.fontStyle rangeOfString:@"UNDERLINE" options:NSCaseInsensitiveSearch].location !=NSNotFound){
         return YES;
     }
     return NO;
@@ -42,7 +42,7 @@ static RKObjectMapping* _mapping;
 
 // Finds the italic token
 -(BOOL)isItalic{
-    if ([self.FontStyle rangeOfString:@"ITALIC" options:NSCaseInsensitiveSearch].location !=NSNotFound){
+    if ([self.fontStyle rangeOfString:@"ITALIC" options:NSCaseInsensitiveSearch].location !=NSNotFound){
         return YES;
     }
     return NO;
@@ -50,7 +50,7 @@ static RKObjectMapping* _mapping;
 
 // finds the bold token
 -(BOOL)isBold{
-    if ([self.FontStyle rangeOfString:@"BOLD" options:NSCaseInsensitiveSearch].location !=NSNotFound){
+    if ([self.fontStyle rangeOfString:@"BOLD" options:NSCaseInsensitiveSearch].location !=NSNotFound){
         return YES;
     }
     return NO;

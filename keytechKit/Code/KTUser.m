@@ -55,7 +55,7 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
     return self;
 }
 
-+(id)smapping{
++(id)mapping{
     if (!_mapping){
         _mapping = [RKObjectMapping mappingForClass:[KTUser class]];
         [_mapping addAttributeMappingsFromDictionary:@{@"IsActive":@"isActive",

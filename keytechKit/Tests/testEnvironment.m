@@ -18,7 +18,6 @@
 @implementation testEnvironment
 {
     Webservice* _webservice;
-    NSString* testSearchString;
     KTKeytech* keytech;
 }
 
@@ -28,7 +27,6 @@
     // Put setup code here; it will be run once, before the first test case.
     
     _webservice = [Webservice sharedWebservice];
-    testSearchString = @"dampf"; //* a Search String 'dampf' or 'keytech'
     
     keytech = [[KTKeytech alloc]init];
     
@@ -43,7 +41,7 @@
 -(void)testPerformSearch{
     testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
-    [keytech performSearch:testSearchString loaderDelegate:responseLoader];
+    [keytech performSearch:@"dampf" loaderDelegate:responseLoader];
     
     [responseLoader waitForResponse];
     
@@ -56,16 +54,24 @@
 
 /// Performs a global Search with minimal Pagesize of 1.
 -(void)testPerformSearchWithMinimalPageSize{
+    
     testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-    [keytech performSearch:testSearchString page:1 withSize:2 withScope:KTScopeAll loaderDelegate:responseLoader];
+    
+    [keytech performSearch:@"dampf"
+                    fields:nil
+                   inClass:nil
+                 withScope:KTScopeAll
+                      page:1
+                  pageSize:1
+            loaderDelegate:responseLoader];
     
     [responseLoader waitForResponse];
     
     NSArray* array = [responseLoader objects];
     
     if (array==nil) XCTFail(@"The results array should not be nil");
-    if ([array count]==0) XCTFail(@"One Element was expected");
-    // just 1 element!
+    if ([array count]!=1) XCTFail(@"One Element was expected");
+
 }
 
 /// Performs a Search with user defined query with minimal Pagesize of 1.

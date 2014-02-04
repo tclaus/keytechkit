@@ -93,12 +93,12 @@
     testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     
-    [ktSystemManagement performGetGlobalSetting:@"" forUser:@"jgrant" loaderDelegate:responseLoader];
+    [ktSystemManagement performGetGlobalSetting:@"PR0JMAIN_WF_1stVersion" forUser:@"jgrant" loaderDelegate:responseLoader];
     
     [responseLoader waitForResponse];
     NSArray* results = [responseLoader objects];
     
-    XCTAssert(results==nil, @"Results should not be nil");
+    XCTAssert(results!=nil, @"Results should not be nil");
     XCTAssert(results.count>0, @"Results should have member");
     
 }

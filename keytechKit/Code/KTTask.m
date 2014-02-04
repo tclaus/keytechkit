@@ -15,7 +15,7 @@ static RKObjectMapping* _mapping;
 
 
 // Sets the JSON mapping
-+(id)smapping{
++(id)mapping{
     
     if (_mapping==nil){
         

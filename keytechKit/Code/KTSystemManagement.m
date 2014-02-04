@@ -15,17 +15,27 @@
 
 @implementation KTSystemManagement
 
+#pragma mark Classlist
+-(void)performGetClass:(NSString *)classKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
+     RKObjectManager *manager = [RKObjectManager sharedManager];
+    
+}
+
+-(void)performGetClasslist:(NSObject<KTLoaderDelegate> *)loaderDelegate{
+     RKObjectManager *manager = [RKObjectManager sharedManager];
+    
+}
 
 #pragma mark GlobalSettings
 
 /// Requests effective user relevant Globalsettings if username is set
 // Requests a list of usersetting if username is nil
 -(void)performGetGlobalSetting:(NSString *)settingName forUser:(NSString *)username loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-    /*
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     
-    RKObjectMapping* itemMapping = [KTGlobalSetting setMapping];
+    [KTGlobalSetting mapping];
 
     
     NSString* resourcePath;
@@ -37,13 +47,14 @@
         resourcePath= [NSString stringWithFormat:@"/globalsettings/%@",settingName];
     }
     
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-    }];
-     */
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[[KTLoaderInfo alloc]init] error:error];
+                      }];
+    
 }
 
 // Performs a search
@@ -52,57 +63,60 @@
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-
+    [KTGlobalSetting mapping];
+    
     // Creating Query Parameter
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
     rpcData[@"q"] = searchText;
     rpcData[@"FullResults"] = @((int)fullResults);
     
-    [manager getObject:nil path:@"/globalsettings" parameters:rpcData
+    NSString* resourcePath =@"/globalsettings";
+    
+    [manager getObject:nil path:resourcePath parameters:rpcData
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                   NSLog(@"Success");
+                   [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                   
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   NSLog(@"Failed");
+                   [loaderDelegate requestProceedWithError:[[KTLoaderInfo alloc]init] error:error];
                }];
     
     
 }
 
-
+/// Gets a full list of available global setting contexts
 -(void)performGetGlobalSettingContexts:(NSObject<KTLoaderDelegate> *)loaderDelegate{
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    
+    [KTGlobalSetting mapping];
     
     NSString* resourcePath = @"/globalsettings/contexts";
     
     [manager getObject:nil path:resourcePath parameters:nil
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                    NSLog(@"Success");
-                   [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:@""];
+                   [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                    
                   
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   NSLog(@"Failed");
+                   [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                   
                }];
 }
 
 // All Settings by its given contextname
 -(void)performGetGlobalSettingsByContext:(NSString *)contextName loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-    
-    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTGlobalSetting mapping];
     
     // ResourcePath zusammenbauen
     NSString* resourcePath = [NSString stringWithFormat:@"/globalsettings/contexts/%@",contextName];
 
-/*
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-    }];
-  */
+[manager getObjectsAtPath:resourcePath parameters:nil
+                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                      [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                      
+                  } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                      [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                  }];
 }
 
 

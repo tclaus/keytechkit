@@ -71,6 +71,17 @@ static RKObjectMapping* _mapping;
         [_mapping addPropertyMapping:simpleElemenRelationship];
         [_mapping addPropertyMapping:keyValueMapping];
         
+        
+        NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
+        RKResponseDescriptor *bomElementDescriptor = [RKResponseDescriptor
+                                                   responseDescriptorWithMapping:_mapping
+                                                   method:RKRequestMethodAny
+                                                   pathPattern:nil keyPath:@"BomElementList" statusCodes:statusCodes];
+
+        
+         [[RKObjectManager sharedManager] addResponseDescriptorsFromArray:@[ bomElementDescriptor ]];
+        
+        
     }
     
     return _mapping;

@@ -48,6 +48,18 @@
  */
 -(void)performGetGlobalSettingContexts:(NSObject<KTLoaderDelegate> *)loaderDelegate;
 
+#pragma mark Classlist
+/**
+ Returns a full Classlist with its attributes
+ */
+-(void)performGetClasslist:(NSObject <KTLoaderDelegate>*) loaderDelegate;
+
+/**
+ Returns a specific class identified by classkey
+ */
+-(void)performGetClass:(NSString*)classKey loaderDelegate:(NSObject <KTLoaderDelegate>*) loaderDelegate;
+
+
 #pragma mark Status
 /**
  Gets the statuslist with it definition

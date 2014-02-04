@@ -31,6 +31,16 @@ typedef enum {
     KTScopeFolder        = 3
 } KTSearchScopeType;
 
+typedef enum {
+    /// Returns the reduced list of Attributes (default)
+    KTResponseNoneAttributes           = 0,
+    /// Return all available attributes for this element
+    KTResponseFullAttributes           = 1,
+    /// Return attribuites only needed for a editor layout
+    KTRespnseEditorAttributes     = 2,
+    KTResponseListerAttributes   = 3
+} KTResponseAttributes;
+
 
 /**
  Provides acces to basic system level management functions
@@ -59,11 +69,28 @@ typedef enum {
  */
 -(void)performSearch:(NSString *)searchToken loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;
 
+
 /**
- Starts a fulltext search with the given search word. Returns pagewise with given page sizes
-  @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
+ Start a search with a set of parameters. Set to nil if not needed.
+@param searchToken: One or more words divided by space for searching in a server defined set of fields. Leave empty if no needed.
+ @param searchFields: An array of field predicates in the form
+  <attributename><Operator><Value> with attributename is a valid keytech internal attribute (as_do__... or au_sdo__..) 
+  Operator is eqals, greater than, lesser than or nit equal: <,>,=,<>
+ and a value in a string format. 
+ A valid searchfield is eg: "as_do__status=in arbeit", "as_sdo__volume=123"
+@param inClass: as comma separated list of valid classkeys. The list can be requested by a getClasses command. 
+ @param scope: Search in all element types or just in teh specified one
+ @param page: If the response has many elements. Set a Page and a proper  @pageSize for paginated resukltset
+ @param pageSize: the maximum requested count of elements within a page
+ @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
  */
--(void)performSearch:(NSString *)searchToken page:(NSInteger)page withSize:(NSInteger)size withScope:(KTSearchScopeType)scope loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;
+-(void)performSearch:(NSString *)searchToken
+              fields:(NSArray*)searchFields
+             inClass:(NSString*)inClass
+           withScope:(KTSearchScopeType)scope
+                page:(NSInteger)page
+            pageSize:(NSInteger)size
+      loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;
 
 /**
  Queries elements structure from a given elementKey.
@@ -96,15 +123,14 @@ typedef enum {
  Queries the BOm of the given Element.
  Only Items (articles) can have a bom.
  @param:elementKey represents the full elementKey in classtype:ID DEFAULT_MI:1234 notiation.
-  @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
+ @param delegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
  */
--(void)performGetElementBom:(NSString*)elementKey searchDeleagte:(NSObject<KTLoaderDelegate>*)loaderDelegate;
-
+-(void)performGetElementBom:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate;
 /**
  Queries element from API with given elementKey
   @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
  */
--(void)performGetElement:(NSString*)elementKey withMetaData:(bool)metadata loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate;
+-(void)performGetElement:(NSString*)elementKey withMetaData:(KTResponseAttributes)metadata loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate;
 
 /**
  Starts a query to get the element status history.

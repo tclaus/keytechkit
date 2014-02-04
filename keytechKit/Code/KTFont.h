@@ -15,9 +15,9 @@
  */
 +(id)mapping;
 
-@property (nonatomic,copy) NSString* FontName;
-@property (nonatomic,copy) NSString* FontStyle;
-@property (nonatomic,copy) NSNumber* FontSize;
+@property (nonatomic,copy) NSString* fontName;
+@property (nonatomic,copy) NSString* fontStyle;
+@property (nonatomic,copy) NSNumber* fontSize;
 
 /**
  Returns YES if the Text should be renderd Unerlined

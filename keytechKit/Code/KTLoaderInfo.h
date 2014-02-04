@@ -24,4 +24,11 @@
  */
 -(id)initWithObjectLoader:(id*)objectLoader;
 
+/**
+ initializes an empty loader Info
+ */
++(instancetype)ktLoaderInfo;
+// (For later use)
+
+
 @end

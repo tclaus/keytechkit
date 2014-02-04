@@ -11,6 +11,11 @@
 @implementation KTLoaderInfo
 @synthesize ressourcePath = _ressourcePath;
 
+
++(instancetype)ktLoaderInfo{
+    return [[KTLoaderInfo alloc]init];
+}
+
 -(id)initWithObjectLoader:(id*)objectLoader{
     if(self=[super init]){
     

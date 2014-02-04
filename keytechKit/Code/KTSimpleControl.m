@@ -18,7 +18,6 @@
 
 @synthesize controlAttributeName = _controlAttributeName;
 @synthesize controlDisplayName = _controlDisplayName;
-@synthesize controlFontStyle = _controlFontStyle;
 @synthesize controlType = _controlType;
 @synthesize controlName = _controlName;
 @synthesize controlPosition = _controlPosition;
@@ -44,7 +43,6 @@ static RKObjectMapping* _mapping = nil;
                                                       @"AttributeName": @"controlAttributeName",
                                                       @"ControlType": @"controlType",
                                                       @"Displayname": @"controlDisplayName",
-                                                      @"FontStyle": @"controlFontStyle",
                                                       @"Name": @"controlName",
                                                       @"Sequence": @"controlSequence"
                                                       }];
@@ -57,6 +55,13 @@ static RKObjectMapping* _mapping = nil;
         [_mapping addPropertyMapping:
          [RKRelationshipMapping relationshipMappingFromKeyPath:@"Font" toKeyPath:@"font" withMapping:[KTFont mapping]]];
 
+                NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
+        
+       RKResponseDescriptor *simpleControlDescriptor =  [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                      method:RKRequestMethodAny pathPattern:nil keyPath:@"DesignerControls" statusCodes:statusCodes];
+        
+        
+        [[RKObjectManager sharedManager]addResponseDescriptor:simpleControlDescriptor];
 
     }
     
