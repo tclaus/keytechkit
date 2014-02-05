@@ -146,6 +146,8 @@
 		6508594C189CF0F500399949 /* testRequestServers.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085918189CF0B100399949 /* testRequestServers.m */; };
 		6508594D189CF0F500399949 /* testStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085919189CF0B100399949 /* testStatus.m */; };
 		6508594E189CF0F500399949 /* testUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508591A189CF0B100399949 /* testUserSettings.m */; };
+		65403C0B18A2778F006D3BE6 /* testCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65403C0A18A2778F006D3BE6 /* testCase.m */; };
+		65403C0C18A2778F006D3BE6 /* testCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65403C0A18A2778F006D3BE6 /* testCase.m */; };
 		65494DFF18A227E100EF9FA4 /* KTGlobalSettingContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 65494DFD18A227E100EF9FA4 /* KTGlobalSettingContext.h */; };
 		65494E0018A227E100EF9FA4 /* KTGlobalSettingContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 65494DFE18A227E100EF9FA4 /* KTGlobalSettingContext.m */; };
 		65494E0118A227E100EF9FA4 /* KTGlobalSettingContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 65494DFE18A227E100EF9FA4 /* KTGlobalSettingContext.m */; };
@@ -349,6 +351,8 @@
 		65085918189CF0B100399949 /* testRequestServers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testRequestServers.m; sourceTree = "<group>"; };
 		65085919189CF0B100399949 /* testStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testStatus.m; sourceTree = "<group>"; };
 		6508591A189CF0B100399949 /* testUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testUserSettings.m; sourceTree = "<group>"; };
+		65403C0918A2778F006D3BE6 /* testCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testCase.h; sourceTree = "<group>"; };
+		65403C0A18A2778F006D3BE6 /* testCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testCase.m; sourceTree = "<group>"; };
 		65494DFD18A227E100EF9FA4 /* KTGlobalSettingContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTGlobalSettingContext.h; sourceTree = "<group>"; };
 		65494DFE18A227E100EF9FA4 /* KTGlobalSettingContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTGlobalSettingContext.m; sourceTree = "<group>"; };
 		657E50EF189E76F800CB7859 /* testResponseLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testResponseLoader.h; sourceTree = "<group>"; };
@@ -592,6 +596,8 @@
 				6508591A189CF0B100399949 /* testUserSettings.m */,
 				657E50EF189E76F800CB7859 /* testResponseLoader.h */,
 				657E50F0189E76F800CB7859 /* testResponseLoader.m */,
+				65403C0918A2778F006D3BE6 /* testCase.h */,
+				65403C0A18A2778F006D3BE6 /* testCase.m */,
 			);
 			name = Tests;
 			path = keytechKit/Tests;
@@ -873,6 +879,7 @@
 				6508594B189CF0F500399949 /* testKeytechElements.m in Sources */,
 				65085946189CF0F500399949 /* testClasses.m in Sources */,
 				6508594E189CF0F500399949 /* testUserSettings.m in Sources */,
+				65403C0B18A2778F006D3BE6 /* testCase.m in Sources */,
 				65085948189CF0F500399949 /* testFileManagement.m in Sources */,
 				65085944189CF0F500399949 /* testAttributeMappings.m in Sources */,
 			);
@@ -931,6 +938,7 @@
 				6508593F189CF0F400399949 /* testKeytechElements.m in Sources */,
 				6508593A189CF0F400399949 /* testClasses.m in Sources */,
 				65085942189CF0F400399949 /* testUserSettings.m in Sources */,
+				65403C0C18A2778F006D3BE6 /* testCase.m in Sources */,
 				6508593C189CF0F400399949 /* testFileManagement.m in Sources */,
 				65085938189CF0F400399949 /* testAttributeMappings.m in Sources */,
 			);
