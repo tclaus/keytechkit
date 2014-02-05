@@ -124,7 +124,7 @@ NSTimeInterval _timeOut = 12;
     
     KTFileInfo* firstFile = filesList[1];
 
-    NSURL* localFile =  firstFile.localFileURL;
+    NSURL* localFile =  [firstFile loadRemoteFile];
     localFile = nil;
     
     [firstFile addObserver:self forKeyPath:@"localFileURL" options:NSKeyValueObservingOptionNew context:nil];
@@ -135,7 +135,7 @@ NSTimeInterval _timeOut = 12;
     [firstFile removeObserver:self forKeyPath:@"localFileURL" context:nil];
     
     
-    XCTAssertNotNil(firstFile.localFileURL, @"File not load");
+    XCTAssertNotNil([firstFile loadRemoteFile], @"File not load");
     
 }
 

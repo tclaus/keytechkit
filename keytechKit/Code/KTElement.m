@@ -653,6 +653,10 @@ Performs lazy loading of structural data. Every elementtype might have structura
     return [NSString stringWithFormat:@"item: %@",[self itemName]];
 }
 
+-(NSString *)debugDescription{
+    return self.itemDescription;
+}
+
 // Return full qualified FileID
 -(NSString *)fileURLOfFileID:(int)fileID{
     

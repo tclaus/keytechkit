@@ -24,8 +24,12 @@
                                                        @"Restriction":@"restriction",
                                                        @"StatusID":@"statusID"
                                                     }];
-        
-        
+        RKResponseDescriptor *statusResponse = [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                             method:RKRequestMethodAny
+                                        pathPattern:nil keyPath:@"StatusList"
+                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+
+        [[RKObjectManager sharedManager]addResponseDescriptor:statusResponse];
     }
     
     return _mapping;

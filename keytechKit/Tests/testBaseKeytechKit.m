@@ -378,6 +378,22 @@
     
 }
 
+-(void)testGetElementNextAvailableStatus{
+    
+    KTKeytech* keytech = [[KTKeytech alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+    
+    [keytech performGetElementNextAvailableStatus:@"DEFAULT_MI:2088"  loaderDelegate:responseLoader];
+    
+    [responseLoader waitForResponse];
+    
+    NSArray* array = [responseLoader objects];
+    
+    if (array==nil) XCTFail(@"The results array should not be nil");
+    if ([array count]==0) XCTFail(@"At least one note was expected but we found %ld",(long)[array count]);
+    
+    
+}
 
 -(void)testGetElementStructure{
     

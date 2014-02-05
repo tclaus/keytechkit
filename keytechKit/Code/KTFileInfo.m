@@ -12,11 +12,11 @@
 
 @implementation KTFileInfo
 {
-    NSURL* _localURL;
     NSString* _fileDivider;
 }
 
 @synthesize isLoading = _isLoading;
+@synthesize localFileURL = _localFileURL;
 
     static RKObjectMapping* _mapping;
 
@@ -102,42 +102,45 @@ Checks if the file is already transferd to local machine
 -(BOOL)isLocalLoaded{
     
     // Objekt ist nicht zugewiesen
-    if (!_localURL)
-        return NO;
-    
-    
-    NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath:[_localURL path]];
-    if (handle !=nil){
-        return YES;
-    }
-    return NO;
-    
-}
 
-/** 
- Returns the remote API path to file representation
- */
--(NSURL *)remoteURL{
-    return nil;
-}
+    return self.localFileURL !=nil;
+        
 
+}
 
 // Loads the file, if not locally available
 //TODO: What is with chaing / Reloading ? 
--(NSURL *)localFileURL{
+-(NSURL *)loadRemoteFile{
     
     if (![self isLocalLoaded] && !_isLoading){
-        NSString* fileURL = [NSString stringWithFormat:@"/files/%ld",(long)self.fileID];
+        NSString* resource = [NSString stringWithFormat:@"/files/%ld",(long)self.fileID];
     
-     NSMutableURLRequest* request =    [[RKObjectManager sharedManager].HTTPClient requestWithMethod:@"GET" path:fileURL parameters:nil];
+        //NSURL *fileURL = [NSURL URLWithString:resource relativeToURL:[[RKObjectManager sharedManager].HTTPClient baseURL]];
+        //NSMutableURLRequest *request =  [NSMutableURLRequest requestWithURL:fileURL];
         
+        NSMutableURLRequest *request = [[RKObjectManager sharedManager].HTTPClient requestWithMethod:@"GET" path:resource parameters:nil ];
         
+                                                   
+        NSURLSession *session = [NSURLSession sharedSession];
+        [[session downloadTaskWithRequest:request
+                       completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                           NSLog(@"File loaded at: %@",location);
+                           
+                           [self willChangeValueForKey:@"localFileURL"];
+                           _localFileURL = location;
+                           _isLoading = NO;
+                           [self didChangeValueForKey:@"localFileURL"];
 
+                           
+                       }] resume];
+        
+        
+        
         _isLoading = YES;
         return nil;
 
     } else {
-        return _localURL;
+        return self.localFileURL;
     }
 }
 
@@ -161,7 +164,7 @@ Checks if the file is already transferd to local machine
         @try {
             [self willChangeValueForKey:@"localFileURL"];
             //_localURL = [NSURL fileURLWithPath:[dataDir absoluteString]];
-            _localURL = dataDir;
+            _localFileURL = dataDir;
             
             _isLoading = NO;
             [self didChangeValueForKey:@"localFileURL"];

@@ -494,28 +494,25 @@ Gets the filelist of given elementKey
 
 //Gets a list of available target status. Starting from current element with its given state.
 -(void)performGetElementNextAvailableStatus:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-/*
- 
-    
-    
-    RKObjectMapping* itemMapping = [KTStatusItem setMapping];
-    itemMapping.rootKeyPath = @"Statuslist";
-    
+
+     RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTStatusItem mapping];
+
     NSString* resourcePath = [NSString stringWithFormat:@"/elements/%@/nextstatus",elementKey];
     
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-        loader.serializationMIMEType = RKMIMETypeJSON;
-    }];
-    */
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                      }];
+
 }
 
 // Queries a full list of root folder without any parents. Uses maximal pagesize
 -(void)performGetRootFolder:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-    [self performGetRootFolderWithPage:1 withSize:self.maximalPageSize delegate:loaderDelegate];
+    [self performGetRootFolderWithPage:1 withSize:self.maximalPageSize loaderDelegate:loaderDelegate];
 }
 
 // Queries a full list of root folder without any parents.
@@ -528,7 +525,7 @@ Gets the filelist of given elementKey
     
     NSString* resourcePath = @"/folder/rootfolder";
     
-[manager getObjectsAtPath:resourcePath
+    [manager getObjectsAtPath:resourcePath
                parameters:nil
                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                       [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];

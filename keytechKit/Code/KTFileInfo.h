@@ -43,15 +43,16 @@
  */
 @property (nonatomic,readonly) BOOL isLocalLoaded;
 
+
 /**
- Returns the Path to the API representation of this file
+When file is loaded a local URL is returned. Nil otherwise
  */
-@property (readonly) NSURL* remoteURL;
+@property (readonly,copy) NSURL *localFileURL;
 
 /**
   Local fileURL. Returns nil if currently file is not loaded. Starts the loading of the file.
  */
-@property (readonly) NSURL* localFileURL;
+-(NSURL*) loadRemoteFile;
 
 /**
  Is YES while a file load is currently in progress.
