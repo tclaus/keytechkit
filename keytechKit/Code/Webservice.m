@@ -252,8 +252,10 @@ static Webservice* _sharedWebservice = nil;
     preferences.password = Password;
     
     
-    manager.HTTPClient  = [NSURL URLWithString:Servername];
+    manager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:Servername]];
+    
     [manager.HTTPClient setAuthorizationHeaderWithUsername:Username password:Password];
+    [RKObjectManager setSharedManager:manager];
     
 }
 

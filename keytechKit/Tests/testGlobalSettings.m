@@ -11,6 +11,7 @@
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 #import "keytechKit/KTSystemManagement.h"
+#import "KTGlobalSettingContext.h"
 
 @interface testGlobalSettings : XCTestCase
 
@@ -41,10 +42,10 @@
     [ktSystemManagement performGetGlobalSettingContexts:responseLoader];
     
     [responseLoader waitForResponse];
-    NSArray* results = [responseLoader objects];
+    KTGlobalSettingContext* results = (KTGlobalSettingContext*)[responseLoader firstObject];
     
-    XCTAssert(results==nil, @"Results should not be nil");
-    XCTAssert(results.count>0, @"Results should have member");
+    XCTAssert(results!=nil, @"Results should not be nil");
+    XCTAssert(results.contexts.count>0, @"Results should have member");
     
 }
 
@@ -63,26 +64,28 @@
     
 }
 
-// Loads globalsetings by contextlist
+// Loads globalsetings defined by a contextname
+// Admin Role needed
 -(void)testLoadGlobalSettingsListByContexts{
     KTSystemManagement* ktSystemManagement = [[KTSystemManagement alloc]init];
     testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
     
-    [ktSystemManagement performGetGlobalSettingContexts:responseLoader];
+    [ktSystemManagement performGetGlobalSettingContexts: responseLoader];
     [responseLoader waitForResponse];
     
-    NSArray* contextList = [responseLoader objects];  // Liste der Kontexte holen
+    KTGlobalSettingContext* contextList = (KTGlobalSettingContext*) [responseLoader firstObject];  // Liste der Kontexte holen
+
+    [responseLoader setObjects:nil];
     
-    
-    for (id context in contextList){
+    for (NSString* context in contextList.contexts){
         
-        [ktSystemManagement performGetGlobalSettingsByContext:(NSString*)contextList loaderDelegate:responseLoader];
+       [ktSystemManagement performGetGlobalSettingsByContext:context loaderDelegate:responseLoader];
         [responseLoader waitForResponse];
         
         NSArray* settingsList = [responseLoader objects];
         
-        XCTAssert(settingsList!=Nil, @"Results should not be nil");
+        XCTAssert(settingsList!=Nil, @"Results should not be nil (To Test, a admin role might be needed)");
         
     }
 }

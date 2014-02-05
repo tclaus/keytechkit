@@ -28,6 +28,10 @@
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
         _webservice = [Webservice sharedWebservice];
+    //_webservice.username = @"Admin";
+    //_webservice.password = @"AdmiN2012";
+    //[_webservice synchronizeServerCredentials];
+    
 }
 
 - (void)tearDown
@@ -45,6 +49,8 @@
     
     KTKeytech* keytech  = [[KTKeytech alloc]init];
     testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
     
     
     NSLog(@"Get permissionslist for %@",[Webservice sharedWebservice].username);

@@ -24,6 +24,14 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
                                                       @"PermissionType":@"permissionType",
                                                       @"AssignedByMembership":@"isPermissionSetByMembership"
                                                     }];
+        RKResponseDescriptor *permissionResponse =
+        [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                     method:RKRequestMethodAny
+                                                pathPattern:nil
+                                                    keyPath:@"PermissionList"
+                                                statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+        
+        [[RKObjectManager sharedManager] addResponseDescriptor:permissionResponse];
     }
     
     

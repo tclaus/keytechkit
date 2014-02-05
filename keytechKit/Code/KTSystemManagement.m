@@ -11,7 +11,7 @@
 #import "KTStatusItem.h"
 #import "KTChangeAction.h"
 #import "KTAttributeMapping.h"
-
+#import "KTGlobalSettingContext.h"
 
 @implementation KTSystemManagement
 
@@ -87,7 +87,8 @@
 -(void)performGetGlobalSettingContexts:(NSObject<KTLoaderDelegate> *)loaderDelegate{
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTGlobalSetting mapping];
+    
+    [KTGlobalSettingContext mapping];
     
     NSString* resourcePath = @"/globalsettings/contexts";
     
@@ -110,7 +111,7 @@
     // ResourcePath zusammenbauen
     NSString* resourcePath = [NSString stringWithFormat:@"/globalsettings/contexts/%@",contextName];
 
-[manager getObjectsAtPath:resourcePath parameters:nil
+    [manager getObjectsAtPath:resourcePath parameters:nil
                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                       [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                       
