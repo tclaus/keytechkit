@@ -124,22 +124,21 @@
 #pragma mark Status
 
 -(void)performGetAvailableStatusList:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-    /*
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    RKObjectMapping* itemMapping = [KTStatusItem setMapping];
-    
-    itemMapping.rootKeyPath = @"StatusList";
+    [KTStatusItem mapping];
     
     NSString* resourcePath = @"/status";
     
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-    }];
-     */
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                      }];
+    
+    
 }
 
 /// Gets the list of actions performed by a status change

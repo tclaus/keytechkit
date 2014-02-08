@@ -12,8 +12,8 @@
 #import "KTLoaderInfo.h"
 
 @implementation KTElement{
-    @private
-
+@private
+    
     /// Notifies about loading in process
     BOOL _isStatusHistoryLoading;
     
@@ -36,7 +36,7 @@
     
     BOOL _isItemBomListLoading;
     
-
+    
     
     // Hilfsobjekt, das weitere Eigenschaften nachladen kann durchführt
     KTKeytech* ktManager;
@@ -95,7 +95,7 @@ static RKObjectMapping* _mapping;
     NSArray *components=[self.itemKey componentsSeparatedByString:@":"];
     
     if(components.count>=2){
-
+        
         return (int)[components[1] integerValue];
     }
     
@@ -104,10 +104,10 @@ static RKObjectMapping* _mapping;
 
 -(NSString*) itemClassKey{
     NSArray *components=[self.itemKey componentsSeparatedByString:@":"];
-
-if(components.count>=2)
-    return [NSString stringWithFormat:@"%@",components[0]];
-
+    
+    if(components.count>=2)
+        return [NSString stringWithFormat:@"%@",components[0]];
+    
     return self.itemKey;
 }
 
@@ -122,7 +122,7 @@ if(components.count>=2)
 }
 
 
-// Sets the Object mapping for JSON 
+// Sets the Object mapping for JSON
 +(RKObjectMapping*)mapping{
     
     if (_mapping==nil){
@@ -131,45 +131,45 @@ if(components.count>=2)
         _mapping = [RKObjectMapping mappingForClass:[KTElement class]];
         
         [_mapping addAttributeMappingsFromDictionary:@{@"ElementDescription":@"itemDescription",
-                                                      @"ElementTypeDisplayName":@"itemDisplayTypeName",
-                                                      @"ElementKey":@"itemKey",
-                                                      @"ElementName":@"itemName",
-                                                      @"ElementStatus":@"itemStatus",
-                                                      @"ElementVersion":@"itemVersion",
-                                                      @"CreatedAt":@"itemCreatedAt",
-                                                      @"CreatedBy":@"itemCreatedBy",
-                                                      @"CreatedByLong":@"itemCreatedByLong",
-                                                      @"ChangedAt":@"itemChangedAt",
-                                                      @"ChangedBy":@"itemChangedBy",
-                                                      @"ChangedByLong":@"itemChangedByLong",
-                                                      @"ThumbnailHint":@"itemThumbnailHint"
-                                                      }];
-         
+                                                       @"ElementTypeDisplayName":@"itemDisplayTypeName",
+                                                       @"ElementKey":@"itemKey",
+                                                       @"ElementName":@"itemName",
+                                                       @"ElementStatus":@"itemStatus",
+                                                       @"ElementVersion":@"itemVersion",
+                                                       @"CreatedAt":@"itemCreatedAt",
+                                                       @"CreatedBy":@"itemCreatedBy",
+                                                       @"CreatedByLong":@"itemCreatedByLong",
+                                                       @"ChangedAt":@"itemChangedAt",
+                                                       @"ChangedBy":@"itemChangedBy",
+                                                       @"ChangedByLong":@"itemChangedByLong",
+                                                       @"ThumbnailHint":@"itemThumbnailHint"
+                                                       }];
+        
         RKMapping *keyValueMapping = [KTKeyValue mapping];
         
-         RKRelationshipMapping *KeyalueRelationShip =
-         [RKRelationshipMapping relationshipMappingFromKeyPath:@"KeyValueList"
-                                                     toKeyPath:@"keyValueList"
-                                                   withMapping:keyValueMapping];
+        RKRelationshipMapping *KeyalueRelationShip =
+        [RKRelationshipMapping relationshipMappingFromKeyPath:@"KeyValueList"
+                                                    toKeyPath:@"keyValueList"
+                                                  withMapping:keyValueMapping];
         
-         [_mapping addPropertyMapping:KeyalueRelationShip];
-
+        [_mapping addPropertyMapping:KeyalueRelationShip];
+        
         // Zentralisiert ?
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
         RKResponseDescriptor *elementDescriptor = [RKResponseDescriptor
                                                    responseDescriptorWithMapping:_mapping
                                                    method:RKRequestMethodAny
                                                    pathPattern:nil keyPath:@"ElementList" statusCodes:statusCodes];
-
+        
         // Path Argument
         [manager.router.routeSet addRoute:[RKRoute
-                                                 routeWithClass:[KTElement class]
-                                                 pathPattern:@"/elements/:elementKey"
-                                                 method:RKRequestMethodGET]] ;
+                                           routeWithClass:[KTElement class]
+                                           pathPattern:@"/elements/:elementKey"
+                                           method:RKRequestMethodGET]] ;
         [manager.router.routeSet addRoute:[RKRoute
-                                                 routeWithClass:[KTElement class]
-                                                 pathPattern:@"/elements"
-                                                 method:RKRequestMethodPOST]] ;
+                                           routeWithClass:[KTElement class]
+                                           pathPattern:@"/elements"
+                                           method:RKRequestMethodPOST]] ;
         [manager.router.routeSet addRoute:[RKRoute
                                            routeWithClass:[KTElement class]
                                            pathPattern:@"/elements/:elementKey"
@@ -188,26 +188,32 @@ if(components.count>=2)
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 //Multiplattform supportet. Returns thumnail or classicon. Whatever ist implemented
 -(NSImage*)itemThumbnail{
-
+    
     if (_isItemThumnailLoaded &! _isItemThumbnailLoading){
         return _itemThumbnail;
+        
+    }else
+        
+        if (!_isItemThumbnailLoading){
+            _isItemThumbnailLoading = YES;
+            [self loadItemThumbnail];
+            return _itemThumbnail;
+            
+        } else {
+            return _itemThumbnail;
+        }
     
-    }else{
-        _isItemThumbnailLoading = YES;
-        [self performSelectorInBackground:@selector(loadItemThumbnail) withObject:nil];
-        return _itemThumbnail;
-    }
-
 }
 #else
 //Multiplattform supported. Returns thumbnail or classicon. Whatever ist implemented in keytech basis.
--(UIImage*)itemThumbnail{    
+-(UIImage*)itemThumbnail{
     if (_isItemThumnailLoaded & !_isItemThumbnailLoading){
         return _itemThumbnail;
         
     }else{
         _isItemThumbnailLoading = YES;
-        [self performSelectorInBackground:@selector(loadItemThumbnail) withObject:nil];
+        [self loadItemThumbnail];
+        //[self performSelectorInBackground:@selector(loadItemThumbnail) withObject:nil];
         return _itemThumbnail;
     }
 }
@@ -265,7 +271,7 @@ if(components.count>=2)
 }
 
 /**
-Performs lazy loading of structural data. Every elementtype might have structural data. 
+ Performs lazy loading of structural data. Every elementtype might have structural data.
  Child elements linked to this parent element.
  Loading is asynchron. So first getting this property returns a nil value. After Request returns KVO should send a value changed signal.
  */
@@ -309,10 +315,10 @@ Performs lazy loading of structural data. Every elementtype might have structura
     // Clear the loading - States
     if ([loaderInfo.ressourcePath hasSuffix:@"statushistory"])
         _isStatusHistoryLoading = NO;
-
+    
     if ([loaderInfo.ressourcePath hasSuffix:@"nextstatus"])
         _isItemNextStatesListLoading = NO;
-
+    
     if ([loaderInfo.ressourcePath hasSuffix:@"structure"])
         _isStructureLoading = NO;
     
@@ -321,15 +327,15 @@ Performs lazy loading of structural data. Every elementtype might have structura
     
     if ([loaderInfo.ressourcePath hasSuffix:@"notes"])
         _isItemNotesListLoading = NO;
-
+    
     if ([loaderInfo.ressourcePath hasSuffix:@"whereused"])
         _isItemWhereUsedListLoading = NO;
-
+    
     if ([loaderInfo.ressourcePath hasSuffix:@"bom"])
         _isItemBomListLoading = NO;
-
     
-
+    
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:KTRequestDidFailWithErrorNotification
                                                         object:self
                                                       userInfo:nil];
@@ -337,7 +343,7 @@ Performs lazy loading of structural data. Every elementtype might have structura
 
 // Invoked by a successful search
 -(void)requestDidProceed:(NSArray*)searchResult fromResourcePath:(NSString*)resourcePath{
-
+    
     
     // Structure
     if ([resourcePath hasSuffix:@"structure"]){
@@ -401,7 +407,7 @@ Performs lazy loading of structural data. Every elementtype might have structura
         
         return;
     }
-
+    
     //next available status
     if ([resourcePath hasSuffix:@"nextstatus"]){
         
@@ -421,15 +427,15 @@ Performs lazy loading of structural data. Every elementtype might have structura
         return;
     }
     
-
- 
+    
+    
     // FilesList
     if ([resourcePath hasSuffix:@"files"]){
         
         _isItemFileslistLoading = NO;
         _isFilesListLoaded = YES;
         if (!_itemFilesList) {
-         _itemFilesList = [[NSMutableArray alloc ]initWithArray:searchResult];
+            _itemFilesList = [[NSMutableArray alloc ]initWithArray:searchResult];
         }else {
             //set by KVC
             [self willChangeValueForKey:@"itemFilesList"];
@@ -468,7 +474,7 @@ Performs lazy loading of structural data. Every elementtype might have structura
         [thumbnailCache removeObjectForKey:self.itemThumbnailHint];
         
     }
-        
+    
     
 }
 
@@ -500,95 +506,92 @@ Performs lazy loading of structural data. Every elementtype might have structura
             [self didChangeValueForKey:@"itemThumbnail"]; //Start KVC
             
             return;
-        }else { // Nicht im cache vorhanden; lade dann neu.
-        
-        
-         // Another load process my be in queue. Test this and let this thread wait a bit
-            if (!thumbnailLoadingQueue)
-                thumbnailLoadingQueue = [[NSMutableSet alloc]init];
-
-            if ([thumbnailLoadingQueue containsObject:thumbnailKey]) {
-
-                // Load is in progress. wait as long as the Object in queued
-                NSDate *startDate = [NSDate date];
-                while ([thumbnailLoadingQueue containsObject:thumbnailKey]) {
-                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-                    if ([[NSDate date] timeIntervalSinceDate:startDate] > _thumbnailLoadingTimeout) {
-                       // NSLog(@"*** Time out for loading thumnail for %@ after %f seconds...", thumbnailKey, _thumbnailLoadingTimeout);
-                        _isItemThumbnailLoading = NO;
-                        _isItemThumnailLoaded = NO;
-
-                        // Remove the queue flag
-                        [thumbnailLoadingQueue removeObject:self.itemThumbnailHint];
-                        return;
-                        //TODO: What to do if no thumbnail cound be loaded?
-                    }
-                }
-                
-                // Some other proces has loaded my requesed thumbnail
-                _isItemThumnailLoaded = YES;
-                _isItemThumbnailLoading = NO;
-                
-                // Returning the now cached thumbnail
-                [self willChangeValueForKey:@"itemThumbnail"]; //Signaling KVC that value has changed
-                _itemThumbnail = [thumbnailCache objectForKey:thumbnailKey];
-                [self didChangeValueForKey:@"itemThumbnail"]; //
-                return; // Queue ended valueshould
-                
-            }else {
-                // Add current Object to Wait-For-Load queue
-                [thumbnailLoadingQueue addObject:thumbnailKey];
-            }
-            
-            
-            
-        // Load the thumbnail from API
-        NSURL* baseUrl = [RKObjectManager sharedManager].baseURL;
-            
-            AFHTTPClient *client = [RKObjectManager sharedManager].HTTPClient;
-            
-            // In die neue BaseURL das Thumbnails des Elementes ermitteln
-            NSURL* thumbnailUrl = [NSURL URLWithString: @"/elements/%@/thumbnail" relativeToURL:baseUrl];
-            
-            NSURLRequest *thumbnailRequest = [NSURLRequest requestWithURL:thumbnailUrl];
-            
-            __block NSData* data =nil;
-            
-            [client HTTPRequestOperationWithRequest:thumbnailRequest
-                success:^(AFHTTPRequestOperation *operation,NSError *error){
-                       data = operation.responseData;
-                }
-                failure:^(AFHTTPRequestOperation *operation,NSError *error){
-            
-                }];
-        
-        [self willChangeValueForKey:@"itemThumbnail"]; //Start KVC
-        
-#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
-        _itemThumbnail = [[NSImage alloc] initWithData:data];
-
-#else
-        _itemThumbnail = [[UIImage alloc]initWithData:data];
-
-#endif
-        _isItemThumnailLoaded = YES;
-        _isItemThumbnailLoading = NO;
-        
-            if(_itemThumbnail) {  // might be NIL if server did not respond
-            [thumbnailCache setObject:_itemThumbnail forKey:thumbnailKey];
         }
-            // Remove hint from download-queue
-            if ([thumbnailLoadingQueue containsObject:thumbnailKey]) {
-                [thumbnailLoadingQueue removeObject:thumbnailKey];
-            }
-
+        
+        // Nicht im cache vorhanden; lade dann neu.
+        
+        
+        // Another load process my be in queue. Test this and let this thread wait a bit
+        if (!thumbnailLoadingQueue)
+            thumbnailLoadingQueue = [[NSMutableSet alloc]init];
+        
+        if ([thumbnailLoadingQueue containsObject:thumbnailKey]) {
             
-        [self didChangeValueForKey:@"itemThumbnail"];
-    }
+            // Load is in progress. wait as long as the Object in queued
+            NSDate *startDate = [NSDate date];
+            while ([thumbnailLoadingQueue containsObject:thumbnailKey]) {
+                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+                if ([[NSDate date] timeIntervalSinceDate:startDate] > _thumbnailLoadingTimeout) {
+                    // NSLog(@"*** Time out for loading thumnail for %@ after %f seconds...", thumbnailKey, _thumbnailLoadingTimeout);
+                    _isItemThumbnailLoading = NO;
+                    _isItemThumnailLoaded = NO;
+                    
+                    // Remove the queue flag
+                    [thumbnailLoadingQueue removeObject:self.itemThumbnailHint];
+                    return;
+                    //TODO: What to do if no thumbnail cound be loaded?
+                }
+            }
+            
+            // Some other proces has loaded my requesed thumbnail
+            _isItemThumnailLoaded = YES;
+            _isItemThumbnailLoading = NO;
+            
+            // Returning the now cached thumbnail
+            [self willChangeValueForKey:@"itemThumbnail"]; //Signaling KVC that value has changed
+            _itemThumbnail = [thumbnailCache objectForKey:thumbnailKey];
+            [self didChangeValueForKey:@"itemThumbnail"]; //
+            return; // Queue ended valueshould
+            
+        }
+        
+        // Add current Object to Wait-For-Load queue
+        [thumbnailLoadingQueue addObject:thumbnailKey];
+        
+        NSString *resource = [NSString stringWithFormat:@"/elements/%@/thumbnail", self.itemKey];
+        NSMutableURLRequest *request = [[RKObjectManager sharedManager].HTTPClient requestWithMethod:@"GET" path:resource parameters:nil ];
+        
+        NSURLSession *defaultSession = [NSURLSession sharedSession];
+        
+        NSURLSessionDownloadTask *dataTask =
+        [defaultSession downloadTaskWithRequest:request
+                              completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                                  NSLog(@" Data received");
+                                  
+                                  
+                                  [self willChangeValueForKey:@"itemThumbnail"]; //Start KVC
+                                  
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
+                                  _itemThumbnail = [[NSImage alloc] initWithContentsOfURL:location];
+                                  
+#else
+                                  _itemThumbnail = [[UIImage alloc]initWithContentsOfURL:location];
+                                  
+#endif
+                                  _isItemThumnailLoaded = YES;
+                                  _isItemThumbnailLoading = NO;
+                                  
+                                  if(_itemThumbnail) {  // might be NIL if server did not respond
+                                      [thumbnailCache setObject:_itemThumbnail forKey:thumbnailKey];
+                                  }
+                                  // Remove hint from download-queue
+                                  if ([thumbnailLoadingQueue containsObject:thumbnailKey]) {
+                                      [thumbnailLoadingQueue removeObject:thumbnailKey];
+                                  }
+                                  
+                                  
+                                  [self didChangeValueForKey:@"itemThumbnail"];
+                                  
+                              }];
+        
+        
+        [dataTask resume];
+        
+        
     }
     
-   
 }
+
 
 
 -(BOOL)isKeyValueListLoaded{
@@ -641,12 +644,12 @@ Performs lazy loading of structural data. Every elementtype might have structura
 
 
 /*
--(void)setValue:(id)value forKey:(NSString *)key{
-    [super setValue:value forKey:key];
-    // Ansonsten im eigenen dictionary suchen
-    
-}
-*/
+ -(void)setValue:(id)value forKey:(NSString *)key{
+ [super setValue:value forKey:key];
+ // Ansonsten im eigenen dictionary suchen
+ 
+ }
+ */
 
 //Helps debugging output
 -(NSString*)description{
@@ -660,7 +663,7 @@ Performs lazy loading of structural data. Every elementtype might have structura
 // Return full qualified FileID
 -(NSString *)fileURLOfFileID:(int)fileID{
     
-
+    
     NSString* fileURL = [NSString stringWithFormat:@"/elements/%@/files/%d",self.itemKey, fileID];
     return fileURL;
 }
@@ -669,10 +672,10 @@ Performs lazy loading of structural data. Every elementtype might have structura
 {
     self = [super init];
     if (self) {
-
+        
         // Pre allocate some mutables arrays to support lazy loading
         
-          ktManager= [[KTKeytech alloc]init];
+        ktManager= [[KTKeytech alloc]init];
         _itemStatusHistory = [[NSMutableArray alloc]init];
         _itemStructureList = [[NSMutableArray alloc]init];
         _itemFilesList = [[[NSMutableArray alloc]init]init];
