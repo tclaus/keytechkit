@@ -515,7 +515,7 @@ Gets the filelist of given elementKey
     [self performGetRootFolderWithPage:1 withSize:self.maximalPageSize loaderDelegate:loaderDelegate];
 }
 
-// Queries a full list of root folder without any parents.
+// Queries a full list of root folder without any parents.]
 -(void)performGetRootFolderWithPage:(NSInteger)page withSize:(NSInteger)pageSize loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
 
     

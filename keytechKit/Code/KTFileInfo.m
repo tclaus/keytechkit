@@ -126,8 +126,17 @@ Checks if the file is already transferd to local machine
                        completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
                            NSLog(@"File loaded at: %@",location);
                            
+                           NSFileManager *manager = [NSFileManager defaultManager];
+                           NSError *err;
+                           NSURL *targetURL = [[[Webservice sharedWebservice]applicationDataDirectory] URLByAppendingPathComponent:self.fileName];
+                          
+                           targetURL = [NSURL fileURLWithPath:[targetURL path]];
+                           
+                           [manager moveItemAtURL:location toURL:targetURL error:&err];
+                           
+                           
                            [self willChangeValueForKey:@"localFileURL"];
-                           _localFileURL = location;
+                           _localFileURL = targetURL;
                            _isLoading = NO;
                            [self didChangeValueForKey:@"localFileURL"];
 

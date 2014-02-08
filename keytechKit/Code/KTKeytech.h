@@ -224,7 +224,7 @@ Get a list of root folder. This is the top level instance of all folders.
 Can be paginated.
   @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
 */
--(void)performGetRootFolderWithPage:(NSInteger)page withSize:(NSInteger)pageSize delegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;
+-(void)performGetRootFolderWithPage:(NSInteger)page withSize:(NSInteger)pageSize loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;
 
 
 -(void)cancelQuery;

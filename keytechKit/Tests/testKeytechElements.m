@@ -48,7 +48,7 @@ Webservice* _webservice;
     elementKeyWithNotes = @"3dmisc_sldasm:2220"; //* Element with notes on Test API
     elementKeyWithStatusHistory = @"3dmisc_sldprt:2156"; //* Element with some status changed´s in the past. Will provide a status history
     elementKeyItem = @"DEFAULT_MI:2088";  //* Represents an item with bom structure
-    elementKeyWithStateWork = @"3DMISC_SLDPRT:21332";
+    elementKeyWithStateWork = @"3DMISC_SLDPRT:2133";
     elementKeyWithBOM = @"DEFAULT_MI:2088";
 }
 

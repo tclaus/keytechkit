@@ -132,6 +132,8 @@ NSTimeInterval _timeOut = 12;
     // Wait until file is loaded
     [self waitForResponse];
     
+    NSURL * targetURL = [firstFile localFileURL];
+    
     [firstFile removeObserver:self forKeyPath:@"localFileURL" context:nil];
     
     

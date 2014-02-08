@@ -1212,9 +1212,15 @@
 				INFOPLIST_FILE = "keytechKit/Tests/keytechKitTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -1237,10 +1243,16 @@
 				);
 				INFOPLIST_FILE = "keytechKit/Tests/keytechKitTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
