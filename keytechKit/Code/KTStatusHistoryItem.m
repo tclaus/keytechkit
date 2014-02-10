@@ -28,6 +28,13 @@
 
         [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"SignedByList" toKeyPath:@"historySignedBy" withMapping:[KTSignedBy mapping]]];
         
+        [[RKObjectManager sharedManager] addResponseDescriptor:
+            [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                         method:RKRequestMethodAny
+                                                    pathPattern:nil
+                                                        keyPath:@"StatusHistoryEntries"
+                                                    statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+        
     }
     
     return _mapping;

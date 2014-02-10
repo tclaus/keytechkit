@@ -8,7 +8,6 @@
 
 #import "KTBomItem.h"
 #import "KTKeyValue.h"
-#import "KTElement.h"
 #import <RestKit/RestKit.h>
 
 

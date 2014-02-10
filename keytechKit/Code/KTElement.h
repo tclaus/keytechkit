@@ -1,5 +1,5 @@
 //
-//  simpleItem.h
+//  KTElement
 //  keytech search ios
 //
 //  Created by Thorsten Claus on 07.08.12.
@@ -11,7 +11,6 @@
 #import "KTStatusHistoryItem.h"
 #import "KTKeyValue.h"
 
-#import "KTBomItem.h"
 #import "KTNoteItem.h"
 #import "KTSignedBy.h"
 

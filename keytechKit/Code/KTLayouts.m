@@ -9,7 +9,7 @@
 #import "KTLayouts.h"
 
 @implementation KTLayouts{
-     KTKeytech* simpleSearch;
+     KTKeytech* ktKeytech;
 }
 
 - (id)init
@@ -17,7 +17,7 @@
     self = [super init];
     if (self) {
         _layoutsList = [[NSMutableDictionary alloc]initWithCapacity:50];
-        simpleSearch= [[KTKeytech alloc]init];
+        ktKeytech= [[KTKeytech alloc]init];
         
     }
     return self;
@@ -29,8 +29,8 @@
     
     if (![_layoutsList valueForKey:classKey]){
         //Holen und per KVO später benachrichtigen
-        [simpleSearch performGetClassEditorLayoutForClassKey:classKey loaderDelegate:self]; //EditorLayout
-        [simpleSearch performGetClassListerLayout:classKey loaderDelegate:self]; // Lister Layout
+        [ktKeytech performGetClassEditorLayoutForClassKey:classKey loaderDelegate:self]; //EditorLayout
+        [ktKeytech performGetClassListerLayout:classKey loaderDelegate:self]; // Lister Layout
 
         // Da Requests Asynchron kommen aber noch nicht in _layoutslist eingetragen wurden, kann dier selbe Anfrage immer wieder kommen, bevor eine
         // Antwort eingegangen ist.
@@ -46,6 +46,10 @@
     
     //
     return (KTLayout*)[_layoutsList valueForKey:classKey];
+    
+}
+
+-(void)requestProceedWithError:(KTLoaderInfo *)loaderInfo error:(NSError *)theError{
     
 }
 

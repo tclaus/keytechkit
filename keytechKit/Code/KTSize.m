@@ -23,6 +23,14 @@ static RKObjectMapping* _mapping;
                                                        @"width":@"width",
                                                        }];
     
+        [[RKObjectManager sharedManager] addResponseDescriptor:
+        [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                     method:RKRequestMethodAny
+                                                pathPattern:nil
+                                                    keyPath:@"Size"
+                                                statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+        
+        
     }
     
     return _mapping;

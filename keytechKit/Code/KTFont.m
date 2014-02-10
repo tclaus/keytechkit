@@ -23,7 +23,12 @@ static RKObjectMapping* _mapping;
                                                        @"FontSize":@"fontSize",
                                                        @"FontStyle":@"fontStyle"}];
         
-        RKResponseDescriptor *fonts = [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny pathPattern:nil keyPath:@"Font" statusCodes:nil];
+        RKResponseDescriptor *fonts =
+        [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                     method:RKRequestMethodAny
+                                                pathPattern:nil
+                                                    keyPath:@"Font"
+                                                statusCodes:nil];
         
         [[RKObjectManager sharedManager] addResponseDescriptor:fonts];
         

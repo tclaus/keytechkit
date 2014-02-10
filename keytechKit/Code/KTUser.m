@@ -66,6 +66,12 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
                                                       @"LongName":@"userLongName",
                                                       @"eMail":@"userMail"
                                                        }];
+        RKResponseDescriptor *userResponse = [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                                                            method:RKRequestMethodAny
+                                                                                       pathPattern:nil keyPath:@"MembersList"
+                                                                                       statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+        
+        [[RKObjectManager sharedManager]addResponseDescriptor:userResponse];
     }
     
     

@@ -9,15 +9,27 @@
 #import <Foundation/Foundation.h>
 #import "KTKeytech.h"
 
-/**
- Acts as a proxy between Restkit Load Responses and forwarding results to requester
- */
-@interface KTResponseLoader : NSObject
+@interface KTResponseLoader : NSObject <KTLoaderDelegate>
 
 /**
- Forwards the Restkit results to public accessable delegate
+ The collection of objects loaded from the RKObjectLoader the receiver is acting as the delegate for.
  */
-@property (nonatomic,strong)  id<KTLoaderDelegate>  delegate;
+@property (nonatomic) NSArray *objects;
+/**
+ Represents the first object in the responseArray
+ */
+@property (nonatomic) NSObject *firstObject;
+@property (nonatomic) NSError *error;
+
++ (KTResponseLoader *)responseLoader;
+
+-(void)waitForResponse;
+
+
+-(void)requestDidProceed:(NSArray*)searchResult fromResourcePath:(NSString*)resourcePath;
+-(void)requestProceedWithError:(KTLoaderInfo*)loaderInfo error:(NSError*)theError;
+
 
 
 @end
+

@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import "KTSimpleItem.h"
+#import "KTElement.h"
 
 
-@class KTSimpleItem;
+
 @interface KTBomItem : NSObject
 
 /**
@@ -21,7 +21,7 @@
 /**
  Provides the element which is represented by this bom
  */
-@property (readonly) KTSimpleItem* element;
+@property (readonly)KTElement* element;
 
 /**
  Contains the full key-value list of all bom attribes, including all element attributes

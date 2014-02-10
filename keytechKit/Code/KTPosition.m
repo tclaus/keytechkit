@@ -21,6 +21,13 @@ static RKObjectMapping *_mapping = nil;
         [_mapping addAttributeMappingsFromDictionary:@{@"x":@"x",
                                                       @"y":@"y"
                                                        }];
+        
+        [[RKObjectManager sharedManager] addResponseDescriptor:
+        [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny
+                                                pathPattern:nil
+                                                    keyPath:@"Position" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+        
+        
     }
     
     return _mapping;

@@ -191,46 +191,41 @@ static int const kMaxDefaultPageSize = 500;
 /// Returns a single user identified by shortname
 -(void)performGetUser:(NSString*)userName loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;{
 
-    /*
-    
-    
-    RKObjectMapping* itemMapping = [KTUser setMapping];
-    itemMapping.rootKeyPath = @"MembersList";
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTUser mapping];
+
     //
     NSString* resourcePath = [NSString stringWithFormat:@"/user/%@", userName];;
     
-    
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-        loader.serializationMIMEType = RKMIMETypeJSON;
-    }];
-    */
+    [manager getObject:nil path:resourcePath parameters:nil
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                   [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+               }];
+     
+
 }
 
 /// Returns a full userlist
 -(void)performGetUserList:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-/*
+
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     
-    RKObjectMapping* itemMapping = [KTUser setMapping];
-    itemMapping.rootKeyPath = @"MembersList";
+    [KTUser mapping];
     //
     NSString* resourcePath = @"/user";
     
     
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-        loader.serializationMIMEType = RKMIMETypeJSON;
-    }];
-*/
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                      }];
+
  }
 
 /// Returns the userlist which are member of the given group
@@ -450,26 +445,22 @@ Gets the filelist of given elementKey
 }
 
 
-
+/// Ruft von einem gegebenen Elementschlüssel die zugehörige Statushistorie ab
 -(void)performGetElementStatusHistory:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-/*
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    
-    RKObjectMapping* itemMapping = [KTStatusHistoryItem setMapping];
-    itemMapping.rootKeyPath = @"StatusHistoryEntries";
+    [KTStatusHistoryItem mapping];
     
     NSString* resourcePath = [NSString stringWithFormat:@"/elements/%@/statushistory",elementKey];
     
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-        loader.serializationMIMEType = RKMIMETypeJSON;
-    }];
-*/
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                      }];
+    
 }
 
 // Gets the List of parent elements which links to the given element

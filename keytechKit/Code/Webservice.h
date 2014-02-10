@@ -1,6 +1,6 @@
 //
 //  webservice.h
-//  keytech search ios
+//  keytech PLM
 //
 //  Created by Thorsten Claus on 07.08.12.
 //  Copyright (c) 2012 Claus-Software. All rights reserved.
@@ -10,6 +10,7 @@
 
 #import "KTKeytech.h"
 #import "KTPreferencesConnection.h"
+
 
 /**
  Provides basic initialization

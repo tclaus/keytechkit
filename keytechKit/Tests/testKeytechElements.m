@@ -247,7 +247,7 @@ Performs a GET on an Elements BOM (Bill of Material)s list.
     item.itemKey = elementKeyWithStateWork;
     
     NSMutableArray* structure =  item.itemNextAvailableStatusList;
-    
+
     [item addObserver:self forKeyPath:@"itemNextAvailableStatusList" options:NSKeyValueObservingOptionNew context:nil];
     
     [self waitForResponse];
@@ -257,6 +257,27 @@ Performs a GET on an Elements BOM (Bill of Material)s list.
 
     // Maybe the user dont have the right to make a status change
    // XCTAssertTrue(structure.count>0, @"itemNextAvailableStatusList should have some items");
+    
+}
+
+/**
+ Performs deferred getting available status from current element.
+ */
+- (void)testGetElementStatusHistory
+{
+    KTElement* item = [[KTElement alloc]init];
+    item.itemKey = @"3dmisc_sldprt:2156";
+    
+    NSMutableArray* structure =  item.itemStatusHistory;
+    
+    [item addObserver:self forKeyPath:@"itemStatusHistory" options:NSKeyValueObservingOptionNew context:nil];
+    
+    [self waitForResponse];
+    [item removeObserver:self forKeyPath:@"itemStatusHistory" context:nil];
+    
+    XCTAssertNotNil(structure, @"itemStatusHistory should not be nil");
+    
+     XCTAssertTrue(structure.count>0, @"itemStatusHistory should have some items");
     
 }
 

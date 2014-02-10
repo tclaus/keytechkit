@@ -39,7 +39,7 @@
 
 // /status
 // / Status transitions
--(void)testGetStatus{
+-(void)testGetStatusList{
     KTSystemManagement* systemManagement = [[KTSystemManagement alloc]init];
     testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
@@ -71,5 +71,21 @@
 }
 // Test Status actions
 
+
+-(void)testGetElementStatusHistory{
+
+    KTKeytech *keytech = [[KTKeytech alloc]init];
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+    
+    [keytech performGetElementStatusHistory:@"3dmisc_sldprt:2156" loaderDelegate:responseLoader];
+    [responseLoader waitForResponse];
+    
+    
+    NSArray* results = [responseLoader objects];
+    
+    XCTAssert(results!=nil, @"Results should not be nil");
+    XCTAssert(results.count>0, @"Status History list should have some items");
+    
+}
 
 @end

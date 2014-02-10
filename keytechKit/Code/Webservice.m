@@ -10,6 +10,7 @@
 #import "KTElement.h"
 #import "KTNotifications.h"
 #import "KTUser.h"
+#import "KTResponseLoader.h"
 
 
 
@@ -186,7 +187,7 @@ static Webservice* _sharedWebservice = nil;
 }
 
 
-// Forward sereach provider class
+// Forward search provider class
 -(KTKeytech*)ktKeytech{
     return ktKeytech;
 }
@@ -214,23 +215,23 @@ static Webservice* _sharedWebservice = nil;
 }
 /**
  Simply check if current user credentials has right to login
+ Waits until keytech responds
  */
 -(BOOL)currentUserHasLoginRight{
-   /*
-    ResponseLoader *loader = [[ResponseLoader alloc]init];
+   
+     KTResponseLoader *loader = [[KTResponseLoader alloc]init];
     
     [ktKeytech performGetUser:self.username loaderDelegate:loader];
     [loader waitForResponse];
     
     
-    if (loader.objects.count>0){
-        KTUser* user = (KTUser*)loader.objects[0];
+    if (loader.firstObject){
+        KTUser* user = (KTUser*)loader.firstObject;
         
-        if ((user.isActive) ) {  // Check login.User must have at leaser 'BASE' login right.
+        if ((user.isActive) ) {  // Check login.User must have at least 'BASE' login right.
             return YES;
         }
     }
-    */
     return NO;
 }
 
