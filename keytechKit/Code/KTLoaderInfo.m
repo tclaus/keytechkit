@@ -16,13 +16,18 @@
     return [[KTLoaderInfo alloc]init];
 }
 
--(id)initWithObjectLoader:(id*)objectLoader{
-    if(self=[super init]){
-    
 
-    }
-    return self;
+/// Initialies a new instance og this type
++(instancetype)loaderInfoWithResourceString:(NSString *)resourceString{
+    
+    KTLoaderInfo *loaderInfo = [self new];
+    loaderInfo.ressourcePath = resourceString;
+    return loaderInfo;
+    
 }
+
+
+
 
 
 @end

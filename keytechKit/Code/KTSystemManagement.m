@@ -41,10 +41,10 @@
     NSString* resourcePath;
     
     if (username) {
-        resourcePath= [NSString stringWithFormat:@"/user/%@/globalsettings/%@",username,settingName];
+        resourcePath= [NSString stringWithFormat:@"user/%@/globalsettings/%@",username,settingName];
     } else {
-        // USername was nil - request list of settings
-        resourcePath= [NSString stringWithFormat:@"/globalsettings/%@",settingName];
+        // Username was nil - request list of settings
+        resourcePath= [NSString stringWithFormat:@"globalsettings/%@",settingName];
     }
     
     [manager getObjectsAtPath:resourcePath parameters:nil
@@ -70,7 +70,7 @@
     rpcData[@"q"] = searchText;
     rpcData[@"FullResults"] = @((int)fullResults);
     
-    NSString* resourcePath =@"/globalsettings";
+    NSString* resourcePath =@"globalsettings";
     
     [manager getObject:nil path:resourcePath parameters:rpcData
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
@@ -90,7 +90,7 @@
     
     [KTGlobalSettingContext mapping];
     
-    NSString* resourcePath = @"/globalsettings/contexts";
+    NSString* resourcePath = @"globalsettings/contexts";
     
     [manager getObject:nil path:resourcePath parameters:nil
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
@@ -109,7 +109,7 @@
     [KTGlobalSetting mapping];
     
     // ResourcePath zusammenbauen
-    NSString* resourcePath = [NSString stringWithFormat:@"/globalsettings/contexts/%@",contextName];
+    NSString* resourcePath = [NSString stringWithFormat:@"globalsettings/contexts/%@",contextName];
 
     [manager getObjectsAtPath:resourcePath parameters:nil
                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
@@ -129,7 +129,7 @@
     
     [KTStatusItem mapping];
     
-    NSString* resourcePath = @"/status";
+    NSString* resourcePath = @"status";
     
     [manager getObjectsAtPath:resourcePath parameters:nil
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {

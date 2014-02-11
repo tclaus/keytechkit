@@ -246,14 +246,19 @@ static Webservice* _sharedWebservice = nil;
     Username = self.username;
     Password = self.password;
     
+    if (![Servername hasSuffix:@"/"])
+        Servername = [Servername stringByAppendingString:@"/"];
+    
+    
     // Save at locale datastructure
     KTPreferencesConnection* preferences  = [[KTPreferencesConnection alloc]init];
     preferences.servername = Servername;
     preferences.username = Username;
     preferences.password = Password;
     
-    
-    manager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:Servername]];
+    bool objectsAreEqual =     [[[[RKObjectManager sharedManager]HTTPClient] baseURL] isEqual:[NSURL URLWithString:Servername]];
+    if (!objectsAreEqual)
+        manager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:Servername]];
     
     [manager.HTTPClient setAuthorizationHeaderWithUsername:Username password:Password];
     [RKObjectManager setSharedManager:manager];

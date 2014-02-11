@@ -549,7 +549,7 @@ static RKObjectMapping* _mapping;
         // Add current Object to Wait-For-Load queue
         [thumbnailLoadingQueue addObject:thumbnailKey];
         
-        NSString *resource = [NSString stringWithFormat:@"/elements/%@/thumbnail", self.itemKey];
+        NSString *resource = [NSString stringWithFormat:@"elements/%@/thumbnail", self.itemKey];
         NSMutableURLRequest *request = [[RKObjectManager sharedManager].HTTPClient requestWithMethod:@"GET" path:resource parameters:nil ];
         
         NSURLSession *defaultSession = [NSURLSession sharedSession];
@@ -557,7 +557,6 @@ static RKObjectMapping* _mapping;
         NSURLSessionDownloadTask *dataTask =
         [defaultSession downloadTaskWithRequest:request
                               completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                                  NSLog(@" Data received");
                                   
                                   
                                   [self willChangeValueForKey:@"itemThumbnail"]; //Start KVC

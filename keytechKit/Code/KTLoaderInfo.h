@@ -20,9 +20,9 @@
 @property (nonatomic,copy) NSString* ressourcePath;
 
 /**
- Inits with the RKObjectLoader
+ Initiates a new loaderInfo with the given resourceString
  */
--(id)initWithObjectLoader:(id*)objectLoader;
++(instancetype)loaderInfoWithResourceString:(NSString*)resourceString;
 
 /**
  initializes an empty loader Info

@@ -61,7 +61,7 @@
     // Das in die Cache-Liste einbauen und Signalisieren
     NSArray *pathArray = [resourcePath componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
     
-    NSString *forClassKey = pathArray[2];
+    NSString *forClassKey = pathArray[1];
 
     // In layouts einsortieren
     if (![_layoutsList valueForKey:forClassKey]){
@@ -70,12 +70,12 @@
 
     
     // Editor und LIster - Daten einsortieren
-    if ([pathArray[3] isEqualToString:@"editorlayout"]){
+    if ([pathArray[2] isEqualToString:@"editorlayout"]){
         KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:forClassKey];
         layout.editorLayout  = searchResult;
     }
 
-    if ([pathArray[3] isEqualToString:@"listerlayout"]){
+    if ([pathArray[2] isEqualToString:@"listerlayout"]){
         KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:forClassKey];
         layout.listerLayout  = searchResult;
     }

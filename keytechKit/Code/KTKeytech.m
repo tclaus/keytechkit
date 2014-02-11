@@ -74,7 +74,7 @@ static int const kMaxDefaultPageSize = 500;
         rpcData[@"effective"] = @"0"; // Only get direct set permissionSet
     }
     
-    NSString* resourcePath = [NSString stringWithFormat:@"/user/%@/permissions",userName];
+    NSString* resourcePath = [NSString stringWithFormat:@"user/%@/permissions",userName];
     
     
     
@@ -84,7 +84,7 @@ static int const kMaxDefaultPageSize = 500;
          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
          
      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-         [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+         [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
      }];
     
     
@@ -102,7 +102,7 @@ static int const kMaxDefaultPageSize = 500;
     RKObjectMapping* itemMapping = [KTSimpleItem setMapping];
     itemMapping.rootKeyPath = @"ElementList";
     
-    NSString* resourcePath = [NSString stringWithFormat:@"/user/%@/tasks",userName];
+    NSString* resourcePath = [NSString stringWithFormat:@"user/%@/tasks",userName];
     
     [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
         loader.method = RKRequestMethodGET;
@@ -133,9 +133,9 @@ static int const kMaxDefaultPageSize = 500;
     parentLevel = 0;
     
     if (parentLevel!= 0){
-        resourcePath= [NSString stringWithFormat:@"/user/%@/queries/%ld", username,(long)parentLevel ];
+        resourcePath= [NSString stringWithFormat:@"user/%@/queries/%ld", username,(long)parentLevel ];
     }else {
-        resourcePath= [NSString stringWithFormat:@"/user/%@/queries", username ];
+        resourcePath= [NSString stringWithFormat:@"user/%@/queries", username ];
     }
     
     
@@ -170,9 +170,9 @@ static int const kMaxDefaultPageSize = 500;
 
     
     if (parentLevel!= 0){
-     resourcePath= [NSString stringWithFormat:@"/user/%@/favorites/%ld", username,(long)parentLevel ];
+     resourcePath= [NSString stringWithFormat:@"user/%@/favorites/%ld", username,(long)parentLevel ];
     }else {
-     resourcePath= [NSString stringWithFormat:@"/user/%@/favorites", username ];
+     resourcePath= [NSString stringWithFormat:@"user/%@/favorites", username ];
     }
     
     
@@ -195,13 +195,13 @@ static int const kMaxDefaultPageSize = 500;
     [KTUser mapping];
 
     //
-    NSString* resourcePath = [NSString stringWithFormat:@"/user/%@", userName];;
+    NSString* resourcePath = [NSString stringWithFormat:@"user/%@", userName];;
     
     [manager getObject:nil path:resourcePath parameters:nil
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                   [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                }];
      
 
@@ -216,14 +216,14 @@ static int const kMaxDefaultPageSize = 500;
     
     [KTUser mapping];
     //
-    NSString* resourcePath = @"/user";
+    NSString* resourcePath = @"user";
     
     
     [manager getObjectsAtPath:resourcePath parameters:nil
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                       }];
 
  }
@@ -259,14 +259,14 @@ static int const kMaxDefaultPageSize = 500;
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTGroup mapping];
     
-    NSString* resourcePath = @"/groups";
+    NSString* resourcePath = @"groups";
     
     [manager getObjectsAtPath:resourcePath
                    parameters:nil
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                       }];
 }
 
@@ -278,7 +278,7 @@ static int const kMaxDefaultPageSize = 500;
     
     [KTGroup mapping];
 
-    NSString* resourcePath = [NSString stringWithFormat:@"/user/%@/groups",username];
+    NSString* resourcePath = [NSString stringWithFormat:@"user/%@/groups",username];
     
     
     [manager getObjectsAtPath:resourcePath
@@ -286,7 +286,7 @@ static int const kMaxDefaultPageSize = 500;
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                       }];
 }
 
@@ -296,7 +296,7 @@ static int const kMaxDefaultPageSize = 500;
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTNoteItem mapping];
     
-    NSString* resourcePath = [NSString stringWithFormat:@"/elements/%@/notes", elementKey];
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/notes", elementKey];
     
     
     [manager getObjectsAtPath:resourcePath
@@ -305,7 +305,7 @@ static int const kMaxDefaultPageSize = 500;
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[[KTLoaderInfo alloc]init] error:error];
+                        [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                       }];
 
 }
@@ -320,13 +320,13 @@ static int const kMaxDefaultPageSize = 500;
     
     // itemMapping.rootKeyPath = @"DesignerControls";
     
-    NSString* resourcePath = @"/classes/bom/listerlayout";
+    NSString* resourcePath = @"classes/bom/listerlayout";
     
     [manager getObjectsAtPath:resourcePath parameters:nil
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                       }];
     
 }
@@ -338,14 +338,16 @@ Getting lister layout data for the given classkey and the current logged in user
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTSimpleControl mapping];
-
-    NSString* resourcePath = [NSString stringWithFormat:@"/classes/%@/listerlayout", classKey];
+    if([classKey hasPrefix:@"%"])
+        [classKey stringByReplacingOccurrencesOfString:@"%" withString:@"DEFAULT"]; // Change %_DO => DEFAULT_DO
+    
+    NSString* resourcePath = [NSString stringWithFormat:@"classes/%@/listerlayout", classKey];
     [manager getObjectsAtPath:resourcePath
                    parameters:nil
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                       }];
     
     
@@ -360,9 +362,11 @@ Getting lister layout data for the given classkey and the current logged in user
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTSimpleControl mapping];
     
-    //itemMapping.rootKeyPath = @"DesignerControls";
+    if([classKey hasPrefix:@"%"])
+        [classKey stringByReplacingOccurrencesOfString:@"%" withString:@"DEFAULT"]; // Change %_DO => DEFAULT_DO
     
-    NSString* resourcePath = [NSString stringWithFormat:@"/classes/%@/editorlayout", classKey];
+    
+    NSString* resourcePath = [NSString stringWithFormat:@"classes/%@/editorlayout", classKey];
     
     
     [manager getObjectsAtPath:resourcePath
@@ -371,7 +375,7 @@ Getting lister layout data for the given classkey and the current logged in user
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                           
                       }];
     
@@ -401,7 +405,7 @@ Getting lister layout data for the given classkey and the current logged in user
     }
     
     // ResourcePath zusammenbauen
-    NSString* resourcePath =  [NSString stringWithFormat:@"/Elements/%@",elementKey];
+    NSString* resourcePath =  [NSString stringWithFormat:@"Elements/%@",elementKey];
     
     
     // Initilize the mapping
@@ -410,10 +414,10 @@ Getting lister layout data for the given classkey and the current logged in user
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [manager getObject:nil path:resourcePath parameters:rpcData
     success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:@"/Elements"];
+        [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
     
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        [loaderDelegate requestProceedWithError:[[KTLoaderInfo alloc]init]  error:error];
+        [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
     }];
     
 
@@ -431,7 +435,7 @@ Gets the filelist of given elementKey
     [KTFileInfo mapping];
     
     
-    NSString* resourcePath = [NSString stringWithFormat:@"/elements/%@/files", elementKey];
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/files", elementKey];
     
    [manager getObjectsAtPath:resourcePath
                   parameters:nil
@@ -439,7 +443,7 @@ Gets the filelist of given elementKey
                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                          
                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                         [loaderDelegate requestProceedWithError:[[KTLoaderInfo alloc]init] error:error];
+                         [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                      }];
 
 }
@@ -452,13 +456,13 @@ Gets the filelist of given elementKey
     
     [KTStatusHistoryItem mapping];
     
-    NSString* resourcePath = [NSString stringWithFormat:@"/elements/%@/statushistory",elementKey];
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/statushistory",elementKey];
     
     [manager getObjectsAtPath:resourcePath parameters:nil
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                       }];
     
 }
@@ -469,7 +473,7 @@ Gets the filelist of given elementKey
     [KTElement mapping];
     
     
-    NSString* resourcePath = [NSString stringWithFormat:@"/elements/%@/whereused",elementKey];
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/whereused",elementKey];
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [manager getObjectsAtPath:resourcePath
@@ -478,7 +482,7 @@ Gets the filelist of given elementKey
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                       }];
     
 }
@@ -489,14 +493,14 @@ Gets the filelist of given elementKey
      RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTStatusItem mapping];
 
-    NSString* resourcePath = [NSString stringWithFormat:@"/elements/%@/nextstatus",elementKey];
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/nextstatus",elementKey];
     
     [manager getObjectsAtPath:resourcePath parameters:nil
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                       }];
 
 }
@@ -514,7 +518,7 @@ Gets the filelist of given elementKey
     
     [KTElement mapping];
     
-    NSString* resourcePath = @"/folder/rootfolder";
+    NSString* resourcePath = @"folder/rootfolder";
     
     [manager getObjectsAtPath:resourcePath
                parameters:nil
@@ -522,7 +526,7 @@ Gets the filelist of given elementKey
                       [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                       
                   } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                      [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                      [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                       
                   }];
     
@@ -535,7 +539,7 @@ Gets the filelist of given elementKey
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTBomItem mapping];
         
-    NSString* resourcePath = [NSString stringWithFormat:@"/elements/%@/bom",elementKey];
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/bom",elementKey];
     
     [manager getObjectsAtPath:resourcePath
                    parameters:nil
@@ -543,7 +547,7 @@ Gets the filelist of given elementKey
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                       }];
  
 }
@@ -558,13 +562,14 @@ Gets the filelist of given elementKey
     
     [KTElement mapping];
     
-    NSString* resourcePath = [NSString stringWithFormat:@"/elements/%@/structure",elementKey];
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/structure",elementKey];
     
-    [manager getObjectsAtPath:resourcePath parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                        [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
         
          } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-             [loaderDelegate requestProceedWithError:[[KTLoaderInfo alloc]init] error:error];
+            [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
          }];
 
 }
@@ -578,16 +583,19 @@ Gets the filelist of given elementKey
     
     // Creating Query Parameter
     
+    NSString *resourcePath = @"Searchitems";
+    
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
     rpcData[@"byQuery"] = @((int)queryID);
     rpcData[@"page"] = @((int)page);
     rpcData[@"size"] = @((int)size);
     
-    [manager getObject:nil path:@"/Searchitems" parameters:rpcData
+    [manager getObject:nil path:resourcePath parameters:rpcData
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                   NSLog(@"Success");
+                   [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                   
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   NSLog(@"Failed");
+                   [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                }];
     
 
@@ -647,6 +655,8 @@ Gets the filelist of given elementKey
     // Initialize the mapping if not already done
     [KTElement mapping];
     
+    NSString *resourcePath = @"Searchitems";
+    
     // Creating Query Parameter
     
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
@@ -677,12 +687,13 @@ Gets the filelist of given elementKey
 
     
     
-    [manager getObject:nil path:@"/Searchitems" parameters:rpcData
+    [manager getObject:nil path:resourcePath parameters:rpcData
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                   [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:@"/Searchitems"];
+                   [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   [loaderDelegate requestProceedWithError:nil error:nil];
+
+                    [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                }];
 
 }
