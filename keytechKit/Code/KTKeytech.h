@@ -11,7 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
-#import "KTKeytechLoader.h"
+#import "KTLoaderDelegate.h"
 #import "KTSystemManagement.h"
 
 

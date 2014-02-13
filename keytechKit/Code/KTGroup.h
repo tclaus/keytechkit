@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "KTIdentifiedDataSource.h"
-#import "KTKeytechLoader.h"
+#import "KTLoaderDelegate.h"
 
 /**
  Represets a group object

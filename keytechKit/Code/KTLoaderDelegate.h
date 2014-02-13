@@ -1,5 +1,5 @@
 //
-//  KTKeytechLoader.h
+//  KTLoaderDelegate.h
 //  keytechFoundation
 //
 //  Created by Thorsten Claus on 31.07.13.
@@ -21,8 +21,6 @@
  */
 -(void)requestDidProceed:(NSArray*)searchResult fromResourcePath:(NSString*)resourcePath;
 
-
-@optional
 
 /** 
  Query stops with an error

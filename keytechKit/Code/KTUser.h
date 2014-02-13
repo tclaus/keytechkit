@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "KTKeytechLoader.h"
+#import "KTLoaderDelegate.h"
 #import "KTIdentifiedDataSource.h"
 /**
  Represets a user object

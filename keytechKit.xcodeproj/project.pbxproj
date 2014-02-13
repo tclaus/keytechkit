@@ -57,7 +57,7 @@
 		650858C5189CF08E00399949 /* KTKeytech.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085879189CF08E00399949 /* KTKeytech.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858C6189CF08E00399949 /* KTKeytech.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587A189CF08E00399949 /* KTKeytech.m */; };
 		650858C7189CF08E00399949 /* KTKeytech.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587A189CF08E00399949 /* KTKeytech.m */; };
-		650858C8189CF08E00399949 /* KTKeytechLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587B189CF08E00399949 /* KTKeytechLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		650858C8189CF08E00399949 /* KTLoaderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587B189CF08E00399949 /* KTLoaderDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858C9189CF08E00399949 /* KTKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587C189CF08E00399949 /* KTKeyValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858CA189CF08E00399949 /* KTKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587D189CF08E00399949 /* KTKeyValue.m */; };
 		650858CB189CF08E00399949 /* KTKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587D189CF08E00399949 /* KTKeyValue.m */; };
@@ -292,7 +292,7 @@
 		65085878189CF08E00399949 /* KTIdentifiedDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTIdentifiedDataSource.h; sourceTree = "<group>"; };
 		65085879189CF08E00399949 /* KTKeytech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKeytech.h; sourceTree = "<group>"; };
 		6508587A189CF08E00399949 /* KTKeytech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTKeytech.m; sourceTree = "<group>"; };
-		6508587B189CF08E00399949 /* KTKeytechLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKeytechLoader.h; sourceTree = "<group>"; };
+		6508587B189CF08E00399949 /* KTLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTLoaderDelegate.h; sourceTree = "<group>"; };
 		6508587C189CF08E00399949 /* KTKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKeyValue.h; sourceTree = "<group>"; };
 		6508587D189CF08E00399949 /* KTKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTKeyValue.m; sourceTree = "<group>"; };
 		6508587E189CF08E00399949 /* KTLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTLayout.h; sourceTree = "<group>"; };
@@ -525,7 +525,7 @@
 				65085878189CF08E00399949 /* KTIdentifiedDataSource.h */,
 				65085879189CF08E00399949 /* KTKeytech.h */,
 				6508587A189CF08E00399949 /* KTKeytech.m */,
-				6508587B189CF08E00399949 /* KTKeytechLoader.h */,
+				6508587B189CF08E00399949 /* KTLoaderDelegate.h */,
 				6508587C189CF08E00399949 /* KTKeyValue.h */,
 				6508587D189CF08E00399949 /* KTKeyValue.m */,
 				6508587E189CF08E00399949 /* KTLayout.h */,
@@ -620,7 +620,7 @@
 				650858ED189CF08E00399949 /* KTSimpleFavorite.h in Headers */,
 				650858D8189CF08E00399949 /* KTNotifications.h in Headers */,
 				650858D2189CF08E00399949 /* KTLoaderInfo.h in Headers */,
-				650858C8189CF08E00399949 /* KTKeytechLoader.h in Headers */,
+				650858C8189CF08E00399949 /* KTLoaderDelegate.h in Headers */,
 				650858CF189CF08E00399949 /* KTLayouts.h in Headers */,
 				65085905189CF08E00399949 /* SimpleKeyValuePair.h in Headers */,
 				650858B2189CF08E00399949 /* KTChangeAction.h in Headers */,
