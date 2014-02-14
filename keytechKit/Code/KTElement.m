@@ -195,9 +195,11 @@ static RKObjectMapping* _mapping;
         
     }else
         
-        if (!_isItemThumbnailLoading){
+        if (!_isItemThumbnailLoading &!_isItemThumnailLoaded){
             _isItemThumbnailLoading = YES;
-            [self loadItemThumbnail];
+            
+            [self performSelectorInBackground:@selector(loadItemThumbnail) withObject:nil ];
+
             return _itemThumbnail;
             
         } else {
@@ -214,7 +216,7 @@ static RKObjectMapping* _mapping;
     }else{
         _isItemThumbnailLoading = YES;
         [self loadItemThumbnail];
-        //[self performSelectorInBackground:@selector(loadItemThumbnail) withObject:nil];
+        [self performSelectorInBackground:@selector(loadItemThumbnail) withObject:nil];
         return _itemThumbnail;
     }
 }
@@ -525,10 +527,11 @@ static RKObjectMapping* _mapping;
                 if ([[NSDate date] timeIntervalSinceDate:startDate] > _thumbnailLoadingTimeout) {
                     // NSLog(@"*** Time out for loading thumnail for %@ after %f seconds...", thumbnailKey, _thumbnailLoadingTimeout);
                     _isItemThumbnailLoading = NO;
-                    _isItemThumnailLoaded = NO;
+                    _isItemThumnailLoaded = YES;
                     
                     // Remove the queue flag
                     [thumbnailLoadingQueue removeObject:self.itemThumbnailHint];
+                    
                     return;
                     //TODO: What to do if no thumbnail cound be loaded?
                 }
@@ -683,6 +686,8 @@ static RKObjectMapping* _mapping;
         _itemNextAvailableStatusList = [[NSMutableArray alloc]init];
         _itemWhereUsedList = [[NSMutableArray alloc]init];
         _itemBomList = [[NSMutableArray alloc]init];
+        
+        [NSImage imageNamed:NSImageNameAdvanced]; // Placeholder image
         
         // Just for a placehodlder for a dictionaly - there should be a better way
         dummy = [[NSObject alloc]init];
