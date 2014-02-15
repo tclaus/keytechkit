@@ -47,21 +47,31 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
 /// Stets the object mapping
 +(id)mapping{
     if (!_mapping){
-    _mapping = [RKObjectMapping mappingForClass:[KTTargetLink class]];
+        _mapping = [RKObjectMapping mappingForClass:[KTTargetLink class]];
         [_mapping addAttributeMappingsFromDictionary:@{
                                                        @"ParentID":@"parentID",
                                                        @"EntryName":@"entryName",
                                                        @"TargetElementKey":@"targetElementKey",
                                                        @"SourceID":@"sourceID"
                                                        }];
+        
+        [[RKObjectManager sharedManager] addResponseDescriptor:
+         [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                      method:RKRequestMethodAny
+                                                 pathPattern:nil
+                                                     keyPath:@"TargetLinks"
+                                                 statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+        
+        
     }
     
     return _mapping;
 }
+
 /**
  Helps debugging output
  */
--(NSString*)description{
+-(NSString*)debugDescription{
     return [NSString stringWithFormat:@"%@, %@",self.entryName,self.targetElementKey];
 }
 

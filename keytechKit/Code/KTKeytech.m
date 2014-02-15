@@ -22,6 +22,7 @@
 #import "KTPermission.h"
 #import "KTUser.h"
 #import "KTGroup.h"
+#import "Webservice.h"
 
 @implementation KTKeytech{
 
@@ -118,14 +119,13 @@ static int const kMaxDefaultPageSize = 500;
  */
 -(void)performGetUserQueries:(NSInteger)parentLevel loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
 
-    /*
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTTargetLink mapping];
     
-    NSString* username = [RKClient sharedClient].username;
+    NSString* username = [Webservice sharedWebservice].username;
     
-    RKObjectMapping* itemMapping = [[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[KTTargetLink class]];
-    itemMapping.rootKeyPath = @"TargetLinks";
+
     NSString* resourcePath;
     
     // Parentlevel wird nicht unterstützt!
@@ -139,16 +139,14 @@ static int const kMaxDefaultPageSize = 500;
     }
     
     
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        // loader.params = [RKRequestSerialization serializationWithData:[jso
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-        loader.serializationMIMEType = RKMIMETypeJSON;
-    }];
+[manager getObjectsAtPath:resourcePath parameters:nil
+                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                      [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                  } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                      [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                  }];
     
-    */
+    
 }
 
 
@@ -157,18 +155,14 @@ static int const kMaxDefaultPageSize = 500;
  */
 -(void)performGetUserFavorites:(NSInteger)parentLevel loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
 
-    /*
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    NSString* username = [RKClient sharedClient].username;
+    NSString* username = [Webservice sharedWebservice].username;
     
-    RKObjectMapping* itemMapping = [KTTargetLink setMapping];
-    itemMapping.rootKeyPath = @"TargetLinks";
+    [KTTargetLink mapping];
     NSString* resourcePath;
 
-
-    
     if (parentLevel!= 0){
      resourcePath= [NSString stringWithFormat:@"user/%@/favorites/%ld", username,(long)parentLevel ];
     }else {
@@ -176,15 +170,13 @@ static int const kMaxDefaultPageSize = 500;
     }
     
     
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-       // loader.params = [RKRequestSerialization serializationWithData:[jso
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-        loader.serializationMIMEType = RKMIMETypeJSON;
-    }];
-    */
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                      }];
+
     
 }
 
@@ -296,6 +288,8 @@ static int const kMaxDefaultPageSize = 500;
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTNoteItem mapping];
     
+    elementKey = [self normalizeElementKey:elementKey];
+    
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/notes", elementKey];
     
     
@@ -338,8 +332,8 @@ Getting lister layout data for the given classkey and the current logged in user
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTSimpleControl mapping];
-    if([classKey hasPrefix:@"%"])
-        [classKey stringByReplacingOccurrencesOfString:@"%" withString:@"DEFAULT"]; // Change %_DO => DEFAULT_DO
+    
+    classKey = [self normalizeElementKey:classKey];
     
     NSString* resourcePath = [NSString stringWithFormat:@"classes/%@/listerlayout", classKey];
     [manager getObjectsAtPath:resourcePath
@@ -362,8 +356,7 @@ Getting lister layout data for the given classkey and the current logged in user
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTSimpleControl mapping];
     
-    if([classKey hasPrefix:@"%"])
-        [classKey stringByReplacingOccurrencesOfString:@"%" withString:@"DEFAULT"]; // Change %_DO => DEFAULT_DO
+    classKey = [self normalizeElementKey:classKey];
     
     
     NSString* resourcePath = [NSString stringWithFormat:@"classes/%@/editorlayout", classKey];
@@ -384,7 +377,15 @@ Getting lister layout data for the given classkey and the current logged in user
 // gets a Element
 -(void)performGetElement:(NSString*)elementKey withMetaData:(KTResponseAttributes)metadata loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate{
 
- 
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    
+    // ResourcePath zusammenbauen
+    elementKey = [self normalizeElementKey:elementKey];
+    NSString* resourcePath =  [NSString stringWithFormat:@"Elements/%@",elementKey];
+    
+    // Initilize the mapping
+    [KTElement mapping];
+    
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
     // Requests full Elements Metadata
     switch (metadata) {
@@ -404,14 +405,9 @@ Getting lister layout data for the given classkey and the current logged in user
             break;
     }
     
-    // ResourcePath zusammenbauen
-    NSString* resourcePath =  [NSString stringWithFormat:@"Elements/%@",elementKey];
+
     
-    
-    // Initilize the mapping
-    [KTElement mapping];
-    
-    RKObjectManager *manager = [RKObjectManager sharedManager];
+
     [manager getObject:nil path:resourcePath parameters:rpcData
     success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
@@ -424,6 +420,7 @@ Getting lister layout data for the given classkey and the current logged in user
 
 }
 
+
 /**
 Gets the filelist of given elementKey
  */
@@ -434,6 +431,7 @@ Gets the filelist of given elementKey
 
     [KTFileInfo mapping];
     
+    elementKey = [self normalizeElementKey:elementKey];
     
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/files", elementKey];
     
@@ -455,7 +453,7 @@ Gets the filelist of given elementKey
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     [KTStatusHistoryItem mapping];
-    
+    elementKey = [self normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/statushistory",elementKey];
     
     [manager getObjectsAtPath:resourcePath parameters:nil
@@ -472,7 +470,7 @@ Gets the filelist of given elementKey
     
     [KTElement mapping];
     
-    
+    elementKey = [self normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/whereused",elementKey];
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
@@ -492,7 +490,7 @@ Gets the filelist of given elementKey
 
      RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTStatusItem mapping];
-
+    elementKey = [self normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/nextstatus",elementKey];
     
     [manager getObjectsAtPath:resourcePath parameters:nil
@@ -538,7 +536,8 @@ Gets the filelist of given elementKey
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTBomItem mapping];
-        
+    
+    elementKey = [self normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/bom",elementKey];
     
     [manager getObjectsAtPath:resourcePath
@@ -562,6 +561,7 @@ Gets the filelist of given elementKey
     
     [KTElement mapping];
     
+    elementKey = [self normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/structure",elementKey];
     
     [manager getObjectsAtPath:resourcePath parameters:nil
@@ -698,6 +698,15 @@ Gets the filelist of given elementKey
 
 }
 
+/**
+ In Case a ElementKy starts with a (forbiden) % sign - replace with 'default'
+ */
+-(NSString*)normalizeElementKey:(NSString*)elementKey{
+    if ([elementKey rangeOfString:@"%_"].location !=NSNotFound) {
+        return [elementKey stringByReplacingOccurrencesOfString:@"%_" withString:@"DEFAULT_"];
+    }
+    return elementKey;
+}
 
 - (id)init
 {
