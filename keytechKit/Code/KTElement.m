@@ -143,7 +143,8 @@ static RKObjectMapping* _mapping;
                                                        @"ChangedAt":@"itemChangedAt",
                                                        @"ChangedBy":@"itemChangedBy",
                                                        @"ChangedByLong":@"itemChangedByLong",
-                                                       @"ThumbnailHint":@"itemThumbnailHint"
+                                                       @"ThumbnailHint":@"itemThumbnailHint",
+                                                       @"HasVersions":@"hasVersions"
                                                        }];
         
         RKMapping *keyValueMapping = [KTKeyValue mapping];
@@ -214,10 +215,12 @@ static RKObjectMapping* _mapping;
         return _itemThumbnail;
         
     }else{
-        _isItemThumbnailLoading = YES;
-        [self loadItemThumbnail];
-        [self performSelectorInBackground:@selector(loadItemThumbnail) withObject:nil];
-        return _itemThumbnail;
+        if (!_isItemThumbnailLoading){
+            _isItemThumbnailLoading = YES;
+            //[self loadItemThumbnail];
+            [self performSelectorInBackground:@selector(loadItemThumbnail) withObject:nil];
+        }
+    return _itemThumbnail;
     }
 }
 #endif
@@ -227,8 +230,10 @@ static RKObjectMapping* _mapping;
     if (_isWhereUsedListLoaded &!_isItemWhereUsedListLoading){
         return _itemWhereUsedList;
     }else {
-        _isItemWhereUsedListLoading = YES;
-        [ktManager performGetElementWhereUsed:self.itemKey loaderDelegate:self];
+        if (!_isItemWhereUsedListLoading){
+            _isItemWhereUsedListLoading = YES;
+            [ktManager performGetElementWhereUsed:self.itemKey loaderDelegate:self];
+        }
         return _itemWhereUsedList;
     }
 }
@@ -239,9 +244,12 @@ static RKObjectMapping* _mapping;
         return _itemNextAvailableStatusList;
     }else {
         
+        if (!_isItemNextStatesListLoading){
         _isItemNextStatesListLoading = YES;
         // Starts the query and returns the current (empty) list
         [ktManager performGetElementNextAvailableStatus:self.itemKey loaderDelegate:self];
+        }
+        
         return _itemNextAvailableStatusList;
     }
 }
@@ -250,10 +258,11 @@ static RKObjectMapping* _mapping;
     if (_isStatusHistoryLoaded &!_isStatusHistoryLoading){
         return _itemStatusHistory;
     }else{
-        
-        _isStatusHistoryLoading = YES;
-        // Return preparied (empty) array but perform fill the list
-        [ktManager performGetElementStatusHistory:self.itemKey loaderDelegate:self];
+        if(!_isStatusHistoryLoading){
+            _isStatusHistoryLoading = YES;
+            // Return preparied (empty) array but perform fill the list
+            [ktManager performGetElementStatusHistory:self.itemKey loaderDelegate:self];
+        }
         return _itemStatusHistory;
     }
     
@@ -267,8 +276,11 @@ static RKObjectMapping* _mapping;
     if (_isBomListLoaded &! _isItemBomListLoading){
         return _itemBomList;
     }else {
-        _isItemBomListLoading = YES;
-        [ktManager performGetElementBom:self.itemKey loaderDelegate:self];
+        if(!_isItemBomListLoading){
+            _isItemBomListLoading = YES;
+            [ktManager performGetElementBom:self.itemKey loaderDelegate:self];
+        }
+        
         return _itemBomList;
     }
 }
@@ -282,8 +294,10 @@ static RKObjectMapping* _mapping;
     if (_isStructureListLoaded &!_isStructureLoading){
         return _itemStructureList;
     }else{
-        _isStructureLoading = YES;
-        [ktManager performGetElementStructure:self.itemKey loaderDelegate:self];
+        if (!_isStructureLoading) {
+            _isStructureLoading = YES;
+            [ktManager performGetElementStructure:self.itemKey loaderDelegate:self];
+        }
         return _itemStructureList;
     }
     

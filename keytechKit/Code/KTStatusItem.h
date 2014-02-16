@@ -29,8 +29,7 @@
 @property (nonatomic,copy) NSString* restriction;
 
 /**
- Gets or sets the statusID itself. StatusIDs are simply strings.
- There are no localized displaytexts available for the status.
+ The name of the status. Used as a localized (urg..) key in keytech API.
  */
 @property (nonatomic,copy)NSString* statusID;
 

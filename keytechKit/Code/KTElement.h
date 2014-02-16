@@ -42,6 +42,11 @@
 @property (nonatomic,copy) NSString* itemKey; // ClassKey:ID   SLDRW_3dMISC:1234
 @property (readonly,copy) NSString* itemClassKey; // Nur der Classkey - Anteil, ohne ElementID
 @property (readonly,copy) NSString* itemClassType;  // DO / MI // FD - ruft den vereinfachten Klassentypen ab
+
+/**
+ A shortcut to detect any versions of this element without make a query.
+ */
+@property (readonly) BOOL hasVersions;
 /**
  Provides a shortcut to a thumbnail. Elements without a unique thumbnailimage dont need to request a specific one.
  */
