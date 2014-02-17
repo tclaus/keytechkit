@@ -37,6 +37,8 @@
     
     BOOL _isItemBomListLoading;
     
+    /// Notifies is load is in progress
+    BOOL _isItemVersionListLoading;
     
     
     // Hilfsobjekt, das weitere Eigenschaften nachladen kann durchführt
@@ -61,6 +63,9 @@ static NSObject* dummy;
 
 @synthesize itemStructureList = _itemStructureList;
 @synthesize isStructureListLoaded = _isStructureListLoaded;
+
+@synthesize itemVersionsList =_itemVersionsList;
+@synthesize isVersionListLoaded = _isVersionListLoaded;
 
 @synthesize itemFilesList = _itemFilesList;
 @synthesize isFilesListLoaded = _isFilesListLoaded;
@@ -135,6 +140,7 @@ static RKObjectMapping* _mapping;
                                                        @"ElementTypeDisplayName":@"itemDisplayTypeName",
                                                        @"ElementKey":@"itemKey",
                                                        @"ElementName":@"itemName",
+                                                       @"ElementDisplayName":@"itemDisplayName",
                                                        @"ElementStatus":@"itemStatus",
                                                        @"ElementVersion":@"itemVersion",
                                                        @"CreatedAt":@"itemCreatedAt",
@@ -282,6 +288,26 @@ static RKObjectMapping* _mapping;
         }
         
         return _itemBomList;
+    }
+}
+
+/**
+ Performs a load of Versionslist - if hasVersion is True
+ */
+-(NSMutableArray *)itemVersionsList{
+    if (self.hasVersions) {
+        if (_isVersionListLoaded &! _isItemVersionListLoading){
+            
+        } else {
+            if (!_isItemVersionListLoading) {
+                [ktManager performGetElementVersions:self.itemKey loaderDelegate:self];
+            }
+        }
+        
+        return _itemVersionsList;
+        
+    } else {
+        return _itemVersionsList;
     }
 }
 
@@ -444,6 +470,23 @@ static RKObjectMapping* _mapping;
         return;
     }
     
+    if ([resourcePath hasSuffix:@"versions"]){
+        
+        _isItemVersionListLoading = NO;
+        _isVersionListLoaded = YES;
+        //Set by KVC
+        if (!_itemVersionsList){
+            _itemVersionsList = [[NSMutableArray alloc]initWithArray:searchResult];
+        } else {
+            
+            [self willChangeValueForKey:@"itemVersionsList"];
+            
+            [_itemVersionsList setArray:searchResult];
+            [self didChangeValueForKey:@"itemVersionsList"];
+            
+        }
+        return;
+    }
     
     
     // FilesList

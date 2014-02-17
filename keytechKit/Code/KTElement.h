@@ -29,8 +29,9 @@
  Unique item name
  */
 @property (nonatomic,copy) NSString* itemName;
+@property (nonatomic,copy) NSString* itemDisplayName;
 /**
- Main item Description as provides by the description field
+ Main item Description as provided by the description field
  */
 @property (nonatomic,copy) NSString* itemDescription;
 /**
@@ -47,6 +48,10 @@
  A shortcut to detect any versions of this element without make a query.
  */
 @property (readonly) BOOL hasVersions;
+
+@property (readonly,strong) NSMutableArray *itemVersionsList;
+@property (readonly) BOOL isVersionListLoaded;
+
 /**
  Provides a shortcut to a thumbnail. Elements without a unique thumbnailimage dont need to request a specific one.
  */

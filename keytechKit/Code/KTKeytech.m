@@ -503,6 +503,24 @@ Gets the filelist of given elementKey
 
 }
 
+/// Gets a list of the given Elemets versions
+-(void)performGetElementVersions:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
+    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTElement mapping];
+    elementKey = [self normalizeElementKey:elementKey];
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/versions",elementKey];
+    
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
+                      }];
+    
+}
+
 // Queries a full list of root folder without any parents. Uses maximal pagesize
 -(void)performGetRootFolder:(NSObject<KTLoaderDelegate> *)loaderDelegate{
     [self performGetRootFolderWithPage:1 withSize:self.maximalPageSize loaderDelegate:loaderDelegate];

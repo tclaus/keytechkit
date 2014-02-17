@@ -106,6 +106,12 @@ typedef enum {
 -(void)performGetElementWhereUsed:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;
 
 /**
+ Queries the element for its list of attached versions
+ @param elementKey: the elementkey.
+ */
+-(void)performGetElementVersions:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate;
+
+/**
  Gets a list of available target status. Starting from current element with its given state.
   @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
  */
