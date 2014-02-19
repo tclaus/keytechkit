@@ -17,7 +17,18 @@
  */
 @interface KTLoaderInfo : NSObject
 
-@property (nonatomic,copy) NSString* ressourcePath;
+@property (nonatomic,copy) NSString* resourcePath;
+
+/**
+ Server side information
+ */
+@property (assign) NSHTTPURLResponse *response;
+
+
+/**
+ Initiates the loaderInfo with a URLresponse object
+ */
++(instancetype)loaderInfoWithResponse:(NSHTTPURLResponse*)response resourceString:(NSString*)resourcePath;
 
 /**
  Initiates a new loaderInfo with the given resourceString
@@ -25,9 +36,14 @@
 +(instancetype)loaderInfoWithResourceString:(NSString*)resourceString;
 
 /**
- initializes an empty loader Info
+ Convenience init
  */
 +(instancetype)ktLoaderInfo;
+
+/**
+ initializes an empty loader Info
+ */
+-(id)initWithResourcePath:(NSString*)resource;
 // (For later use)
 
 

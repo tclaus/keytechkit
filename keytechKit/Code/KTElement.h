@@ -60,14 +60,14 @@
 /**
  Versionstring of current element Version
  */
-@property (nonatomic,copy) NSString* itemVersion;
+@property (nonatomic,strong) NSString* itemVersion;
 @property (nonatomic,strong) NSMutableArray* keyValueList;
 
 
 /**
  Returns the next level of linked elements. If not currentlty loaded a request starts.
  */
-@property (readonly,strong) NSMutableArray* itemStructureList;
+@property (readonly,copy) NSMutableArray* itemStructureList;
 @property (readonly) BOOL isStructureListLoaded;
 
 

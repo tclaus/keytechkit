@@ -121,6 +121,9 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
         return _groupList;
     }
 }
+-(void)requestProceedWithError:(KTLoaderInfo*)loaderInfo error:(NSError*)theError{
+#pragma mark Todo: Error handler implementieren
+}
 
 // Perform getting the groups list
 -(void)requestDidProceed:(NSArray*)searchResult fromResourcePath:(NSString*)resourcePath{

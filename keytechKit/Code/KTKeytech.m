@@ -413,7 +413,8 @@ Getting lister layout data for the given classkey and the current logged in user
         [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
     
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
+        NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+        [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
     }];
     
 
@@ -441,7 +442,9 @@ Gets the filelist of given elementKey
                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                          
                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                         [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
+                         
+                         NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                         [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
                      }];
 
 }
@@ -460,7 +463,10 @@ Gets the filelist of given elementKey
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
+                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
+                          
+                          
                       }];
     
 }
@@ -480,7 +486,8 @@ Gets the filelist of given elementKey
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
+                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
                       }];
     
 }
@@ -498,7 +505,8 @@ Gets the filelist of given elementKey
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
+                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
                       }];
 
 }
@@ -516,7 +524,8 @@ Gets the filelist of given elementKey
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
+                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
                       }];
     
 }
@@ -542,7 +551,8 @@ Gets the filelist of given elementKey
                       [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                       
                   } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                      [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
+                      NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                      [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
                       
                   }];
     
@@ -564,7 +574,8 @@ Gets the filelist of given elementKey
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
+                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
                       }];
  
 }
@@ -573,8 +584,8 @@ Gets the filelist of given elementKey
 
 /// Queries the underlying element structure.
 -(void)performGetElementStructure:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-
-   
+    
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     [KTElement mapping];
@@ -584,12 +595,14 @@ Gets the filelist of given elementKey
     
     [manager getObjectsAtPath:resourcePath parameters:nil
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                        [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
-        
-         } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-            [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
-         }];
-
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          
+                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
+                      }];
+    
 }
 
 /// Stats a Search by its queryID
@@ -613,7 +626,8 @@ Gets the filelist of given elementKey
                    [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
+                   NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                   [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
                }];
     
 
@@ -711,7 +725,8 @@ Gets the filelist of given elementKey
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
 
-                    [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
+                   NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                   [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
                }];
 
 }

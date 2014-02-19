@@ -98,7 +98,7 @@
                    
                   
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                   [loaderDelegate requestProceedWithError:[[KTLoaderInfo alloc] initWithResourcePath:resourcePath] error:error];
                    
                }];
 }

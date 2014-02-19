@@ -70,6 +70,9 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
         return _usersList;
     }
 }
+-(void)requestProceedWithError:(KTLoaderInfo*)loaderInfo error:(NSError*)theError{
+#pragma mark TODO Error-Handler implementieren
+}
 
 -(void)requestDidProceed:(NSArray *)searchResult fromResourcePath:(NSString *)resourcePath{
     if ([resourcePath hasSuffix:@"users"]) {

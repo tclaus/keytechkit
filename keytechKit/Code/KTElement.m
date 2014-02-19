@@ -297,7 +297,7 @@ static RKObjectMapping* _mapping;
 -(NSMutableArray *)itemVersionsList{
     if (self.hasVersions) {
         if (_isVersionListLoaded &! _isItemVersionListLoading){
-            
+            return _itemVersionsList;
         } else {
             if (!_isItemVersionListLoading) {
                 [ktManager performGetElementVersions:self.itemKey loaderDelegate:self];
@@ -356,25 +356,25 @@ static RKObjectMapping* _mapping;
 -(void)requestProceedWithError:(KTLoaderInfo*)loaderInfo error:(NSError *)theError{
     
     // Clear the loading - States
-    if ([loaderInfo.ressourcePath hasSuffix:@"statushistory"])
+    if ([loaderInfo.resourcePath hasSuffix:@"statushistory"])
         _isStatusHistoryLoading = NO;
     
-    if ([loaderInfo.ressourcePath hasSuffix:@"nextstatus"])
+    if ([loaderInfo.resourcePath hasSuffix:@"nextstatus"])
         _isItemNextStatesListLoading = NO;
     
-    if ([loaderInfo.ressourcePath hasSuffix:@"structure"])
+    if ([loaderInfo.resourcePath hasSuffix:@"structure"])
         _isStructureLoading = NO;
     
-    if ([loaderInfo.ressourcePath hasSuffix:@"files"])
+    if ([loaderInfo.resourcePath hasSuffix:@"files"])
         _isItemFileslistLoading = NO;
     
-    if ([loaderInfo.ressourcePath hasSuffix:@"notes"])
+    if ([loaderInfo.resourcePath hasSuffix:@"notes"])
         _isItemNotesListLoading = NO;
     
-    if ([loaderInfo.ressourcePath hasSuffix:@"whereused"])
+    if ([loaderInfo.resourcePath hasSuffix:@"whereused"])
         _isItemWhereUsedListLoading = NO;
     
-    if ([loaderInfo.ressourcePath hasSuffix:@"bom"])
+    if ([loaderInfo.resourcePath hasSuffix:@"bom"])
         _isItemBomListLoading = NO;
     
     
@@ -525,7 +525,7 @@ static RKObjectMapping* _mapping;
     
 }
 
-
+#pragma mark Thumbnail handling
 
 /// Resets the thumbnail-cache for this Element
 -(void)resetThumbnail{
@@ -587,8 +587,9 @@ static RKObjectMapping* _mapping;
                     _isItemThumnailLoaded = YES;
                     
                     // Remove the queue flag
-                    [thumbnailLoadingQueue removeObject:self.itemThumbnailHint];
-                    
+                    if ([thumbnailLoadingQueue containsObject:thumbnailKey]) {
+                        [thumbnailLoadingQueue removeObject:thumbnailKey];
+                    }
                     return;
                     //TODO: What to do if no thumbnail cound be loaded?
                 }
@@ -743,6 +744,7 @@ static RKObjectMapping* _mapping;
         _itemNextAvailableStatusList = [[NSMutableArray alloc]init];
         _itemWhereUsedList = [[NSMutableArray alloc]init];
         _itemBomList = [[NSMutableArray alloc]init];
+        _itemVersionsList = [[NSMutableArray alloc]init];
         
         [NSImage imageNamed:NSImageNameAdvanced]; // Placeholder image
         

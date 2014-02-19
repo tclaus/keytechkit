@@ -20,14 +20,12 @@
 		65085849189CEC7C00399949 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085848189CEC7C00399949 /* CoreServices.framework */; };
 		6508584B189CEC8500399949 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508584A189CEC8500399949 /* Security.framework */; };
 		6508584D189CEC8E00399949 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508584C189CEC8E00399949 /* SystemConfiguration.framework */; };
-		6508584F189CECC400399949 /* RestKit.framework in Copy RestKit */ = {isa = PBXBuildFile; fileRef = 65085841189CEBB300399949 /* RestKit.framework */; };
 		65085857189CEDE800399949 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508583D189CEBB300399949 /* libRestKit.a */; };
 		65085859189CEE1C00399949 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085858189CEE1C00399949 /* CFNetwork.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		6508585B189CEE2200399949 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585A189CEE2200399949 /* CoreData.framework */; };
 		6508585D189CEE2900399949 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585C189CEE2900399949 /* MobileCoreServices.framework */; };
 		6508585F189CEE3100399949 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585E189CEE3100399949 /* Security.framework */; };
 		65085861189CEE3800399949 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085860189CEE3800399949 /* SystemConfiguration.framework */; };
-		650858A8189CF08E00399949 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 65085864189CF08E00399949 /* en.lproj */; };
 		650858A9189CF08E00399949 /* keytechFoundation-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65085865189CF08E00399949 /* keytechFoundation-Info.plist */; };
 		650858AC189CF08E00399949 /* KTAttributeMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085868189CF08E00399949 /* KTAttributeMapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858AD189CF08E00399949 /* KTAttributeMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085869189CF08E00399949 /* KTAttributeMapping.m */; };
@@ -146,6 +144,7 @@
 		6508594C189CF0F500399949 /* testRequestServers.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085918189CF0B100399949 /* testRequestServers.m */; };
 		6508594D189CF0F500399949 /* testStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085919189CF0B100399949 /* testStatus.m */; };
 		6508594E189CF0F500399949 /* testUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508591A189CF0B100399949 /* testUserSettings.m */; };
+		651B304318B3BC9D004DBC90 /* RestKit.framework in Copy RestKit */ = {isa = PBXBuildFile; fileRef = 65085841189CEBB300399949 /* RestKit.framework */; };
 		65403C0B18A2778F006D3BE6 /* testCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65403C0A18A2778F006D3BE6 /* testCase.m */; };
 		65403C0C18A2778F006D3BE6 /* testCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65403C0A18A2778F006D3BE6 /* testCase.m */; };
 		65494DFF18A227E100EF9FA4 /* KTGlobalSettingContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 65494DFD18A227E100EF9FA4 /* KTGlobalSettingContext.h */; };
@@ -239,7 +238,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6508584F189CECC400399949 /* RestKit.framework in Copy RestKit */,
+				651B304318B3BC9D004DBC90 /* RestKit.framework in Copy RestKit */,
 			);
 			name = "Copy RestKit";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -804,7 +803,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				650858A9189CF08E00399949 /* keytechFoundation-Info.plist in Resources */,
-				650858A8189CF08E00399949 /* en.lproj in Resources */,
 				650857ED189CE73300399949 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1052,6 +1050,7 @@
 		65085808189CE73300399949 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1064,12 +1063,14 @@
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
 				);
 				INFOPLIST_FILE = "keytechKit/keytechKit-Info.plist";
+				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
 				PRODUCT_NAME = keytechKit;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -1077,6 +1078,7 @@
 		65085809189CE73300399949 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1089,12 +1091,14 @@
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
 				);
 				INFOPLIST_FILE = "keytechKit/keytechKit-Info.plist";
+				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
 				PRODUCT_NAME = keytechKit;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;

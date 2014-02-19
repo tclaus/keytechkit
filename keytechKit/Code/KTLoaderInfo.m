@@ -9,25 +9,62 @@
 #import "KTLoaderInfo.h"
 
 @implementation KTLoaderInfo
-@synthesize ressourcePath = _ressourcePath;
+@synthesize resourcePath = _resourcePath;
+@synthesize response = _response;
 
+
+
+/**
+ Returns the X-ErrorDescription header if applicable
+ */
+-(NSString*)description{
+    
+    NSString *headerDescription =  [[self.response allHeaderFields]objectForKey:@"X-ErrorDescription"];
+    if (headerDescription) {
+        return headerDescription;
+    }
+    if ([self.response statusCode] >400)
+        return NSLocalizedString(@"Forbidden. Username or password failure or you have no access to the resource", nil);
+    
+    return [super description];
+}
 
 +(instancetype)ktLoaderInfo{
     return [[KTLoaderInfo alloc]init];
 }
 
++(instancetype)loaderInfoWithResourceString:(NSString*)resourceString{
+    KTLoaderInfo *loader = [[KTLoaderInfo alloc]initWithResourcePath:resourceString];
+    return loader;
+}
 
-/// Initialies a new instance og this type
-+(instancetype)loaderInfoWithResourceString:(NSString *)resourceString{
++(instancetype)loaderInfoWithResponse:(NSHTTPURLResponse*)response resourceString:(NSString*)resourcePath{
+    KTLoaderInfo *loader = [[KTLoaderInfo alloc]init];
     
-    KTLoaderInfo *loaderInfo = [self new];
-    loaderInfo.ressourcePath = resourceString;
-    return loaderInfo;
+     loader.resourcePath= resourcePath;
     
+    loader.response = response;
+    return loader;
+}
+
+-(id)initWithResourcePath:(NSString*)resource{
+    self = [super init];
+    if (self) {
+        self.resourcePath = resource;
+
+    }
+    return self;
 }
 
 
-
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
 
 
 @end
