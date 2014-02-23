@@ -400,7 +400,8 @@ static RKObjectMapping* _mapping;
             
             // Set by KVC
             [self willChangeValueForKey:@"itemStructureList"];
-            [_itemStructureList setArray:searchResult];
+            _itemStructureList = [searchResult copy];
+            //[_itemStructureList setArray:searchResult];
             [self didChangeValueForKey:@"itemStructureList"];
         }
         

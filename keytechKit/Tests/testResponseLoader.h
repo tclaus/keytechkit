@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "KTKeytechLoader.h"
+#import "KTLoaderDelegate.h"
 
 
 @interface testResponseLoader : NSObject <KTLoaderDelegate>
