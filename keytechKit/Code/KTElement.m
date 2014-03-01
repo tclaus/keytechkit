@@ -43,6 +43,7 @@
     
     // Hilfsobjekt, das weitere Eigenschaften nachladen kann durchführt
     KTKeytech* ktManager;
+
 }
 
 NSTimeInterval _thumbnailLoadingTimeout = 4; //* 4 Seconds Timeout for thumbnails
@@ -581,8 +582,10 @@ static RKObjectMapping* _mapping;
             // Load is in progress. wait as long as the Object in queued
             NSDate *startDate = [NSDate date];
             while ([thumbnailLoadingQueue containsObject:thumbnailKey]) {
+                
                 [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
                 if ([[NSDate date] timeIntervalSinceDate:startDate] > _thumbnailLoadingTimeout) {
+                
                     // NSLog(@"*** Time out for loading thumnail for %@ after %f seconds...", thumbnailKey, _thumbnailLoadingTimeout);
                     _isItemThumbnailLoading = NO;
                     _isItemThumnailLoaded = YES;
@@ -595,6 +598,7 @@ static RKObjectMapping* _mapping;
                     //TODO: What to do if no thumbnail cound be loaded?
                 }
             }
+            
             
             // Some other proces has loaded my requesed thumbnail
             _isItemThumnailLoaded = YES;
