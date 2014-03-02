@@ -232,6 +232,8 @@ Can be paginated.
 */
 -(void)performGetRootFolderWithPage:(NSInteger)page withSize:(NSInteger)pageSize loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;
 
+#pragma mark Helper Functions
+
 
 -(void)cancelQuery;
 

@@ -1,0 +1,26 @@
+//
+//  KTBaseObject.m
+//  keytechKit
+//
+//  Created by Thorsten Claus on 02.03.14.
+//  Copyright (c) 2014 Claus-Software. All rights reserved.
+//
+
+#import "KTBaseObject.h"
+
+
+@implementation KTBaseObject
+
+
+#pragma mark Helper Functions
+/**
+ In Case a ElementKey starts with a (forbiden) % sign - replace with 'default'
+ */
++(NSString*)normalizeElementKey:(NSString*)elementKey{
+    if ([elementKey rangeOfString:@"%_"].location !=NSNotFound) {
+        return [elementKey stringByReplacingOccurrencesOfString:@"%_" withString:@"DEFAULT_"];
+    }
+    return elementKey;
+}
+
+@end

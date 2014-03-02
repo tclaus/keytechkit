@@ -56,10 +56,56 @@
 
     testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
-    [keytech performGetClassEditorLayoutForClassKey:classKey loaderDelegate:responseLoader];
-
+    [[keytech ktSystemManagement]performGetClasslist:responseLoader];
     
-    XCTFail(@"To be implemented");
+    [responseLoader waitForResponse];
+    XCTAssertNotNil(responseLoader.objects, @"Classlist should not be NIL");
+
+    XCTAssertTrue(responseLoader.objects.count>0, @"Classlist should have some classes");
+
+}
+
+-(void)testGetClass{
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+    
+    // Test get the base Document class (with %_DO notation)
+    [[keytech ktSystemManagement]performGetClass:@"%_DO" loaderDelegate:responseLoader];
+    
+    [responseLoader waitForResponse];
+    XCTAssertNotNil(responseLoader.firstObject, @"Class (FirstObject) should not be NIL");
+    
+    
+    // Test get the base Document class (with default_DO notation)
+    [[keytech ktSystemManagement]performGetClass:@"DEFAULT_DO" loaderDelegate:responseLoader];
+    
+    [responseLoader waitForResponse];
+    XCTAssertNotNil(responseLoader.firstObject, @"Class (FirstObject) should not be NIL");
+    
+    
+    
+}
+
+-(void)testClassArchiving{
+
+    NSArray *listOfClasses;
+    
+    // Get some Classes
+    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+    [[keytech ktSystemManagement]performGetClasslist:responseLoader];
+    [responseLoader waitForResponse];
+    XCTAssertNotNil(responseLoader.objects, @"Classlist should not be NIL");
+    XCTAssertTrue(responseLoader.objects.count>0, @"Classlist should have some classes");
+    
+    listOfClasses = responseLoader.objects;
+    
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:listOfClasses];
+    XCTAssertNotNil(data, @"Archived Data should not be nil");
+    
+    NSArray *target = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    XCTAssertNotNil(target, @"Unacrhived classlist should not be nil");
+    
+    
+    
 }
 
 /// Gets a editorlayout for the requested element.

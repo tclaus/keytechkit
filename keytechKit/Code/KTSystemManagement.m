@@ -7,22 +7,48 @@
 //
 
 #import "KTSystemManagement.h"
+#import "KTBaseObject.h"
 #import "KTGlobalSetting.h"
 #import "KTStatusItem.h"
 #import "KTChangeAction.h"
 #import "KTAttributeMapping.h"
 #import "KTGlobalSettingContext.h"
+#import "KTClass.h"
 
 @implementation KTSystemManagement
 
 #pragma mark Classlist
 -(void)performGetClass:(NSString *)classKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-     RKObjectManager *manager = [RKObjectManager sharedManager];
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTClass mapping];
+    
+    classKey = [KTBaseObject normalizeElementKey:classKey];
+    
+    NSString *resourcePath = [NSString stringWithFormat:@"classes/%@",classKey];
+    
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[[KTLoaderInfo alloc]init] error:error];
+                      }];
+    
+    
     
 }
 
 -(void)performGetClasslist:(NSObject<KTLoaderDelegate> *)loaderDelegate{
      RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTClass mapping];
+    NSString *resourcePath = @"classes";
+    
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[[KTLoaderInfo alloc]init] error:error];
+                      }];
+
     
 }
 
@@ -34,10 +60,8 @@
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    
     [KTGlobalSetting mapping];
 
-    
     NSString* resourcePath;
     
     if (username) {

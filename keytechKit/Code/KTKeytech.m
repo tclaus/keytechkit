@@ -8,6 +8,8 @@
 //
 
 #import "KTKeytech.h"
+#import "KTBaseObject.h"
+
 #import "KTResponseLoader.h"
 #import "KTNoteItem.h"
 #import "KTElement.h"
@@ -288,7 +290,7 @@ static int const kMaxDefaultPageSize = 500;
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTNoteItem mapping];
     
-    elementKey = [self normalizeElementKey:elementKey];
+    elementKey = [KTBaseObject normalizeElementKey:elementKey];
     
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/notes", elementKey];
     
@@ -333,7 +335,7 @@ Getting lister layout data for the given classkey and the current logged in user
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTSimpleControl mapping];
     
-    classKey = [self normalizeElementKey:classKey];
+    classKey = [KTBaseObject normalizeElementKey:classKey];
     
     NSString* resourcePath = [NSString stringWithFormat:@"classes/%@/listerlayout", classKey];
     [manager getObjectsAtPath:resourcePath
@@ -356,7 +358,7 @@ Getting lister layout data for the given classkey and the current logged in user
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTSimpleControl mapping];
     
-    classKey = [self normalizeElementKey:classKey];
+    classKey = [KTBaseObject normalizeElementKey:classKey];
     
     
     NSString* resourcePath = [NSString stringWithFormat:@"classes/%@/editorlayout", classKey];
@@ -380,7 +382,7 @@ Getting lister layout data for the given classkey and the current logged in user
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     // ResourcePath zusammenbauen
-    elementKey = [self normalizeElementKey:elementKey];
+    elementKey = [KTBaseObject normalizeElementKey:elementKey];
     NSString* resourcePath =  [NSString stringWithFormat:@"Elements/%@",elementKey];
     
     // Initilize the mapping
@@ -432,7 +434,7 @@ Gets the filelist of given elementKey
 
     [KTFileInfo mapping];
     
-    elementKey = [self normalizeElementKey:elementKey];
+    elementKey = [KTBaseObject normalizeElementKey:elementKey];
     
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/files", elementKey];
     
@@ -456,7 +458,7 @@ Gets the filelist of given elementKey
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     [KTStatusHistoryItem mapping];
-    elementKey = [self normalizeElementKey:elementKey];
+    elementKey = [KTBaseObject normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/statushistory",elementKey];
     
     [manager getObjectsAtPath:resourcePath parameters:nil
@@ -476,7 +478,7 @@ Gets the filelist of given elementKey
     
     [KTElement mapping];
     
-    elementKey = [self normalizeElementKey:elementKey];
+    elementKey = [KTBaseObject normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/whereused",elementKey];
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
@@ -497,7 +499,7 @@ Gets the filelist of given elementKey
 
      RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTStatusItem mapping];
-    elementKey = [self normalizeElementKey:elementKey];
+    elementKey = [KTBaseObject normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/nextstatus",elementKey];
     
     [manager getObjectsAtPath:resourcePath parameters:nil
@@ -516,7 +518,7 @@ Gets the filelist of given elementKey
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTElement mapping];
-    elementKey = [self normalizeElementKey:elementKey];
+    elementKey = [KTBaseObject normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/versions",elementKey];
     
     [manager getObjectsAtPath:resourcePath parameters:nil
@@ -565,7 +567,7 @@ Gets the filelist of given elementKey
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTBomItem mapping];
     
-    elementKey = [self normalizeElementKey:elementKey];
+    elementKey = [KTBaseObject normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/bom",elementKey];
     
     [manager getObjectsAtPath:resourcePath
@@ -590,7 +592,7 @@ Gets the filelist of given elementKey
     
     [KTElement mapping];
     
-    elementKey = [self normalizeElementKey:elementKey];
+    elementKey = [KTBaseObject normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/structure",elementKey];
     
     [manager getObjectsAtPath:resourcePath parameters:nil
@@ -731,15 +733,6 @@ Gets the filelist of given elementKey
 
 }
 
-/**
- In Case a ElementKy starts with a (forbiden) % sign - replace with 'default'
- */
--(NSString*)normalizeElementKey:(NSString*)elementKey{
-    if ([elementKey rangeOfString:@"%_"].location !=NSNotFound) {
-        return [elementKey stringByReplacingOccurrencesOfString:@"%_" withString:@"DEFAULT_"];
-    }
-    return elementKey;
-}
 
 - (id)init
 {
