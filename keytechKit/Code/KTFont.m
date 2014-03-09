@@ -37,6 +37,27 @@ static RKObjectMapping* _mapping;
     return _mapping;
 }
 
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    if (self) {
+        self.fontName = [coder decodeObjectForKey:@"fontName"];
+        self.fontSize = [coder decodeObjectForKey:@"fontSize"];
+        self.fontStyle = [coder decodeObjectForKey:@"fontStyle"];
+        
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:self.fontName forKey:@"fontName"];
+    [aCoder encodeObject:self.fontSize forKey:@"fontSize"];
+    [aCoder encodeObject:self.fontStyle forKey:@"fontStyle"];
+    
+}
+
+
 // Find the underline token
 -(BOOL)isUnderlined{
     if ([self.fontStyle rangeOfString:@"UNDERLINE" options:NSCaseInsensitiveSearch].location !=NSNotFound){

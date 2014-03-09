@@ -161,6 +161,8 @@
 		6556944618C330A200A0BBD1 /* KTBaseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556944418C330A200A0BBD1 /* KTBaseObject.h */; };
 		6556944718C330A200A0BBD1 /* KTBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944518C330A200A0BBD1 /* KTBaseObject.m */; };
 		6556944818C330A200A0BBD1 /* KTBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944518C330A200A0BBD1 /* KTBaseObject.m */; };
+		6556944A18C3EA0F00A0BBD1 /* testLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944918C3EA0F00A0BBD1 /* testLayout.m */; };
+		6556944B18C3EA0F00A0BBD1 /* testLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944918C3EA0F00A0BBD1 /* testLayout.m */; };
 		657E50EE189E6FE600CB7859 /* keytechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857DF189CE73300399949 /* keytechKit.framework */; };
 		657E50F1189E76F800CB7859 /* testResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E50F0189E76F800CB7859 /* testResponseLoader.m */; };
 		657E50F2189E76F800CB7859 /* testResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E50F0189E76F800CB7859 /* testResponseLoader.m */; };
@@ -369,6 +371,7 @@
 		6556944018C25A5800A0BBD1 /* KTClassAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTClassAttribute.m; sourceTree = "<group>"; };
 		6556944418C330A200A0BBD1 /* KTBaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTBaseObject.h; sourceTree = "<group>"; };
 		6556944518C330A200A0BBD1 /* KTBaseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTBaseObject.m; sourceTree = "<group>"; };
+		6556944918C3EA0F00A0BBD1 /* testLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testLayout.m; sourceTree = "<group>"; };
 		657E50EF189E76F800CB7859 /* testResponseLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testResponseLoader.h; sourceTree = "<group>"; };
 		657E50F0189E76F800CB7859 /* testResponseLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testResponseLoader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -600,6 +603,7 @@
 		65085863189CEF9D00399949 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				6556944918C3EA0F00A0BBD1 /* testLayout.m */,
 				6508590B189CF0B100399949 /* en.lproj */,
 				6508590C189CF0B100399949 /* keytechKitTests-Info.plist */,
 				6508590D189CF0B100399949 /* keytechKitFramework Tests-Prefix.pch */,
@@ -897,6 +901,7 @@
 				6508594D189CF0F500399949 /* testStatus.m in Sources */,
 				657E50F1189E76F800CB7859 /* testResponseLoader.m in Sources */,
 				65085949189CF0F500399949 /* testFolderManagement.m in Sources */,
+				6556944A18C3EA0F00A0BBD1 /* testLayout.m in Sources */,
 				6508594A189CF0F500399949 /* testGlobalSettings.m in Sources */,
 				65085947189CF0F500399949 /* testEnvironment.m in Sources */,
 				6508594C189CF0F500399949 /* testRequestServers.m in Sources */,
@@ -959,6 +964,7 @@
 				65085941189CF0F400399949 /* testStatus.m in Sources */,
 				657E50F2189E76F800CB7859 /* testResponseLoader.m in Sources */,
 				6508593D189CF0F400399949 /* testFolderManagement.m in Sources */,
+				6556944B18C3EA0F00A0BBD1 /* testLayout.m in Sources */,
 				6508593E189CF0F400399949 /* testGlobalSettings.m in Sources */,
 				6508593B189CF0F400399949 /* testEnvironment.m in Sources */,
 				65085940189CF0F400399949 /* testRequestServers.m in Sources */,

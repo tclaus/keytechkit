@@ -613,7 +613,7 @@ static RKObjectMapping* _mapping;
         }
         
         // Add current Object to Wait-For-Load queue
-        [thumbnailLoadingQueue addObject:thumbnailKey];
+        [thumbnailLoadingQueue addObject:[thumbnailKey copy]];
         
         NSString *resource = [NSString stringWithFormat:@"elements/%@/thumbnail", self.itemKey];
         NSMutableURLRequest *request = [[RKObjectManager sharedManager].HTTPClient requestWithMethod:@"GET" path:resource parameters:nil ];

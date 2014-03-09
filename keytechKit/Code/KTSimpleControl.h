@@ -12,9 +12,24 @@
 #import "KTPosition.h"
 #import "KTFont.h"
 
-@interface KTSimpleControl : NSObject
+@interface KTSimpleControl : NSObject <NSCoding>
 
+/**
+ Sets the object mapping for this class
+ */
++(id)mapping;
+
+-(void)encodeWithCoder:(NSCoder *)aCoder;
+-(id)initWithCoder:(NSCoder *)aDecoder;
+
+/**
+ Represents the controlname. In each layout a controlname must be unique
+ */
 @property (nonatomic,copy) NSString* controlName;
+/**
+ Represents the name of the underlying attribute. Only data controls are attached to a attribute. 
+ Label controls are normaly loose coupled and this property is empty or nil
+ */
 @property (nonatomic,copy) NSString* controlAttributeName;
 
 /**
@@ -22,7 +37,7 @@
  */
 @property (nonatomic,copy) NSString* controlDisplayName;
 /**
- Gets or stes a keytech controltype Valid types are TEXT, CHECK, LABEL for Textfields, Switchbuttons or uneditable labelfields.
+ Gets or stes a keytech controltype Valid types are TEXT, CHECK, LABEL,DOUBLE, INTEGER for Textfields, Switchbuttons or uneditable labelfields.
  */
 @property (nonatomic,copy) NSString* controlType;
 @property (nonatomic,strong) KTSize* controlSize; // {x,y} als .NET Size Typ
@@ -47,9 +62,6 @@ Returns position and size as rect-Structure. Measurement is same as in keytech p
  */
 @property (nonatomic) CTTextAlignment textAlignment;
 
-/**
- Sets the object mapping for this class
- */
-+(id)mapping;
+
 
 @end

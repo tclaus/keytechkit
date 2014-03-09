@@ -11,12 +11,17 @@
 /**
  Provides a size for a layout control
  */
-@interface KTSize : NSObject
+@interface KTSize : NSObject <NSCoding>
 
 /**
  Sets the object mapping for this class
  */
 +(id)mapping;
+
+
+-(void)encodeWithCoder:(NSCoder *)aCoder;
+-(id)initWithCoder:(NSCoder *)aDecoder;
+
 
 /**
  The height in points

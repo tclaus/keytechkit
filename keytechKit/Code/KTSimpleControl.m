@@ -68,6 +68,36 @@ static RKObjectMapping* _mapping = nil;
     return _mapping;
 }
 
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:_controlAlignmentIntern forKey:@"controlAlignment"];
+    [aCoder encodeObject:self.controlAttributeName forKey:@"controlAttributeName"];
+    [aCoder encodeObject:self.controlType forKey:@"controlType"];
+    [aCoder encodeObject:self.controlName forKey:@"controlName"];
+    [aCoder encodeInteger:self.controlSequence forKey:@"controlSequence"];
+    [aCoder encodeObject:self.controlPosition forKey:@"controlPosition"];
+    [aCoder encodeObject:self.controlSize forKey:@"controlSize"];
+    [aCoder encodeObject:self.font forKey:@"controlFont"];
+    
+}
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    if (self) {
+        self.controlAttributeName = [coder decodeObjectForKey:@"controlAttributeName"];
+        _controlAlignmentIntern = [coder decodeObjectForKey:@"controlAlignment"];
+        self.controlName = [coder decodeObjectForKey:@"controlName"];
+        self.controlType = [coder decodeObjectForKey:@"controlType"];
+        self.controlSequence = [coder decodeIntegerForKey:@"controlSequence"];
+        self.controlPosition = [coder decodeObjectForKey:@"controlPosition"];
+        self.controlSize = [coder decodeObjectForKey:@"controlSize"];
+        self.font = [coder decodeObjectForKey:@"controlFont"];
+        
+    }
+    return self;
+}
+
+
+
 // Gets the api valuestring for the alignment
 -(void)setControlAlignmentIntern:(NSString*)value{
     _controlAlignmentIntern = [value copy];

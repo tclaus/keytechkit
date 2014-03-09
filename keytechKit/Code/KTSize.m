@@ -37,4 +37,23 @@ static RKObjectMapping* _mapping;
     
 }
 
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeInteger:self.height forKey:@"height"];
+    [aCoder encodeInteger:self.width forKey:@"width"];
+}
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    if (self) {
+        self.height = [coder decodeIntegerForKey:@"height"];
+        self.width = [coder decodeIntegerForKey:@"width"];
+    }
+    return self;
+}
+
+
 @end
+
+
+

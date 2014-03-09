@@ -8,12 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@interface KTFont : NSObject
+@interface KTFont : NSObject <NSCoding>
+
 
 /**
  Sets the object mapping for this class
  */
 +(id)mapping;
+
+-(id)initWithCoder:(NSCoder *)aDecoder;
+-(void)encodeWithCoder:(NSCoder *)aCoder;
 
 @property (nonatomic,copy) NSString* fontName;
 @property (nonatomic,copy) NSString* fontStyle;

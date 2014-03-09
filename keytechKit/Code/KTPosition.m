@@ -34,8 +34,28 @@ static RKObjectMapping *_mapping = nil;
 
 }
 
--(NSString*)description{
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeInteger:self.x forKey:@"positionX"];
+    [aCoder encodeInteger:self.y forKey:@"positionY"];
+    
+}
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    if (self) {
+        self.x  = [coder decodeIntegerForKey:@"positionX"];
+        self.y = [coder decodeIntegerForKey:@"positionY"];
+    }
+    return self;
+}
+
+
+-(NSString*)debugDescription{
     return [NSString stringWithFormat:@"(%ld,%ld)",(long)self.x,(long)self.y];
 }
 
 @end
+
+
+

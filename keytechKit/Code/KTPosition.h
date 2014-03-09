@@ -11,7 +11,8 @@
 /*
  Stellt eine Position eines grafischen Objektes dar
  */
-@interface KTPosition : NSObject
+@interface KTPosition : NSObject <NSCoding>
+
 @property (nonatomic) NSInteger x;
 @property (nonatomic) NSInteger y;
 
@@ -19,5 +20,10 @@
  Sets the object mapping for this class
  */
 +(id)mapping;
+
+
+-(id)initWithCoder:(NSCoder *)aDecoder;
+-(void)encodeWithCoder:(NSCoder *)aCoder;
+
 
 @end
