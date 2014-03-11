@@ -29,6 +29,11 @@
  Unique item name
  */
 @property (nonatomic,copy) NSString* itemName;
+/**
+ The displayname is a assembled name defined by the keytech API. It may contains the name, version, description and any other information about this
+ element.
+ You can not change this displaystring.
+ */
 @property (nonatomic,copy) NSString* itemDisplayName;
 /**
  Main item Description as provided by the description field

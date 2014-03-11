@@ -56,6 +56,8 @@ static NSMutableSet* thumbnailLoadingQueue;
 
 static NSObject* dummy;
 
+// Mapping für diese Klasse merken
+static RKObjectMapping* _mapping;
 
 
 #pragma mark Properties
@@ -92,8 +94,13 @@ static NSObject* dummy;
 @synthesize keyValueList = _keyValueList;
 
 
-// Mapping für diese Klasse merken
-static RKObjectMapping* _mapping;
+
+
+/// Returns a trimmed item Display name.
+-(NSString*)itemDisplayName{
+    return [_itemDisplayName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
 
 
 

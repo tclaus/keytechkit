@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface KTStatusItem : NSObject
+@interface KTStatusItem : NSObject <NSCoding>
 
 /**
  Sets the object mapping for this class

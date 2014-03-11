@@ -26,7 +26,7 @@
     if ([self.response statusCode] >400)
         return NSLocalizedString(@"Forbidden. Username or password failure or you have no access to the resource", nil);
     
-    return [super description];
+    return nil;
 }
 
 +(instancetype)ktLoaderInfo{

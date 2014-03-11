@@ -35,6 +35,25 @@
     return _mapping;
 }
 
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:self.imageName forKey:@"imageName"];
+    [aCoder encodeObject:self.restriction forKey:@"restriction"];
+    [aCoder encodeObject:self.statusID forKey:@"statusID"];
+    
+    
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super init];
+    if (self) {
+        self.imageName = [aDecoder decodeObjectForKey:@"imageName"];
+        self.restriction = [aDecoder decodeObjectForKey:@"restriction"];
+        self.statusID = [aDecoder decodeObjectForKey:@"statusID"];
+        
+    }
+    return self;
+}
+
 -(NSString*)description{
     return [NSString stringWithFormat:@"%@ with restriction (%@) ",self.statusID, self.restriction];
 }
