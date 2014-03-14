@@ -21,7 +21,9 @@
                                                        @"AttributeType":@"attributeType",
                                                        @"Description":@"attributeDescription",
                                                        @"Displayname":@"attributeDisplayname",
-                                                       @"NativeName":@"attributeName"
+                                                       @"NativeName":@"attributeName",
+                                                       @"CanUsedInLayouts":@"isLayoutRelevant",
+                                                       @"CanUsedInTitleBlock":@"isTitleBlockRelevant"
                                                        }];
         
         [[RKObjectManager sharedManager] addResponseDescriptor:
@@ -48,7 +50,8 @@
         self.attributeLength = [coder decodeIntForKey:@"attributeLength"];
         self.attributeName = [coder decodeObjectForKey:@"attributeName"];
         self.attributeType = [coder decodeObjectForKey:@"attributeType"];
-        
+        self.isLayoutRelevant = [coder decodeBoolForKey:@"isLayoutRelevant"];
+        self.isTitleBlockRelevant = [coder decodeBoolForKey:@"isTitleBlockRelevant"];
     }
     return self;
 }
@@ -60,9 +63,14 @@
     [aCoder encodeInt:self.attributeLength forKey:@"attributeLength"];
     [aCoder encodeObject:self.attributeName forKey:@"attributeName"];
     [aCoder encodeObject:self.attributeType forKey:@"attributeType"];
-    
+    [aCoder encodeBool:self.isLayoutRelevant forKey:@"isLayoutRelevant"];
+    [aCoder encodeBool:self.isTitleBlockRelevant forKey:@"isTitleBlockRelevant"];
     
 }
 
 @end
+
+
+
+
 

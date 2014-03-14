@@ -20,6 +20,10 @@
 - (id)initWithCoder:(NSCoder *)coder;
 -(void)encodeWithCoder:(NSCoder *)aCoder;
 
+/**
+ The decoded class version. Must be equal to the objects version
+ */
+@property (nonatomic) NSInteger classVersion;
 
 /**
  The unique classkey. Has the <classLabel>_<ClassType> notation. eg: "3DSLD_DRW"

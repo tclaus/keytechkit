@@ -13,6 +13,10 @@
 @implementation KTClass
 static RKObjectMapping *_mapping = nil;
 
++(NSInteger)version{
+    return 1;
+}
+
 +(id)mapping{
     
     if (!_mapping){
@@ -50,6 +54,9 @@ static RKObjectMapping *_mapping = nil;
 {
     self = [super init];
     if (self) {
+        
+        self.classVersion = [coder decodeIntegerForKey:@"classVersion"];
+        
         self.classAllowsElementCopy = [coder decodeBoolForKey:@"classAllowsElementCopy"];
         self.classKey = [coder decodeObjectForKey:@"classKey"];
         self.classDescription = [coder decodeObjectForKey:@"classDescription"];
@@ -66,6 +73,8 @@ static RKObjectMapping *_mapping = nil;
 
 
 -(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeInteger:self.classVersion forKey:@"classVersion"];
+    
     [aCoder encodeBool:self.classAllowsElementCopy forKey:@"classAllowsElementCopy"];
     [aCoder encodeObject:self.classKey forKey:@"classKey"];
     [aCoder encodeObject:self.classDescription forKey:@"classDescription"];

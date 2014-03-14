@@ -16,10 +16,11 @@
     
 }
 
+/// Returns the shared instance of layouts
++(instancetype)sharedLayouts;
 
-
-/*
- Ruft das Layout für die angegebene Klasse ab
+/**
+ Returns the layoutdata for the given class
  */
 -(KTLayout*)layoutForClassKey:(NSString*) classKey;
 

@@ -34,5 +34,14 @@
  */
 @property (nonatomic,copy) NSString *attributeName; // the raw attribute name
 
+/**
+ If YES this attribute can be used in classlayouts
+ */
+@property (nonatomic) BOOL isLayoutRelevant;
+/**
+ If YES this attribute can be used in titleblocks. To store file related information
+ */
+@property (nonatomic) BOOL isTitleBlockRelevant;
+
 
 @end

@@ -9,17 +9,35 @@
 #import "KTLayouts.h"
 
 @implementation KTLayouts{
-     KTKeytech* ktKeytech;
+    KTKeytech* ktKeytech;
+    
+}
+
+static KTLayouts *_sharedLayouts;
+
++(instancetype)sharedLayouts{
+    if (!_sharedLayouts) {
+        _sharedLayouts = [[KTLayouts alloc]init];
+        
+    }
+
+    return _sharedLayouts;
 }
 
 - (id)init
 {
+    if (!_sharedLayouts) {
+        
+    
     self = [super init];
     if (self) {
+        _sharedLayouts = self;
         _layoutsList = [[NSMutableDictionary alloc]initWithCapacity:50];
         ktKeytech= [[KTKeytech alloc]init];
         
     }
+    }
+    
     return self;
 }
 
@@ -69,7 +87,7 @@
     }
 
     
-    // Editor und LIster - Daten einsortieren
+    // Editor und Lister - Daten einsortieren
     if ([pathArray[2] isEqualToString:@"editorlayout"]){
         KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:forClassKey];
         layout.editorLayout  = searchResult;

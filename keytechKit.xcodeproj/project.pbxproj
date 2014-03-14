@@ -152,10 +152,10 @@
 		65494E0118A227E100EF9FA4 /* KTGlobalSettingContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 65494DFE18A227E100EF9FA4 /* KTGlobalSettingContext.m */; };
 		65494E0418A24FE800EF9FA4 /* RestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085841189CEBB300399949 /* RestKit.framework */; };
 		65494E0518A24FF200EF9FA4 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508583D189CEBB300399949 /* libRestKit.a */; };
-		6556943A18C2513700A0BBD1 /* KTClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556943818C2513700A0BBD1 /* KTClass.h */; };
+		6556943A18C2513700A0BBD1 /* KTClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556943818C2513700A0BBD1 /* KTClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6556943B18C2513700A0BBD1 /* KTClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556943918C2513700A0BBD1 /* KTClass.m */; };
 		6556943C18C2513700A0BBD1 /* KTClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556943918C2513700A0BBD1 /* KTClass.m */; };
-		6556944118C25A5800A0BBD1 /* KTClassAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556943F18C25A5800A0BBD1 /* KTClassAttribute.h */; };
+		6556944118C25A5800A0BBD1 /* KTClassAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556943F18C25A5800A0BBD1 /* KTClassAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6556944218C25A5800A0BBD1 /* KTClassAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944018C25A5800A0BBD1 /* KTClassAttribute.m */; };
 		6556944318C25A5800A0BBD1 /* KTClassAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944018C25A5800A0BBD1 /* KTClassAttribute.m */; };
 		6556944618C330A200A0BBD1 /* KTBaseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556944418C330A200A0BBD1 /* KTBaseObject.h */; };
