@@ -45,6 +45,15 @@ static RKObjectMapping *_mapping = nil;
     return _mapping;
 
 }
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.classVersion = [KTClass version];
+    }
+    
+    return self;
+}
 
 -(NSString *)debugDescription{
     return [NSString stringWithFormat:@"%@: %@",self.classKey, self.classDisplayname];
