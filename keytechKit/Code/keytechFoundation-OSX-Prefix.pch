@@ -7,3 +7,5 @@
       #import <SystemConfiguration/SystemConfiguration.h>
       #import <CoreServices/CoreServices.h>
     #endif
+
+#import <NSPredicate+PredicateKTFormat.h>

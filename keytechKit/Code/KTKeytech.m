@@ -607,8 +607,32 @@ Gets the filelist of given elementKey
     
 }
 
+-(void)performSearchByPredicate:(NSPredicate*)predicate page:(NSInteger)page withSize:(NSInteger)size loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate{
+  
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    
+    [KTElement mapping];
+    
+    NSString *resourcePath = @"Searchitems";
+    
+    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
+    rpcData[@"fields"] = [predicate predicateKTFormat];
+    rpcData[@"page"] = @((int)page);
+    rpcData[@"size"] = @((int)size);
+    
+    [manager getObject:nil path:resourcePath parameters:rpcData
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                   [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                   
+               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                   [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
+               }];
+    
+}
+
 /// Stats a Search by its queryID
--(void)performSearchByQuery:(NSInteger)queryID page:(NSInteger)page withSize:(NSInteger)size loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate{
+-(void)performSearchByQueryID:(NSInteger)queryID page:(NSInteger)page withSize:(NSInteger)size loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate{
 
 
     RKObjectManager *manager = [RKObjectManager sharedManager];

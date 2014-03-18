@@ -13,3 +13,6 @@
         #import <SystemConfiguration/SystemConfiguration.h>
         #import <MobileCoreServices/MobileCoreServices.h>
     #endif
+
+
+#import <NSPredicate+PredicateKTFormat.h>

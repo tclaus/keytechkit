@@ -61,7 +61,9 @@ typedef enum {
  @param queryID: the API's internal id of the requested Query
   @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
  */
--(void)performSearchByQuery:(NSInteger)queryID page:(NSInteger)page withSize:(NSInteger)size loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate;
+-(void)performSearchByQueryID:(NSInteger)queryID page:(NSInteger)page withSize:(NSInteger)size loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate;
+
+-(void)performSearchByPredicate:(NSPredicate*)predicate page:(NSInteger)page withSize:(NSInteger)size loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate;
 
 /**
  Starts a fulltext search with the given search word. Returns a single large page of searchresults. 
