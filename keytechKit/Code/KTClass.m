@@ -14,7 +14,7 @@
 static RKObjectMapping *_mapping = nil;
 
 +(NSInteger)version{
-    return 1;
+    return 2;
 }
 
 +(id)mapping{
@@ -90,7 +90,7 @@ static RKObjectMapping *_mapping = nil;
     [aCoder encodeObject:self.classDisplayname forKey:@"classDisplayName"];
     [aCoder encodeBool:self.classHasVersionControl forKey:@"classHasVersionControl"];
     [aCoder encodeBool:self.classHasChangeManagement forKey:@"classHasChangeManagement"];
-    [aCoder encodeBool:self.isActive forKey:@"isActve"];
+    [aCoder encodeBool:self.isActive forKey:@"isActive"];
     [aCoder encodeObject:self.classAttributesList forKey:@"classAttributesList"];
     
 }
