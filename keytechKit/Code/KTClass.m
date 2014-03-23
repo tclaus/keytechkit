@@ -14,7 +14,7 @@
 static RKObjectMapping *_mapping = nil;
 
 +(NSInteger)version{
-    return 2;
+    return 3;
 }
 
 +(id)mapping{

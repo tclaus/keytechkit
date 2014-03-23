@@ -36,5 +36,7 @@ Gets the unique link ID
  */
 @property (nonatomic) NSInteger sourceID;
 @property (readonly) NSString* itemClassKey; //* Classkey of target element
-@property (readonly) NSString* itemClassType;  // Classtype (FD,MI,DO) of this element
+
+/// Classtype (FD,MI,DO) of this element
+@property (readonly) NSString* itemClassType;  //
 @end

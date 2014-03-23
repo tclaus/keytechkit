@@ -55,7 +55,7 @@
 }
 
 -(NSString*)description{
-    return [NSString stringWithFormat:@"%@ with restriction (%@) ",self.statusID, self.restriction];
+    return [NSString stringWithFormat:@"\"%@\" with restriction (%@) ",self.statusID, self.restriction];
 }
 
 @end
