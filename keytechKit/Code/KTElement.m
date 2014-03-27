@@ -12,6 +12,10 @@
 #import "KTLoaderInfo.h"
 #import "KTElement.h"
 
+@interface KTElement()
+
+@end
+
 @implementation KTElement{
 @private
     
@@ -47,6 +51,8 @@
 }
 
 NSTimeInterval _thumbnailLoadingTimeout = 4; //* 4 Seconds Timeout for thumbnails
+
+static dispatch_queue_t _barrierQueue;
 
 /// Provides a process-wide cache of all Thumbnails
 static NSCache* thumbnailCache;
@@ -214,7 +220,7 @@ static RKObjectMapping* _mapping;
             _isItemThumbnailLoading = YES;
             
             [self performSelectorInBackground:@selector(loadItemThumbnail) withObject:nil ];
-
+            //[self loadItemThumbnail];
             return _itemThumbnail;
             
         } else {
@@ -566,7 +572,7 @@ static RKObjectMapping* _mapping;
         }
         
         if ([thumbnailCache objectForKey:thumbnailKey]) {
-            
+     
             // found!
             [self willChangeValueForKey:@"itemThumbnail"]; //Start KVC
             _itemThumbnail = [thumbnailCache objectForKey:thumbnailKey];
@@ -598,9 +604,8 @@ static RKObjectMapping* _mapping;
                     _isItemThumnailLoaded = YES;
                     
                     // Remove the queue flag
-                    if ([thumbnailLoadingQueue containsObject:thumbnailKey]) {
-                        [thumbnailLoadingQueue removeObject:thumbnailKey];
-                    }
+                    [self removeThumbnailKeyFromQueue:thumbnailKey];
+                    
                     return;
                     //TODO: What to do if no thumbnail cound be loaded?
                 }
@@ -648,9 +653,7 @@ static RKObjectMapping* _mapping;
                                       [thumbnailCache setObject:_itemThumbnail forKey:thumbnailKey];
                                   }
                                   // Remove hint from download-queue
-                                  if ([thumbnailLoadingQueue containsObject:thumbnailKey]) {
-                                      [thumbnailLoadingQueue removeObject:thumbnailKey];
-                                  }
+                                 [self removeThumbnailKeyFromQueue:thumbnailKey];
                                   
                                   
                                   [self didChangeValueForKey:@"itemThumbnail"];
@@ -665,6 +668,13 @@ static RKObjectMapping* _mapping;
     
 }
 
+- (void)removeThumbnailKeyFromQueue:(NSObject <NSCopying> *)thumbnailKey
+{
+    dispatch_barrier_async(_barrierQueue, ^
+                           {
+                               [thumbnailLoadingQueue removeObject:thumbnailKey];
+                           });
+}
 
 
 -(BOOL)isKeyValueListLoaded{
@@ -757,6 +767,8 @@ static RKObjectMapping* _mapping;
         _itemWhereUsedList = [[NSMutableArray alloc]init];
         _itemBomList = [[NSMutableArray alloc]init];
         _itemVersionsList = [[NSMutableArray alloc]init];
+        
+        _barrierQueue = dispatch_queue_create("de.claus-software.keytechPLM-ThumbnailDownloader", DISPATCH_QUEUE_CONCURRENT);
         
         [NSImage imageNamed:NSImageNameAdvanced]; // Placeholder image
         
