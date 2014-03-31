@@ -99,7 +99,7 @@ static RKObjectMapping* _mapping;
 
 @synthesize keyValueList = _keyValueList;
 
-
+@synthesize isDeleted = _isDeleted;
 
 
 /// Returns a trimmed item Display name.
@@ -180,23 +180,27 @@ static RKObjectMapping* _mapping;
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
         RKResponseDescriptor *elementDescriptor = [RKResponseDescriptor
                                                    responseDescriptorWithMapping:_mapping
-                                                   method:RKRequestMethodAny
+                                                   method:RKRequestMethodGET | RKRequestMethodPOST | RKRequestMethodPUT
                                                    pathPattern:nil keyPath:@"ElementList" statusCodes:statusCodes];
         
         // Path Argument
         [manager.router.routeSet addRoute:[RKRoute
                                            routeWithClass:[KTElement class]
-                                           pathPattern:@"/elements/:elementKey"
+                                           pathPattern:@"elements/:itemKey"
                                            method:RKRequestMethodGET]] ;
         [manager.router.routeSet addRoute:[RKRoute
                                            routeWithClass:[KTElement class]
-                                           pathPattern:@"/elements"
+                                           pathPattern:@"elements"
                                            method:RKRequestMethodPOST]] ;
         [manager.router.routeSet addRoute:[RKRoute
                                            routeWithClass:[KTElement class]
-                                           pathPattern:@"/elements/:elementKey"
+                                           pathPattern:@"elements/:itemKey"
                                            method:RKRequestMethodPUT]] ;
-        
+
+        [manager.router.routeSet addRoute:[RKRoute
+                                           routeWithClass:[KTElement class]
+                                           pathPattern:@"elements/:itemKey"
+                                           method:RKRequestMethodDELETE]] ;
         
         [manager addResponseDescriptorsFromArray:@[ elementDescriptor ]];
     }
@@ -768,6 +772,8 @@ static RKObjectMapping* _mapping;
         _itemBomList = [[NSMutableArray alloc]init];
         _itemVersionsList = [[NSMutableArray alloc]init];
         
+        _isDeleted = NO;
+        
         _barrierQueue = dispatch_queue_create("de.claus-software.keytechPLM-ThumbnailDownloader", DISPATCH_QUEUE_CONCURRENT);
         
         [NSImage imageNamed:NSImageNameAdvanced]; // Placeholder image
@@ -780,4 +786,33 @@ static RKObjectMapping* _mapping;
 }
 
 
+
+-(void)deleteItem:(void (^)(KTElement *element))success
+          failure:(void (^)(KTElement *element, NSError *error))failure{
+
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    
+
+    [manager deleteObject:self path:nil parameters:nil
+                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                      _isDeleted = YES;
+                      success(self);
+                      
+                  } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                      failure(self,nil);
+                  }];
+    
+    // TODO: BLOCKS:
+    // Wenn Delete OK, dann im Element ein Deleted - Status setzen.
+    // Von 'aussen' ein Block weiterleiten lassen und das erfolgreiche Löschen signalisieren lassen
+    // Wenn nicht erfolgreich dann ein Alert kommen lassen
+    
+    
+    
+    
+}
 @end
+
+
+
+

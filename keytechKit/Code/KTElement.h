@@ -45,6 +45,10 @@
 @property (nonatomic,copy) NSString* itemStatus;
 @property (nonatomic,copy) NSString* itemDisplayTypeName; // Classkey
 @property(readonly) int itemID;
+/**
+ The full elementkey in notation ClassKey:ElementID.
+ If this is a new element and still not saved through the API there is no nummeric elementid but only the the ClassKey
+ */
 @property (nonatomic,copy) NSString* itemKey; // ClassKey:ID   SLDRW_3dMISC:1234
 @property (readonly,copy) NSString* itemClassKey; // Nur der Classkey - Anteil, ohne ElementID
 @property (readonly,copy) NSString* itemClassType;  // DO / MI // FD - ruft den vereinfachten Klassentypen ab
@@ -135,7 +139,20 @@
 @property (nonatomic,copy) NSString* itemChangedByLong;
 @property (nonatomic,copy) NSString* itemChangedBy;
 
+/// Returns TRUE after a successfull delete
+@property (readonly) BOOL isDeleted;
+
 
 -(BOOL)isBomAvailable; // Nur Artikel haben Stücklisten
+
+#pragma mark Functions
+
+/**
+ Deletes the element immediatly. 
+ No checks for user permissions are done. 
+ To check the success, ask the itemStatus field
+ */
+-(void)deleteItem;
+
 
 @end

@@ -15,6 +15,7 @@
 #import "KTSystemManagement.h"
 
 
+@class KTElement;
 
 /**
  Provides main GET functions to fetch data from public API
@@ -139,6 +140,7 @@ typedef enum {
   @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
  */
 -(void)performGetElement:(NSString*)elementKey withMetaData:(KTResponseAttributes)metadata loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate;
+
 
 /**
  Starts a query to get the element status history.

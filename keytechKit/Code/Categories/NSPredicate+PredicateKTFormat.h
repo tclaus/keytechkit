@@ -15,4 +15,11 @@
 
 -(NSString*)predicateKTFormat;
 
+-(NSString*)predicateKTQueryText;
+
+-(BOOL)isQueryText;
+
 @end
+
+
+

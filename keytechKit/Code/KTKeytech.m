@@ -424,6 +424,8 @@ Getting lister layout data for the given classkey and the current logged in user
 }
 
 
+
+
 /**
 Gets the filelist of given elementKey
  */
@@ -616,7 +618,17 @@ Gets the filelist of given elementKey
     NSString *resourcePath = @"Searchitems";
     
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
-    rpcData[@"fields"] = [predicate predicateKTFormat];
+    NSString *queryString = [predicate predicateKTQueryText];
+    NSString *fieldList = [predicate predicateKTFormat];
+    
+    if (queryString) {
+        rpcData[@"q"] = queryString;
+    }
+    
+    if (fieldList) {
+        rpcData[@"fields"] = fieldList;
+    }
+
     rpcData[@"page"] = @((int)page);
     rpcData[@"size"] = @((int)size);
     
