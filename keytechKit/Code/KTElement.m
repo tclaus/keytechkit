@@ -598,6 +598,7 @@ static RKObjectMapping* _mapping;
             
             // Load is in progress. wait as long as the Object in queued
             NSDate *startDate = [NSDate date];
+            
             while ([thumbnailLoadingQueue containsObject:thumbnailKey]) {
                 
                 [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
