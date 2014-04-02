@@ -47,7 +47,7 @@
     
     // Hilfsobjekt, das weitere Eigenschaften nachladen kann durchführt
     KTKeytech* ktManager;
-
+    
 }
 
 NSTimeInterval _thumbnailLoadingTimeout = 4; //* 4 Seconds Timeout for thumbnails
@@ -196,7 +196,7 @@ static RKObjectMapping* _mapping;
                                            routeWithClass:[KTElement class]
                                            pathPattern:@"elements/:itemKey"
                                            method:RKRequestMethodPUT]] ;
-
+        
         [manager.router.routeSet addRoute:[RKRoute
                                            routeWithClass:[KTElement class]
                                            pathPattern:@"elements/:itemKey"
@@ -223,8 +223,8 @@ static RKObjectMapping* _mapping;
         if (!_isItemThumbnailLoading &!_isItemThumnailLoaded){
             _isItemThumbnailLoading = YES;
             
-            [self performSelectorInBackground:@selector(loadItemThumbnail) withObject:nil ];
-            //[self loadItemThumbnail];
+            //[self performSelectorInBackground:@selector(loadItemThumbnail) withObject:nil ];
+            [self loadItemThumbnail];
             return _itemThumbnail;
             
         } else {
@@ -244,7 +244,7 @@ static RKObjectMapping* _mapping;
             //[self loadItemThumbnail];
             [self performSelectorInBackground:@selector(loadItemThumbnail) withObject:nil];
         }
-    return _itemThumbnail;
+        return _itemThumbnail;
     }
 }
 #endif
@@ -269,9 +269,9 @@ static RKObjectMapping* _mapping;
     }else {
         
         if (!_isItemNextStatesListLoading){
-        _isItemNextStatesListLoading = YES;
-        // Starts the query and returns the current (empty) list
-        [ktManager performGetElementNextAvailableStatus:self.itemKey loaderDelegate:self];
+            _isItemNextStatesListLoading = YES;
+            // Starts the query and returns the current (empty) list
+            [ktManager performGetElementNextAvailableStatus:self.itemKey loaderDelegate:self];
         }
         
         return _itemNextAvailableStatusList;
@@ -557,6 +557,10 @@ static RKObjectMapping* _mapping;
     
 }
 
+static long numberOfThumbnailsLoaded;
+
+
+
 //Loads items thumbnail
 -(void)loadItemThumbnail{
     
@@ -576,13 +580,13 @@ static RKObjectMapping* _mapping;
         }
         
         if ([thumbnailCache objectForKey:thumbnailKey]) {
-     
+            
             // found!
             [self willChangeValueForKey:@"itemThumbnail"]; //Start KVC
             _itemThumbnail = [thumbnailCache objectForKey:thumbnailKey];
             _isItemWhereUsedListLoading = NO;
             _isItemThumnailLoaded = YES;
-            [self didChangeValueForKey:@"itemThumbnail"]; //Start KVC
+            [self didChangeValueForKey:@"itemThumbnail"]; //End KVC
             
             return;
         }
@@ -596,36 +600,44 @@ static RKObjectMapping* _mapping;
         
         if ([thumbnailLoadingQueue containsObject:thumbnailKey]) {
             
-            // Load is in progress. wait as long as the Object in queued
-            NSDate *startDate = [NSDate date];
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0ul);
             
-            while ([thumbnailLoadingQueue containsObject:thumbnailKey]) {
+            dispatch_async(queue, ^{
+                // Load is in progress. wait as long as the Object in queued
+                NSDate *startDate = [NSDate date];
                 
-                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-                if ([[NSDate date] timeIntervalSinceDate:startDate] > _thumbnailLoadingTimeout) {
-                
-                    // NSLog(@"*** Time out for loading thumnail for %@ after %f seconds...", thumbnailKey, _thumbnailLoadingTimeout);
-                    _isItemThumbnailLoading = NO;
-                    _isItemThumnailLoaded = YES;
+                while ([thumbnailLoadingQueue containsObject:thumbnailKey]) {
                     
-                    // Remove the queue flag
-                    [self removeThumbnailKeyFromQueue:thumbnailKey];
-                    
-                    return;
-                    //TODO: What to do if no thumbnail cound be loaded?
+                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+                    if ([[NSDate date] timeIntervalSinceDate:startDate] > _thumbnailLoadingTimeout) {
+                        
+                        // NSLog(@"*** Time out for loading thumnail for %@ after %f seconds...", thumbnailKey, _thumbnailLoadingTimeout);
+                        _isItemThumbnailLoading = NO;
+                        _isItemThumnailLoaded = YES;
+                        
+                        // Remove the queue flag
+                        
+                        [self removeThumbnailKeyFromQueue:thumbnailKey];
+                        
+                        return;
+                        //TODO: What to do if no thumbnail cound be loaded?
+                    }
                 }
-            }
+                
+                
+                // Some other proces has loaded my requesed thumbnail
+                _isItemThumnailLoaded = YES;
+                _isItemThumbnailLoading = NO;
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    // Returning the now cached thumbnail
+                    [self willChangeValueForKey:@"itemThumbnail"]; //Signaling KVC that value has changed
+                    _itemThumbnail = [thumbnailCache objectForKey:thumbnailKey];
+                    [self didChangeValueForKey:@"itemThumbnail"]; //
+                });
+            });
             
-            
-            // Some other proces has loaded my requesed thumbnail
-            _isItemThumnailLoaded = YES;
-            _isItemThumbnailLoading = NO;
-            
-            // Returning the now cached thumbnail
-            [self willChangeValueForKey:@"itemThumbnail"]; //Signaling KVC that value has changed
-            _itemThumbnail = [thumbnailCache objectForKey:thumbnailKey];
-            [self didChangeValueForKey:@"itemThumbnail"]; //
-            return; // Queue ended valueshould
+            //return; // Queue ended valueshould
             
         }
         
@@ -641,8 +653,10 @@ static RKObjectMapping* _mapping;
         [defaultSession downloadTaskWithRequest:request
                               completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
                                   
-                                  
+                                  @try {
+                                      
                                   [self willChangeValueForKey:@"itemThumbnail"]; //Start KVC
+                                  numberOfThumbnailsLoaded ++;
                                   
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
                                   _itemThumbnail = [[NSImage alloc] initWithContentsOfURL:location];
@@ -654,15 +668,20 @@ static RKObjectMapping* _mapping;
                                   _isItemThumnailLoaded = YES;
                                   _isItemThumbnailLoading = NO;
                                   
+                                  
+                                  
                                   if(_itemThumbnail) {  // might be NIL if server did not respond
                                       [thumbnailCache setObject:_itemThumbnail forKey:thumbnailKey];
                                   }
                                   // Remove hint from download-queue
-                                 [self removeThumbnailKeyFromQueue:thumbnailKey];
+                                  [self removeThumbnailKeyFromQueue:thumbnailKey];
                                   
                                   
                                   [self didChangeValueForKey:@"itemThumbnail"];
-                                  
+                                }
+                                @finally {
+                                          
+                            }
                               }];
         
         
@@ -670,6 +689,11 @@ static RKObjectMapping* _mapping;
         
         
     }
+    
+}
+
+
+-(void)dealloc{
     
 }
 
@@ -761,6 +785,7 @@ static RKObjectMapping* _mapping;
     self = [super init];
     if (self) {
         
+        numberOfThumbnailsLoaded = 0;
         // Pre allocate some mutables arrays to support lazy loading
         
         ktManager= [[KTKeytech alloc]init];
@@ -790,10 +815,10 @@ static RKObjectMapping* _mapping;
 
 -(void)deleteItem:(void (^)(KTElement *element))success
           failure:(void (^)(KTElement *element, NSError *error))failure{
-
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-
+    
     [manager deleteObject:self path:nil parameters:nil
                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                       _isDeleted = YES;

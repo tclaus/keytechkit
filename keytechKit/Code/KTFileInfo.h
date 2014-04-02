@@ -50,9 +50,9 @@ When file is loaded a local URL is returned. Nil otherwise
 @property (readonly,copy) NSURL *localFileURL;
 
 /**
-  Local fileURL. Returns nil if currently file is not loaded. Starts the loading of the file.
+  Loads the remote file to a temporary store
  */
--(NSURL*) loadRemoteFile;
+-(void) loadRemoteFile;
 
 /**
  Is YES while a file load is currently in progress.

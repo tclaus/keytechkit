@@ -110,9 +110,10 @@ Checks if the file is already transferd to local machine
 
 // Loads the file, if not locally available
 //TODO: What is with chaing / Reloading ? 
--(NSURL *)loadRemoteFile{
+-(void)loadRemoteFile{
     
     if (![self isLocalLoaded] && !_isLoading){
+        _isLoading = YES;
         NSString* resource = [NSString stringWithFormat:@"/files/%ld",(long)self.fileID];
     
         //NSURL *fileURL = [NSURL URLWithString:resource relativeToURL:[[RKObjectManager sharedManager].HTTPClient baseURL]];
@@ -134,7 +135,7 @@ Checks if the file is already transferd to local machine
                            
                            [manager moveItemAtURL:location toURL:targetURL error:&err];
                            
-                           
+
                            [self willChangeValueForKey:@"localFileURL"];
                            _localFileURL = targetURL;
                            _isLoading = NO;
@@ -146,51 +147,13 @@ Checks if the file is already transferd to local machine
         
         
         _isLoading = YES;
-        return nil;
+        return;
 
     } else {
-        return self.localFileURL;
+        return;
     }
 }
 
-
-//* File was loaded. Send a FileLoaded through KVO
--(void)request:(id )request didLoadResponse:(id)response{
-    
-
-    NSURL* dataDir = [[[Webservice sharedWebservice]applicationDataDirectory] URLByAppendingPathComponent:self.fileName];
-
-    BOOL fileCreated = [[NSFileManager defaultManager] createFileAtPath:[dataDir path] contents:nil attributes:nil];
-    if (fileCreated) {
-            
-    NSFileHandle* file = [NSFileHandle fileHandleForWritingAtPath:[dataDir path]];
-    
-    [file writeData:nil];
-    [file closeFile];
-    
-        
-        // If fast switching between files - a error might occure
-        @try {
-            [self willChangeValueForKey:@"localFileURL"];
-            //_localURL = [NSURL fileURLWithPath:[dataDir absoluteString]];
-            _localFileURL = dataDir;
-            
-            _isLoading = NO;
-            [self didChangeValueForKey:@"localFileURL"];
-            
-        }
-        @catch (NSException *exception) {
-            // do nothing
-        }
-        @finally {
-            // do nothing
-        }
-        
-
-    }
-    
-    
-}
 
 
 /**
