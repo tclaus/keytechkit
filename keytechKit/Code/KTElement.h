@@ -145,14 +145,7 @@
 
 -(BOOL)isBomAvailable; // Nur Artikel haben Stücklisten
 
-#pragma mark Functions
-
-/**
- Deletes the element immediatly. 
- No checks for user permissions are done. 
- To check the success, ask the itemStatus field
- */
--(void)deleteItem;
-
+-(void)deleteItem:(void (^)(KTElement *element))success
+          failure:(void (^)(KTElement *element, NSError *error))failure;
 
 @end

@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Claus-Software. All rights reserved.
 //
 
-#import "SimpleKeyValuePair.h"
+#import "KTSimpleKeyValuePair.h"
 #import <RestKit/RestKit.h>
 
-@implementation SimpleKeyValuePair
+@implementation KTSimpleKeyValuePair
 
 RKObjectMapping *_mapping;
 
@@ -18,7 +18,7 @@ RKObjectMapping *_mapping;
     
     if (!_mapping){
     
-        RKObjectMapping *_mapping = [RKObjectMapping mappingForClass:[SimpleKeyValuePair class]];
+        RKObjectMapping *_mapping = [RKObjectMapping mappingForClass:[KTSimpleKeyValuePair class]];
         [_mapping addAttributeMappingsFromDictionary:@{
                                                   @"Key":@"itemKey",
                                                   @"ElementKey":@"itemValue"

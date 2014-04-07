@@ -64,7 +64,11 @@ typedef enum {
  */
 -(void)performSearchByQueryID:(NSInteger)queryID page:(NSInteger)page withSize:(NSInteger)size loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate;
 
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
+
 -(void)performSearchByPredicate:(NSPredicate*)predicate page:(NSInteger)page withSize:(NSInteger)size loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate;
+
+#endif
 
 /**
  Starts a fulltext search with the given search word. Returns a single large page of searchresults. 

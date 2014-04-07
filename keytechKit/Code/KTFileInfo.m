@@ -39,6 +39,7 @@
         [_mapping addAttributeMappingsFromDictionary:@{@"FileID":@"fileID",
                                                        @"FileName":@"fileName",
                                                        @"FileSize":@"fileSize",
+                                                       @"FileStorageType":@"fileStorageType"
                                                        }];
 
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
@@ -114,7 +115,7 @@ Checks if the file is already transferd to local machine
     
     if (![self isLocalLoaded] && !_isLoading){
         _isLoading = YES;
-        NSString* resource = [NSString stringWithFormat:@"/files/%ld",(long)self.fileID];
+        NSString* resource = [NSString stringWithFormat:@"files/%ld",(long)self.fileID];
     
         //NSURL *fileURL = [NSURL URLWithString:resource relativeToURL:[[RKObjectManager sharedManager].HTTPClient baseURL]];
         //NSMutableURLRequest *request =  [NSMutableURLRequest requestWithURL:fileURL];
@@ -126,6 +127,8 @@ Checks if the file is already transferd to local machine
         [[session downloadTaskWithRequest:request
                        completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
                            NSLog(@"File loaded at: %@",location);
+                           if (location) {
+                               
                            
                            NSFileManager *manager = [NSFileManager defaultManager];
                            NSError *err;
@@ -140,7 +143,10 @@ Checks if the file is already transferd to local machine
                            _localFileURL = targetURL;
                            _isLoading = NO;
                            [self didChangeValueForKey:@"localFileURL"];
-
+                           } else {
+                               // Fehler, Datei konnte nicht geladen werden
+                               _isLoading = NO;
+                           }
                            
                        }] resume];
         

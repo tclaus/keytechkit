@@ -182,6 +182,13 @@ static Webservice* _sharedWebservice = nil;
     return self;
 }
 
+/// Returns the current BaseURL
+-(NSURL*)baseURL{
+    return [RKObjectManager sharedManager].baseURL;
+}
+
+
+
 -(KTPreferencesConnection*)preferences{
     return _preferences;
 }

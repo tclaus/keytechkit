@@ -561,6 +561,7 @@ static long numberOfThumbnailsLoaded;
 
 
 
+
 //Loads items thumbnail
 -(void)loadItemThumbnail{
     
@@ -654,15 +655,21 @@ static long numberOfThumbnailsLoaded;
                               completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
                                   
                                   @try {
-                                      
-                                  [self willChangeValueForKey:@"itemThumbnail"]; //Start KVC
+                                      dispatch_sync(dispatch_get_main_queue(), ^{
+                                      [self willChangeValueForKey:@"itemThumbnail"]; //Start KVC
+                                      });
+                                }
+                                  @catch(NSException* __unused exception){}
+                                  
+                                  
                                   numberOfThumbnailsLoaded ++;
                                   
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
                                   _itemThumbnail = [[NSImage alloc] initWithContentsOfURL:location];
                                   
 #else
-                                  _itemThumbnail = [[UIImage alloc]initWithContentsOfURL:location];
+                                  NSData *data = [NSData dataWithContentsOfURL:location];
+                                  _itemThumbnail = [[UIImage alloc]initWithData:data];
                                   
 #endif
                                   _isItemThumnailLoaded = YES;
@@ -676,12 +683,14 @@ static long numberOfThumbnailsLoaded;
                                   // Remove hint from download-queue
                                   [self removeThumbnailKeyFromQueue:thumbnailKey];
                                   
-                                  
-                                  [self didChangeValueForKey:@"itemThumbnail"];
-                                }
-                                @finally {
-                                          
-                            }
+                                  @try{
+                                      dispatch_sync(dispatch_get_main_queue(), ^{
+                                      [self didChangeValueForKey:@"itemThumbnail"];
+                                      });
+                                    }
+                                  @catch(NSException * __unused exception){}
+        
+                                
                               }];
         
         
@@ -802,8 +811,12 @@ static long numberOfThumbnailsLoaded;
         
         _barrierQueue = dispatch_queue_create("de.claus-software.keytechPLM-ThumbnailDownloader", DISPATCH_QUEUE_CONCURRENT);
         
+    #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
         [NSImage imageNamed:NSImageNameAdvanced]; // Placeholder image
+#else
         
+        //[UIImage imageNamed:NSImageNameAdvanced];
+#endif
         // Just for a placehodlder for a dictionaly - there should be a better way
         dummy = [[NSObject alloc]init];
         
@@ -822,10 +835,14 @@ static long numberOfThumbnailsLoaded;
     [manager deleteObject:self path:nil parameters:nil
                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                       _isDeleted = YES;
-                      success(self);
+                      if (success) {
+                          success(self);
+                      }
                       
                   } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                      failure(self,nil);
+                      if (failure){
+                          failure(self,nil);
+                      }
                   }];
     
     // TODO: BLOCKS:

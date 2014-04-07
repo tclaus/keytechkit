@@ -11,7 +11,7 @@
 /**
  Stellt ein einfaches Schlüssel - Wertepaar bereit
 */
-@interface SimpleKeyValuePair : NSObject
+@interface KTSimpleKeyValuePair : NSObject
 
 @property (nonatomic,copy) NSString* itemKey;
 @property (nonatomic,copy) NSString* itemValue;

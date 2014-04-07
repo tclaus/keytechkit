@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 
+
 /**
  Provides a fileinfo object and helps loading the file to local machine
  */
@@ -34,6 +35,10 @@
  @property (nonatomic,readonly) NSString* shortFileName;
 
 /**
+ A text representation of the file Type : MASTER, PREVIEW, QUICKPREVIEW
+ */
+@property (nonatomic,readonly) NSString* fileStorageType;
+/**
  Gets the filesize in bytes
  */
 @property (nonatomic,readonly) NSInteger fileSize;
@@ -41,13 +46,13 @@
 /**
  Returns YES if the file is already locally loaded
  */
-@property (nonatomic,readonly) BOOL isLocalLoaded;
+@property (readonly) BOOL isLocalLoaded;
 
 
 /**
 When file is loaded a local URL is returned. Nil otherwise
  */
-@property (readonly,copy) NSURL *localFileURL;
+@property (readonly) NSURL *localFileURL;
 
 /**
   Loads the remote file to a temporary store

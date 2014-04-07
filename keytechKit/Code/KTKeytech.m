@@ -609,6 +609,7 @@ Gets the filelist of given elementKey
     
 }
 
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 -(void)performSearchByPredicate:(NSPredicate*)predicate page:(NSInteger)page withSize:(NSInteger)size loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate{
   
     RKObjectManager *manager = [RKObjectManager sharedManager];
@@ -642,6 +643,7 @@ Gets the filelist of given elementKey
                }];
     
 }
+#endif
 
 /// Stats a Search by its queryID
 -(void)performSearchByQueryID:(NSInteger)queryID page:(NSInteger)page withSize:(NSInteger)size loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate{

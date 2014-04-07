@@ -8,6 +8,7 @@
 
 #import "NSPredicate+PredicateKTFormat.h"
 
+
 @implementation NSPredicate (PredicateKTFormat)
 
 -(BOOL)isQueryText{
@@ -25,7 +26,7 @@
         
         NSComparisonPredicate *cPredicate = (NSComparisonPredicate*)self;
         
-        if ([cPredicate.leftExpression.keyPath isEqualToString:@"text"] ){
+        if ([cPredicate.leftExpression.keyPath isEqualToString:@"/*text*/"] ){
             return YES;
         } else {
             return NO;
@@ -41,7 +42,7 @@
         for (NSPredicate *singlePredicate in compoundPredicate.subpredicates) {
             NSComparisonPredicate *cp = (NSComparisonPredicate*)singlePredicate;
             
-            if ([cp.leftExpression.keyPath isEqualToString:@"text"]) {
+            if ([cp.leftExpression.keyPath isEqualToString:@"/*text*/"]) {
                 return [cp.rightExpression constantValue];
             }
             

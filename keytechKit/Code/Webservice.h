@@ -30,6 +30,12 @@
 @property (nonatomic,copy) NSString* servername;
 @property (nonatomic,copy) NSString* username;
 @property (nonatomic,copy) NSString* password;
+
+/**
+ Returns the current baseURL
+ */
+-(NSURL*)baseURL;
+
 /**
  Returns YES if the user identified by its credentials has an active admin role
  */
@@ -44,7 +50,7 @@
 
 @property (readonly) KTPreferencesConnection* preferences;
 
-@property (nonatomic,weak) NSArray *simpleItemsList;
+//@property (nonatomic,weak) NSArray *simpleItemsList;
 
 
 -(BOOL)needsInitialSetup;
