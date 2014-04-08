@@ -7,10 +7,14 @@
 //  Copyright (c) 2012 Claus-Software. All rights reserved.
 //
 
+
+#import <RestKit/RestKit.h>
+
 #import "KTKeytech.h"
 #import "KTBaseObject.h"
 
 #import "KTResponseLoader.h"
+
 #import "KTNoteItem.h"
 #import "KTElement.h"
 #import "KTFileInfo.h"
@@ -610,20 +614,34 @@ Gets the filelist of given elementKey
 }
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
+
+-(void)cancelSearches{
+    [[RKObjectManager sharedManager] cancelAllObjectRequestOperationsWithMethod:RKRequestMethodGET
+                                                            matchingPathPattern:@"Search"];
+
+}
+
 -(void)performSearchByPredicate:(NSPredicate*)predicate page:(NSInteger)page withSize:(NSInteger)size loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate{
   
+    [self cancelSearches];
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     [KTElement mapping];
     
-    NSString *resourcePath = @"Searchitems";
+    NSString *resourcePath = @"Search";
     
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
     NSString *queryString = [predicate predicateKTQueryText];
     NSString *fieldList = [predicate predicateKTFormat];
+    NSString *classtypes = [predicate predicateKTClasstypes];
     
     if (queryString) {
         rpcData[@"q"] = queryString;
+    }
+    
+    if (classtypes) {
+        rpcData[@"classtypes"] = classtypes;
     }
     
     if (fieldList) {
@@ -639,7 +657,9 @@ Gets the filelist of given elementKey
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                    NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                   [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
+                   if (!operation.isCancelled){
+                       [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
+                   }
                }];
     
 }

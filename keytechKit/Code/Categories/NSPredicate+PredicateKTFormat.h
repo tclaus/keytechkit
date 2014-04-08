@@ -15,9 +15,14 @@
 
 -(NSString*)predicateKTFormat;
 
+/// This predicate identifies a query text
 -(NSString*)predicateKTQueryText;
 
--(BOOL)isQueryText;
+/// This Part of a compound Predicate identified by /*classtypes*/ identifies a list of valid classes
+-(NSString*)predicateKTClasstypes;
+
+/// Some predicates are Special. This is YES if any not directly to  use predicates are found
+-(BOOL)isSpecialPredicate;
 
 @end
 

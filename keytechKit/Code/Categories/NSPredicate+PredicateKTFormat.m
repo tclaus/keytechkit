@@ -11,13 +11,13 @@
 
 @implementation NSPredicate (PredicateKTFormat)
 
--(BOOL)isQueryText{
+-(BOOL)isSpecialPredicate{
     
     if ([self class]==[NSCompoundPredicate class]) {
         NSCompoundPredicate *compoundPredicate = (NSCompoundPredicate*)self;
         for (NSPredicate *singlePredicate in compoundPredicate.subpredicates) {
             NSComparisonPredicate *cp = (NSComparisonPredicate*)singlePredicate;
-            return cp.isQueryText;
+            return cp.isSpecialPredicate;
         }
         return NO;
     }
@@ -26,7 +26,7 @@
         
         NSComparisonPredicate *cPredicate = (NSComparisonPredicate*)self;
         
-        if ([cPredicate.leftExpression.keyPath isEqualToString:@"/*text*/"] ){
+        if ([cPredicate.leftExpression.keyPath hasPrefix:@"/*"] & [cPredicate.leftExpression.keyPath hasSuffix:@"*/"] ){
             return YES;
         } else {
             return NO;
@@ -34,6 +34,24 @@
     }
     return NO;
 }
+
+
+-(NSString*)predicateKTClasstypes{
+    if ([self class]==[NSCompoundPredicate class]) {
+        NSCompoundPredicate *compoundPredicate = (NSCompoundPredicate*)self;
+        for (NSPredicate *singlePredicate in compoundPredicate.subpredicates) {
+            NSComparisonPredicate *cp = (NSComparisonPredicate*)singlePredicate;
+            
+            if ([cp.leftExpression.keyPath isEqualToString:@"/*classtypes*/"]) {
+                return [cp.rightExpression constantValue];
+            }
+            
+        }
+        
+    }
+    return nil;
+}
+
 
 /// Filters the text search String
 -(NSString*)predicateKTQueryText{
@@ -65,7 +83,7 @@
         for (NSPredicate *singlePredicate in compoundPredicate.subpredicates) {
             if ([singlePredicate class] == [NSComparisonPredicate class]) {
                 
-                if (![singlePredicate isQueryText]) {
+                if (![singlePredicate isSpecialPredicate]) {
                     
                     if ([output length]>0) {
                         [output appendString:@":"];
@@ -80,7 +98,12 @@
             }
             
         }
-        return output;
+        // Dont return an empty string - return nil!
+        if ([output length]>0) {
+            return output;
+        } else {
+            return nil;
+        }
     }else {
         return [self predicateKTComarison:(NSComparisonPredicate*)self];
     }

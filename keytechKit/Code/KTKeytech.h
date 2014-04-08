@@ -10,12 +10,9 @@
 
 
 #import <Foundation/Foundation.h>
-#import <RestKit/RestKit.h>
 #import "KTLoaderDelegate.h"
 #import "KTSystemManagement.h"
 
-
-@class KTElement;
 
 /**
  Provides main GET functions to fetch data from public API
