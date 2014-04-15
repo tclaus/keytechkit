@@ -12,7 +12,7 @@
 #import <Foundation/Foundation.h>
 #import "KTLoaderDelegate.h"
 #import "KTSystemManagement.h"
-
+#import "NSPredicate+PredicateKTFormat.h"
 
 /**
  Provides main GET functions to fetch data from public API
