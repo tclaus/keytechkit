@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Claus-Software. All rights reserved.
 //
 
-#import "Webservice.h"
+#import "KTManager.h"
 #import "KTElement.h"
 #import "KTNotifications.h"
 #import "KTUser.h"
@@ -14,16 +14,15 @@
 
 
 
-@implementation Webservice{
+@implementation KTManager{
     
-    KTKeytech *ktKeytech;
-    BOOL connectionIsValid;
+    KTKeytech *_ktKeytech;
+    BOOL _connectionIsValid;
     KTPreferencesConnection* _preferences;
-    // Privater Manager
-    RKObjectManager* manager;
+    
 }
 
-static Webservice* _sharedWebservice = nil;
+static KTManager* _sharedWebservice = nil;
 
 -(NSString*) servername{
     return _preferences.servername;
@@ -49,7 +48,7 @@ static Webservice* _sharedWebservice = nil;
 
 
 /// Creates the singelton class
-+(Webservice*) sharedWebservice{
++(KTManager*) sharedWebservice{
     if (_sharedWebservice == nil) {
         @synchronized(self){
             if (_sharedWebservice == nil) {
@@ -160,16 +159,13 @@ static Webservice* _sharedWebservice = nil;
         if (self.username ==nil) self.username =@"jgrant";
         if (self.password ==nil) self.password =@"";
 
-        manager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.servername]]] ;// @"http://192.168.0.10:8080/keytech"];
+        RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.servername]]] ;// @"http://192.168.0.10:8080/keytech"];
         
+        [objectManager.HTTPClient setAuthorizationHeaderWithUsername:self.username password:self.password];
         [[RKValueTransformer defaultValueTransformer]addValueTransformer:[RKDotNetDateFormatter dotNetDateFormatterWithTimeZone:[NSTimeZone localTimeZone]]];
         
-
-        
-        [manager.HTTPClient setAuthorizationHeaderWithUsername:self.username password:self.password];
-        
         // Suchprovider angeben
-        ktKeytech= [[KTKeytech alloc]init];
+        _ktKeytech= [[KTKeytech alloc]init];
         
         // Logging für RestKit definieren
         RKLogConfigureFromEnvironment();
@@ -196,7 +192,7 @@ static Webservice* _sharedWebservice = nil;
 
 // Forward search provider class
 -(KTKeytech*)ktKeytech{
-    return ktKeytech;
+    return _ktKeytech;
 }
 
 /// Checks for Admin role by asking the API directly and wait for result
@@ -228,7 +224,7 @@ static Webservice* _sharedWebservice = nil;
    
      KTResponseLoader *loader = [[KTResponseLoader alloc]init];
     
-    [ktKeytech performGetUser:self.username loaderDelegate:loader];
+    [self.ktKeytech performGetUser:self.username loaderDelegate:loader];
     [loader waitForResponse];
     
     
@@ -264,11 +260,14 @@ static Webservice* _sharedWebservice = nil;
     preferences.password = Password;
     
     bool objectsAreEqual =     [[[[RKObjectManager sharedManager]HTTPClient] baseURL] isEqual:[NSURL URLWithString:Servername]];
-    if (!objectsAreEqual)
-        manager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:Servername]];
+    if (!objectsAreEqual){
+        RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:Servername]];
+        [RKObjectManager setSharedManager:objectManager];
+    }
     
-    [manager.HTTPClient setAuthorizationHeaderWithUsername:Username password:Password];
-    [RKObjectManager setSharedManager:manager];
+    // Set new Authorization
+    [[RKObjectManager sharedManager].HTTPClient setAuthorizationHeaderWithUsername:Username password:Password];
+    
     
 }
 

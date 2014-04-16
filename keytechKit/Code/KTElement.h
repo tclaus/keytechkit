@@ -43,6 +43,9 @@
  Name (uniqueID) of the current state. You can not set a items state by simply set this property.
  */
 @property (nonatomic,copy) NSString* itemStatus;
+/**
+ Localized name of the elements class.
+ */
 @property (nonatomic,copy) NSString* itemDisplayTypeName; // Classkey
 @property(readonly) int itemID;
 /**
@@ -50,7 +53,14 @@
  If this is a new element and still not saved through the API there is no nummeric elementid but only the the ClassKey
  */
 @property (nonatomic,copy) NSString* itemKey; // ClassKey:ID   SLDRW_3dMISC:1234
+/**
+ The classkey is the elementkey without the identifier. In type of <ClassLabel>_<ClassType> like: 3DSLD_DRW.
+ */
 @property (readonly,copy) NSString* itemClassKey; // Nur der Classkey - Anteil, ohne ElementID
+
+/**
+ One of DO, MI, FD. A token that identifies a classtype
+ */
 @property (readonly,copy) NSString* itemClassType;  // DO / MI // FD - ruft den vereinfachten Klassentypen ab
 
 /**

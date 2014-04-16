@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Webservice.h"
+#import "KTManager.h"
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 
@@ -21,7 +21,7 @@
  */
 @implementation testClasses
 {
-    Webservice* _webservice;
+    KTManager* _webservice;
     NSString* elementKeyWithStructure;
     NSString* classKey;
     KTKeytech* keytech;
@@ -32,7 +32,7 @@
     [super setUp];
     // Put setup code here; it will be run once, before the first test case.
     
-    _webservice = [Webservice sharedWebservice];
+    _webservice = [KTManager sharedWebservice];
     elementKeyWithStructure = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API}
     classKey = @"3DMISC_SLDASM";
     

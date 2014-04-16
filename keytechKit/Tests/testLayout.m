@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Webservice.h"
+#import "KTManager.h"
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 
@@ -17,7 +17,7 @@
 
 @implementation testLayout
 {
-    Webservice* _webservice;
+    KTManager* _webservice;
     KTKeytech* keytech;
 }
 
@@ -26,7 +26,7 @@
     [super setUp];
     // Put setup code here; it will be run once, before the first test case.
     
-    _webservice = [Webservice sharedWebservice];
+    _webservice = [KTManager sharedWebservice];
     
     keytech = [[KTKeytech alloc]init];
     

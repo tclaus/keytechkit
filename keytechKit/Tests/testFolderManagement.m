@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Webservice.h"
+#import "KTManager.h"
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 
@@ -17,13 +17,13 @@
 
 @implementation testFolderManagement
 {
-    Webservice* webservice;
+    KTManager* webservice;
 }
 - (void)setUp
 {
     [super setUp];
     // Put setup code here; it will be run once, before the first test case.
-    webservice = [Webservice sharedWebservice];
+    webservice = [KTManager sharedWebservice];
 }
 
 - (void)tearDown

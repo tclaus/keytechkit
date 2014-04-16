@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Webservice.h"
+#import "KTManager.h"
 #import "KTSystemManagement.h"
 
 #import "Restkit/Restkit.h"
@@ -19,14 +19,14 @@
 @end
 
 @implementation testStatus{
-    Webservice* webservice;
+    KTManager* webservice;
 }
 
 - (void)setUp
 {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    webservice  = [Webservice sharedWebservice];
+    webservice  = [KTManager sharedWebservice];
     
 }
 

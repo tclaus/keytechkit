@@ -1,11 +1,12 @@
 //
-//  webservice.h
+//  KTManager
 //  keytech PLM
 //
 //  Created by Thorsten Claus on 07.08.12.
 //  Copyright (c) 2012 Claus-Software. All rights reserved.
 //
-
+//  Manages BaseURLs, Login names and Managing Data
+//
 #import <Foundation/Foundation.h>
 
 #import "KTKeytech.h"
@@ -15,9 +16,12 @@
 /**
  Provides basic initialization
  */
-@interface Webservice : NSObject
+@interface KTManager : NSObject
+// Formaly known as "Webservice"
 
-+(Webservice*) sharedWebservice;
+
+
++(KTManager*) sharedWebservice;
 /**
  Returns the default application data directory
  */

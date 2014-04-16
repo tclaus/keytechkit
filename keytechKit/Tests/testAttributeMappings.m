@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Webservice.h"
+#import "KTManager.h"
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 @interface testAttributeMappings : XCTestCase
@@ -15,14 +15,14 @@
 @end
 
 @implementation testAttributeMappings{
-    Webservice *_webService;
+    KTManager *_webService;
 }
 
 - (void)setUp
 {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    _webService = [Webservice sharedWebservice];
+    _webService = [KTManager sharedWebservice];
 }
 
 - (void)tearDown

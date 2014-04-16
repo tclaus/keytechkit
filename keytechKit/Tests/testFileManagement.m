@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Webservice.h"
+#import "KTManager.h"
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 #import "KTFileInfo.h"
@@ -22,7 +22,7 @@
 
 @implementation testFileManagement
 {
-    Webservice* webservice;
+    KTManager* webservice;
     NSString* elementKeyWithStructure;
 }
 
@@ -37,7 +37,7 @@ NSTimeInterval _timeOut = 12;
 {
     [super setUp];
     // Put setup code here; it will be run once, before the first test case.
-    webservice = [Webservice sharedWebservice];
+    webservice = [KTManager sharedWebservice];
     elementKeyWithStructure= @"3DMISC_SLDASM:2220"; //* Element with structure on Test API
 }
 

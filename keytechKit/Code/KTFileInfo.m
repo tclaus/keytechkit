@@ -8,7 +8,7 @@
 
 
 #import "KTFileInfo.h"
-#import "Webservice.h"
+#import "KTManager.h"
 
 @implementation KTFileInfo
 {
@@ -132,7 +132,7 @@ Checks if the file is already transferd to local machine
                            
                            NSFileManager *manager = [NSFileManager defaultManager];
                            NSError *err;
-                           NSURL *targetURL = [[[Webservice sharedWebservice]applicationDataDirectory] URLByAppendingPathComponent:self.fileName];
+                           NSURL *targetURL = [[[KTManager sharedWebservice]applicationDataDirectory] URLByAppendingPathComponent:self.fileName];
                           
                            targetURL = [NSURL fileURLWithPath:[targetURL path]];
                            

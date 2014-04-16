@@ -28,7 +28,7 @@
 #import "KTPermission.h"
 #import "KTUser.h"
 #import "KTGroup.h"
-#import "Webservice.h"
+#import "KTManager.h"
 
 @implementation KTKeytech{
 
@@ -129,7 +129,7 @@ static int const kMaxDefaultPageSize = 500;
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTTargetLink mapping];
     
-    NSString* username = [Webservice sharedWebservice].username;
+    NSString* username = [KTManager sharedWebservice].username;
     
 
     NSString* resourcePath;
@@ -164,7 +164,7 @@ static int const kMaxDefaultPageSize = 500;
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    NSString* username = [Webservice sharedWebservice].username;
+    NSString* username = [KTManager sharedWebservice].username;
     
     [KTTargetLink mapping];
     NSString* resourcePath;

@@ -7,7 +7,7 @@
 //
 
 
-#import "Webservice.h"
+#import "KTManager.h"
 #import "KTNotifications.h"
 #import "KTLoaderInfo.h"
 #import "KTElement.h"
@@ -817,7 +817,7 @@ static long numberOfThumbnailsLoaded;
         
         //[UIImage imageNamed:NSImageNameAdvanced];
 #endif
-        // Just for a placehodlder for a dictionaly - there should be a better way
+        // Just for a placehodlder for a dictionary - there should be a better way
         dummy = [[NSObject alloc]init];
         
     }

@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Webservice.h"
+#import "KTManager.h"
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 #import  "KTElement.h"
@@ -22,7 +22,7 @@
 
 @implementation testBaseKeytechKit
 {
-        Webservice* _webservice;
+        KTManager* _webservice;
         NSString* elementKeyWithStructure;
 }
 - (void)setUp
@@ -32,7 +32,7 @@
     // Set-up code here.
     
     // Webservice startet initiale Verbindung zum Dienst
-    _webservice = [Webservice sharedWebservice];
+    _webservice = [KTManager sharedWebservice];
     elementKeyWithStructure = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API}
 }
 
@@ -52,7 +52,7 @@
 
 -(void)testAllocWebservice
 {
-    Webservice* web = [Webservice sharedWebservice];
+    KTManager* web = [KTManager sharedWebservice];
     
     if (!web) XCTFail(@"could not allocate webservice Class");
     

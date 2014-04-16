@@ -13,6 +13,7 @@
  */
 @interface NSPredicate (PredicateKTFormat)
 
+/// Returns a list of keytech attributes with its value operators
 -(NSString*)predicateKTFormat;
 
 /// This predicate identifies a query text

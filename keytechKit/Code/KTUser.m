@@ -7,7 +7,7 @@
 //
 
 #import "KTUser.h"
-#import "Webservice.h"
+#import "KTManager.h"
 #import "KTNotifications.h"
 
 #import <RestKit/RestKit.h>

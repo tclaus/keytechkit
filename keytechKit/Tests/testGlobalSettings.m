@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Webservice.h"
+#import "KTManager.h"
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 #import "keytechKit/KTSystemManagement.h"
@@ -18,14 +18,14 @@
 @end
 
 @implementation testGlobalSettings{
-    Webservice* _webservice;
+    KTManager* _webservice;
 }
 
 - (void)setUp
 {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    _webservice = [Webservice sharedWebservice];
+    _webservice = [KTManager sharedWebservice];
 }
 
 - (void)tearDown

@@ -8,7 +8,7 @@
 
 #import "testCase.h"
 #import <XCTest/XCTest.h>
-#import "Webservice.h"
+#import "KTManager.h"
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 
@@ -16,7 +16,7 @@
 
 + (void)initialize{
     
-    Webservice* webservice = [[Webservice alloc]init];
+    KTManager* webservice = [[KTManager alloc]init];
     webservice.servername = @"http://10.0.246.14:8080/keytech";
     [webservice synchronizeServerCredentials];
     

@@ -118,9 +118,9 @@
 		65085905189CF08E00399949 /* KTSimpleKeyValuePair.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A4189CF08E00399949 /* KTSimpleKeyValuePair.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65085906189CF08E00399949 /* KTSimpleKeyValuePair.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A5189CF08E00399949 /* KTSimpleKeyValuePair.m */; };
 		65085907189CF08E00399949 /* KTSimpleKeyValuePair.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A5189CF08E00399949 /* KTSimpleKeyValuePair.m */; };
-		65085908189CF08E00399949 /* Webservice.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A6189CF08E00399949 /* Webservice.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65085909189CF08E00399949 /* Webservice.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A7189CF08E00399949 /* Webservice.m */; };
-		6508590A189CF08E00399949 /* Webservice.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A7189CF08E00399949 /* Webservice.m */; };
+		65085908189CF08E00399949 /* KTManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A6189CF08E00399949 /* KTManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65085909189CF08E00399949 /* KTManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A7189CF08E00399949 /* KTManager.m */; };
+		6508590A189CF08E00399949 /* KTManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A7189CF08E00399949 /* KTManager.m */; };
 		65085938189CF0F400399949 /* testAttributeMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085910189CF0B100399949 /* testAttributeMappings.m */; };
 		65085939189CF0F400399949 /* testBaseKeytechKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085911189CF0B100399949 /* testBaseKeytechKit.m */; };
 		6508593A189CF0F400399949 /* testClasses.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085912189CF0B100399949 /* testClasses.m */; };
@@ -347,8 +347,8 @@
 		650858A3189CF08E00399949 /* KTUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTUser.m; sourceTree = "<group>"; };
 		650858A4189CF08E00399949 /* KTSimpleKeyValuePair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTSimpleKeyValuePair.h; sourceTree = "<group>"; };
 		650858A5189CF08E00399949 /* KTSimpleKeyValuePair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSimpleKeyValuePair.m; sourceTree = "<group>"; };
-		650858A6189CF08E00399949 /* Webservice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Webservice.h; sourceTree = "<group>"; };
-		650858A7189CF08E00399949 /* Webservice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Webservice.m; sourceTree = "<group>"; };
+		650858A6189CF08E00399949 /* KTManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTManager.h; sourceTree = "<group>"; };
+		650858A7189CF08E00399949 /* KTManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTManager.m; sourceTree = "<group>"; };
 		6508590B189CF0B100399949 /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = en.lproj; sourceTree = "<group>"; };
 		6508590C189CF0B100399949 /* keytechKitTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "keytechKitTests-Info.plist"; sourceTree = "<group>"; };
 		6508590D189CF0B100399949 /* keytechKitFramework Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "keytechKitFramework Tests-Prefix.pch"; sourceTree = "<group>"; };
@@ -594,8 +594,8 @@
 				650858A3189CF08E00399949 /* KTUser.m */,
 				650858A4189CF08E00399949 /* KTSimpleKeyValuePair.h */,
 				650858A5189CF08E00399949 /* KTSimpleKeyValuePair.m */,
-				650858A6189CF08E00399949 /* Webservice.h */,
-				650858A7189CF08E00399949 /* Webservice.m */,
+				650858A6189CF08E00399949 /* KTManager.h */,
+				650858A7189CF08E00399949 /* KTManager.m */,
 				65494DFD18A227E100EF9FA4 /* KTGlobalSettingContext.h */,
 				65494DFE18A227E100EF9FA4 /* KTGlobalSettingContext.m */,
 				6556944418C330A200A0BBD1 /* KTBaseObject.h */,
@@ -673,7 +673,7 @@
 				6556944618C330A200A0BBD1 /* KTBaseObject.h in Headers */,
 				653E25D618F46B2E000A6FA7 /* KTKit.h in Headers */,
 				650858BB189CF08E00399949 /* KTFont.h in Headers */,
-				65085908189CF08E00399949 /* Webservice.h in Headers */,
+				65085908189CF08E00399949 /* KTManager.h in Headers */,
 				650858FF189CF08E00399949 /* KTTask.h in Headers */,
 				650858C9189CF08E00399949 /* KTKeyValue.h in Headers */,
 				650858CC189CF08E00399949 /* KTLayout.h in Headers */,
@@ -889,7 +889,7 @@
 				650858AD189CF08E00399949 /* KTAttributeMapping.m in Sources */,
 				650858C6189CF08E00399949 /* KTKeytech.m in Sources */,
 				6556944718C330A200A0BBD1 /* KTBaseObject.m in Sources */,
-				65085909189CF08E00399949 /* Webservice.m in Sources */,
+				65085909189CF08E00399949 /* KTManager.m in Sources */,
 				650858B3189CF08E00399949 /* KTChangeAction.m in Sources */,
 				650858EE189CF08E00399949 /* KTSimpleFavorite.m in Sources */,
 				65494E0018A227E100EF9FA4 /* KTGlobalSettingContext.m in Sources */,
@@ -953,7 +953,7 @@
 				650858AE189CF08E00399949 /* KTAttributeMapping.m in Sources */,
 				650858C7189CF08E00399949 /* KTKeytech.m in Sources */,
 				6556944818C330A200A0BBD1 /* KTBaseObject.m in Sources */,
-				6508590A189CF08E00399949 /* Webservice.m in Sources */,
+				6508590A189CF08E00399949 /* KTManager.m in Sources */,
 				650858B4189CF08E00399949 /* KTChangeAction.m in Sources */,
 				650858EF189CF08E00399949 /* KTSimpleFavorite.m in Sources */,
 				65494E0118A227E100EF9FA4 /* KTGlobalSettingContext.m in Sources */,

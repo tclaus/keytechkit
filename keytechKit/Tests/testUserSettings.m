@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Webservice.h"
+#import "KTManager.h"
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 
@@ -20,14 +20,14 @@
 @end
 
 @implementation testUserSettings{
-    Webservice* _webservice;
+    KTManager* _webservice;
 }
 
 - (void)setUp
 {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-        _webservice = [Webservice sharedWebservice];
+        _webservice = [KTManager sharedWebservice];
     //_webservice.username = @"Admin";
     //_webservice.password = @"AdmiN2012";
     //[_webservice synchronizeServerCredentials];
@@ -53,9 +53,9 @@
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     
-    NSLog(@"Get permissionslist for %@",[Webservice sharedWebservice].username);
+    NSLog(@"Get permissionslist for %@",[KTManager sharedWebservice].username);
     
-    [keytech performGetPermissionsForUser:[Webservice sharedWebservice].username findPermissionName:nil findEffective:NO loaderDelegate:responseLoader];
+    [keytech performGetPermissionsForUser:[KTManager sharedWebservice].username findPermissionName:nil findEffective:NO loaderDelegate:responseLoader];
     
     
     [responseLoader waitForResponse];
@@ -71,7 +71,7 @@
     KTKeytech* keytech  = [[KTKeytech alloc]init];
     testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
-    [keytech performGetPermissionsForUser:[Webservice sharedWebservice].username findPermissionName:nil findEffective:YES loaderDelegate:responseLoader];
+    [keytech performGetPermissionsForUser:[KTManager sharedWebservice].username findPermissionName:nil findEffective:YES loaderDelegate:responseLoader];
     
     
     [responseLoader waitForResponse];
