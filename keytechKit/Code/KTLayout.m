@@ -8,24 +8,52 @@
 
 #import "KTLayout.h"
 
-@implementation KTLayout
+@implementation KTLayout{
+    
+}
 
-static KTKeytech* simpleSearch = nil;
 
 @synthesize listerLayout =_listerLayout;
 @synthesize editorLayout = _editorLayout;
+@synthesize classVersion = _classVersion;
+@synthesize classKey = _classKey;
 
+
++(NSInteger)version{
+    return 4;
+}
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    if (self) {
+        
+        self.classVersion = [coder decodeIntegerForKey:@"classVersion"];
+        self.listerLayout = [coder decodeObjectForKey:@"listerLayout"];
+        self.editorLayout = [coder decodeObjectForKey:@"editorLayout"];
+        self.classKey = [coder decodeObjectForKey:@"classKey"];
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeInteger:self.classVersion forKey:@"classVersion"];
+    [aCoder encodeObject:self.listerLayout forKey:@"listerLayout"];
+    [aCoder encodeObject:self.editorLayout forKey:@"editorLayout"];
+    [aCoder encodeObject:self.classKey forKey:@"classKey"];
+    
+}
 
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        if (!simpleSearch){
-            simpleSearch = [[KTKeytech alloc]init];
-        }
+
+            self.classVersion = [KTLayout version];
     }
     return self;
+
 }
 
 

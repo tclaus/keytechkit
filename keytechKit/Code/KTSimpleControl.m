@@ -71,6 +71,7 @@ static RKObjectMapping* _mapping = nil;
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:_controlAlignmentIntern forKey:@"controlAlignment"];
     [aCoder encodeObject:self.controlAttributeName forKey:@"controlAttributeName"];
+    [aCoder encodeObject:self.controlDisplayName forKey:@"controlDisplayName"];
     [aCoder encodeObject:self.controlType forKey:@"controlType"];
     [aCoder encodeObject:self.controlName forKey:@"controlName"];
     [aCoder encodeInteger:self.controlSequence forKey:@"controlSequence"];
@@ -83,8 +84,9 @@ static RKObjectMapping* _mapping = nil;
 {
     self = [super init];
     if (self) {
-        self.controlAttributeName = [coder decodeObjectForKey:@"controlAttributeName"];
         _controlAlignmentIntern = [coder decodeObjectForKey:@"controlAlignment"];
+        self.controlAttributeName = [coder decodeObjectForKey:@"controlAttributeName"];
+        self.controlDisplayName = [coder decodeObjectForKey:@"controlDisplayName"];
         self.controlName = [coder decodeObjectForKey:@"controlName"];
         self.controlType = [coder decodeObjectForKey:@"controlType"];
         self.controlSequence = [coder decodeIntegerForKey:@"controlSequence"];

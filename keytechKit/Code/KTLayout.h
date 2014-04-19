@@ -11,18 +11,32 @@
 #import "KTKeytech.h"
 
 /**
- Stellt Layoutdaten für eine Klasse bereit (Lister und Editor) bereit
+ Provides lister and editorlayout for a specific classtype.
  */
-@interface KTLayout : NSObject
+@interface KTLayout : NSObject <NSCoding>
 
+- (id)initWithCoder:(NSCoder *)coder;
+
+-(void)encodeWithCoder:(NSCoder *)aCoder;
 
 /**
- Ruft die Controls-Liste des Listers ab
+ The decoded class version. Must be equal to the objects version
+ */
+@property (nonatomic) NSInteger classVersion;
+
+/**
+ Returns a list of lister layout controls
  */
 @property (nonatomic,copy) NSArray* listerLayout;
 
 /**
- Ruft die Controls-Liste des Editors ab */
+ Returns a list of editor controls
+ */
 @property (nonatomic,copy) NSArray* editorLayout;
+
+/**
+ Returns or sets the classkey for this Layout
+ */
+@property (nonatomic,copy) NSString *classKey;
 
 @end

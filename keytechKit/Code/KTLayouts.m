@@ -9,16 +9,20 @@
 #import "KTLayouts.h"
 
 @implementation KTLayouts{
-    KTKeytech* ktKeytech;
+    KTKeytech* _ktKeytech;
+
+    NSMutableDictionary *_layoutsList;
     
 }
 
-static KTLayouts *_sharedLayouts;
+    static KTLayouts *_sharedLayouts;
+
+@synthesize delegate;
+
 
 +(instancetype)sharedLayouts{
     if (!_sharedLayouts) {
         _sharedLayouts = [[KTLayouts alloc]init];
-        
     }
 
     return _sharedLayouts;
@@ -33,22 +37,34 @@ static KTLayouts *_sharedLayouts;
     if (self) {
         _sharedLayouts = self;
         _layoutsList = [[NSMutableDictionary alloc]initWithCapacity:50];
-        ktKeytech= [[KTKeytech alloc]init];
+        _ktKeytech= [[KTKeytech alloc]init];
         
-    }
+        }
+    } else {
+        return _sharedLayouts;
     }
     
     return self;
 }
 
 
+
+/// Clears all Layout data
+-(void)clearLayoutData{
+    [_layoutsList removeAllObjects];
+}
+
+-(BOOL)isLayoutLoaded:(NSString*)classKey{
+    return ([_layoutsList objectForKey:classKey] !=nil);
+}
+
 // Layout für die Klasse abholen
 -(KTLayout*)layoutForClassKey:(NSString *)classKey{
     
     if (![_layoutsList valueForKey:classKey]){
         //Holen und per KVO später benachrichtigen
-        [ktKeytech performGetClassEditorLayoutForClassKey:classKey loaderDelegate:self]; //EditorLayout
-        [ktKeytech performGetClassListerLayout:classKey loaderDelegate:self]; // Lister Layout
+        [_ktKeytech performGetClassEditorLayoutForClassKey:classKey loaderDelegate:self]; //EditorLayout
+        [_ktKeytech performGetClassListerLayout:classKey loaderDelegate:self]; // Lister Layout
 
         // Da Requests Asynchron kommen aber noch nicht in _layoutslist eingetragen wurden, kann dier selbe Anfrage immer wieder kommen, bevor eine
         // Antwort eingegangen ist.
@@ -56,7 +72,10 @@ static KTLayouts *_sharedLayouts;
         
         // In layouts einsortieren
         if (![_layoutsList valueForKey:classKey]){
-            [_layoutsList setValue:[[KTLayout alloc]init] forKey:classKey];
+            KTLayout *layout =[[KTLayout alloc]init];
+            layout.classKey =classKey;
+            [_layoutsList setValue:layout forKey:classKey];
+            
         }
         
         return NULL;
@@ -83,19 +102,33 @@ static KTLayouts *_sharedLayouts;
 
     // In layouts einsortieren
     if (![_layoutsList valueForKey:forClassKey]){
-        [_layoutsList setValue:[[KTLayout alloc]init] forKey:forClassKey];
+        KTLayout *layout =[[KTLayout alloc]init];
+        layout.classKey =forClassKey;
+        [_layoutsList setValue:layout forKey:forClassKey];
     }
 
     
-    // Editor und Lister - Daten einsortieren
+    // Set lister and edirtor arrays
     if ([pathArray[2] isEqualToString:@"editorlayout"]){
         KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:forClassKey];
         layout.editorLayout  = searchResult;
+        if (layout.listerLayout) {
+            if ([delegate respondsToSelector:@selector(layoutDidLoad:)]){
+                [delegate layoutDidLoad:layout];
+            }
+        }
     }
 
     if ([pathArray[2] isEqualToString:@"listerlayout"]){
         KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:forClassKey];
         layout.listerLayout  = searchResult;
+        if (layout.editorLayout) {
+            
+            if ([self.delegate respondsToSelector:@selector(layoutDidLoad:)]){
+                [self.delegate layoutDidLoad:layout];
+            }
+        }
+        
     }
     
 }
