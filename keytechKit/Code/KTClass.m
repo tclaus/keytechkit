@@ -10,7 +10,28 @@
 
 #import <RestKit/RestKit.h>
 
-@implementation KTClass
+@implementation KTClass{
+    
+    
+    /// The small Class Image
+    NSImage* _smallClassImage;
+    
+    /// Is load in progress
+    BOOL _isSmallClassImageLoading;
+    
+    // Das Classimage muss geladen werden
+    
+    // Kleines und grosses Klassenbild
+    // Laden (Async)
+    // (Notification senden?
+    // Delegate?
+    // KVO ? 
+    
+    
+    
+}
+@synthesize isSmallClassImageLoaded = _isSmallImageLoaded;
+
 static RKObjectMapping *_mapping = nil;
 
 +(NSInteger)version{
@@ -94,8 +115,26 @@ static RKObjectMapping *_mapping = nil;
     [aCoder encodeObject:self.classAttributesList forKey:@"classAttributesList"];
     
 }
-@end
 
+-(NSImage *)classLargeImage{
+    return nil;
+}
+
+-(NSImage *)classSmallImage{
+    if (_isSmallImageLoaded) {
+        return _smallClassImage;
+    } else {
+        [self loadSmallClassImage];
+        return nil;
+    }
+}
+
+-(void)loadSmallClassImage{
+    
+}
+
+
+@end
 
 
 

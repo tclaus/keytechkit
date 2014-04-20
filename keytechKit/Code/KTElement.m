@@ -45,12 +45,13 @@
     BOOL _isItemVersionListLoading;
     
     
+    
     // Hilfsobjekt, das weitere Eigenschaften nachladen kann durchführt
     KTKeytech* ktManager;
     
 }
 
-NSTimeInterval _thumbnailLoadingTimeout = 4; //* 4 Seconds Timeout for thumbnails
+static NSTimeInterval _thumbnailLoadingTimeout = 4; //* 4 Seconds Timeout for thumbnails
 
 static dispatch_queue_t _barrierQueue;
 
