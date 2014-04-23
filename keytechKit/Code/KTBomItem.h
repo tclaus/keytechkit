@@ -29,10 +29,6 @@
 @property (readonly)NSMutableArray* keyValueList;
 
 
-/**
- Gets the value by keyValueList of all attributes
- */
--(id)getValueByKey:(NSString*)key;
 
 
 @end

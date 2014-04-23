@@ -22,7 +22,8 @@ static RKObjectMapping* _mapping;
 @synthesize keyValueList = _keyValueList;
 @synthesize element = _element;
 
--(id)getValueByKey:(NSString*)key{
+-(id)valueForKey:(NSString *)key{
+    
 
     if (!self.keyValueList)
         return @"";
@@ -92,7 +93,7 @@ static RKObjectMapping* _mapping;
 
 -(NSString *)description{
     // Wird hier zu früh abgeholt
-    return [NSString stringWithFormat:@"MI Name = %@",[self getValueByKey:@"as_mi__name"]];
+    return [NSString stringWithFormat:@"MI Name = %@",[self valueForKey:@"as_mi__name"]];
 }
 
 @end
