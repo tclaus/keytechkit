@@ -670,6 +670,7 @@ Gets the filelist of given elementKey
 
 
     RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTElement mapping];
     
     
     // Creating Query Parameter
