@@ -129,7 +129,7 @@ Checks if the file is already transferd to local machine
                            NSLog(@"File loaded at: %@",location);
                            if (location) {
                                
-                           
+
                            NSFileManager *manager = [NSFileManager defaultManager];
                            NSError *err;
                            NSURL *targetURL = [[[KTManager sharedWebservice]applicationDataDirectory] URLByAppendingPathComponent:self.fileName];
