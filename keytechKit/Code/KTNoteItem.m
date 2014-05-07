@@ -31,11 +31,10 @@
     if (!_mapping){
     _mapping = [RKObjectMapping mappingForClass:[KTNoteItem class]];
     
-        [_mapping addAttributeMappingsFromDictionary:@{@"NoteID":@"noteID",
-                                                       @"NoteType":@"noteType",
-                                                       @"NoteText":@"noteText",
-                                                       @"NoteSubject":@"noteSubject",
-                                                       @"NoteSubject":@"noteSubject",
+        [_mapping addAttributeMappingsFromDictionary:@{@"ID":@"noteID",
+                                                       @"Type":@"noteType",
+                                                       @"Text":@"noteText",
+                                                       @"Subject":@"noteSubject",
                                                        @"ChangedAt":@"noteChangedAt",
                                                        @"ChangedBy":@"noteChangedBy",
                                                        @"ChangedByLong":@"noteChangedByLong",

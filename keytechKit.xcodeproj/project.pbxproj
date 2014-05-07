@@ -144,7 +144,6 @@
 		6508594D189CF0F500399949 /* testStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085919189CF0B100399949 /* testStatus.m */; };
 		6508594E189CF0F500399949 /* testUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508591A189CF0B100399949 /* testUserSettings.m */; };
 		651B304318B3BC9D004DBC90 /* RestKit.framework in Copy RestKit */ = {isa = PBXBuildFile; fileRef = 65085841189CEBB300399949 /* RestKit.framework */; };
-		653E25D618F46B2E000A6FA7 /* KTKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 653E25D418F46B2E000A6FA7 /* KTKit.h */; };
 		65403C0B18A2778F006D3BE6 /* testCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65403C0A18A2778F006D3BE6 /* testCase.m */; };
 		65403C0C18A2778F006D3BE6 /* testCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65403C0A18A2778F006D3BE6 /* testCase.m */; };
 		65423E1818D5F4550020B294 /* NSPredicate+PredicateKTFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 65423E1618D5F4550020B294 /* NSPredicate+PredicateKTFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -363,7 +362,6 @@
 		65085918189CF0B100399949 /* testRequestServers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testRequestServers.m; sourceTree = "<group>"; };
 		65085919189CF0B100399949 /* testStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testStatus.m; sourceTree = "<group>"; };
 		6508591A189CF0B100399949 /* testUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testUserSettings.m; sourceTree = "<group>"; };
-		653E25D418F46B2E000A6FA7 /* KTKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKit.h; sourceTree = "<group>"; };
 		65403C0918A2778F006D3BE6 /* testCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testCase.h; sourceTree = "<group>"; };
 		65403C0A18A2778F006D3BE6 /* testCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testCase.m; sourceTree = "<group>"; };
 		65423E1618D5F4550020B294 /* NSPredicate+PredicateKTFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSPredicate+PredicateKTFormat.h"; path = "Categories/NSPredicate+PredicateKTFormat.h"; sourceTree = "<group>"; };
@@ -507,7 +505,6 @@
 				65085867189CF08E00399949 /* keytechFoundation-OSX-Prefix.pch */,
 				650857EA189CE73300399949 /* keytechKit-Info.plist */,
 				650857EB189CE73300399949 /* InfoPlist.strings */,
-				653E25D418F46B2E000A6FA7 /* KTKit.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -671,7 +668,6 @@
 				650858FC189CF08E00399949 /* KTTargetLink.h in Headers */,
 				650858DE189CF08E00399949 /* KTPosition.h in Headers */,
 				6556944618C330A200A0BBD1 /* KTBaseObject.h in Headers */,
-				653E25D618F46B2E000A6FA7 /* KTKit.h in Headers */,
 				650858BB189CF08E00399949 /* KTFont.h in Headers */,
 				65085908189CF08E00399949 /* KTManager.h in Headers */,
 				650858FF189CF08E00399949 /* KTTask.h in Headers */,

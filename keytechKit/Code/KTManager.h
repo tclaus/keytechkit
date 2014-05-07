@@ -21,7 +21,8 @@
 
 
 
-+(KTManager*) sharedWebservice;
++(KTManager*) sharedManager;
+
 /**
  Returns the default application data directory
  */

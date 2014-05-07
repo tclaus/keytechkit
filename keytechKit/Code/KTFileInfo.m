@@ -18,7 +18,7 @@
 @synthesize isLoading = _isLoading;
 @synthesize localFileURL = _localFileURL;
 
-    static RKObjectMapping* _mapping;
+static RKObjectMapping* _mapping;
 
 - (id)init
 {
@@ -41,7 +41,7 @@
                                                        @"FileSize":@"fileSize",
                                                        @"FileStorageType":@"fileStorageType"
                                                        }];
-
+        
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
         RKResponseDescriptor *notesDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:_mapping
                                                                                              method:RKRequestMethodAny
@@ -57,7 +57,7 @@
 // Returns the shortende filename
 -(NSString*)shortFileName{
     if(self.fileName !=nil){
-//self.itemClassKey rangeOfString:@"_MI"].location !=NSNotFound
+        //self.itemClassKey rangeOfString:@"_MI"].location !=NSNotFound
         
         NSUInteger location = [self.fileName rangeOfString:_fileDivider].location;
         
@@ -98,63 +98,61 @@
 }
 
 /**
-Checks if the file is already transferd to local machine
+ Checks if the file is already transferd to local machine
  */
 -(BOOL)isLocalLoaded{
     
     // Objekt ist nicht zugewiesen
-
+    
     return self.localFileURL !=nil;
-        
-
+    
+    
 }
 
 // Loads the file, if not locally available
-//TODO: What is with chaing / Reloading ? 
+//TODO: What is with chaing / Reloading ?
 -(void)loadRemoteFile{
     
     if (![self isLocalLoaded] && !_isLoading){
         _isLoading = YES;
         NSString* resource = [NSString stringWithFormat:@"files/%ld",(long)self.fileID];
-    
+        
         //NSURL *fileURL = [NSURL URLWithString:resource relativeToURL:[[RKObjectManager sharedManager].HTTPClient baseURL]];
         //NSMutableURLRequest *request =  [NSMutableURLRequest requestWithURL:fileURL];
         
         NSMutableURLRequest *request = [[RKObjectManager sharedManager].HTTPClient requestWithMethod:@"GET" path:resource parameters:nil ];
         
-                                                   
+        
         NSURLSession *session = [NSURLSession sharedSession];
         [[session downloadTaskWithRequest:request
-                       completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                           NSLog(@"File loaded at: %@",location);
-                           if (location) {
-                               
-
-                           NSFileManager *manager = [NSFileManager defaultManager];
-                           NSError *err;
-                           NSURL *targetURL = [[[KTManager sharedWebservice]applicationDataDirectory] URLByAppendingPathComponent:self.fileName];
-                          
-                           targetURL = [NSURL fileURLWithPath:[targetURL path]];
-                           
-                           [manager moveItemAtURL:location toURL:targetURL error:&err];
-                           
-
-                           [self willChangeValueForKey:@"localFileURL"];
-                           _localFileURL = targetURL;
-                           _isLoading = NO;
-                           [self didChangeValueForKey:@"localFileURL"];
-                           } else {
-                               // Fehler, Datei konnte nicht geladen werden
-                               _isLoading = NO;
-                           }
-                           
-                       }] resume];
+                        completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                            
+                            if (location) {
+                                NSFileManager *manager = [NSFileManager defaultManager];
+                                NSError *err;
+                                NSURL *targetURL = [[[KTManager sharedManager]applicationDataDirectory] URLByAppendingPathComponent:self.fileName];
+                                
+                                targetURL = [NSURL fileURLWithPath:[targetURL path]];
+                                
+                                [manager moveItemAtURL:location toURL:targetURL error:&err];
+                                
+                                
+                                [self willChangeValueForKey:@"localFileURL"];
+                                _localFileURL = targetURL;
+                                _isLoading = NO;
+                                [self didChangeValueForKey:@"localFileURL"];
+                            } else {
+                                // Fehler, Datei konnte nicht geladen werden
+                                _isLoading = NO;
+                            }
+                            
+                        }] resume];
         
         
         
         _isLoading = YES;
         return;
-
+        
     } else {
         return;
     }

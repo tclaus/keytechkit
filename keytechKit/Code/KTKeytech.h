@@ -13,21 +13,13 @@
 #import "KTLoaderDelegate.h"
 #import "KTSystemManagement.h"
 #import "NSPredicate+PredicateKTFormat.h"
+#import "KTElement.h"
 
 /**
  Provides main GET functions to fetch data from public API
  */
 @interface KTKeytech : NSObject
 
-/**
- For queries- the search result can serverside be filtered to this scope type. Defaults to 'ALL' - no filter.
- */
-typedef enum {
-    KTScopeAll           = 0,
-    KTScopeDocuments     = 1,
-    KTScopeMasteritems   = 2,
-    KTScopeFolder        = 3
-} KTSearchScopeType;
 
 typedef enum {
     /// Returns the reduced list of Attributes (default)
@@ -82,8 +74,7 @@ typedef enum {
   Operator is eqals, greater than, lesser than or nit equal: <,>,=,<>
  and a value in a string format. 
  A valid searchfield is eg: "as_do__status=in arbeit", "as_sdo__volume=123"
-@param inClass: as comma separated list of valid classkeys. The list can be requested by a getClasses command. 
- @param scope: Search in all element types or just in teh specified one
+ @param inClass: as comma separated list of valid classkeys. The list can be requested by a getClasses command.
  @param page: If the response has many elements. Set a Page and a proper  @pageSize for paginated resukltset
  @param pageSize: the maximum requested count of elements within a page
  @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
@@ -91,7 +82,6 @@ typedef enum {
 -(void)performSearch:(NSString *)searchToken
               fields:(NSArray*)searchFields
              inClass:(NSString*)inClass
-           withScope:(KTSearchScopeType)scope
                 page:(NSInteger)page
             pageSize:(NSInteger)size
       loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;

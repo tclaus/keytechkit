@@ -151,13 +151,13 @@ static RKObjectMapping* _mapping;
         
         _mapping = [RKObjectMapping mappingForClass:[KTElement class]];
         
-        [_mapping addAttributeMappingsFromDictionary:@{@"ElementDescription":@"itemDescription",
-                                                       @"ElementTypeDisplayName":@"itemDisplayTypeName",
-                                                       @"ElementKey":@"itemKey",
-                                                       @"ElementName":@"itemName",
-                                                       @"ElementDisplayName":@"itemDisplayName",
-                                                       @"ElementStatus":@"itemStatus",
-                                                       @"ElementVersion":@"itemVersion",
+        [_mapping addAttributeMappingsFromDictionary:@{@"Description":@"itemDescription",
+                                                       @"ClassDisplayName":@"itemDisplayTypeName",
+                                                       @"Key":@"itemKey",
+                                                       @"Name":@"itemName",
+                                                       @"DisplayName":@"itemDisplayName",
+                                                       @"Status":@"itemStatus",
+                                                       @"Version":@"itemVersion",
                                                        @"CreatedAt":@"itemCreatedAt",
                                                        @"CreatedBy":@"itemCreatedBy",
                                                        @"CreatedByLong":@"itemCreatedByLong",
@@ -178,11 +178,12 @@ static RKObjectMapping* _mapping;
         [_mapping addPropertyMapping:KeyalueRelationShip];
         
         // Zentralisiert ?
-        NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
         RKResponseDescriptor *elementDescriptor = [RKResponseDescriptor
                                                    responseDescriptorWithMapping:_mapping
                                                    method:RKRequestMethodGET | RKRequestMethodPOST | RKRequestMethodPUT
-                                                   pathPattern:nil keyPath:@"ElementList" statusCodes:statusCodes];
+                                                   pathPattern:nil
+                                                   keyPath:@"ElementList"
+                                                   statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
         
         // Path Argument
         [manager.router.routeSet addRoute:[RKRoute

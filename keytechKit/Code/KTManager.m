@@ -22,7 +22,7 @@
     
 }
 
-static KTManager* _sharedWebservice = nil;
+static KTManager* _sharedManager = nil;
 
 -(NSString*) servername{
     return _preferences.servername;
@@ -31,14 +31,14 @@ static KTManager* _sharedWebservice = nil;
 -(void)setServername:(NSString *)servername{
     _preferences.servername = servername;
 }
--(NSString*) username{
+-(NSString*)username{
     return _preferences.username;
 }
 -(void)setUsername:(NSString *)username{
     _preferences.username = username;
 }
 
--(NSString*) password{
+-(NSString*)password{
     return _preferences.password;
 }
 -(void) setPassword:(NSString *)password{
@@ -48,23 +48,23 @@ static KTManager* _sharedWebservice = nil;
 
 
 /// Creates the singelton class
-+(KTManager*) sharedWebservice{
-    if (_sharedWebservice == nil) {
++(KTManager*) sharedManager{
+    if (_sharedManager == nil) {
         @synchronized(self){
-            if (_sharedWebservice == nil) {
-                _sharedWebservice = [[super allocWithZone:nil]init];
+            if (_sharedManager == nil) {
+                _sharedManager = [[super allocWithZone:nil]init];
             }
         }
     }
-    return _sharedWebservice;
+    return _sharedManager;
 }
 
 /// Supports singelton Class
 +(id)allocWithZone:(struct _NSZone *)zone{
-    return [self sharedWebservice];
+    return [self sharedManager];
 }
 +(void)initialize{
-    _sharedWebservice = [[super allocWithZone:nil]init];
+    _sharedManager = [[super allocWithZone:nil]init];
 }
 
 
@@ -148,7 +148,7 @@ static KTManager* _sharedWebservice = nil;
 - (id)init
 {
     self = [super init];
-    if (self && _sharedWebservice==nil) {
+    if (self && _sharedManager==nil) {
 
         _preferences = [[KTPreferencesConnection alloc]init];
         
@@ -267,7 +267,6 @@ static KTManager* _sharedWebservice = nil;
     
     // Set new Authorization
     [[RKObjectManager sharedManager].HTTPClient setAuthorizationHeaderWithUsername:Username password:Password];
-    
     
 }
 

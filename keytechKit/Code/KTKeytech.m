@@ -129,7 +129,7 @@ static int const kMaxDefaultPageSize = 500;
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTTargetLink mapping];
     
-    NSString* username = [KTManager sharedWebservice].username;
+    NSString* username = [KTManager sharedManager].username;
     
 
     NSString* resourcePath;
@@ -157,14 +157,14 @@ static int const kMaxDefaultPageSize = 500;
 
 
 /**
- Getting a list ob user favorites
+ Getting a list of user favorites
  */
 -(void)performGetUserFavorites:(NSInteger)parentLevel loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
 
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    NSString* username = [KTManager sharedWebservice].username;
+    NSString* username = [KTManager sharedManager].username;
     
     [KTTargetLink mapping];
     NSString* resourcePath;
@@ -675,7 +675,7 @@ Gets the filelist of given elementKey
     
     // Creating Query Parameter
     
-    NSString *resourcePath = @"Searchitems";
+    NSString *resourcePath = @"Search";
     
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
     rpcData[@"byQuery"] = @((int)queryID);
@@ -695,36 +695,12 @@ Gets the filelist of given elementKey
 }
 
 
--(NSString*)tokenForSearchScope:(int)scope{
-    switch (scope) {
-        case KTScopeAll:
-            return @"ALL";
-            break;
-        case KTScopeDocuments:
-            return @"Document";
-            break;
-            
-        case KTScopeFolder:
-            return  @"Folder";
-            break;
-            
-        case KTScopeMasteritems:
-            return @"Item";
-            break;
-            
-        default:
-            // No Scope - get all
-            return @"ALL";
-    }
-}
-
 /// Searchs for ALL with pagesize 500
 -(void)performSearch:(NSString *)searchToken loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
     
     [self performSearch:searchToken
                  fields:nil
                 inClass:nil
-              withScope:KTScopeAll
                    page:1
                pageSize:500
          loaderDelegate:loaderDelegate];
@@ -736,7 +712,6 @@ Gets the filelist of given elementKey
 -(void)performSearch:(NSString *)searchToken
         fields:(NSArray*)searchFields
         inClass:(NSString*)inClass
-        withScope:(KTSearchScopeType)scope
         page:(NSInteger)page
         pageSize:(NSInteger)size
         loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
@@ -748,7 +723,7 @@ Gets the filelist of given elementKey
     // Initialize the mapping if not already done
     [KTElement mapping];
     
-    NSString *resourcePath = @"Searchitems";
+    NSString *resourcePath = @"Search";
     
     // Creating Query Parameter
     
@@ -774,7 +749,6 @@ Gets the filelist of given elementKey
     }
 
     
-    rpcData[@"scope"] = [self tokenForSearchScope:scope];    
     rpcData[@"page"] = @((int)page);
     rpcData[@"size"] = @((int)size);
 

@@ -17,8 +17,8 @@
     if (!_mapping){
         
         _mapping = [RKObjectMapping mappingForClass:[KTClassAttribute class]];
-        [_mapping addAttributeMappingsFromDictionary:@{@"AttributeLength":@"attributeLength",
-                                                       @"AttributeType":@"attributeType",
+        [_mapping addAttributeMappingsFromDictionary:@{@"Length":@"attributeLength",
+                                                       @"Type":@"attributeType",
                                                        @"Description":@"attributeDescription",
                                                        @"Displayname":@"attributeDisplayname",
                                                        @"NativeName":@"attributeName",
