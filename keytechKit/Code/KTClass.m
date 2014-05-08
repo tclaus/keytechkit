@@ -13,9 +13,6 @@
 @implementation KTClass{
     
     
-    /// The small Class Image
-    NSImage* _smallClassImage;
-    
     /// Is load in progress
     BOOL _isSmallClassImageLoading;
     
@@ -116,22 +113,6 @@ static RKObjectMapping *_mapping = nil;
     
 }
 
--(NSImage *)classLargeImage{
-    return nil;
-}
-
--(NSImage *)classSmallImage{
-    if (_isSmallImageLoaded) {
-        return _smallClassImage;
-    } else {
-        [self loadSmallClassImage];
-        return nil;
-    }
-}
-
--(void)loadSmallClassImage{
-    
-}
 
 
 @end

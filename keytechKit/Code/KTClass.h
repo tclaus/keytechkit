@@ -61,16 +61,6 @@
 
 @property (readonly) BOOL isSmallClassImageLoaded;
 
-#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
-/// Loads the classimage
--(NSImage*) classSmallImage;
--(NSImage*) classLargeImage;
-#else
-/// Loads the clasimage
--(UIImage*) classSmallImage;
--(UIImage*) classLargeImage;
-#endif
-
 @end
 
 

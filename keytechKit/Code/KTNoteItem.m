@@ -32,7 +32,7 @@
     _mapping = [RKObjectMapping mappingForClass:[KTNoteItem class]];
     
         [_mapping addAttributeMappingsFromDictionary:@{@"ID":@"noteID",
-                                                       @"Type":@"noteType",
+                                                       @"NoteType":@"noteType",
                                                        @"Text":@"noteText",
                                                        @"Subject":@"noteSubject",
                                                        @"ChangedAt":@"noteChangedAt",

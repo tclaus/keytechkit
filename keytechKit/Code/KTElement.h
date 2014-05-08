@@ -46,7 +46,7 @@
 /**
  Localized name of the elements class.
  */
-@property (nonatomic,copy) NSString* itemDisplayTypeName; // Classkey
+@property (nonatomic,copy) NSString* itemClassDisplayName; // Classkey
 @property(readonly) int itemID;
 /**
  The full elementkey in notation ClassKey:ElementID.

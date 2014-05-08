@@ -152,7 +152,7 @@ static RKObjectMapping* _mapping;
         _mapping = [RKObjectMapping mappingForClass:[KTElement class]];
         
         [_mapping addAttributeMappingsFromDictionary:@{@"Description":@"itemDescription",
-                                                       @"ClassDisplayName":@"itemDisplayTypeName",
+                                                       @"ClassDisplayName":@"itemClassDisplayName",
                                                        @"Key":@"itemKey",
                                                        @"Name":@"itemName",
                                                        @"DisplayName":@"itemDisplayName",

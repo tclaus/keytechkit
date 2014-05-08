@@ -60,7 +60,7 @@ static RKObjectMapping* _mapping;
         _mapping = [RKObjectMapping mappingForClass:[self class]];
 
         RKRelationshipMapping *simpleElemenRelationship =
-        [RKRelationshipMapping relationshipMappingFromKeyPath:@"SimpleElement"
+        [RKRelationshipMapping relationshipMappingFromKeyPath:@"Element"
                                                     toKeyPath:@"element" withMapping:[KTElement mapping]];
         
         RKRelationshipMapping *keyValueMapping =
