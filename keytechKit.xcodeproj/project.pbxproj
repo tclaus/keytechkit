@@ -762,6 +762,7 @@
 		650857D6189CE73300399949 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = KT;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Claus-Software";
 				TargetAttributes = {
