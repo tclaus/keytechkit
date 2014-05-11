@@ -205,6 +205,7 @@ static RKObjectMapping* _mapping;
                                            method:RKRequestMethodDELETE]] ;
         
         [manager addResponseDescriptorsFromArray:@[ elementDescriptor ]];
+
     }
     
     return _mapping;

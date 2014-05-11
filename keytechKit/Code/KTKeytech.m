@@ -54,9 +54,13 @@ static int const kMaxDefaultPageSize = 500;
     return _ktSystemManagement;
 }
 
--(void)cancelQuery{
+-(void)cancelQuery:(NSString *)requestPattern{
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    
+    [manager cancelAllObjectRequestOperationsWithMethod:RKRequestMethodGET matchingPathPattern:requestPattern];
+}
+
+-(void)cancelAllQueries{
+    RKObjectManager *manager = [RKObjectManager sharedManager];
     [manager cancelAllObjectRequestOperationsWithMethod:RKRequestMethodGET matchingPathPattern:nil];
     
 }
@@ -106,7 +110,7 @@ static int const kMaxDefaultPageSize = 500;
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     
-    RKObjectMapping* itemMapping = [KTSimpleItem setMapping];
+    RKObjectMapping* itemMapping = [KTElement setMapping];
     itemMapping.rootKeyPath = @"ElementList";
     
     NSString* resourcePath = [NSString stringWithFormat:@"user/%@/tasks",userName];

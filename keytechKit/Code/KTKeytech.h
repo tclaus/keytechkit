@@ -230,7 +230,8 @@ Can be paginated.
 #pragma mark Helper Functions
 
 
--(void)cancelQuery;
+-(void)cancelAllQueries;
+-(void)cancelQuery:(NSString*)requestPattern;
 
 @property (nonatomic,strong)NSArray *SearchResults;
 

@@ -26,7 +26,6 @@
 		6508585F189CEE3100399949 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585E189CEE3100399949 /* Security.framework */; };
 		65085861189CEE3800399949 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085860189CEE3800399949 /* SystemConfiguration.framework */; };
 		650858A9189CF08E00399949 /* keytechFoundation-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65085865189CF08E00399949 /* keytechFoundation-Info.plist */; };
-		650858AC189CF08E00399949 /* KTAttributeMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085868189CF08E00399949 /* KTAttributeMapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858AD189CF08E00399949 /* KTAttributeMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085869189CF08E00399949 /* KTAttributeMapping.m */; };
 		650858AE189CF08E00399949 /* KTAttributeMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085869189CF08E00399949 /* KTAttributeMapping.m */; };
 		650858AF189CF08E00399949 /* KTBomItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586A189CF08E00399949 /* KTBomItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -164,6 +163,45 @@
 		6556944818C330A200A0BBD1 /* KTBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944518C330A200A0BBD1 /* KTBaseObject.m */; };
 		6556944A18C3EA0F00A0BBD1 /* testLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944918C3EA0F00A0BBD1 /* testLayout.m */; };
 		6556944B18C3EA0F00A0BBD1 /* testLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944918C3EA0F00A0BBD1 /* testLayout.m */; };
+		6567B69C191F62A50039D7C0 /* KTAttributeMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085868189CF08E00399949 /* KTAttributeMapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B69F191F63750039D7C0 /* KTAttributeMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085868189CF08E00399949 /* KTAttributeMapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6A0191F63770039D7C0 /* KTBomItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586A189CF08E00399949 /* KTBomItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6A1191F63840039D7C0 /* KTChangeAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586C189CF08E00399949 /* KTChangeAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6A2191F63880039D7C0 /* KTElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586E189CF08E00399949 /* KTElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6A3191F63910039D7C0 /* KTFileInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085870189CF08E00399949 /* KTFileInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6A4191F63950039D7C0 /* KTFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085872189CF08E00399949 /* KTFont.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6A5191F63990039D7C0 /* KTGlobalSetting.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085874189CF08E00399949 /* KTGlobalSetting.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6A6191F639C0039D7C0 /* KTGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085876189CF08E00399949 /* KTGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6A7191F63A00039D7C0 /* KTIdentifiedDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085878189CF08E00399949 /* KTIdentifiedDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6A8191F63A40039D7C0 /* KTKeytech.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085879189CF08E00399949 /* KTKeytech.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6A9191F63A80039D7C0 /* KTLoaderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587B189CF08E00399949 /* KTLoaderDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6AA191F63AC0039D7C0 /* KTKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587C189CF08E00399949 /* KTKeyValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6AB191F63B00039D7C0 /* KTLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587E189CF08E00399949 /* KTLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6AC191F63B40039D7C0 /* KTLayouts.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085880189CF08E00399949 /* KTLayouts.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6AD191F63B80039D7C0 /* KTLoaderInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085882189CF08E00399949 /* KTLoaderInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6AE191F63C00039D7C0 /* KTNoteItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085884189CF08E00399949 /* KTNoteItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6AF191F63C40039D7C0 /* KTNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085886189CF08E00399949 /* KTNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6B0191F63C80039D7C0 /* KTPermission.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085888189CF08E00399949 /* KTPermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6B1191F63CC0039D7C0 /* KTPosition.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508588A189CF08E00399949 /* KTPosition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6B2191F63D00039D7C0 /* KTClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556943818C2513700A0BBD1 /* KTClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6B3191F63D50039D7C0 /* KTClassAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556943F18C25A5800A0BBD1 /* KTClassAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6B4191F63D90039D7C0 /* KTPreferencesConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508588C189CF08E00399949 /* KTPreferencesConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6B5191F63DE0039D7C0 /* KTResponseLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508588E189CF08E00399949 /* KTResponseLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6B6191F63E20039D7C0 /* KTSignedBy.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085890189CF08E00399949 /* KTSignedBy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6B7191F63E70039D7C0 /* KTSimpleControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085892189CF08E00399949 /* KTSimpleControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6B8191F63EB0039D7C0 /* KTSimpleFavorite.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085894189CF08E00399949 /* KTSimpleFavorite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6B9191F63EE0039D7C0 /* KTSize.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085896189CF08E00399949 /* KTSize.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6BA191F63F30039D7C0 /* KTStatusHistoryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085898189CF08E00399949 /* KTStatusHistoryItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6BB191F63F70039D7C0 /* KTStatusItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589A189CF08E00399949 /* KTStatusItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6BC191F63FC0039D7C0 /* KTSystemManagement.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589C189CF08E00399949 /* KTSystemManagement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6BD191F64000039D7C0 /* KTTargetLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589E189CF08E00399949 /* KTTargetLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6BE191F64040039D7C0 /* KTTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A0189CF08E00399949 /* KTTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6BF191F64090039D7C0 /* KTUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A2189CF08E00399949 /* KTUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6C0191F640D0039D7C0 /* KTSimpleKeyValuePair.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A4189CF08E00399949 /* KTSimpleKeyValuePair.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6C1191F64120039D7C0 /* KTManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A6189CF08E00399949 /* KTManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6C2191F64150039D7C0 /* KTGlobalSettingContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 65494DFD18A227E100EF9FA4 /* KTGlobalSettingContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6C3191F641A0039D7C0 /* KTBaseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556944418C330A200A0BBD1 /* KTBaseObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6567B6C4191F641D0039D7C0 /* NSPredicate+PredicateKTFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 65423E1618D5F4550020B294 /* NSPredicate+PredicateKTFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		657E50EE189E6FE600CB7859 /* keytechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857DF189CE73300399949 /* keytechKit.framework */; };
 		657E50F1189E76F800CB7859 /* testResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E50F0189E76F800CB7859 /* testResponseLoader.m */; };
 		657E50F2189E76F800CB7859 /* testResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E50F0189E76F800CB7859 /* testResponseLoader.m */; };
@@ -302,7 +340,7 @@
 		65085877189CF08E00399949 /* KTGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTGroup.m; sourceTree = "<group>"; };
 		65085878189CF08E00399949 /* KTIdentifiedDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTIdentifiedDataSource.h; sourceTree = "<group>"; };
 		65085879189CF08E00399949 /* KTKeytech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKeytech.h; sourceTree = "<group>"; };
-		6508587A189CF08E00399949 /* KTKeytech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTKeytech.m; sourceTree = "<group>"; };
+		6508587A189CF08E00399949 /* KTKeytech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KTKeytech.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6508587B189CF08E00399949 /* KTLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTLoaderDelegate.h; sourceTree = "<group>"; };
 		6508587C189CF08E00399949 /* KTKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKeyValue.h; sourceTree = "<group>"; };
 		6508587D189CF08E00399949 /* KTKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTKeyValue.m; sourceTree = "<group>"; };
@@ -641,13 +679,13 @@
 				650858F6189CF08E00399949 /* KTStatusItem.h in Headers */,
 				650858F3189CF08E00399949 /* KTStatusHistoryItem.h in Headers */,
 				650858C1189CF08E00399949 /* KTGroup.h in Headers */,
-				650858AC189CF08E00399949 /* KTAttributeMapping.h in Headers */,
 				65494DFF18A227E100EF9FA4 /* KTGlobalSettingContext.h in Headers */,
 				6556943A18C2513700A0BBD1 /* KTClass.h in Headers */,
 				650858EA189CF08E00399949 /* KTSimpleControl.h in Headers */,
 				650858D5189CF08E00399949 /* KTNoteItem.h in Headers */,
 				650858ED189CF08E00399949 /* KTSimpleFavorite.h in Headers */,
 				650858D8189CF08E00399949 /* KTNotifications.h in Headers */,
+				6567B69C191F62A50039D7C0 /* KTAttributeMapping.h in Headers */,
 				650858D2189CF08E00399949 /* KTLoaderInfo.h in Headers */,
 				650858C8189CF08E00399949 /* KTLoaderDelegate.h in Headers */,
 				650858CF189CF08E00399949 /* KTLayouts.h in Headers */,
@@ -676,6 +714,51 @@
 				650858C5189CF08E00399949 /* KTKeytech.h in Headers */,
 				650858F9189CF08E00399949 /* KTSystemManagement.h in Headers */,
 				650858B5189CF08E00399949 /* KTElement.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6567B69D191F63650039D7C0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6567B6B2191F63D00039D7C0 /* KTClass.h in Headers */,
+				6567B6A1191F63840039D7C0 /* KTChangeAction.h in Headers */,
+				6567B6A9191F63A80039D7C0 /* KTLoaderDelegate.h in Headers */,
+				6567B6B8191F63EB0039D7C0 /* KTSimpleFavorite.h in Headers */,
+				6567B6A8191F63A40039D7C0 /* KTKeytech.h in Headers */,
+				6567B6AB191F63B00039D7C0 /* KTLayout.h in Headers */,
+				6567B6AD191F63B80039D7C0 /* KTLoaderInfo.h in Headers */,
+				6567B6BC191F63FC0039D7C0 /* KTSystemManagement.h in Headers */,
+				6567B6BA191F63F30039D7C0 /* KTStatusHistoryItem.h in Headers */,
+				6567B6B6191F63E20039D7C0 /* KTSignedBy.h in Headers */,
+				6567B6AA191F63AC0039D7C0 /* KTKeyValue.h in Headers */,
+				6567B6AE191F63C00039D7C0 /* KTNoteItem.h in Headers */,
+				6567B69F191F63750039D7C0 /* KTAttributeMapping.h in Headers */,
+				6567B6C0191F640D0039D7C0 /* KTSimpleKeyValuePair.h in Headers */,
+				6567B6AF191F63C40039D7C0 /* KTNotifications.h in Headers */,
+				6567B6B4191F63D90039D7C0 /* KTPreferencesConnection.h in Headers */,
+				6567B6C1191F64120039D7C0 /* KTManager.h in Headers */,
+				6567B6C4191F641D0039D7C0 /* NSPredicate+PredicateKTFormat.h in Headers */,
+				6567B6BF191F64090039D7C0 /* KTUser.h in Headers */,
+				6567B6B7191F63E70039D7C0 /* KTSimpleControl.h in Headers */,
+				6567B6BE191F64040039D7C0 /* KTTask.h in Headers */,
+				6567B6A3191F63910039D7C0 /* KTFileInfo.h in Headers */,
+				6567B6A6191F639C0039D7C0 /* KTGroup.h in Headers */,
+				6567B6A2191F63880039D7C0 /* KTElement.h in Headers */,
+				6567B6AC191F63B40039D7C0 /* KTLayouts.h in Headers */,
+				6567B6BD191F64000039D7C0 /* KTTargetLink.h in Headers */,
+				6567B6A4191F63950039D7C0 /* KTFont.h in Headers */,
+				6567B6A7191F63A00039D7C0 /* KTIdentifiedDataSource.h in Headers */,
+				6567B6A5191F63990039D7C0 /* KTGlobalSetting.h in Headers */,
+				6567B6C3191F641A0039D7C0 /* KTBaseObject.h in Headers */,
+				6567B6BB191F63F70039D7C0 /* KTStatusItem.h in Headers */,
+				6567B6C2191F64150039D7C0 /* KTGlobalSettingContext.h in Headers */,
+				6567B6B1191F63CC0039D7C0 /* KTPosition.h in Headers */,
+				6567B6B5191F63DE0039D7C0 /* KTResponseLoader.h in Headers */,
+				6567B6B0191F63C80039D7C0 /* KTPermission.h in Headers */,
+				6567B6B3191F63D50039D7C0 /* KTClassAttribute.h in Headers */,
+				6567B6B9191F63EE0039D7C0 /* KTSize.h in Headers */,
+				6567B6A0191F63770039D7C0 /* KTBomItem.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -727,6 +810,7 @@
 				6508580D189CEA9B00399949 /* Sources */,
 				6508580E189CEA9B00399949 /* Frameworks */,
 				6508580F189CEA9B00399949 /* CopyFiles */,
+				6567B69D191F63650039D7C0 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -1053,7 +1137,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -1085,7 +1169,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -1190,7 +1274,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				DSTROOT = /tmp/keytechKit.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "keytechKit/Code/keytechFoundation-IOS-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1202,6 +1285,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
 				);
+				INSTALL_PATH = "@rpath";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -1210,8 +1294,10 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = keytechKit;
+				PUBLIC_HEADERS_FOLDER_PATH = ../../Headers/keytechKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
 			};
 			name = Debug;
 		};
@@ -1219,7 +1305,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				DSTROOT = /tmp/keytechKit.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "keytechKit/Code/keytechFoundation-IOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1227,6 +1312,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
 				);
+				INSTALL_PATH = "@rpath";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1234,9 +1320,11 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = keytechKit;
+				PUBLIC_HEADERS_FOLDER_PATH = ../../Headers/keytechKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
 			};
 			name = Release;
 		};
