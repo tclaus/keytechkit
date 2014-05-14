@@ -33,6 +33,7 @@
 
 
 static RKObjectMapping* _mapping = nil; /** contains the mapping*/
+static RKObjectManager *_usedManager;
 
 - (id)init
 {
@@ -55,8 +56,11 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
     return self;
 }
 
-+(id)mapping{
-    if (!_mapping){
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
+    
+    if (_usedManager !=manager){
+        _usedManager = manager;
+        
         _mapping = [RKObjectMapping mappingForClass:[KTUser class]];
         [_mapping addAttributeMappingsFromDictionary:@{@"IsActive":@"isActive",
                                                       @"IsAdmin":@"isAdmin",
@@ -71,7 +75,7 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
                                                                                        pathPattern:nil keyPath:@"MembersList"
                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
         
-        [[RKObjectManager sharedManager]addResponseDescriptor:userResponse];
+        [_usedManager addResponseDescriptor:userResponse];
     }
     
     

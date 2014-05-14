@@ -12,17 +12,19 @@
 @implementation KTPosition
 
 static RKObjectMapping *_mapping = nil;
+static RKObjectManager *_usedManager;
 
-+(id)mapping{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
     
-    if (!_mapping){
-    
+    if (_usedManager !=manager){
+        _usedManager = manager;
+        
         _mapping = [RKObjectMapping mappingForClass:[KTPosition class]];
         [_mapping addAttributeMappingsFromDictionary:@{@"x":@"x",
                                                       @"y":@"y"
                                                        }];
         
-        [[RKObjectManager sharedManager] addResponseDescriptor:
+        [_usedManager addResponseDescriptor:
         [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny
                                                 pathPattern:nil
                                                     keyPath:@"Position" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];

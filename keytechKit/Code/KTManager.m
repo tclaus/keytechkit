@@ -11,7 +11,7 @@
 #import "KTNotifications.h"
 #import "KTUser.h"
 #import "KTResponseLoader.h"
-
+#import "KTServerInfo.h"
 
 
 @implementation KTManager{
@@ -19,10 +19,9 @@
     KTKeytech *_ktKeytech;
     BOOL _connectionIsValid;
     KTPreferencesConnection* _preferences;
-    
+    NSString *_serverVersion;
 }
 
-static KTManager* _sharedManager = nil;
 
 -(NSString*) servername{
     return _preferences.servername;
@@ -45,27 +44,45 @@ static KTManager* _sharedManager = nil;
     _preferences.password = password;
 }
 
+-(void)serverInfo:(void (^)(KTServerInfo* serverInfo))resultBlock failure:(void(^)(NSError* error))failureBlock{
+    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTServerInfo mappingWithManager:manager];
+    
+    
+    [manager getObject:nil path:@"serverinfo" parameters:nil
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                   if (resultBlock) {
+                       KTServerInfo *serverInfo = mappingResult.firstObject;
+                       
+                       resultBlock(serverInfo);
+                   }
+               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   NSLog(@"Error while getting the API version: %@",error.localizedDescription);
+                   if(failureBlock){
+                       failureBlock(error);
+                   }
+               }];
+    
+    
+    
+}
 
 
 /// Creates the singelton class
-+(KTManager*) sharedManager{
-    if (_sharedManager == nil) {
-        @synchronized(self){
-            if (_sharedManager == nil) {
-                _sharedManager = [[super allocWithZone:nil]init];
-            }
-        }
-    }
-    return _sharedManager;
++(instancetype) sharedManager{
+    
+    static KTManager *_sharedInstance;
+    static dispatch_once_t one_token=0;
+    
+    dispatch_once(&one_token,^{
+        _sharedInstance = [[self alloc]init];
+    });
+    
+    return _sharedInstance;
+    
 }
 
-/// Supports singelton Class
-+(id)allocWithZone:(struct _NSZone *)zone{
-    return [self sharedManager];
-}
-+(void)initialize{
-    _sharedManager = [[super allocWithZone:nil]init];
-}
 
 
 
@@ -148,7 +165,6 @@ static KTManager* _sharedManager = nil;
 - (id)init
 {
     self = [super init];
-    if (self && _sharedManager==nil) {
 
         _preferences = [[KTPreferencesConnection alloc]init];
         
@@ -173,8 +189,7 @@ static KTManager* _sharedManager = nil;
         // Timeout definieren
       //  manager.client.timeoutInterval = 20.0; // 20 seconds
 
-        
-    }
+    
     return self;
 }
 
@@ -259,7 +274,7 @@ static KTManager* _sharedManager = nil;
     preferences.username = Username;
     preferences.password = Password;
     
-    bool objectsAreEqual =     [[[[RKObjectManager sharedManager]HTTPClient] baseURL] isEqual:[NSURL URLWithString:Servername]];
+    bool objectsAreEqual =     [[RKObjectManager sharedManager].HTTPClient.baseURL isEqual:[NSURL URLWithString:Servername]];
     if (!objectsAreEqual){
         RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:Servername]];
         [RKObjectManager setSharedManager:objectManager];

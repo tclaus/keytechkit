@@ -9,13 +9,17 @@
 #import "KTKeyValue.h"
 #import <RestKit/RestKit.h>
 
-static RKObjectMapping* _mapping;
 
 @implementation KTKeyValue
 
-+(id)mapping{
+static RKObjectMapping *_mapping;
+static RKObjectManager *_usedManager;
+
+
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
     
-    if (!_mapping) {
+    if (_usedManager !=manager) {
+        _usedManager = manager;
         
         _mapping = [RKObjectMapping mappingForClass:[KTKeyValue class]];
         
@@ -23,9 +27,10 @@ static RKObjectMapping* _mapping;
                                                        @"Value":@"value"}];
         
         RKResponseDescriptor *keyValues = [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny pathPattern:nil keyPath:@"KeyValueList" statusCodes:nil];
+       
+        RKResponseDescriptor *serverkeyValues = [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny pathPattern:nil keyPath:@"ServerInforesult" statusCodes:nil];
         
-        
-        [[RKObjectManager sharedManager] addResponseDescriptor:keyValues];
+        [_usedManager addResponseDescriptorsFromArray:@[keyValues,serverkeyValues]];
         
     }
     

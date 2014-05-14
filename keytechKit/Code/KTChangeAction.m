@@ -17,6 +17,8 @@
     
 }
 static RKObjectMapping* _mapping;
+static RKObjectManager *_usedManager;
+
 
 @synthesize actionName = _actionName;
 @synthesize classList = _classList;
@@ -26,6 +28,28 @@ static RKObjectMapping* _mapping;
 @synthesize sourceStatusList = _sourceStatusList;
 @synthesize targetStatusList = _targetStausList;
 
+
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
+    
+    if (_usedManager !=manager){
+        _usedManager = manager;
+        
+        _mapping = [RKObjectMapping requestMapping];
+        [_mapping addAttributeMappingsFromDictionary:@{@"ActionName": @"actionName",
+                                                       @"ClassList":@"classStringList",
+                                                       @"Description":@"descriptionText",
+                                                       @"Parameter":@"parameter",
+                                                       @"SourceStatus":@"sourceStatusStringList",
+                                                       @"TargetStatus":@"targetStatusStringList"
+                                                       }];
+        
+        
+        // TODO: Add to manager
+        
+    }
+    
+    return _mapping;
+}
 
 /// Converts the pipe divided String List to an mutable Array
 -(void)setClassStringList:(NSString *)classList{
@@ -56,26 +80,7 @@ static RKObjectMapping* _mapping;
 }
 
 
-+(id)mapping{
-        
-        if (_mapping==nil){
-            
-            _mapping = [RKObjectMapping requestMapping];
-            [_mapping addAttributeMappingsFromDictionary:@{@"ActionName": @"actionName",
-                                                          @"ClassList":@"classStringList",
-                                                          @"Description":@"descriptionText",
-                                                          @"Parameter":@"parameter",
-                                                          @"SourceStatus":@"sourceStatusStringList",
-                                                          @"TargetStatus":@"targetStatusStringList"
-                                                           }];
-            
-            
-            
-            
-        }
-        
-        return _mapping;
-    }
+
 
 
 

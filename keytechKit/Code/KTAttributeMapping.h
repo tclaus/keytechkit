@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface KTAttributeMapping : NSObject
-/// Provides the obejct mapping. For internal Use unly.
-+(id)mapping;
+
+/**
+ Provides the object Mapping for this class and given objectManager
+ */
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
  The classkey that identifies the target class of the mapping.

@@ -45,11 +45,13 @@
     BOOL _isItemVersionListLoading;
     
     
-    
     // Hilfsobjekt, das weitere Eigenschaften nachladen kann durchführt
     KTKeytech* ktManager;
-    
+
 }
+
+/// The last used manager for mapping
+static RKObjectManager *usedRKManager;
 
 static NSTimeInterval _thumbnailLoadingTimeout = 4; //* 4 Seconds Timeout for thumbnails
 
@@ -65,6 +67,7 @@ static NSObject* dummy;
 
 // Mapping für diese Klasse merken
 static RKObjectMapping* _mapping;
+
 
 
 #pragma mark Properties
@@ -144,11 +147,11 @@ static RKObjectMapping* _mapping;
 
 
 // Sets the Object mapping for JSON
-+(RKObjectMapping*)mapping{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
     
-    if (_mapping==nil){
-        RKObjectManager *manager = [RKObjectManager sharedManager];
-        
+    if (usedRKManager!=manager){
+        usedRKManager = manager;
+
         _mapping = [RKObjectMapping mappingForClass:[KTElement class]];
         
         [_mapping addAttributeMappingsFromDictionary:@{@"Description":@"itemDescription",
@@ -168,7 +171,7 @@ static RKObjectMapping* _mapping;
                                                        @"HasVersions":@"hasVersions"
                                                        }];
         
-        RKMapping *keyValueMapping = [KTKeyValue mapping];
+        RKMapping *keyValueMapping = [KTKeyValue mappingWithManager:manager];
         
         RKRelationshipMapping *KeyalueRelationShip =
         [RKRelationshipMapping relationshipMappingFromKeyPath:@"KeyValueList"
@@ -207,7 +210,6 @@ static RKObjectMapping* _mapping;
         [manager addResponseDescriptorsFromArray:@[ elementDescriptor ]];
 
     }
-    
     return _mapping;
 }
 

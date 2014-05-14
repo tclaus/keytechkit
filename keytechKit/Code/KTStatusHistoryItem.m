@@ -10,30 +10,33 @@
 #import <RestKit/RestKit.h>
 
 @implementation KTStatusHistoryItem
-    static RKObjectMapping* _mapping = nil;
+
+static RKObjectMapping* _mapping = nil;
+static RKObjectManager *_usedManager;
 
 
 
 /// Stets the object mapping
-+(id)mapping{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
     
-    if (!_mapping){
+    if (_usedManager !=manager){
+        _usedManager = manager;
         
         _mapping = [RKObjectMapping mappingForClass:[KTStatusHistoryItem class]];
         [_mapping addAttributeMappingsFromDictionary:@{
                                                        @"Description":@"historyDescription",
                                                        @"SourceStatus":@"historySourceStatus",
                                                        @"TargetStatus":@"historyTargetStatus"
-                                                    }];
-
-        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"SignedByList" toKeyPath:@"historySignedBy" withMapping:[KTSignedBy mapping]]];
+                                                       }];
         
-        [[RKObjectManager sharedManager] addResponseDescriptor:
-            [RKResponseDescriptor responseDescriptorWithMapping:_mapping
-                                                         method:RKRequestMethodAny
-                                                    pathPattern:nil
-                                                        keyPath:@"StatusHistoryEntries"
-                                                    statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"SignedByList" toKeyPath:@"historySignedBy" withMapping:[KTSignedBy mappingWithManager:manager]]];
+        
+        [_usedManager addResponseDescriptor:
+         [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                      method:RKRequestMethodAny
+                                                 pathPattern:nil
+                                                     keyPath:@"StatusHistoryEntries"
+                                                 statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
         
     }
     

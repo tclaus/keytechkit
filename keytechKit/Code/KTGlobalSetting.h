@@ -11,9 +11,9 @@
 @interface KTGlobalSetting : NSObject
 
 /**
- Sets the object mapping for this class
+ Provides the object Mapping for this class and given objectManager
  */
-+(id)mapping;
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
  A short user or groupname (key) can also be 'none' for not in use or 'ALL' for globally valid.

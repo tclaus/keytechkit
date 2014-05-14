@@ -11,9 +11,9 @@
 @interface KTPermission : NSObject
 
 /**
- Sets the mapping
+ Provides the object Mapping for this class and given objectManager
  */
-+(id)mapping;
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
  Returns or sets the user visible displayname

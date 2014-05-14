@@ -11,9 +11,9 @@
 @interface KTKeyValue : NSObject
 
 /**
- Sets the object mapping
+ Provides the object Mapping for this class and given objectManager
  */
-+(id)mapping;
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
  Returns or stets the key that identifies the value. 

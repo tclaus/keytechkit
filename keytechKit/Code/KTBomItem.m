@@ -18,9 +18,47 @@
 }
 // Mapping for Class
 static RKObjectMapping* _mapping;
+static RKObjectManager *_usedManager;
 
 @synthesize keyValueList = _keyValueList;
 @synthesize element = _element;
+
+// Sets the Object mapping for JSON
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
+    
+    if (_usedManager !=manager){
+        _usedManager = manager;
+        
+        _mapping = [RKObjectMapping mappingForClass:[self class]];
+        
+        RKRelationshipMapping *simpleElemenRelationship =
+        [RKRelationshipMapping relationshipMappingFromKeyPath:@"Element"
+                                                    toKeyPath:@"element" withMapping:[KTElement mappingWithManager:[RKObjectManager sharedManager]] ];
+        
+        RKRelationshipMapping *keyValueMapping =
+        [RKRelationshipMapping relationshipMappingFromKeyPath:@"KeyValueList"
+                                                    toKeyPath:@"keyValueList" withMapping:[KTKeyValue mappingWithManager:manager]];
+        
+        
+        [_mapping addPropertyMapping:simpleElemenRelationship];
+        [_mapping addPropertyMapping:keyValueMapping];
+        
+        
+        NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
+        RKResponseDescriptor *bomElementDescriptor = [RKResponseDescriptor
+                                                      responseDescriptorWithMapping:_mapping
+                                                      method:RKRequestMethodAny
+                                                      pathPattern:nil keyPath:@"BomElementList" statusCodes:statusCodes];
+        
+        
+        [_usedManager addResponseDescriptorsFromArray:@[ bomElementDescriptor ]];
+        
+        
+    }
+    
+    return _mapping;
+}
+
 
 -(id)valueForKey:(NSString *)key{
     
@@ -53,39 +91,6 @@ static RKObjectMapping* _mapping;
 }
 
 
-// Sets the Object mapping for JSON
-+(id)mapping{
-    
-    if (_mapping==nil){
-        _mapping = [RKObjectMapping mappingForClass:[self class]];
-
-        RKRelationshipMapping *simpleElemenRelationship =
-        [RKRelationshipMapping relationshipMappingFromKeyPath:@"Element"
-                                                    toKeyPath:@"element" withMapping:[KTElement mapping]];
-        
-        RKRelationshipMapping *keyValueMapping =
-        [RKRelationshipMapping relationshipMappingFromKeyPath:@"KeyValueList"
-                                                    toKeyPath:@"keyValueList" withMapping:[KTKeyValue mapping]];
-
-        
-        [_mapping addPropertyMapping:simpleElemenRelationship];
-        [_mapping addPropertyMapping:keyValueMapping];
-        
-        
-        NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
-        RKResponseDescriptor *bomElementDescriptor = [RKResponseDescriptor
-                                                   responseDescriptorWithMapping:_mapping
-                                                   method:RKRequestMethodAny
-                                                   pathPattern:nil keyPath:@"BomElementList" statusCodes:statusCodes];
-
-        
-         [[RKObjectManager sharedManager] addResponseDescriptorsFromArray:@[ bomElementDescriptor ]];
-        
-        
-    }
-    
-    return _mapping;
-}
 
 
 

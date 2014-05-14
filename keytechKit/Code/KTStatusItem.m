@@ -11,13 +11,15 @@
 
 @implementation KTStatusItem
 
-    static RKObjectMapping* _mapping;
+static RKObjectMapping* _mapping;
+static RKObjectManager *_usedManager;
 
 
 // Sets the JSON mapping
-+(id)mapping{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
     
-    if (!_mapping){
+    if (_usedManager !=manager){
+        _usedManager = manager;
         
         _mapping = [RKObjectMapping mappingForClass:[KTStatusItem class]];
         [_mapping addAttributeMappingsFromDictionary:@{@"ImageName":@"imageName",
@@ -29,7 +31,7 @@
                                         pathPattern:nil keyPath:@"StatusList"
                                         statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
 
-        [[RKObjectManager sharedManager]addResponseDescriptor:statusResponse];
+        [_usedManager addResponseDescriptor:statusResponse];
     }
     
     return _mapping;

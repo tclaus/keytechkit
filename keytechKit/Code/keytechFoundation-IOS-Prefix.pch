@@ -14,5 +14,5 @@
         #import <MobileCoreServices/MobileCoreServices.h>
     #endif
 
-
+#import "Restkit/restkit.h"
 

@@ -14,11 +14,14 @@
     
 }
 
-
 static RKObjectMapping* _mapping;
+static RKObjectManager* _usedManager;
 
-+(id)mapping{
-    if (!_mapping) {
+
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
+    
+    if (_usedManager !=manager) {
+        _usedManager = manager;
         
         _mapping = [RKObjectMapping requestMapping];
         [_mapping addAttributeMappingsFromDictionary:@{@"Account":@"settingAccount",
@@ -30,7 +33,7 @@ static RKObjectMapping* _mapping;
         
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
         
-        [[RKObjectManager sharedManager] addResponseDescriptor:
+        [manager addResponseDescriptor:
         [RKResponseDescriptor responseDescriptorWithMapping:_mapping
                                                      method:RKRequestMethodAny
                                                 pathPattern:nil keyPath:@"GlobalsettingList"

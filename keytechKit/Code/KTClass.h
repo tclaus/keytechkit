@@ -12,10 +12,12 @@
 #import "KTClassAttribute.h"
 
 @interface KTClass : NSObject <NSCoding>
+
+
 /**
- Sets the object mapping for this class
+ Provides the object Mapping for this class and given objectManager
  */
-+(id)mapping;
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 - (id)initWithCoder:(NSCoder *)coder;
 -(void)encodeWithCoder:(NSCoder *)aCoder;

@@ -10,13 +10,16 @@
 #import <RestKit/RestKit.h>
 
 @implementation KTSignedBy
+
 static RKObjectMapping* _mapping = nil;
-
-
+static RKObjectManager *_usedManager;
 
 /// Stets the object mapping
-+(id)mapping{
-    if (_mapping==nil){
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
+    
+    if (_usedManager !=manager){
+        _usedManager = manager;
+        
         _mapping = [RKObjectMapping mappingForClass:[KTSignedBy class]];
         [_mapping addAttributeMappingsFromDictionary:@{@"SignedByLong":@"signedByLong",
                                                        @"SignedBy":@"signedBy",

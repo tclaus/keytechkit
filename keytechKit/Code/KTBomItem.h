@@ -14,9 +14,9 @@
 @interface KTBomItem : NSObject
 
 /**
- Returns the object mapping
+ Provides the object Mapping for this class and given objectManager
  */
-+(id)mapping;
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
  Provides the element which is represented by this bom

@@ -11,7 +11,7 @@
 
 
 @implementation KTSimpleControl{
-
+    
     /// Provides the API value for the control alignment
     NSString* _controlAlignmentIntern;
 }
@@ -30,39 +30,40 @@
 
 
 static RKObjectMapping* _mapping = nil;
+static RKObjectManager*_usedManager;
 
 // Sets the mapping
-+(id)mapping{
-
-    if (!_mapping){
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
     
-    _mapping = [RKObjectMapping mappingForClass:[KTSimpleControl class]];
+    if (_usedManager !=manager){
+        _usedManager = manager;
+        _mapping = [RKObjectMapping mappingForClass:[KTSimpleControl class]];
         
         [_mapping addAttributeMappingsFromDictionary:@{
-                                                      @"AttributeAlignment": @"controlAlignmentIntern",
-                                                      @"AttributeName": @"controlAttributeName",
-                                                      @"ControlType": @"controlType",
-                                                      @"Displayname": @"controlDisplayName",
-                                                      @"Name": @"controlName",
-                                                      @"Sequence": @"controlSequence"
-                                                      }];
+                                                       @"AttributeAlignment": @"controlAlignmentIntern",
+                                                       @"AttributeName": @"controlAttributeName",
+                                                       @"ControlType": @"controlType",
+                                                       @"Displayname": @"controlDisplayName",
+                                                       @"Name": @"controlName",
+                                                       @"Sequence": @"controlSequence"
+                                                       }];
         
         
         [_mapping addPropertyMapping:
-         [RKRelationshipMapping relationshipMappingFromKeyPath:@"Position" toKeyPath:@"controlPosition" withMapping:[KTPosition mapping]]];
+         [RKRelationshipMapping relationshipMappingFromKeyPath:@"Position" toKeyPath:@"controlPosition" withMapping:[KTPosition mappingWithManager:manager]]];
         [_mapping addPropertyMapping:
-         [RKRelationshipMapping relationshipMappingFromKeyPath:@"Size" toKeyPath:@"controlSize" withMapping:[KTSize mapping]]];
+         [RKRelationshipMapping relationshipMappingFromKeyPath:@"Size" toKeyPath:@"controlSize" withMapping:[KTSize mappingWithManager:manager]]];
         [_mapping addPropertyMapping:
-         [RKRelationshipMapping relationshipMappingFromKeyPath:@"Font" toKeyPath:@"font" withMapping:[KTFont mapping]]];
-
-                NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
+         [RKRelationshipMapping relationshipMappingFromKeyPath:@"Font" toKeyPath:@"font" withMapping:[KTFont mappingWithManager:manager]]];
         
-       RKResponseDescriptor *simpleControlDescriptor =  [RKResponseDescriptor responseDescriptorWithMapping:_mapping
-                                                      method:RKRequestMethodAny pathPattern:nil keyPath:@"DesignerControls" statusCodes:statusCodes];
+        NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
+        
+        RKResponseDescriptor *simpleControlDescriptor =  [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                                                                      method:RKRequestMethodAny pathPattern:nil keyPath:@"DesignerControls" statusCodes:statusCodes];
         
         
         [[RKObjectManager sharedManager]addResponseDescriptor:simpleControlDescriptor];
-
+        
     }
     
     return _mapping;
@@ -113,7 +114,7 @@ static RKObjectMapping* _mapping = nil;
     if ([_controlAlignmentIntern isEqualToString:@"LEFT"]){ // from keytech API: Left
         return kCTLeftTextAlignment;
     }
-
+    
     if ([_controlAlignmentIntern isEqualToString:@"CENTER"]){ // from keytech API: Center
         return kCTCenterTextAlignment;
     }
@@ -130,14 +131,14 @@ static RKObjectMapping* _mapping = nil;
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 // Returns a rect structure to describe the boundaries of this control
 -(NSRect)rect{
-   NSRect bounds= NSMakeRect(self.controlPosition.x, self.controlPosition.y, self.controlSize.width, self.controlSize.height);
+    NSRect bounds= NSMakeRect(self.controlPosition.x, self.controlPosition.y, self.controlSize.width, self.controlSize.height);
     return bounds;
 }
 #else
 // Returns a rect structure to describe the boundaries of this control
 -(CGRect)rect{
     //TODO: Return a rect structure
-   //Rect bounds= NSMakeRect(self.controlPosition.x, self.controlPosition.y, self.controlSize.width, self.controlSize.height);
+    //Rect bounds= NSMakeRect(self.controlPosition.x, self.controlPosition.y, self.controlSize.width, self.controlSize.height);
     CGRect bounds = CGRectMake(self.controlPosition.x, self.controlPosition.y, self.controlSize.width, self.controlSize.height);
     return  bounds;
 }

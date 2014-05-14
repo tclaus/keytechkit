@@ -18,7 +18,8 @@
 @synthesize isLoading = _isLoading;
 @synthesize localFileURL = _localFileURL;
 
-static RKObjectMapping* _mapping;
+static RKObjectMapping *_mapping;
+static RKObjectManager *_usedManager;
 
 - (id)init
 {
@@ -32,9 +33,11 @@ static RKObjectMapping* _mapping;
 /**
  Sets the object mapping
  */
-+(id)mapping{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
     
-    if (!_mapping){
+    if (_usedManager !=manager){
+        _usedManager = manager;
+        
         _mapping = [RKObjectMapping mappingForClass:[KTFileInfo class]];
         [_mapping addAttributeMappingsFromDictionary:@{@"FileID":@"fileID",
                                                        @"FileName":@"fileName",
@@ -48,7 +51,7 @@ static RKObjectMapping* _mapping;
                                                                                         pathPattern:nil
                                                                                             keyPath:@"FileInfos" statusCodes:statusCodes];
         
-        [[RKObjectManager sharedManager]addResponseDescriptor:notesDescriptor];
+        [_usedManager addResponseDescriptor:notesDescriptor];
         
     }
     return _mapping;

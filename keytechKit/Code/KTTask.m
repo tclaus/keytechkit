@@ -11,14 +11,16 @@
 
 @implementation KTTask
 
-static RKObjectMapping* _mapping;
+static RKObjectMapping *_mapping;
+static RKObjectManager *_usedManager;
 
 
 // Sets the JSON mapping
-+(id)mapping{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
     
-    if (_mapping==nil){
-        
+    if (_usedManager !=manager){
+        _usedManager = manager;
+        //TODO: Make the mappings
   
     }
     

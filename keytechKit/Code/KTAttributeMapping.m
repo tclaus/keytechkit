@@ -10,10 +10,13 @@
 #import "Restkit/restkit.h"
 
 @implementation KTAttributeMapping
-static RKObjectMapping* _mapping;
 
-+(id)mapping{
-    if (!_mapping) {
+static RKObjectMapping* _mapping;
+static RKObjectManager *_usedManager;
+
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
+    if (_usedManager !=manager) {
+        _usedManager = manager;
         
         _mapping = [RKObjectMapping mappingForClass:[KTAttributeMapping class]];
         [_mapping addAttributeMappingsFromDictionary:@{
@@ -26,10 +29,11 @@ static RKObjectMapping* _mapping;
                                                        @"Status":@"status",
                                                        @"TypeName":@"typeName"
                                                        }];
-        
+        //TODO: Add to manager
     }
     return _mapping;
 }
+
 /// Provides user friendly debugger output
 -(NSString *)debugDescription{
     return [NSString stringWithFormat:@"In Class %@ map: %@ -> %@",self.classKey, self.sourceValue,self.targetAttribute];

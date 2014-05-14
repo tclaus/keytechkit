@@ -8,8 +8,6 @@
 //
 
 
-#import <RestKit/RestKit.h>
-
 #import "KTKeytech.h"
 #import "KTBaseObject.h"
 
@@ -61,17 +59,16 @@ static int const kMaxDefaultPageSize = 500;
 
 -(void)cancelAllQueries{
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    [manager cancelAllObjectRequestOperationsWithMethod:RKRequestMethodGET matchingPathPattern:nil];
+    [manager cancelAllObjectRequestOperationsWithMethod:RKRequestMethodGET matchingPathPattern:@""];
     
 }
 
 /// Gets Permission for the given username.
 -(void)performGetPermissionsForUser:(NSString *)userName findPermissionName:(NSString*)permissionName findEffective:(BOOL)effective loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
 
-    
-    [KTPermission mapping];
-    
     RKObjectManager *manager = [RKObjectManager sharedManager];
+    
+    [KTPermission mappingWithManager:manager];
     
     NSMutableDictionary *rpcData = [NSMutableDictionary dictionary];
     
@@ -131,7 +128,7 @@ static int const kMaxDefaultPageSize = 500;
 
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTTargetLink mapping];
+    [KTTargetLink mappingWithManager:manager];
     
     NSString* username = [KTManager sharedManager].username;
     
@@ -170,7 +167,7 @@ static int const kMaxDefaultPageSize = 500;
     
     NSString* username = [KTManager sharedManager].username;
     
-    [KTTargetLink mapping];
+    [KTTargetLink mappingWithManager:manager];
     NSString* resourcePath;
 
     if (parentLevel!= 0){
@@ -194,7 +191,7 @@ static int const kMaxDefaultPageSize = 500;
 -(void)performGetUser:(NSString*)userName loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;{
 
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTUser mapping];
+    [KTUser mappingWithManager:manager];
 
     //
     NSString* resourcePath = [NSString stringWithFormat:@"user/%@", userName];;
@@ -215,8 +212,7 @@ static int const kMaxDefaultPageSize = 500;
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    
-    [KTUser mapping];
+    [KTUser mappingWithManager:manager];
     //
     NSString* resourcePath = @"user";
     
@@ -259,7 +255,7 @@ static int const kMaxDefaultPageSize = 500;
 -(void)performGetGroupList:(NSObject<KTLoaderDelegate> *)loaderDelegate{
 
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTGroup mapping];
+    [KTGroup mappingWithManager:manager];
     
     NSString* resourcePath = @"groups";
     
@@ -278,7 +274,7 @@ static int const kMaxDefaultPageSize = 500;
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    [KTGroup mapping];
+    [KTGroup mappingWithManager:manager];
 
     NSString* resourcePath = [NSString stringWithFormat:@"user/%@/groups",username];
     
@@ -296,7 +292,7 @@ static int const kMaxDefaultPageSize = 500;
 -(void)performGetElementNotes:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
 
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTNoteItem mapping];
+    [KTNoteItem mappingWithManager:manager];
     
     elementKey = [KTBaseObject normalizeElementKey:elementKey];
     
@@ -320,7 +316,7 @@ static int const kMaxDefaultPageSize = 500;
 -(void)performGetClassBOMListerLayout:(NSObject<KTLoaderDelegate>*) loaderDelegate{
 
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTSimpleControl mapping];
+    [KTSimpleControl mappingWithManager:manager];
     
     // itemMapping.rootKeyPath = @"DesignerControls";
     
@@ -341,7 +337,7 @@ Getting lister layout data for the given classkey and the current logged in user
 -(void)performGetClassListerLayout:(NSString *)classKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTSimpleControl mapping];
+    [KTSimpleControl mappingWithManager:manager];
     
     classKey = [KTBaseObject normalizeElementKey:classKey];
     
@@ -364,7 +360,7 @@ Getting lister layout data for the given classkey and the current logged in user
 -(void)performGetClassEditorLayoutForClassKey:(NSString *)classKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
  
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTSimpleControl mapping];
+    [KTSimpleControl mappingWithManager:manager];
     
     classKey = [KTBaseObject normalizeElementKey:classKey];
     
@@ -394,7 +390,7 @@ Getting lister layout data for the given classkey and the current logged in user
     NSString* resourcePath =  [NSString stringWithFormat:@"Elements/%@",elementKey];
     
     // Initilize the mapping
-    [KTElement mapping];
+    [KTElement mappingWithManager:[RKObjectManager sharedManager]];
     
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
     // Requests full Elements Metadata
@@ -441,8 +437,7 @@ Gets the filelist of given elementKey
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-
-    [KTFileInfo mapping];
+    [KTFileInfo mappingWithManager:manager];
     
     elementKey = [KTBaseObject normalizeElementKey:elementKey];
     
@@ -467,7 +462,7 @@ Gets the filelist of given elementKey
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    [KTStatusHistoryItem mapping];
+    [KTStatusHistoryItem mappingWithManager:manager];
     elementKey = [KTBaseObject normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/statushistory",elementKey];
     
@@ -486,7 +481,7 @@ Gets the filelist of given elementKey
 // Gets the List of parent elements which links to the given element
 -(void)performGetElementWhereUsed:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
     
-    [KTElement mapping];
+    [KTElement mappingWithManager:[RKObjectManager sharedManager]];
     
     elementKey = [KTBaseObject normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/whereused",elementKey];
@@ -508,7 +503,8 @@ Gets the filelist of given elementKey
 -(void)performGetElementNextAvailableStatus:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
 
      RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTStatusItem mapping];
+    [KTStatusItem mappingWithManager:manager];
+    
     elementKey = [KTBaseObject normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/nextstatus",elementKey];
     
@@ -527,7 +523,8 @@ Gets the filelist of given elementKey
 -(void)performGetElementVersions:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTElement mapping];
+    [KTElement mappingWithManager:[RKObjectManager sharedManager]];
+     
     elementKey = [KTBaseObject normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/versions",elementKey];
     
@@ -553,7 +550,7 @@ Gets the filelist of given elementKey
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    [KTElement mapping];
+    [KTElement mappingWithManager:[RKObjectManager sharedManager]];
     
     NSString* resourcePath = @"folder/rootfolder";
     
@@ -575,7 +572,7 @@ Gets the filelist of given elementKey
 -(void)performGetElementBom:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTBomItem mapping];
+    [KTBomItem mappingWithManager:manager];
     
     elementKey = [KTBaseObject normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/bom",elementKey];
@@ -600,9 +597,8 @@ Gets the filelist of given elementKey
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    [KTElement mapping];
+    [KTElement mappingWithManager:manager];
     
-    elementKey = [KTBaseObject normalizeElementKey:elementKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/structure",elementKey];
     
     [manager getObjectsAtPath:resourcePath parameters:nil
@@ -674,7 +670,7 @@ Gets the filelist of given elementKey
 
 
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTElement mapping];
+    [KTElement mappingWithManager:[RKObjectManager sharedManager]];
     
     
     // Creating Query Parameter
@@ -725,7 +721,7 @@ Gets the filelist of given elementKey
     RKObjectManager *manager = [RKObjectManager sharedManager];
    
     // Initialize the mapping if not already done
-    [KTElement mapping];
+    [KTElement mappingWithManager:[RKObjectManager sharedManager]];
     
     NSString *resourcePath = @"Search";
     

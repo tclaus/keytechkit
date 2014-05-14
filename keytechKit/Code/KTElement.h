@@ -21,9 +21,9 @@
 @interface KTElement :  NSObject <KTLoaderDelegate>
 
 /**
- Provides the object Mapping for this class
+ Provides the object Mapping for this class and given objectManager
  */
-+(RKObjectMapping*)mapping;
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
  Unique item name

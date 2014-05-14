@@ -11,6 +11,7 @@
 @implementation KTSimpleFavorite
 
 static RKObjectMapping* _mapping = nil;
+static RKObjectManager *_usedManager;
 
 -(NSString*) ItemClassKey{
     NSArray *components=[self.elementKey componentsSeparatedByString:@":"];
@@ -32,9 +33,11 @@ static RKObjectMapping* _mapping = nil;
 }
 
 /// Sets the mapping
-+(RKObjectMapping*)mapping{
-    if (!_mapping){
-    _mapping = [RKObjectMapping mappingForClass:[KTSimpleFavorite class]];
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
+
+    if (_usedManager !=manager){
+        _usedManager = manager;
+        _mapping = [RKObjectMapping mappingForClass:[KTSimpleFavorite class]];
         [_mapping addAttributeMappingsFromDictionary:@{@"ParentFolderID":@"parentFolderID",
                                                        @"FolderName":@"folderName",
                                                        @"ElementKey":@"elementKey",
@@ -45,9 +48,10 @@ static RKObjectMapping* _mapping = nil;
         RKRelationshipMapping *elementRelationship =
         [RKRelationshipMapping relationshipMappingFromKeyPath:@"Element"
                                                     toKeyPath:@"Element"
-                                                  withMapping:[KTElement mapping]];
+                                                  withMapping:[KTElement mappingWithManager:[RKObjectManager sharedManager]]];
 
         [_mapping addPropertyMapping:elementRelationship];
+        // TODO: Add To Manager;
     }
 
     return _mapping;

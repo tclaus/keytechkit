@@ -16,9 +16,9 @@
 @interface KTFileInfo : NSObject
 
 /**
- Sets the object mapping for this class
+ Provides the object Mapping for this class and given objectManager
  */
-+(id)mapping;
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
  Gets the unique fileID

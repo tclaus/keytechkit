@@ -10,3 +10,4 @@
 
 #import <NSPredicate+PredicateKTFormat.h>
 
+#import "Restkit/restkit.h"

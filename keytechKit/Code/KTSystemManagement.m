@@ -20,7 +20,7 @@
 #pragma mark Classlist
 -(void)performGetClass:(NSString *)classKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTClass mapping];
+    [KTClass mappingWithManager:manager];
     
     classKey = [KTBaseObject normalizeElementKey:classKey];
     
@@ -39,7 +39,8 @@
 
 -(void)performGetClasslist:(NSObject<KTLoaderDelegate> *)loaderDelegate{
      RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTClass mapping];
+    [KTClass mappingWithManager:manager];
+    
     NSString *resourcePath = @"classes";
     
     [manager getObjectsAtPath:resourcePath parameters:nil
@@ -60,7 +61,7 @@
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    [KTGlobalSetting mapping];
+    [KTGlobalSetting mappingWithManager:manager];
 
     NSString* resourcePath;
     
@@ -87,7 +88,7 @@
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    [KTGlobalSetting mapping];
+    [KTGlobalSetting mappingWithManager:manager];
     
     // Creating Query Parameter
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
@@ -112,7 +113,7 @@
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    [KTGlobalSettingContext mapping];
+    [KTGlobalSettingContext mappingWithManager:manager];
     
     NSString* resourcePath = @"globalsettings/contexts";
     
@@ -130,7 +131,7 @@
 // All Settings by its given contextname
 -(void)performGetGlobalSettingsByContext:(NSString *)contextName loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTGlobalSetting mapping];
+    [KTGlobalSetting mappingWithManager:manager];
     
     // ResourcePath zusammenbauen
     NSString* resourcePath = [NSString stringWithFormat:@"globalsettings/contexts/%@",contextName];
@@ -151,7 +152,7 @@
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    [KTStatusItem mapping];
+    [KTStatusItem mappingWithManager:manager];
     
     NSString* resourcePath = @"status";
     

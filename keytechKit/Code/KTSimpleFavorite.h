@@ -10,10 +10,11 @@
 #import "KTElement.h"
 
 @interface KTSimpleFavorite : NSObject
+
 /**
- Returns the object mapping
+ Provides the object Mapping for this class and given objectManager
  */
-+(RKObjectMapping*)mapping;
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
  Unique ID of this favorite

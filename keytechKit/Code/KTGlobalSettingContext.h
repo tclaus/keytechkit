@@ -14,7 +14,10 @@
  */
 @interface KTGlobalSettingContext : NSObject
 
-+(id)mapping;
+/**
+ Provides the object Mapping for this class and given objectManager
+ */
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 @property (nonatomic) NSArray *contexts;
 

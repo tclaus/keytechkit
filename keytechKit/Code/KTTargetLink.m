@@ -12,6 +12,33 @@
 @implementation KTTargetLink
 
 static RKObjectMapping* _mapping = nil; /** contains the mapping*/
+static RKObjectManager *_usedManager;
+
+/// Stets the object mapping
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
+    
+    if (_usedManager !=manager){
+        _usedManager = manager;
+        _mapping = [RKObjectMapping mappingForClass:[KTTargetLink class]];
+        [_mapping addAttributeMappingsFromDictionary:@{
+                                                       @"ParentID":@"parentID",
+                                                       @"EntryName":@"entryName",
+                                                       @"TargetElementKey":@"targetElementKey",
+                                                       @"SourceID":@"sourceID"
+                                                       }];
+        
+        [_usedManager addResponseDescriptor:
+         [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                      method:RKRequestMethodAny
+                                                 pathPattern:nil
+                                                     keyPath:@"TargetLinks"
+                                                 statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+        
+        
+    }
+    
+    return _mapping;
+}
 
 -(NSString*) itemClassKey{
     NSArray *components=[self.targetElementKey componentsSeparatedByString:@":"];
@@ -44,29 +71,7 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
 }
 
 
-/// Stets the object mapping
-+(id)mapping{
-    if (!_mapping){
-        _mapping = [RKObjectMapping mappingForClass:[KTTargetLink class]];
-        [_mapping addAttributeMappingsFromDictionary:@{
-                                                       @"ParentID":@"parentID",
-                                                       @"EntryName":@"entryName",
-                                                       @"TargetElementKey":@"targetElementKey",
-                                                       @"SourceID":@"sourceID"
-                                                       }];
-        
-        [[RKObjectManager sharedManager] addResponseDescriptor:
-         [RKResponseDescriptor responseDescriptorWithMapping:_mapping
-                                                      method:RKRequestMethodAny
-                                                 pathPattern:nil
-                                                     keyPath:@"TargetLinks"
-                                                 statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
-        
-        
-    }
-    
-    return _mapping;
-}
+
 
 /**
  Helps debugging output

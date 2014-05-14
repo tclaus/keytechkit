@@ -11,7 +11,7 @@
 
 #import "KTKeytech.h"
 #import "KTPreferencesConnection.h"
-
+#import "KTServerInfo.h"
 
 /**
  Provides basic initialization
@@ -20,8 +20,10 @@
 // Formaly known as "Webservice"
 
 
-
-+(KTManager*) sharedManager;
+/**
+ Returns the shared instance
+ */
++(instancetype) sharedManager;
 
 /**
  Returns the default application data directory
@@ -40,6 +42,11 @@
  Returns the current baseURL
  */
 -(NSURL*)baseURL;
+
+/**
+ Fetches the API ServerInfo
+ */
+-(void)serverInfo:(void (^)(KTServerInfo* serverInfo))resultBlock failure:(void(^)(NSError* error))failureBlock;
 
 /**
  Returns YES if the user identified by its credentials has an active admin role

@@ -30,14 +30,16 @@
 @synthesize isSmallClassImageLoaded = _isSmallImageLoaded;
 
 static RKObjectMapping *_mapping = nil;
+static RKObjectManager *_usedManager;
 
 +(NSInteger)version{
-    return 3;
+    return 3; //Incement with every class property change!
 }
 
-+(id)mapping{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
     
-    if (!_mapping){
+    if (_usedManager !=manager){
+        _usedManager = manager;
         
         _mapping = [RKObjectMapping mappingForClass:[KTClass class]];
         [_mapping addAttributeMappingsFromDictionary:@{@"AllowElementCopy":@"classAllowsElementCopy",
@@ -49,9 +51,9 @@ static RKObjectMapping *_mapping = nil;
                                                        @"IsActive":@"isActive"
                                                        }];
         
-        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"AttributesList" toKeyPath:@"classAttributesList" withMapping:[KTClassAttribute mapping]]];
+        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"AttributesList" toKeyPath:@"classAttributesList" withMapping:[KTClassAttribute mappingWithManager:manager]]];
         
-        [[RKObjectManager sharedManager] addResponseDescriptor:
+        [_usedManager addResponseDescriptor:
          [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny
                                                  pathPattern:nil
                                                      keyPath:@"ClassConfigurationList"

@@ -11,9 +11,9 @@
 @interface KTChangeAction : NSObject
 
 /**
- Sets the object mapping for this class
-*/
-+(id)mapping;
+ Provides the object Mapping for this class and given objectManager
+ */
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 @property (nonatomic,copy) NSString* actionName;
 @property (nonatomic,assign) NSMutableArray* classList;

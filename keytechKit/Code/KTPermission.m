@@ -10,12 +10,15 @@
 #import <RestKit/RestKit.h>
 
 @implementation KTPermission
+
 static RKObjectMapping* _mapping = nil; /** contains the mapping*/
+static RKObjectManager *_usedManager;
 
 
-
-+(id)mapping{
-    if (!_mapping){
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
+    if (_usedManager !=manager){
+        _usedManager = manager;
+        
         _mapping = [RKObjectMapping mappingForClass:[KTPermission class]];
         
         [_mapping addAttributeMappingsFromDictionary:@{@"DisplayName":@"displayname",
@@ -31,7 +34,7 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
                                                     keyPath:@"PermissionList"
                                                 statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
         
-        [[RKObjectManager sharedManager] addResponseDescriptor:permissionResponse];
+        [_usedManager addResponseDescriptor:permissionResponse];
     }
     
     

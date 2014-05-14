@@ -10,11 +10,14 @@
 #import <RestKit/RestKit.h>
 
 @implementation KTClassAttribute
-    static RKObjectMapping *_mapping = nil;
 
+static RKObjectMapping *_mapping = nil;
+static RKObjectManager *_usedManager;
 
-+(id)mapping{
-    if (!_mapping){
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
+
+    if (_usedManager !=manager){
+        _usedManager = manager;
         
         _mapping = [RKObjectMapping mappingForClass:[KTClassAttribute class]];
         [_mapping addAttributeMappingsFromDictionary:@{@"Length":@"attributeLength",
@@ -26,7 +29,7 @@
                                                        @"CanUsedInTitleBlock":@"isTitleBlockRelevant"
                                                        }];
         
-        [[RKObjectManager sharedManager] addResponseDescriptor:
+        [_usedManager addResponseDescriptor:
          [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny
                                                  pathPattern:nil
                                                      keyPath:@"AttributesList" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];

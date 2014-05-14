@@ -9,15 +9,18 @@
 #import "KTSize.h"
 #import <RestKit/RestKit.h>
 
-static RKObjectMapping* _mapping;
+
 @implementation KTSize
 
+static RKObjectMapping* _mapping;
+static RKObjectManager* _usedManager;
 
-+(id)mapping{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
     
-    if (!_mapping) {
-     
-    _mapping = [RKObjectMapping mappingForClass:[KTSize class]];
+    if (_usedManager !=manager) {
+        _usedManager = manager;
+        
+        _mapping = [RKObjectMapping mappingForClass:[KTSize class]];
         [_mapping addAttributeMappingsFromDictionary:@{
                                                        @"height":@"height",
                                                        @"width":@"width",

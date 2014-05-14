@@ -15,9 +15,9 @@
 @interface KTUser : NSObject <KTLoaderDelegate,KTIdentifiedDataSource>
 
 /**
- Sets the object mapping for this class
+ Provides the object Mapping for this class and given objectManager
  */
-+(id)mapping;
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
  Returns YES if this user is active. (Means it's allowed to login and can use services.

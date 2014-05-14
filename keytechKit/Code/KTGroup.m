@@ -27,6 +27,7 @@ static KTGroup *_groupNone;
 
 
 static RKObjectMapping* _mapping = nil; /** contains the mapping*/
+static RKObjectManager *_usedManager;
 
 - (id)init
 {
@@ -39,8 +40,9 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
     return self;
 }
 
-+(id)mapping{
-    if (!_mapping){
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
+    if (_usedManager !=manager){
+        _usedManager = manager;
         
         _mapping = [RKObjectMapping requestMapping];
         [_mapping addAttributeMappingsFromDictionary:@{
@@ -48,9 +50,7 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
             @"LongName":@"groupLongName"
             }];
         
-    
-
-        [[RKObjectManager sharedManager] addRequestDescriptor:
+        [_usedManager addRequestDescriptor:
          [RKRequestDescriptor requestDescriptorWithMapping:_mapping objectClass:[KTGroup class] rootKeyPath:@"MembersList" method:RKRequestMethodAny]];
         
     }

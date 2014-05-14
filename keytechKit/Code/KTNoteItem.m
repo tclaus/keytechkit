@@ -11,7 +11,8 @@
 
 @implementation KTNoteItem
 
- static RKObjectMapping* _mapping;
+static RKObjectMapping* _mapping;
+static RKObjectManager *_usedManager;
 
 - (id)init
 {
@@ -26,10 +27,12 @@
 /**
  Sets the object mapping
  */
-+(id)mapping{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
     
-    if (!_mapping){
-    _mapping = [RKObjectMapping mappingForClass:[KTNoteItem class]];
+    if (_usedManager !=manager){
+        _usedManager = manager;
+        
+        _mapping = [RKObjectMapping mappingForClass:[KTNoteItem class]];
     
         [_mapping addAttributeMappingsFromDictionary:@{@"ID":@"noteID",
                                                        @"NoteType":@"noteType",
@@ -49,7 +52,7 @@
                                                    method:RKRequestMethodAny
                                                    pathPattern:nil keyPath:@"NotesList" statusCodes:statusCodes];
 
-        [[RKObjectManager sharedManager] addResponseDescriptor:elementDescriptor];
+        [_usedManager addResponseDescriptor:elementDescriptor];
         
     }
     return _mapping;

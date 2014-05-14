@@ -9,13 +9,15 @@
 #import "KTFont.h"
 #import <RestKit/RestKit.h>
 
-static RKObjectMapping* _mapping;
+static RKObjectMapping *_mapping;
+static RKObjectManager *_usedManager;
 
 @implementation KTFont
 
 
-+(id)mapping{
-    if (!_mapping) {
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
+    if (_usedManager !=manager) {
+        _usedManager = manager;
         
         _mapping = [RKObjectMapping mappingForClass:[KTFont class]];
         
@@ -30,7 +32,7 @@ static RKObjectMapping* _mapping;
                                                     keyPath:@"Font"
                                                 statusCodes:nil];
         
-        [[RKObjectManager sharedManager] addResponseDescriptor:fonts];
+        [_usedManager addResponseDescriptor:fonts];
         
         
     }
