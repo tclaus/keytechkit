@@ -94,7 +94,7 @@
 		650858EA189CF08E00399949 /* KTSimpleControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085892189CF08E00399949 /* KTSimpleControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858EB189CF08E00399949 /* KTSimpleControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085893189CF08E00399949 /* KTSimpleControl.m */; };
 		650858EC189CF08E00399949 /* KTSimpleControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085893189CF08E00399949 /* KTSimpleControl.m */; };
-		650858ED189CF08E00399949 /* KTSimpleFavorite.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085894189CF08E00399949 /* KTSimpleFavorite.h */; };
+		650858ED189CF08E00399949 /* KTSimpleFavorite.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085894189CF08E00399949 /* KTSimpleFavorite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858EE189CF08E00399949 /* KTSimpleFavorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085895189CF08E00399949 /* KTSimpleFavorite.m */; };
 		650858EF189CF08E00399949 /* KTSimpleFavorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085895189CF08E00399949 /* KTSimpleFavorite.m */; };
 		650858F0189CF08E00399949 /* KTSize.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085896189CF08E00399949 /* KTSize.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -193,7 +193,7 @@
 		6567B6B5191F63DE0039D7C0 /* KTResponseLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508588E189CF08E00399949 /* KTResponseLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6567B6B6191F63E20039D7C0 /* KTSignedBy.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085890189CF08E00399949 /* KTSignedBy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6567B6B7191F63E70039D7C0 /* KTSimpleControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085892189CF08E00399949 /* KTSimpleControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6B8191F63EB0039D7C0 /* KTSimpleFavorite.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085894189CF08E00399949 /* KTSimpleFavorite.h */; };
+		6567B6B8191F63EB0039D7C0 /* KTSimpleFavorite.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085894189CF08E00399949 /* KTSimpleFavorite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6567B6B9191F63EE0039D7C0 /* KTSize.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085896189CF08E00399949 /* KTSize.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6567B6BA191F63F30039D7C0 /* KTStatusHistoryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085898189CF08E00399949 /* KTStatusHistoryItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6567B6BB191F63F70039D7C0 /* KTStatusItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589A189CF08E00399949 /* KTStatusItem.h */; settings = {ATTRIBUTES = (Public, ); }; };

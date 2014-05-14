@@ -276,6 +276,8 @@
     
     bool objectsAreEqual =     [[RKObjectManager sharedManager].HTTPClient.baseURL isEqual:[NSURL URLWithString:Servername]];
     if (!objectsAreEqual){
+        // Remove all queries
+        [self.ktKeytech cancelAllQueries];
         RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:Servername]];
         [RKObjectManager setSharedManager:objectManager];
     }
