@@ -44,6 +44,11 @@
 -(NSURL*)baseURL;
 
 /**
+ Sets a default header with the given settings
+ */
+-(void)setDefaultHeader:(NSString*)headerName withValue:(NSString*)value;
+
+/**
  Fetches the API ServerInfo
  */
 -(void)serverInfo:(void (^)(KTServerInfo* serverInfo))resultBlock failure:(void(^)(NSError* error))failureBlock;

@@ -198,7 +198,9 @@
     return [RKObjectManager sharedManager].baseURL;
 }
 
-
+-(void)setDefaultHeader:(NSString*)headerName withValue:(NSString*)value{
+    [[RKObjectManager sharedManager].HTTPClient setDefaultHeader:headerName value:value];
+}
 
 -(KTPreferencesConnection*)preferences{
     return _preferences;

@@ -627,7 +627,7 @@ Gets the filelist of given elementKey
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    [KTElement mapping];
+    [KTElement mappingWithManager:manager];
     
     NSString *resourcePath = @"Search";
     
@@ -733,7 +733,7 @@ Gets the filelist of given elementKey
     }
     
     if (inClass) {
-        rpcData[@"inClasses"] = inClass;
+        rpcData[@"classtypes"] = inClass;
     }
     if (searchFields) {
         NSMutableString *fields = [NSMutableString stringWithString:@""];
