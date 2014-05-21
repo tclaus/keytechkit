@@ -520,12 +520,19 @@ static RKObjectMapping* _mapping;
         _isFilesListLoaded = YES;
         if (!_itemFilesList) {
             _itemFilesList = [[NSMutableArray alloc ]initWithArray:searchResult];
+            
         }else {
             //set by KVC
             [self willChangeValueForKey:@"itemFilesList"];
             [_itemFilesList setArray:searchResult];
             [self didChangeValueForKey:@"itemFilesList"];
         }
+        
+        // Set elementKey to every file
+        [_itemFilesList enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            KTFileInfo *file = (KTFileInfo*)obj;
+            file.elementKey = self.itemKey;
+        }];
         
         return;
     }
@@ -856,10 +863,40 @@ static long numberOfThumbnailsLoaded;
     // Wenn nicht erfolgreich dann ein Alert kommen lassen
     
     
+}
+
+
+
+/// Reloads the current element form Database
+-(void)refresh:(void(^)(KTElement *element))success{
+    RKObjectManager *manager = [RKObjectManager sharedManager];
     
+    __block KTElement *mySelf = self;
+    
+    [manager getObject:self path:nil parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        
+        NSLog(@"New element: %@",mappingResult.firstObject);
+        if (mappingResult.firstObject == mySelf) {
+            NSLog(@"classes are equal");
+        } else {
+            NSLog(@"classes are not equal");
+        }
+        
+        if (success) {
+            success(mappingResult.firstObject);
+        }
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"Error refreshing element: %@",error.localizedDescription);
+    }];
     
 }
+
 @end
+
+
+
+
+
 
 
 

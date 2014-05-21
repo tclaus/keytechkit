@@ -202,6 +202,19 @@
     [[RKObjectManager sharedManager].HTTPClient setDefaultHeader:headerName value:value];
 }
 
+-(void)setDefaultHeadersToRequest:(NSMutableURLRequest*)request{
+    
+    for (NSString* headerKey in [self.defaultHeaders allKeys]){
+        NSString *headerValue = [self.defaultHeaders objectForKey:headerKey];
+        [request setValue:headerValue forHTTPHeaderField:headerKey];
+    }
+    
+}
+
+-(NSDictionary*)defaultHeaders{
+    return [[RKObjectManager sharedManager].HTTPClient defaultHeaders];
+}
+
 -(KTPreferencesConnection*)preferences{
     return _preferences;
 }

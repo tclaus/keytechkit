@@ -47,9 +47,14 @@ static RKObjectManager *_usedManager;
         
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
         RKResponseDescriptor *notesDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:_mapping
-                                                                                             method:RKRequestMethodAny
+                                                                                             method:RKRequestMethodGET | RKRequestMethodPOST | RKRequestMethodPUT
                                                                                         pathPattern:nil
                                                                                             keyPath:@"FileInfos" statusCodes:statusCodes];
+        // DELETE
+        [manager.router.routeSet addRoute:[RKRoute
+                                           routeWithClass:[KTFileInfo class]
+                                           pathPattern:@"elements/:elementKey/files/:fileID"
+                                           method:RKRequestMethodDELETE]] ;
         
         [_usedManager addResponseDescriptor:notesDescriptor];
         
@@ -112,6 +117,26 @@ static RKObjectManager *_usedManager;
     
 }
 
+-(void)deleteFile:(void(^)(void))success failure:(void(^)(NSError* error))failure {
+    
+    if (!self.elementKey) {
+        // Return an error
+    }
+    
+    [[RKObjectManager sharedManager]deleteObject:self path:nil parameters:nil
+                                         success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                             // Delete has no mapping result
+                                             if (success) {
+                                                 success();
+                                             }
+                                         } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                             if (failure)
+                                                 // Error- request
+                                                 failure(error);
+                                         }];
+    
+}
+
 // Loads the file, if not locally available
 //TODO: What is with chaing / Reloading ?
 -(void)loadRemoteFile{
@@ -125,8 +150,8 @@ static RKObjectManager *_usedManager;
         
         NSMutableURLRequest *request = [[RKObjectManager sharedManager].HTTPClient requestWithMethod:@"GET" path:resource parameters:nil ];
         
-        
         NSURLSession *session = [NSURLSession sharedSession];
+        
         [[session downloadTaskWithRequest:request
                         completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
                             
@@ -161,6 +186,93 @@ static RKObjectManager *_usedManager;
     }
 }
 
+
+
+-(void)saveFile:(NSData *)data fileInfo:(KTFileInfo *)fileInfo
+        success:(void (^)(void))success
+        failure:(void(^)(NSError *error))failure{
+    
+    NSString *resourcePath = [NSString stringWithFormat:@"elements/%@/files", self.elementKey];
+    
+    NSURL *url =[[KTManager sharedManager].baseURL URLByAppendingPathComponent:resourcePath];
+    
+    NSMutableURLRequest *postRequest = [NSMutableURLRequest
+                                        requestWithURL:url ];
+    
+    // Add Default- and Auth Header
+
+    [[KTManager sharedManager]setDefaultHeadersToRequest:postRequest];
+    
+    
+    // Set additional headers
+    [postRequest setValue:fileInfo.fileName forHTTPHeaderField:@"Filename"];
+    [postRequest setValue:fileInfo.fileStorageType forHTTPHeaderField:@"StorageType"]; //
+    
+    // Designate the request a POST request and specify its body data
+    [postRequest setHTTPMethod:@"POST"];
+    
+    [postRequest setHTTPBody:data];
+    
+    
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    /*
+     sessionConfiguration.HTTPAdditionalHeaders = @{
+     @"api-key"       : @"55e76dc4bbae25b066cb",
+     @"Accept"        : @"application/json",
+     @"Content-Type"  : [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary]
+     };
+     */
+    
+    // Create the session
+    // We can use the delegate to track upload progress
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
+    
+    // Data uploading task. We could use NSURLSessionUploadTask instead of NSURLSessionDataTask if we needed to support uploads in the background
+    
+    NSURLSessionDataTask *uploadTask = [session dataTaskWithRequest:postRequest
+                                                  completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                      
+                                                      
+                                                      if (error) {
+                                                          NSLog(@"Upload finished with error: %@",error.localizedDescription);
+                                                          if (failure)
+                                                              failure(error);
+                                                      } else {
+                                                          
+                                                          
+                                                          NSHTTPURLResponse *httpResponse =(NSHTTPURLResponse*)response;
+                                                          
+                                                          if ([httpResponse statusCode]>299 ) {
+                                                              if (failure) {
+                                                                  
+                                                                  NSString *errorDescription = [httpResponse.allHeaderFields objectForKey:@"X-ErrorDescription"];
+                                                                  
+                                                                  if (!errorDescription) {
+                                                                      errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]];
+                                                                  }
+                                                                  
+                                                                  NSError *error = [[NSError alloc]
+                                                                                    initWithDomain:NSURLErrorDomain
+                                                                                    code:0
+                                                                                    userInfo: @{ NSLocalizedDescriptionKey : errorDescription}];
+                                                                  
+                                                                  failure(error);
+                                                              }
+                                                          }
+                                                          
+                                                      }
+                                                      
+                                                      
+                                                      NSLog(@"File upload finished!");
+                                                      if (success) {
+                                                          success();
+                                                      }
+                                                  }];
+    [uploadTask resume];
+    
+    
+    
+}
 
 
 /**

@@ -10,7 +10,7 @@
 #import "KTKeytech.h"
 #import "KTStatusHistoryItem.h"
 #import "KTKeyValue.h"
-
+#import "KTFileInfo.h"
 #import "KTNoteItem.h"
 #import "KTSignedBy.h"
 
@@ -158,4 +158,23 @@
 -(void)deleteItem:(void (^)(KTElement *element))success
           failure:(void (^)(KTElement *element, NSError *error))failure;
 
+
+#pragma mark Methods
+
+
+
+/**
+ Refreshes this instance immediatley by loading from API
+ @param success will be performed when completed.
+ */
+-(void)refresh:(void(^)(KTElement *element))success;
 @end
+
+
+
+
+
+
+
+
+

@@ -30,6 +30,11 @@
 @property (nonatomic, copy) NSString* fileName;
 
 /**
+ Gets the elementkey this file belongs to
+ */
+@property (nonatomic,copy) NSString *elementKey;
+
+/**
  Short filename is the filename without the ElementName. Shortend usually after the Divider '-+-' in filenames.
 */
  @property (nonatomic,readonly) NSString* shortFileName;
@@ -37,11 +42,11 @@
 /**
  A text representation of the file Type : MASTER, PREVIEW, QUICKPREVIEW
  */
-@property (nonatomic,readonly) NSString* fileStorageType;
+@property (nonatomic,copy) NSString* fileStorageType;
 /**
  Gets the filesize in bytes
  */
-@property (nonatomic,readonly) NSInteger fileSize;
+@property (nonatomic) NSInteger fileSize;
 
 /**
  Returns YES if the file is already locally loaded
@@ -60,9 +65,27 @@ When file is loaded a local URL is returned. Nil otherwise
 -(void) loadRemoteFile;
 
 /**
+ Stores this file to API
+ */
+-(void)saveFile:(NSData *)data fileInfo:(KTFileInfo *)fileInfo
+        success:(void (^)(void))success
+        failure:(void(^)(NSError *error))failure;
+
+/**
+ Delets this file from API. 
+ A valid elementKey property is needed
+ */
+-(void)deleteFile:(void(^)(void))success failure:(void(^)(NSError* error))failure;
+
+/**
  Is YES while a file load is currently in progress.
  */
 @property (readonly) BOOL isLoading;
 
 
+
 @end
+
+
+
+

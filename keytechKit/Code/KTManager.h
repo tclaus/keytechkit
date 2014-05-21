@@ -49,6 +49,16 @@
 -(void)setDefaultHeader:(NSString*)headerName withValue:(NSString*)value;
 
 /**
+ Adds default headers to mutable request
+ */
+-(void)setDefaultHeadersToRequest:(NSMutableURLRequest*)request;
+
+/**
+ Returns a dictionary with current defualt header values
+ */
+-(NSDictionary*)defaultHeaders;
+
+/**
  Fetches the API ServerInfo
  */
 -(void)serverInfo:(void (^)(KTServerInfo* serverInfo))resultBlock failure:(void(^)(NSError* error))failureBlock;
