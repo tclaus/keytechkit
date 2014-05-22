@@ -180,6 +180,11 @@
         [objectManager.HTTPClient setAuthorizationHeaderWithUsername:self.username password:self.password];
         [[RKValueTransformer defaultValueTransformer]addValueTransformer:[RKDotNetDateFormatter dotNetDateFormatterWithTimeZone:[NSTimeZone localTimeZone]]];
         
+         [RKMIMETypeSerialization registerClass:[RKMIMETypeTextXML class] forMIMEType:@"text/html"];
+         [RKMIMETypeSerialization registerClass:[RKMIMETypeTextXML class] forMIMEType:@"text/plain"];
+    
+    //RKXMLReaderSerialization, RKMIMETypeJSON
+    
         // Suchprovider angeben
         _ktKeytech= [[KTKeytech alloc]init];
         

@@ -130,6 +130,7 @@ static RKObjectManager *_usedManager;
                                                  success();
                                              }
                                          } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+
                                              if (failure)
                                                  // Error- request
                                                  failure(error);
@@ -194,6 +195,7 @@ static RKObjectManager *_usedManager;
     
     NSString *resourcePath = [NSString stringWithFormat:@"elements/%@/files", self.elementKey];
     
+    
     NSURL *url =[[KTManager sharedManager].baseURL URLByAppendingPathComponent:resourcePath];
     
     NSMutableURLRequest *postRequest = [NSMutableURLRequest
@@ -211,10 +213,12 @@ static RKObjectManager *_usedManager;
     // Designate the request a POST request and specify its body data
     [postRequest setHTTPMethod:@"POST"];
     
-    [postRequest setHTTPBody:data];
+   // [postRequest setHTTPBody:data];
     
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    // TODO: In background..
+    
     /*
      sessionConfiguration.HTTPAdditionalHeaders = @{
      @"api-key"       : @"55e76dc4bbae25b066cb",
@@ -222,23 +226,24 @@ static RKObjectManager *_usedManager;
      @"Content-Type"  : [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary]
      };
      */
-    
+
     // Create the session
     // We can use the delegate to track upload progress
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
     
     // Data uploading task. We could use NSURLSessionUploadTask instead of NSURLSessionDataTask if we needed to support uploads in the background
-    
-    NSURLSessionDataTask *uploadTask = [session dataTaskWithRequest:postRequest
+
+    NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:postRequest fromData:data
                                                   completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                       
                                                       
                                                       if (error) {
-                                                          NSLog(@"Upload finished with error: %@",error.localizedDescription);
+                                                          NSLog(@"File upload finished with error: %@",error.localizedDescription);
                                                           if (failure)
                                                               failure(error);
                                                       } else {
-                                                          
+                                                          NSLog(@"File upload finished!");
+                                                          // Now checking for error
                                                           
                                                           NSHTTPURLResponse *httpResponse =(NSHTTPURLResponse*)response;
                                                           
@@ -258,18 +263,21 @@ static RKObjectManager *_usedManager;
                                                                   
                                                                   failure(error);
                                                               }
+                                                          } else {
+                                                              // Set Location with new Header
+                                                              NSString *location =[httpResponse.allHeaderFields objectForKey:@"Location"];
+                                                              self.fileID = [location intValue];
                                                           }
                                                           
                                                       }
                                                       
                                                       
-                                                      NSLog(@"File upload finished!");
-                                                      if (success) {
+                                                      
+                                                if (success) {
                                                           success();
                                                       }
                                                   }];
     [uploadTask resume];
-    
     
     
 }
