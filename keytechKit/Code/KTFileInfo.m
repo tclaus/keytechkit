@@ -62,6 +62,16 @@ static RKObjectManager *_usedManager;
     return _mapping;
 }
 
+-(id)copyWithZone:(NSZone *)zone{
+    KTFileInfo *newcopy = [[KTFileInfo alloc] init];
+    newcopy.fileID = self.fileID;
+    newcopy.fileName = self.fileName;
+    newcopy.fileStorageType = self.fileStorageType;
+    newcopy.elementKey = self.elementKey;
+    
+    return newcopy;
+}
+
 // Returns the shortende filename
 -(NSString*)shortFileName{
     if(self.fileName !=nil){
