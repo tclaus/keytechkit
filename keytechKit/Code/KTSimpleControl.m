@@ -111,14 +111,17 @@ static RKObjectManager*_usedManager;
  Returns the NSTextAlignment enum for correct behavior in Views.
  */
 -(CTTextAlignment)textAlignment{
-    if ([_controlAlignmentIntern isEqualToString:@"LEFT"]){ // from keytech API: Left
+    
+    NSString *alignmentString = [_controlAlignmentIntern uppercaseString];
+    
+    if ([alignmentString isEqualToString:@"LEFT"]){ // from keytech API: Left
         return kCTLeftTextAlignment;
     }
     
-    if ([_controlAlignmentIntern isEqualToString:@"CENTER"]){ // from keytech API: Center
+    if ([alignmentString isEqualToString:@"CENTER"]){ // from keytech API: Center
         return kCTCenterTextAlignment;
     }
-    if ([_controlAlignmentIntern isEqualToString:@"RIGHT"]){ // from keytech API: Right
+    if ([alignmentString isEqualToString:@"RIGHT"]){ // from keytech API: Right
         return kCTRightTextAlignment;
     }
     

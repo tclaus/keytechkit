@@ -130,7 +130,7 @@ static RKObjectManager *_usedManager;
                                                  success();
                                              }
                                          } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-
+                                             
                                              if (failure)
                                                  // Error- request
                                                  failure(error);
@@ -202,7 +202,7 @@ static RKObjectManager *_usedManager;
                                         requestWithURL:url ];
     
     // Add Default- and Auth Header
-
+    
     [[KTManager sharedManager]setDefaultHeadersToRequest:postRequest];
     
     
@@ -213,7 +213,7 @@ static RKObjectManager *_usedManager;
     // Designate the request a POST request and specify its body data
     [postRequest setHTTPMethod:@"POST"];
     
-   // [postRequest setHTTPBody:data];
+    // [postRequest setHTTPBody:data];
     
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -226,57 +226,58 @@ static RKObjectManager *_usedManager;
      @"Content-Type"  : [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary]
      };
      */
-
+    
     // Create the session
     // We can use the delegate to track upload progress
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
     
     // Data uploading task. We could use NSURLSessionUploadTask instead of NSURLSessionDataTask if we needed to support uploads in the background
-
+    
     NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:postRequest fromData:data
-                                                  completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                      
-                                                      
-                                                      if (error) {
-                                                          NSLog(@"File upload finished with error: %@",error.localizedDescription);
-                                                          if (failure)
-                                                              failure(error);
-                                                      } else {
-                                                          NSLog(@"File upload finished!");
-                                                          // Now checking for error
+                                                      completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                           
-                                                          NSHTTPURLResponse *httpResponse =(NSHTTPURLResponse*)response;
                                                           
-                                                          if ([httpResponse statusCode]>299 ) {
-                                                              if (failure) {
-                                                                  
-                                                                  NSString *errorDescription = [httpResponse.allHeaderFields objectForKey:@"X-ErrorDescription"];
-                                                                  
-                                                                  if (!errorDescription) {
-                                                                      errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]];
-                                                                  }
-                                                                  
-                                                                  NSError *error = [[NSError alloc]
-                                                                                    initWithDomain:NSURLErrorDomain
-                                                                                    code:0
-                                                                                    userInfo: @{ NSLocalizedDescriptionKey : errorDescription}];
-                                                                  
+                                                          if (error) {
+                                                              NSLog(@"File upload finished with error: %@",error.localizedDescription);
+                                                              if (failure)
                                                                   failure(error);
-                                                              }
+                                                              return;
+                                                              
                                                           } else {
-                                                              // Set Location with new Header
-                                                              NSString *location =[httpResponse.allHeaderFields objectForKey:@"Location"];
-                                                              self.fileID = [location intValue];
+                                                              NSLog(@"File upload finished!");
+                                                              // Now checking for error
+                                                              
+                                                              NSHTTPURLResponse *httpResponse =(NSHTTPURLResponse*)response;
+                                                              
+                                                              if ([httpResponse statusCode]>299 ) {
+                                                                  if (failure) {
+                                                                      
+                                                                      NSString *errorDescription = [httpResponse.allHeaderFields objectForKey:@"X-ErrorDescription"];
+                                                                      
+                                                                      if (!errorDescription) {
+                                                                          errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]];
+                                                                      }
+                                                                      
+                                                                      NSError *error = [[NSError alloc]
+                                                                                        initWithDomain:NSURLErrorDomain
+                                                                                        code:0
+                                                                                        userInfo: @{ NSLocalizedDescriptionKey : errorDescription}];
+                                                                      
+                                                                      failure(error);
+                                                                  }
+                                                                  return;
+                                                              } else {
+                                                                  // Set Location with new Header
+                                                                  NSString *location =[httpResponse.allHeaderFields objectForKey:@"Location"];
+                                                                  self.fileID = [location intValue];
+                                                                  
+                                                              }
+                                                              if (success) {
+                                                                  success();
+                                                              }
                                                           }
                                                           
-                                                      }
-                                                      
-                                                      
-                                                      
-                                                if (success) {
-                                                          success();
-                                                      }
-                                                  }];
+                                                      }];
     [uploadTask resume];
     
     
