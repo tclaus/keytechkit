@@ -154,6 +154,7 @@ static RKObjectMapping* _mapping;
 
         _mapping = [RKObjectMapping mappingForClass:[KTElement class]];
         
+        
         [_mapping addAttributeMappingsFromDictionary:@{@"Description":@"itemDescription",
                                                        @"ClassDisplayName":@"itemClassDisplayName",
                                                        @"Key":@"itemKey",
@@ -173,30 +174,55 @@ static RKObjectMapping* _mapping;
         
         RKMapping *keyValueMapping = [KTKeyValue mappingWithManager:manager];
         
-        RKRelationshipMapping *KeyalueRelationShip =
+        RKRelationshipMapping *keyValueListResponse =
         [RKRelationshipMapping relationshipMappingFromKeyPath:@"KeyValueList"
                                                     toKeyPath:@"keyValueList"
                                                   withMapping:keyValueMapping];
         
-        [_mapping addPropertyMapping:KeyalueRelationShip];
+        [_mapping addPropertyMapping:keyValueListResponse];
         
         // Zentralisiert ?
-        RKResponseDescriptor *elementDescriptor = [RKResponseDescriptor
+        RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor
                                                    responseDescriptorWithMapping:_mapping
                                                    method:RKRequestMethodGET | RKRequestMethodPOST | RKRequestMethodPUT
                                                    pathPattern:nil
                                                    keyPath:@"ElementList"
                                                    statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
         
+        
+        // For POST and PUT only the keyValue List and key parameter is needed.
+        RKObjectMapping *requestMapping = [RKObjectMapping requestMapping];
+        [requestMapping addAttributeMappingsFromDictionary:@{@"itemKey":@"Key"}];
+
+        
+        RKRelationshipMapping *keyValueRelationShipRequest =
+       [RKRelationshipMapping relationshipMappingFromKeyPath:@"keyValueList"
+                                                    toKeyPath:@"KeyValueList"
+                                                  withMapping:[KTKeyValue requestMapping]];
+       
+        [requestMapping addPropertyMapping:keyValueRelationShipRequest];
+        
+        
+        
+        // If POST or PUT, the new element will be returned
+        RKRequestDescriptor *elementRequestDescriptor = [RKRequestDescriptor
+                                                         requestDescriptorWithMapping:requestMapping
+                                                         objectClass:[KTElement class]
+                                                         rootKeyPath:nil
+                                                         method:RKRequestMethodPOST|RKRequestMethodPUT];
+
+        
         // Path Argument
         [manager.router.routeSet addRoute:[RKRoute
                                            routeWithClass:[KTElement class]
                                            pathPattern:@"elements/:itemKey"
                                            method:RKRequestMethodGET]] ;
+        
         [manager.router.routeSet addRoute:[RKRoute
                                            routeWithClass:[KTElement class]
                                            pathPattern:@"elements"
                                            method:RKRequestMethodPOST]] ;
+        
         [manager.router.routeSet addRoute:[RKRoute
                                            routeWithClass:[KTElement class]
                                            pathPattern:@"elements/:itemKey"
@@ -207,8 +233,9 @@ static RKObjectMapping* _mapping;
                                            pathPattern:@"elements/:itemKey"
                                            method:RKRequestMethodDELETE]] ;
         
-        [manager addResponseDescriptorsFromArray:@[ elementDescriptor ]];
-
+        [manager addResponseDescriptorsFromArray:@[ responseDescriptor ]];
+        [manager addRequestDescriptor:elementRequestDescriptor];
+        
     }
     return _mapping;
 }
@@ -864,8 +891,23 @@ static long numberOfThumbnailsLoaded;
     
     
 }
-
-
+/**
+ Svaes this current Item
+ */
+-(void)saveItem:(void (^)(KTElement *))success failure:(void (^)(KTElement *, NSError *))failure{
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [manager putObject:self
+                  path:nil parameters:nil
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                   if (success) {
+                       success(self);
+                   }
+               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   if (failure) {
+                       failure(self,error);
+                   }
+               }];
+}
 
 /// Reloads the current element form Database
 -(void)refresh:(void(^)(KTElement *element))success{

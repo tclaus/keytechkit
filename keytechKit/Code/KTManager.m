@@ -182,6 +182,8 @@
         
          [RKMIMETypeSerialization registerClass:[RKMIMETypeTextXML class] forMIMEType:@"text/html"];
          [RKMIMETypeSerialization registerClass:[RKMIMETypeTextXML class] forMIMEType:@"text/plain"];
+         [objectManager setRequestSerializationMIMEType: RKMIMETypeJSON];
+    
     
     //RKXMLReaderSerialization, RKMIMETypeJSON
     
@@ -189,6 +191,8 @@
         _ktKeytech= [[KTKeytech alloc]init];
         
         // Logging für RestKit definieren
+    
+        RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
         RKLogConfigureFromEnvironment();
         
         // Timeout definieren
@@ -299,6 +303,7 @@
         // Remove all queries
         [self.ktKeytech cancelAllQueries];
         RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:Servername]];
+        [objectManager setRequestSerializationMIMEType: RKMIMETypeJSON];
         [RKObjectManager setSharedManager:objectManager];
     }
     

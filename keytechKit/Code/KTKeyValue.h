@@ -16,6 +16,10 @@
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
+ Request mapping
+ */
++(RKObjectMapping*)requestMapping;
+/**
  Returns or stets the key that identifies the value. 
  Represents typically a keytech attribute name
  */

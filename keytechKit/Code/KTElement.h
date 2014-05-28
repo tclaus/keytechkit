@@ -155,13 +155,21 @@
 
 -(BOOL)isBomAvailable; // Nur Artikel haben Stücklisten
 
--(void)deleteItem:(void (^)(KTElement *element))success
-          failure:(void (^)(KTElement *element, NSError *error))failure;
-
 
 #pragma mark Methods
 
+/**
+ Deletes this element from keytech API
+ */
+-(void)deleteItem:(void (^)(KTElement *element))success
+          failure:(void (^)(KTElement *element, NSError *error))failure;
 
+/**
+ Saves this element to API. If this is a new element a new one will be created
+ */
+-(void)saveItem:(void (^)(KTElement *element))success
+                 failure:(void (^)(KTElement *element,NSError *error))failure;
+                 
 
 /**
  Refreshes this instance immediatley by loading from API

@@ -13,8 +13,20 @@
 @implementation KTKeyValue
 
 static RKObjectMapping *_mapping;
+static RKObjectMapping *_requestMapping;
+
 static RKObjectManager *_usedManager;
 
+
++(RKObjectMapping*)requestMapping{
+    if (!_requestMapping) {
+     
+    _requestMapping = [RKObjectMapping requestMapping];
+    [_requestMapping addAttributeMappingsFromDictionary:@{@"key":@"Key",
+                                                         @"value":@"Value"}];
+    }
+    return _requestMapping;
+}
 
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
     
@@ -23,15 +35,29 @@ static RKObjectManager *_usedManager;
         
         _mapping = [RKObjectMapping mappingForClass:[KTKeyValue class]];
         
+        
         [_mapping addAttributeMappingsFromDictionary:@{@"Key":@"key",
                                                        @"Value":@"value"}];
         
-        RKResponseDescriptor *keyValues = [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny pathPattern:nil keyPath:@"KeyValueList" statusCodes:nil];
+        
+        RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor
+                                                    responseDescriptorWithMapping:_mapping
+                                                                         method:RKRequestMethodGET pathPattern:nil keyPath:@"KeyValueList"
+                                                    statusCodes:nil];
        
+        RKRequestDescriptor *requestDescriptor = [RKRequestDescriptor
+                                                  requestDescriptorWithMapping:[KTKeyValue requestMapping]
+                                                                objectClass:[KTKeyValue class]
+                                                                rootKeyPath:nil
+                                                                method:RKRequestMethodPOST|RKRequestMethodPUT];
+        
+        
         RKResponseDescriptor *serverkeyValues = [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny pathPattern:nil keyPath:@"ServerInforesult" statusCodes:nil];
         
-        [_usedManager addResponseDescriptorsFromArray:@[keyValues,serverkeyValues]];
         
+        
+        [_usedManager addResponseDescriptorsFromArray:@[responseDescriptor,serverkeyValues]];
+        [_usedManager addRequestDescriptor:requestDescriptor];
     }
     
     return _mapping;
