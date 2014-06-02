@@ -24,6 +24,14 @@
  */
 @property (assign) NSHTTPURLResponse *response;
 
+/**
+ Server error description
+ */
+-(NSUInteger)errorCode;
+/**
+ Server error code. Zero (0) if not available
+ */
+-(NSString*)errorDescription;
 
 /**
  Initiates the loaderInfo with a URLresponse object

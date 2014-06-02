@@ -172,7 +172,7 @@ static RKObjectMapping* _mapping;
                                                        @"HasVersions":@"hasVersions"
                                                        }];
         
-        RKMapping *keyValueMapping = [KTKeyValue mappingWithManager:manager];
+        RKObjectMapping *keyValueMapping = [KTKeyValue mappingWithManager:manager];
         
         RKRelationshipMapping *keyValueListResponse =
         [RKRelationshipMapping relationshipMappingFromKeyPath:@"KeyValueList"
@@ -192,13 +192,14 @@ static RKObjectMapping* _mapping;
         
         // For POST and PUT only the keyValue List and key parameter is needed.
         RKObjectMapping *requestMapping = [RKObjectMapping requestMapping];
+        
         [requestMapping addAttributeMappingsFromDictionary:@{@"itemKey":@"Key"}];
 
         
         RKRelationshipMapping *keyValueRelationShipRequest =
        [RKRelationshipMapping relationshipMappingFromKeyPath:@"keyValueList"
                                                     toKeyPath:@"KeyValueList"
-                                                  withMapping:[KTKeyValue requestMapping]];
+                                                  withMapping:[keyValueMapping inverseMapping ]];
        
         [requestMapping addPropertyMapping:keyValueRelationShipRequest];
         
@@ -903,8 +904,11 @@ static long numberOfThumbnailsLoaded;
                        success(self);
                    }
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                   NSDictionary *userInfo = @{NSLocalizedDescriptionKey:[[response allHeaderFields]objectForKey:@"X-ErrorDescription"]};
+                   NSError *outError = [NSError errorWithDomain:@"" code:0 userInfo:userInfo];
                    if (failure) {
-                       failure(self,error);
+                       failure(self,outError);
                    }
                }];
 }

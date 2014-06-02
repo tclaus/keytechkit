@@ -11,48 +11,49 @@
 #import "KTResponseLoader.h"
 
 @implementation KTResponseLoader{
-    int timeout;
-    BOOL awaitingResponse;
-    
+    int _timeout;
+    BOOL _awaitingResponse;
+    BOOL _requestTimeout;
 }
 
 
 @synthesize objects = _objects;
 @synthesize firstObject = _firstObject;
 @synthesize error =_error;
+@synthesize loaderInfo = _loaderInfo;
 
-// Loads a new responseLoader object
-
-+ (KTResponseLoader *)responseLoader {
-    return [[self alloc] init];
-}
 
 - (id)init {
     self = [super init];
     if (self) {
-        timeout = 20;
-        awaitingResponse = NO;
+        _timeout = 20; // Timeout in seconds
+        _awaitingResponse = NO;
     }
     
     return self;
 }
 
+/// If a timeout occured in WaitForResponse, no lOaderinfo or error object is send
+-(BOOL)requestTimeout{
+    return _requestTimeout;
+}
+
 - (void)waitForResponse {
-    awaitingResponse = YES;
+    _awaitingResponse = YES;
     NSDate *startDate = [NSDate date];
     
-    while (awaitingResponse) {
+    while (_awaitingResponse) {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        if ([[NSDate date] timeIntervalSinceDate:startDate] > timeout) {
-            awaitingResponse = NO;
+        if ([[NSDate date] timeIntervalSinceDate:startDate] > _timeout) {
+            _awaitingResponse = NO;
             //[NSException raise:TestResponseLoaderTimeoutException format:@"*** Operation timed out after %d seconds...", timeout];
-            
+            _requestTimeout = YES;
         }
     }
 }
 
 -(void)requestDidProceed:(NSArray *)searchResult fromResourcePath:(NSString *)resourcePath{
-    awaitingResponse = NO;
+    _awaitingResponse = NO;
     self.objects = searchResult;
     
     if (searchResult !=nil)
@@ -63,8 +64,9 @@
 }
 
 -(void)requestProceedWithError:(id)loaderInfo error:(NSError *)theError{
-    awaitingResponse = NO;
+    _awaitingResponse = NO;
     self.error = theError;
+    _loaderInfo = loaderInfo;
     
 }
 

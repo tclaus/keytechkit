@@ -22,7 +22,7 @@
     // Laden (Async)
     // (Notification senden?
     // Delegate?
-    // KVO ? 
+    // KVO ?
     
     
     
@@ -31,6 +31,63 @@
 
 static RKObjectMapping *_mapping = nil;
 static RKObjectManager *_usedManager;
+static NSDictionary *_classTypes;
+
+
++(NSDictionary*)classApplications{
+    if (!_classTypes) {
+        
+        // List from K_t_ClassTypes Table
+        
+        _classTypes =@{@"ACAD":@"AutoCAD",
+                       @"CATDRAW":@"CATIA",
+                       @"CATPART":@"CATIA",
+                       @"CATPROD":@"CATIA",
+                       @"DWG":@"DWG",
+                       @"EPL":@"EPLAN",
+                       @"FILE":@"File",
+                       @"INVASM":@"Inventor",
+                       @"INVDRW":@"Inventor",
+                       @"INVIPN":@"Inventor",
+                       @"INVPRT":@"Inventor",
+                       @"ME10":@"ME10",
+                       @"PP":@"Microsoft Office",
+                       @"PRJ":@"Microsoft Office",
+                       @"PROEASM":@"ProE",
+                       @"PROEDRW":@"ProE",
+                       @"PROEPRT":@"ProE",
+                       @"SCDOC":@"SpaceClaim",
+                       @"SEASM":@"Solid Edge",
+                       @"SEDFT":@"Solid Edge",
+                       @"SEPAR":@"Solid Edge",
+                       @"SEPSM":@"Solid Edge",
+                       @"SEPWD":@"Solid Edge",
+                       @"SLDASM":@"SolidWorks",
+                       @"SLDDRW":@"SolidWorks",
+                       @"SLDPRT":@"SolidWorks",
+                       @"TRIGA":@"Triga",
+                       @"UGASM":@"UG",
+                       @"UGDRW":@"UG",
+                       @"UGPRT":@"UG",
+                       @"VIS":@"Microsoft Office",
+                       @"WW":@"Microsoft Office",
+                       @"XL":@"Microsoft Office",
+                       @"GENFILE":@"GenericFile",
+                       @"SCAM":@"SolidCAM",
+                       @"PL":@"PowerLogic",
+                       @"PPCB":@"PowerPCB",
+                       @"MGDX":@"DXDesigner",
+                       @"PROUT":@"Router",
+                       @"PHYP":@"Hyperlynx",
+                       @"DSIGHT":@"DraftSight",
+                       @"SWE":@"SWElectrical",
+                       @"WF":@"Folder"
+                       };
+    }
+    return _classTypes;
+}
+
+
 
 +(NSInteger)version{
     return 3; //Incement with every class property change!
@@ -63,7 +120,7 @@ static RKObjectManager *_usedManager;
     }
     
     return _mapping;
-
+    
 }
 - (instancetype)init
 {
@@ -78,6 +135,11 @@ static RKObjectManager *_usedManager;
 -(NSString *)debugDescription{
     return [NSString stringWithFormat:@"%@: %@",self.classKey, self.classDisplayname];
 }
+
+-(NSString *)description{
+    return self.classDisplayname;
+}
+
 
 - (id)initWithCoder:(NSCoder *)coder
 {
@@ -115,8 +177,22 @@ static RKObjectManager *_usedManager;
     
 }
 
+-(NSString *)classApplicationName{
+    if (self.classKey) {
+        NSCharacterSet *typeDivider = [NSCharacterSet characterSetWithCharactersInString:@"_"];
+        
+        NSString *classtype = [[self.classKey componentsSeparatedByCharactersInSet:typeDivider] lastObject];
+        return [[KTClass classApplications]objectForKey:classtype];
+    }
+    return nil;
+}
 
-
+-(NSString *)smallClassImageURL{
+    return  [NSString stringWithFormat:@"classes/%@/smallImage",self.classKey ];
+}
+-(NSString *)largeClassImageURL{
+    return [NSString stringWithFormat:@"classes/%@/largeImage",self.classKey];
+}
 @end
 
 

@@ -15,9 +15,9 @@
 
 
 /**
- Returns the X-ErrorDescription header if applicable
+ Returns the Servers header X-ErrorDescription header if applicable
  */
--(NSString*)description{
+-(NSString*)errorDescription{
     
     NSString *headerDescription =  [[self.response allHeaderFields]objectForKey:@"X-ErrorDescription"];
     if (headerDescription) {
@@ -27,6 +27,18 @@
         return NSLocalizedString(@"Forbidden. Username or password failure or you have no access to the resource", nil);
     
     return nil;
+}
+
+/*
+ Returns the Server header X-ErrorCode if any
+ */
+-(NSUInteger)errorCode{
+    NSUInteger serverErrorCode =  [[[self.response allHeaderFields]objectForKey:@"X-ErrorCode"]integerValue];
+    if (serverErrorCode) {
+        return serverErrorCode;
+    } else {
+        return 0;
+    }
 }
 
 +(instancetype)ktLoaderInfo{
@@ -41,9 +53,10 @@
 +(instancetype)loaderInfoWithResponse:(NSHTTPURLResponse*)response resourceString:(NSString*)resourcePath{
     KTLoaderInfo *loader = [[KTLoaderInfo alloc]init];
     
-     loader.resourcePath= resourcePath;
+    loader.resourcePath= resourcePath;
     
     loader.response = response;
+    
     return loader;
 }
 

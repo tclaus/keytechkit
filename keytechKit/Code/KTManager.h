@@ -58,6 +58,11 @@
  */
 -(NSDictionary*)defaultHeaders;
 
+/*
+ If any error occured on the server side. This value retuns the original server error description
+ */
+-(NSString*) lastServerErrorText;
+
 /**
  Fetches the API ServerInfo
  */
@@ -69,9 +74,10 @@
 -(BOOL)currentUserHasActiveAdminRole;
 
 /**
- Simply check if current user credentials has right to login
+ Simply check if current user credentials has right to login.
+ @Returns A value If username or password failed (402), or license violation (403) or 400 if unknown.
  */
--(BOOL)currentUserHasLoginRight;
+-(NSUInteger)currentUserHasLoginRight;
 
 @property (readonly) KTKeytech* ktKeytech;
 

@@ -20,6 +20,8 @@
     BOOL _connectionIsValid;
     KTPreferencesConnection* _preferences;
     NSString *_serverVersion;
+    NSString *_serverErrorDescription;
+    
 }
 
 
@@ -255,26 +257,42 @@
     return NO;
     
 }
+
+/// Returns last known server error description
+-(NSString*) lastServerErrorText{
+    return _serverErrorDescription;
+}
+
 /**
  Simply check if current user credentials has right to login
  Waits until keytech responds
  */
--(BOOL)currentUserHasLoginRight{
+-(NSUInteger)currentUserHasLoginRight{
    
      KTResponseLoader *loader = [[KTResponseLoader alloc]init];
     
     [self.ktKeytech performGetUser:self.username loaderDelegate:loader];
+    _serverErrorDescription = nil;
     [loader waitForResponse];
+    
+    if (loader.requestTimeout){
+        return 400;
+    }
+    
+    if (loader.loaderInfo.errorCode >= 400) { // License violation, Normally send a notification ? => Multiple error messages can occur
+        _serverErrorDescription = loader.loaderInfo.errorDescription;
+        return loader.loaderInfo.errorCode;
+    }
     
     
     if (loader.firstObject){
         KTUser* user = (KTUser*)loader.firstObject;
         
         if ((user.isActive) ) {  // Check login.User must have at least 'BASE' login right.
-            return YES;
+            return 200;
         }
     }
-    return NO;
+    return 400; // Unknown error
 }
 
 /// Synchonizes changed user credentials with the api level. 

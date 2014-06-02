@@ -23,6 +23,11 @@
 -(void)encodeWithCoder:(NSCoder *)aCoder;
 
 /**
+ Returns a dictionary with ClassType names mapped to its application name
+ */
++(NSDictionary*)classApplications;
+
+/**
  The decoded class version. Must be equal to the objects version
  */
 @property (nonatomic) NSInteger classVersion;
@@ -31,6 +36,11 @@
  The unique classkey. Has the <classLabel>_<ClassType> notation. eg: "3DSLD_DRW"
  */
 @property (nonatomic,copy) NSString *classKey;
+
+/**
+ The non localized application name of this classtype
+ */
+@property (nonatomic,readonly) NSString *classApplicationName;
 /**
  A displayable localized classname
  */
@@ -62,6 +72,12 @@
 @property (nonatomic) NSObject *classInitialStatus;
 
 @property (readonly) BOOL isSmallClassImageLoaded;
+
+/// Returns a URL to load the small class Image
+@property (readonly,copy) NSString *smallClassImageURL;
+
+/// Returns a URL to load the large Class Image
+@property (readonly,copy) NSString *largeClassImageURL;
 
 @end
 

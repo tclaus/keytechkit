@@ -20,14 +20,21 @@
  */
 @property (nonatomic) NSObject *firstObject;
 @property (nonatomic) NSError *error;
+@property (readonly) KTLoaderInfo* loaderInfo;
 
-+ (KTResponseLoader *)responseLoader;
-
+/**
+ Waits until a response or error occured
+ */
 -(void)waitForResponse;
 
+/**
+ If waitForResponse returns this value indicates if a timeout occured
+ */
+-(BOOL)requestTimeout;
 
 -(void)requestDidProceed:(NSArray*)searchResult fromResourcePath:(NSString*)resourcePath;
 -(void)requestProceedWithError:(KTLoaderInfo*)loaderInfo error:(NSError*)theError;
+
 
 
 

@@ -18,15 +18,6 @@ static RKObjectMapping *_requestMapping;
 static RKObjectManager *_usedManager;
 
 
-+(RKObjectMapping*)requestMapping{
-    if (!_requestMapping) {
-     
-    _requestMapping = [RKObjectMapping requestMapping];
-    [_requestMapping addAttributeMappingsFromDictionary:@{@"key":@"Key",
-                                                         @"value":@"Value"}];
-    }
-    return _requestMapping;
-}
 
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
     
@@ -46,7 +37,7 @@ static RKObjectManager *_usedManager;
                                                     statusCodes:nil];
        
         RKRequestDescriptor *requestDescriptor = [RKRequestDescriptor
-                                                  requestDescriptorWithMapping:[KTKeyValue requestMapping]
+                                                  requestDescriptorWithMapping:[_mapping inverseMapping]
                                                                 objectClass:[KTKeyValue class]
                                                                 rootKeyPath:nil
                                                                 method:RKRequestMethodPOST|RKRequestMethodPUT];

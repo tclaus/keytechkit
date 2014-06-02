@@ -200,7 +200,10 @@ static int const kMaxDefaultPageSize = 500;
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
+                   
+                   NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+
+                   [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
                }];
      
 

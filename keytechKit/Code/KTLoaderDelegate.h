@@ -26,6 +26,9 @@
  Query stops with an error
  */
 -(void)requestProceedWithError:(KTLoaderInfo*)loaderInfo error:(NSError*)theError;
+
+-(KTLoaderInfo*)loaderInfo;
+
 @end
 
 
