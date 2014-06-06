@@ -59,6 +59,11 @@
 @property (readonly,copy) NSString* itemClassKey; // Nur der Classkey - Anteil, ohne ElementID
 
 /**
+ Sets the item Classkey. Only for newly created element. A classkey is a part of an elementkey. Only valid for elements to be created.
+ */
+-(void)setItemClassKey:(NSString *)itemClassKey;
+
+/**
  One of DO, MI, FD. A token that identifies a classtype
  */
 @property (readonly,copy) NSString* itemClassType;  // DO / MI // FD - ruft den vereinfachten Klassentypen ab

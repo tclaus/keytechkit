@@ -126,6 +126,13 @@ static RKObjectMapping* _mapping;
     return -1;
 }
 
+-(void)setItemClassKey:(NSString *)itemClassKey{
+    // Will fail if assigned to a already full Element
+    assert(self.itemID == -1);
+    
+    self.itemKey = itemClassKey;
+}
+
 -(NSString*) itemClassKey{
     NSArray *components=[self.itemKey componentsSeparatedByString:@":"];
     
@@ -755,12 +762,6 @@ static long numberOfThumbnailsLoaded;
 }
 
 
--(BOOL)isKeyValueListLoaded{
-    return _keyValueList !=nil;
-}
-
-
-
 -(BOOL)isFileListAvailable{
     // Dokumente oder Mappen können Dateien besitzten
     if ([self.itemClassType isEqualToString:@"DO"] ||[self.itemClassType isEqualToString:@"FD"] ){
@@ -783,6 +784,9 @@ static long numberOfThumbnailsLoaded;
  Gibt die erweiterte Liste der Eigenschaften zurück
  */
 -(NSArray*)KeyValueList{
+    if (_keyValueList) {
+        _keyValueList = [NSMutableArray array];
+    }
     return _keyValueList;
 }
 
@@ -870,6 +874,7 @@ static long numberOfThumbnailsLoaded;
           failure:(void (^)(KTElement *element, NSError *error))failure{
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTElement mappingWithManager:manager];
     
     
     [manager deleteObject:self path:nil parameters:nil
@@ -893,10 +898,40 @@ static long numberOfThumbnailsLoaded;
     
 }
 /**
- Svaes this current Item
+ Saves this current Item
  */
 -(void)saveItem:(void (^)(KTElement *))success failure:(void (^)(KTElement *, NSError *))failure{
     RKObjectManager *manager = [RKObjectManager sharedManager];
+    
+    // Make sure a mapping is set
+    [KTElement mappingWithManager:manager];
+    
+    if (self.itemID == -1) {
+        // POST
+        [manager postObject:self
+                       path:nil
+                 parameters:nil
+                    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                        // Refresh the current Element with Data from API.
+                        // API may has changed or added some valued
+                        NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                        self.itemKey = [response.allHeaderFields objectForKey:@"Location"];
+                        
+                        if (success) {
+                            success(self);
+                        }
+                        
+                    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                        NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                        NSDictionary *userInfo = @{NSLocalizedDescriptionKey:[[response allHeaderFields]objectForKey:@"X-ErrorDescription"]};
+                        NSError *outError = [NSError errorWithDomain:@"" code:0 userInfo:userInfo];
+                        if (failure) {
+                            failure(self,outError);
+                        }
+                    }];
+        
+    } else { // PUT
+    
     [manager putObject:self
                   path:nil parameters:nil
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
@@ -911,6 +946,8 @@ static long numberOfThumbnailsLoaded;
                        failure(self,outError);
                    }
                }];
+    }
+    
 }
 
 /// Reloads the current element form Database
