@@ -36,12 +36,25 @@
  Localized displaytext. (in Case if Label-Controls)
  */
 @property (nonatomic,copy) NSString* controlDisplayName;
+
+@property (nonatomic,copy) NSString *defaultValue;
+
 /**
  Gets or stes a keytech controltype Valid types are TEXT, CHECK, LABEL,DOUBLE, INTEGER for Textfields, Switchbuttons or uneditable labelfields.
  */
 @property (nonatomic,copy) NSString* controlType;
 @property (nonatomic,strong) KTSize* controlSize; // {x,y} als .NET Size Typ
 @property (nonatomic,strong) KTFont* font;
+
+/**
+ Returns YES if this textfield can be empty. A non nullable field should be rejected after user editing
+ */
+@property (nonatomic) BOOL isNullable;
+/**
+A value of true indicates an editable field
+ */
+@property (nonatomic) BOOL isEditable;
+
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 /**

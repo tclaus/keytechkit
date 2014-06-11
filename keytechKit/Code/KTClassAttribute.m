@@ -20,13 +20,14 @@ static RKObjectManager *_usedManager;
         _usedManager = manager;
         
         _mapping = [RKObjectMapping mappingForClass:[KTClassAttribute class]];
-        [_mapping addAttributeMappingsFromDictionary:@{@"Length":@"attributeLength",
-                                                       @"Type":@"attributeType",
+        [_mapping addAttributeMappingsFromDictionary:@{@"AttributeLength":@"attributeLength",
+                                                       @"AttributeType":@"attributeType",
                                                        @"Description":@"attributeDescription",
                                                        @"Displayname":@"attributeDisplayname",
                                                        @"NativeName":@"attributeName",
                                                        @"CanUsedInLayouts":@"isLayoutRelevant",
-                                                       @"CanUsedInTitleBlock":@"isTitleBlockRelevant"
+                                                       @"CanUsedInTitleBlock":@"isTitleBlockRelevant",
+                                                       @"DefaultValue":@"defaultValue"
                                                        }];
         
         [_usedManager addResponseDescriptor:
@@ -55,6 +56,7 @@ static RKObjectManager *_usedManager;
         self.attributeType = [coder decodeObjectForKey:@"attributeType"];
         self.isLayoutRelevant = [coder decodeBoolForKey:@"isLayoutRelevant"];
         self.isTitleBlockRelevant = [coder decodeBoolForKey:@"isTitleBlockRelevant"];
+        self.defaultValue =[coder decodeObjectForKey:@"defaultValue"];
     }
     return self;
 }
@@ -68,6 +70,7 @@ static RKObjectManager *_usedManager;
     [aCoder encodeObject:self.attributeType forKey:@"attributeType"];
     [aCoder encodeBool:self.isLayoutRelevant forKey:@"isLayoutRelevant"];
     [aCoder encodeBool:self.isTitleBlockRelevant forKey:@"isTitleBlockRelevant"];
+    [aCoder encodeObject:self.defaultValue forKey:@"defaultValue"];
     
 }
 

@@ -14,6 +14,9 @@
         #import <MobileCoreServices/MobileCoreServices.h>
     #endif
 
+#import <NSPredicate+PredicateKTFormat.h>
+#import <NSString+ClassType.h>
+
 #import "Restkit/restkit.h"
 
 

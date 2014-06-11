@@ -90,7 +90,7 @@ static NSDictionary *_classTypes;
 
 
 +(NSInteger)version{
-    return 3; //Incement with every class property change!
+    return 4; //Incement with every class property change!
 }
 
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
@@ -185,6 +185,10 @@ static NSDictionary *_classTypes;
         return [[KTClass classApplications]objectForKey:classtype];
     }
     return nil;
+}
+
+-(NSString *)classType{
+    return  [self.classKey ktClassType];
 }
 
 -(NSString *)smallClassImageURL{

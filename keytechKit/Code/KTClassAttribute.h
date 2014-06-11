@@ -35,6 +35,11 @@
 @property (nonatomic,copy) NSString *attributeName; // the raw attribute name
 
 /**
+ Returns a stringvalue with a server side set default value.
+ */
+@property (nonatomic,copy) NSString *defaultValue;
+
+/**
  If YES this attribute can be used in classlayouts
  */
 @property (nonatomic) BOOL isLayoutRelevant;

@@ -292,6 +292,13 @@
             return 200;
         }
     }
+    
+    if (loader.error) {
+        _serverErrorDescription = loader.error.localizedDescription;
+        return 400; // Not really known error
+    }
+    
+    
     return 400; // Unknown error
 }
 

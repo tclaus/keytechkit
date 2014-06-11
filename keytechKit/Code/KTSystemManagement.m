@@ -18,6 +18,7 @@
 @implementation KTSystemManagement
 
 #pragma mark Classlist
+
 -(void)performGetClass:(NSString *)classKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTClass mappingWithManager:manager];
@@ -52,6 +53,8 @@
 
     
 }
+
+
 
 #pragma mark GlobalSettings
 

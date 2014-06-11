@@ -45,7 +45,10 @@ static RKObjectManager*_usedManager;
                                                        @"ControlType": @"controlType",
                                                        @"Displayname": @"controlDisplayName",
                                                        @"Name": @"controlName",
-                                                       @"Sequence": @"controlSequence"
+                                                       @"Sequence": @"controlSequence",
+                                                       @"DefaultValue":@"defaultValue",
+                                                       @"IsEditable":@"isEditable",
+                                                       @"IsNullable":@"isNullable"
                                                        }];
         
         
@@ -79,6 +82,10 @@ static RKObjectManager*_usedManager;
     [aCoder encodeObject:self.controlPosition forKey:@"controlPosition"];
     [aCoder encodeObject:self.controlSize forKey:@"controlSize"];
     [aCoder encodeObject:self.font forKey:@"controlFont"];
+    [aCoder encodeObject:self.defaultValue forKey:@"defaultValue"];
+    [aCoder encodeBool:self.isEditable forKey:@"isEditable"];
+    [aCoder encodeBool:self.isNullable forKey:@"isNullable"];
+    
     
 }
 - (id)initWithCoder:(NSCoder *)coder
@@ -94,6 +101,9 @@ static RKObjectManager*_usedManager;
         self.controlPosition = [coder decodeObjectForKey:@"controlPosition"];
         self.controlSize = [coder decodeObjectForKey:@"controlSize"];
         self.font = [coder decodeObjectForKey:@"controlFont"];
+        self.defaultValue =[coder decodeObjectForKey:@"defaultValue"];
+        self.isNullable = [coder decodeBoolForKey:@"isNullable"];
+        self.isEditable = [coder decodeBoolForKey:@"isEditable"];
         
     }
     return self;

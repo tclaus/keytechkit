@@ -11,6 +11,7 @@
 #import "KTNotifications.h"
 #import "KTLoaderInfo.h"
 #import "KTElement.h"
+#import "KTClass.h"
 
 @interface KTElement()
 
@@ -783,38 +784,40 @@ static long numberOfThumbnailsLoaded;
 /*
  Gibt die erweiterte Liste der Eigenschaften zurück
  */
--(NSArray*)KeyValueList{
-    if (_keyValueList) {
+-(NSMutableArray*)keyValueList{
+    if (!_keyValueList) {
         _keyValueList = [NSMutableArray array];
     }
     return _keyValueList;
 }
 
--(id)valueForKey:(NSString*)key{
-    return [super valueForKey:key];
-}
-
--(void)setValue:(id)value forKey:(NSString*)key{
-    [super setValue:value forKey:key];
-}
-
--(void)setValue:(id)value forUndefinedKey:(NSString *)key{
-    NSLog(@"Set Value for Undefined Key:'%@'",key);
-}
-
--(id)valueForUndefinedKey:(NSString *)key{
-    NSLog(@"Undefined Key:'%@'",key);
+/// Returns a value for the specific attribute
+-(id)valueForAttribute:(NSString*)attribute{
+    for (KTKeyValue *kvPair in self.keyValueList) {
+        if ([kvPair.key isEqualToString:attribute]) {
+            return kvPair.value;
+        }
+    }
     return nil;
 }
 
+/// Sets a Value for the attributename
+-(void)setValueForAttribute:(id <NSCopying>)value attribute:(NSString*)attribute{
+    for (KTKeyValue *kvPair in self.keyValueList) {
+        if ([kvPair.key isEqualToString:attribute]) {
+            kvPair.value = [value copyWithZone:nil];
+            return;
+        }
+    }
+    KTKeyValue *keyValue = [[KTKeyValue alloc]init];
+    keyValue.key = attribute;
+    keyValue.value = [value copyWithZone:nil];
+    
+    [self.keyValueList addObject:keyValue];
+    
+}
 
-/*
- -(void)setValue:(id)value forKey:(NSString *)key{
- [super setValue:value forKey:key];
- // Ansonsten im eigenen dictionary suchen
- 
- }
- */
+
 
 //Helps debugging output
 -(NSString*)description{
@@ -831,6 +834,13 @@ static long numberOfThumbnailsLoaded;
     
     NSString* fileURL = [NSString stringWithFormat:@"/elements/%@/files/%d",self.itemKey, fileID];
     return fileURL;
+}
+
+
+-(instancetype)initAs:(NSString*)classKey{
+    self = [KTElement init];
+    [self setItemClassKey:classKey];
+    return self;
 }
 
 - (id)init
@@ -923,8 +933,15 @@ static long numberOfThumbnailsLoaded;
                         
                     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                         NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                        NSError *outError;
+                        if (response) {
+                        
                         NSDictionary *userInfo = @{NSLocalizedDescriptionKey:[[response allHeaderFields]objectForKey:@"X-ErrorDescription"]};
-                        NSError *outError = [NSError errorWithDomain:@"" code:0 userInfo:userInfo];
+                        outError = [NSError errorWithDomain:@"" code:0 userInfo:userInfo];
+                        } else {
+                            outError = error;
+                        }
+                        
                         if (failure) {
                             failure(self,outError);
                         }

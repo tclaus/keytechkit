@@ -39,4 +39,9 @@
  */
 @property (nonatomic,copy) NSString *classKey;
 
+/**
+ Returns the Classtype
+ */
+@property (readonly,copy) NSString *classType;
+
 @end

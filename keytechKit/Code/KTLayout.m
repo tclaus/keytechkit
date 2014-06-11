@@ -20,7 +20,7 @@
 
 
 +(NSInteger)version{
-    return 4;
+    return 7; // Dev notice: Increment if definition changes
 }
 
 - (id)initWithCoder:(NSCoder *)coder
@@ -41,9 +41,12 @@
     [aCoder encodeObject:self.listerLayout forKey:@"listerLayout"];
     [aCoder encodeObject:self.editorLayout forKey:@"editorLayout"];
     [aCoder encodeObject:self.classKey forKey:@"classKey"];
-    
+
 }
 
+-(NSString *)classType{
+    return  [self.classKey ktClassType];
+}
 
 - (id)init
 {

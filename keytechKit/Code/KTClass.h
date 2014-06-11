@@ -78,7 +78,10 @@
 
 /// Returns a URL to load the large Class Image
 @property (readonly,copy) NSString *largeClassImageURL;
-
+/**
+ Returns the Classtype
+ */
+@property (readonly,copy) NSString *classType;
 @end
 
 

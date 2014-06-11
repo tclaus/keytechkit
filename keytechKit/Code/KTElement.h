@@ -26,6 +26,12 @@
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
+ Initializes with teh given ClassKey
+ */
+-(instancetype)initAs:(NSString*)classKey;
+
+
+/**
  Unique item name
  */
 @property (nonatomic,copy) NSString* itemName;
@@ -86,6 +92,12 @@
  */
 @property (nonatomic,strong) NSString* itemVersion;
 @property (nonatomic,strong) NSMutableArray* keyValueList;
+
+/// Returns an attribute value from the keyValue list. Element must have a full attributelist.
+-(id)valueForAttribute:(NSString*)attribute;
+
+/// Sets a attribute with its value to the keyvalue list. Does not update the common properties.
+-(void)setValueForAttribute:(id <NSCopying>)value attribute:(NSString*)attribute;
 
 
 /**
@@ -162,6 +174,8 @@
 
 
 #pragma mark Methods
+
+
 
 /**
  Deletes this element from keytech API
