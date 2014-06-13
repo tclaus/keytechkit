@@ -915,7 +915,7 @@ static long numberOfThumbnailsLoaded;
     
     // Make sure a mapping is set
     [KTElement mappingWithManager:manager];
-    
+
     if (self.itemID == -1) {
         // POST
         [manager postObject:self

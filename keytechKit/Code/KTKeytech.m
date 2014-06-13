@@ -625,6 +625,19 @@ Gets the filelist of given elementKey
 }
 
 -(void)performSearchByPredicate:(NSPredicate*)predicate page:(NSInteger)page withSize:(NSInteger)size loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate{
+    [self performSearchByPredicate:predicate
+                              page:page
+                          withSize:size
+                    loaderDelegate:loaderDelegate
+                           success:nil];
+     
+}
+
+-(void)performSearchByPredicate:(NSPredicate*)predicate
+     page:(NSInteger)page
+     withSize:(NSInteger)size
+     loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate
+     success:(void(^)(NSArray *result))success {
   
     [self cancelSearches];
     
@@ -656,7 +669,13 @@ Gets the filelist of given elementKey
     
     [manager getObject:nil path:resourcePath parameters:rpcData
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                   [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+
+                   // Dont call Block and delegate
+                   if (success) {
+                       success(mappingResult.array);
+                   } else {
+                       [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                   }
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                    NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
@@ -688,6 +707,7 @@ Gets the filelist of given elementKey
     [manager getObject:nil path:resourcePath parameters:rpcData
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                   
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                    NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;

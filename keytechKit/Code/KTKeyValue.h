@@ -18,7 +18,7 @@
 /**
  Request mapping
  */
-+(RKObjectMapping*)requestMapping;
+//+(RKObjectMapping*)requestMapping;
 /**
  Returns or stets the key that identifies the value. 
  Represents typically a keytech attribute name
