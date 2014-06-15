@@ -81,7 +81,8 @@ static NSDictionary *_classTypes;
                        @"PHYP":@"Hyperlynx",
                        @"DSIGHT":@"DraftSight",
                        @"SWE":@"SWElectrical",
-                       @"WF":@"Folder"
+                       @"WF":@"Folder",
+                       @"MI":@"Items"
                        };
     }
     return _classTypes;

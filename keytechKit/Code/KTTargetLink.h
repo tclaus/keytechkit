@@ -34,7 +34,7 @@ Gets the unique link ID
 /*
  Die ID des Folders(Bin) in dem dieses Element existiert
  */
-@property (nonatomic) NSInteger sourceID;
+@property (nonatomic) NSString* linkID;
 @property (readonly) NSString* itemClassKey; //* Classkey of target element
 
 /// Classtype (FD,MI,DO) of this element

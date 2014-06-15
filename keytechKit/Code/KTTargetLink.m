@@ -24,7 +24,7 @@ static RKObjectManager *_usedManager;
                                                        @"ParentID":@"parentID",
                                                        @"EntryName":@"entryName",
                                                        @"TargetElementKey":@"targetElementKey",
-                                                       @"SourceID":@"sourceID"
+                                                       @"LinkID":@"linkID"
                                                        }];
         
         [_usedManager addResponseDescriptor:

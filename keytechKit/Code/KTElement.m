@@ -817,7 +817,9 @@ static long numberOfThumbnailsLoaded;
     
 }
 
-
+-(id)valueForUndefinedKey:(NSString *)key{
+    return @"";
+}
 
 //Helps debugging output
 -(NSString*)description{

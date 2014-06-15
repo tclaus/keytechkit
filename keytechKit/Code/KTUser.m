@@ -74,8 +74,14 @@ static RKObjectManager *_usedManager;
                                                                                             method:RKRequestMethodAny
                                                                                        pathPattern:nil keyPath:@"MembersList"
                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+        // In case of an error an empty user is returned
+        RKResponseDescriptor *userResponseClientError = [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                                                          method:RKRequestMethodAny
+                                                                                     pathPattern:nil keyPath:@"MembersList"
+                                                                                     statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)];
         
         [_usedManager addResponseDescriptor:userResponse];
+        [_usedManager addResponseDescriptor:userResponseClientError];
     }
     
     

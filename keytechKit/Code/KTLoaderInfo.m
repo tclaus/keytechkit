@@ -37,7 +37,7 @@
     if (serverErrorCode) {
         return serverErrorCode;
     } else {
-        return 0;
+        return [self.response statusCode];
     }
 }
 

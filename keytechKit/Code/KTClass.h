@@ -38,7 +38,7 @@
 @property (nonatomic,copy) NSString *classKey;
 
 /**
- The non localized application name of this classtype
+ The non localized application name of this classtype. This is the main application for filecontents in this class or a base name.
  */
 @property (nonatomic,readonly) NSString *classApplicationName;
 /**
@@ -78,6 +78,7 @@
 
 /// Returns a URL to load the large Class Image
 @property (readonly,copy) NSString *largeClassImageURL;
+
 /**
  Returns the Classtype
  */
