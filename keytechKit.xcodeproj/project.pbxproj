@@ -219,6 +219,10 @@
 		65C8E31F189EE12C005705CD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585E189CEE3100399949 /* Security.framework */; };
 		65C8E320189EE13A005705CD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585C189CEE2900399949 /* MobileCoreServices.framework */; };
 		65C8E321189EE13F005705CD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085858189CEE1C00399949 /* CFNetwork.framework */; };
+		65F810B61952CB5700992FD1 /* KTElementLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F810B41952CB5700992FD1 /* KTElementLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65F810B71952CB5700992FD1 /* KTElementLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F810B41952CB5700992FD1 /* KTElementLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65F810B81952CB5700992FD1 /* KTElementLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F810B51952CB5700992FD1 /* KTElementLink.m */; };
+		65F810B91952CB5700992FD1 /* KTElementLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F810B51952CB5700992FD1 /* KTElementLink.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -427,6 +431,8 @@
 		6556944918C3EA0F00A0BBD1 /* testLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testLayout.m; sourceTree = "<group>"; };
 		657E50EF189E76F800CB7859 /* testResponseLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testResponseLoader.h; sourceTree = "<group>"; };
 		657E50F0189E76F800CB7859 /* testResponseLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testResponseLoader.m; sourceTree = "<group>"; };
+		65F810B41952CB5700992FD1 /* KTElementLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTElementLink.h; sourceTree = "<group>"; };
+		65F810B51952CB5700992FD1 /* KTElementLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTElementLink.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -637,6 +643,8 @@
 				6508589D189CF08E00399949 /* KTSystemManagement.m */,
 				6508589E189CF08E00399949 /* KTTargetLink.h */,
 				6508589F189CF08E00399949 /* KTTargetLink.m */,
+				65F810B41952CB5700992FD1 /* KTElementLink.h */,
+				65F810B51952CB5700992FD1 /* KTElementLink.m */,
 				650858A0189CF08E00399949 /* KTTask.h */,
 				650858A1189CF08E00399949 /* KTTask.m */,
 				650858A2189CF08E00399949 /* KTUser.h */,
@@ -722,6 +730,7 @@
 				6556944118C25A5800A0BBD1 /* KTClassAttribute.h in Headers */,
 				65423E1818D5F4550020B294 /* NSPredicate+PredicateKTFormat.h in Headers */,
 				650858FC189CF08E00399949 /* KTTargetLink.h in Headers */,
+				65F810B61952CB5700992FD1 /* KTElementLink.h in Headers */,
 				650858DE189CF08E00399949 /* KTPosition.h in Headers */,
 				6556944618C330A200A0BBD1 /* KTBaseObject.h in Headers */,
 				650858BB189CF08E00399949 /* KTFont.h in Headers */,
@@ -769,6 +778,7 @@
 				6567B6BD191F64000039D7C0 /* KTTargetLink.h in Headers */,
 				6567B6A4191F63950039D7C0 /* KTFont.h in Headers */,
 				6567B6A7191F63A00039D7C0 /* KTIdentifiedDataSource.h in Headers */,
+				65F810B71952CB5700992FD1 /* KTElementLink.h in Headers */,
 				6567B6A5191F63990039D7C0 /* KTGlobalSetting.h in Headers */,
 				6567B6C3191F641A0039D7C0 /* KTBaseObject.h in Headers */,
 				6567B6BB191F63F70039D7C0 /* KTStatusItem.h in Headers */,
@@ -992,6 +1002,7 @@
 				650858C6189CF08E00399949 /* KTKeytech.m in Sources */,
 				6556944718C330A200A0BBD1 /* KTBaseObject.m in Sources */,
 				65085909189CF08E00399949 /* KTManager.m in Sources */,
+				65F810B81952CB5700992FD1 /* KTElementLink.m in Sources */,
 				650858B3189CF08E00399949 /* KTChangeAction.m in Sources */,
 				650858EE189CF08E00399949 /* KTSimpleFavorite.m in Sources */,
 				65494E0018A227E100EF9FA4 /* KTGlobalSettingContext.m in Sources */,
@@ -1067,6 +1078,7 @@
 				650858F5189CF08E00399949 /* KTStatusHistoryItem.m in Sources */,
 				6556944318C25A5800A0BBD1 /* KTClassAttribute.m in Sources */,
 				65085907189CF08E00399949 /* KTSimpleKeyValuePair.m in Sources */,
+				65F810B91952CB5700992FD1 /* KTElementLink.m in Sources */,
 				650858FE189CF08E00399949 /* KTTargetLink.m in Sources */,
 				650858E9189CF08E00399949 /* KTSignedBy.m in Sources */,
 			);
