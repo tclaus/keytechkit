@@ -13,7 +13,7 @@
 /**
  Represets a group object
  */
-@interface KTGroup : NSObject <KTLoaderDelegate, KTIdentifiedDataSource>
+@interface KTGroup : NSObject <KTIdentifiedDataSource>
 
 /**
  Provides the object Mapping for this class and given objectManager

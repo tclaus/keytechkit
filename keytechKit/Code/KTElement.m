@@ -441,6 +441,18 @@ static RKObjectMapping* _mapping;
     
 }
 
+
+-(KTFileInfo*)masterFile{
+    if (_isFilesListLoaded) {
+        for (KTFileInfo *fileInfo in self.itemFilesList) {
+            if ([fileInfo.fileStorageType isEqualToString:@"MASTER"]) {
+                return fileInfo;
+            }
+        }
+    }
+    return nil;
+}
+
 // Return current filelist or requests a new one from server
 -(NSMutableArray*)itemFilesList{
     if (_isFilesListLoaded & !_isItemFileslistLoading){

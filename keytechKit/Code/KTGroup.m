@@ -66,7 +66,7 @@ static RKObjectManager *_usedManager;
         return _usersList;
     } else {
         _isUserListLoading = YES;
-        [ktManager performGetUsersInGroup:self.identifier loaderDelegate:self];
+        //TODO: Load the userlist (Not implemented in API)
         return _usersList;
     }
 }

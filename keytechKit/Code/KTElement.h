@@ -127,6 +127,11 @@
  Retun true if Bom LIst ist loaded
  */
 @property (readonly) BOOL isBomListLoaded;
+
+/**
+ Returns the masterfile object of applicable
+ */
+-(KTFileInfo*)masterFile;
 /**
  Returny the attached filelist. If not currentlty loaded a request starts.
  */
