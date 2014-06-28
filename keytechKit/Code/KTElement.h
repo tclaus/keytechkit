@@ -13,7 +13,7 @@
 #import "KTFileInfo.h"
 #import "KTNoteItem.h"
 #import "KTSignedBy.h"
-
+#import "KTElementLink.h"
 
 /**
  Provides the object representation for keytech element classes. Can be a document, folder or masteritem.
@@ -106,9 +106,17 @@
 
 /**
  Returns the next level of linked elements. If not currentlty loaded a request starts.
+ Array contains full elements
  */
-@property (readonly,copy) NSMutableArray* itemStructureList;
+@property (readonly,strong  ) NSMutableArray* itemStructureList;
 @property (readonly) BOOL isStructureListLoaded;
+
+-(void)addLinkTo:(NSString*)linkToElementKey success:(void(^)(KTElement *elementLink))success failure:(void(^)(NSError* error))failure;
+
+-(void)removeLinkTo:(NSString*)linkToElementKey success:(void(^)(void))success failure:(void(^)(NSError* error))failure;
+
+
+// wie dann speichern? - Sofort?
 
 
 /**
@@ -119,6 +127,11 @@
  Retun true if Bom LIst ist loaded
  */
 @property (readonly) BOOL isBomListLoaded;
+
+/**
+ Returns the masterfile object of applicable
+ */
+-(KTFileInfo*)masterFile;
 /**
  Returny the attached filelist. If not currentlty loaded a request starts.
  */

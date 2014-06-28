@@ -370,6 +370,59 @@ static RKObjectMapping* _mapping;
     }
 }
 
+-(BOOL)isEqual:(id)object{
+    if ([object class] == [KTElement class]) {
+        return [super isEqual:object];
+    }
+    if ([object class] == [NSString class]) {
+        return [((NSString*)object) isEqualToString:self.itemKey];
+    }
+    
+    return NO;
+}
+
+-(void)removeLinkTo:(NSString *)linkToElementKey success:(void(^)(void))success failure:(void(^)(NSError*))failure{
+    
+    KTElementLink *newLink = [[KTElementLink alloc]initWithParent:self.itemKey childKey:linkToElementKey];
+    [newLink deleteLink:^{
+
+        if (_isStructureListLoaded) {
+            [self.itemStructureList removeObject:linkToElementKey];
+        }
+        
+        if (success) {
+            success();
+        }
+        
+    } failure:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+    
+}
+
+-(void)addLinkTo:(NSString *)linkToElementKey success:(void (^)(KTElement *elementLink))success failure:(void (^)(NSError * error))failure{
+    KTElementLink *newLink = [[KTElementLink alloc]initWithParent:self.itemKey childKey:linkToElementKey];
+    
+    [newLink saveLink:^(KTElement *childElement) {
+
+        if (_isStructureListLoaded) {
+            [self.itemStructureList addObject:childElement]; // Der Struktur hinzufügen
+        }
+        
+        if (success) {
+            success(childElement);
+        }
+    } failure:^(NSError *error) {
+        if (failure){
+            failure(error);
+        }
+    }];
+ 
+    
+}
+
 /**
  Performs lazy loading of structural data. Every elementtype might have structural data.
  Child elements linked to this parent element.
@@ -386,6 +439,18 @@ static RKObjectMapping* _mapping;
         return _itemStructureList;
     }
     
+}
+
+
+-(KTFileInfo*)masterFile{
+    if (_isFilesListLoaded) {
+        for (KTFileInfo *fileInfo in self.itemFilesList) {
+            if ([fileInfo.fileStorageType isEqualToString:@"MASTER"]) {
+                return fileInfo;
+            }
+        }
+    }
+    return nil;
 }
 
 // Return current filelist or requests a new one from server
@@ -459,7 +524,7 @@ static RKObjectMapping* _mapping;
             
             // Set by KVC
             [self willChangeValueForKey:@"itemStructureList"];
-            _itemStructureList = [searchResult copy];
+            [_itemStructureList addObjectsFromArray: searchResult];
             //[_itemStructureList setArray:searchResult];
             [self didChangeValueForKey:@"itemStructureList"];
         }

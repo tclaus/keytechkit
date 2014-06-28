@@ -5,6 +5,9 @@
 //  Created by Thorsten Claus on 19.11.12.
 //  Copyright (c) 2012 Claus-Software. All rights reserved.
 //
+// A KTTargetLink provides a Link in user Bins. These are Links to Mails, Tasks, Favorites, stored queries.
+// To manage links between elements (aka structure links) you must use the KTElement.strucureList
+//
 
 #import <Foundation/Foundation.h>
 #import "KTElement.h"
