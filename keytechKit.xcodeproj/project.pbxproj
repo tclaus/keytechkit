@@ -880,6 +880,9 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Claus-Software";
 				TargetAttributes = {
+					650857DE189CE73300399949 = {
+						DevelopmentTeam = MYEC2JCSBB;
+					};
 					650857F5189CE73300399949 = {
 						TestTargetID = 650857DE189CE73300399949;
 					};
@@ -1227,10 +1230,11 @@
 				);
 				INFOPLIST_FILE = "keytechKit/keytechKit-Info.plist";
 				INSTALL_PATH = "@rpath";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
+					"-dynamic",
 				);
 				PRODUCT_NAME = keytechKit;
 				SKIP_INSTALL = YES;
@@ -1255,10 +1259,11 @@
 				);
 				INFOPLIST_FILE = "keytechKit/keytechKit-Info.plist";
 				INSTALL_PATH = "@rpath";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
+					"-dynamic",
 				);
 				PRODUCT_NAME = keytechKit;
 				SKIP_INSTALL = YES;
