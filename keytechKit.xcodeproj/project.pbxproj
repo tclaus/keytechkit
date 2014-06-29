@@ -146,7 +146,6 @@
 		6508594C189CF0F500399949 /* testRequestServers.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085918189CF0B100399949 /* testRequestServers.m */; };
 		6508594D189CF0F500399949 /* testStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085919189CF0B100399949 /* testStatus.m */; };
 		6508594E189CF0F500399949 /* testUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508591A189CF0B100399949 /* testUserSettings.m */; };
-		651B304318B3BC9D004DBC90 /* RestKit.framework in Copy RestKit */ = {isa = PBXBuildFile; fileRef = 65085841189CEBB300399949 /* RestKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6527EA8219477EC800A37BDA /* NSString+ClassType.h in Headers */ = {isa = PBXBuildFile; fileRef = 6527EA8019477EC800A37BDA /* NSString+ClassType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6527EA8319477EC800A37BDA /* NSString+ClassType.h in Headers */ = {isa = PBXBuildFile; fileRef = 6527EA8019477EC800A37BDA /* NSString+ClassType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6527EA8419477EC800A37BDA /* NSString+ClassType.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527EA8119477EC800A37BDA /* NSString+ClassType.m */; };
@@ -296,14 +295,13 @@
 		};
 		6508584E189CEC9F00399949 /* Copy RestKit */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				651B304318B3BC9D004DBC90 /* RestKit.framework in Copy RestKit */,
 			);
 			name = "Copy RestKit";
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -1220,6 +1218,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = "@executable_path/../Frameworks";
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "keytechKit/Code/keytechFoundation-OSX-Prefix.pch";
@@ -1249,6 +1248,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = "@executable_path/../Frameworks";
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "keytechKit/Code/keytechFoundation-OSX-Prefix.pch";
