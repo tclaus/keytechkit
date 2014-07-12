@@ -9,6 +9,20 @@
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 
+@class KTFileInfo;
+@protocol KTFileObjectDelegate <NSObject>
+
+/**
+ Send periodically to notify download progress 
+ */
+-(void)KTFileInfo:(KTFileInfo*)fileInfo downloadProgress:(int64_t)bytesWritten totalBytesWritten:(int64_t)bytesWritten;
+/**
+ Send periodiacally to notify upload progress
+ */
+-(void)KTFileInfo:(KTFileInfo*)fileInfo uploadProgress:(int64_t)bytesSent totalBytesSent:(int64_t)bytesSent;
+
+
+@end
 
 /**
  Provides a fileinfo object and helps loading the file to local machine
@@ -19,6 +33,11 @@
  Provides the object Mapping for this class and given objectManager
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
+
+/**
+ A delegate to communicate upload und download progress
+ */
+@property (nonatomic) id <KTFileObjectDelegate> delegate;
 
 /**
  Gets the unique fileID

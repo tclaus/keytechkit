@@ -17,6 +17,7 @@
 
 @synthesize isLoading = _isLoading;
 @synthesize localFileURL = _localFileURL;
+@synthesize delegate;
 
 static RKObjectMapping *_mapping;
 static RKObjectManager *_usedManager;
@@ -228,12 +229,22 @@ static RKObjectManager *_usedManager;
     // Progress
     
     NSLog(@"Downloaded: %d / %d",(int)totalBytesWritten,(int)totalBytesExpectedToWrite);
-    
+    if (delegate){
+        if ([self.delegate respondsToSelector:@selector(KTFileInfo:downloadProgress:totalBytesWritten:)]) {
+            [self.delegate KTFileInfo:self downloadProgress:bytesWritten totalBytesWritten:totalBytesExpectedToWrite];
+        }
+    }
 }
 
 /// Upload Progress
 -(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didSendBodyData:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend{
      NSLog(@"Uploaded: %d / %d",(int)totalBytesSent,(int)totalBytesExpectedToSend);
+   
+    if ([self.delegate respondsToSelector:@selector(KTFileInfo:uploadProgress:totalBytesSent:)]) {
+        [self.delegate KTFileInfo:self uploadProgress:totalBytesSent totalBytesSent:totalBytesExpectedToSend];
+    }
+
+    
 }
 
 

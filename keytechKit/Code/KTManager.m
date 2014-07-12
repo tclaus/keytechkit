@@ -1,6 +1,6 @@
 //
-//  webservice.m
-//  keytech search ios
+//  KTManager
+//  keytech plm
 //
 //  Created by Thorsten Claus on 07.08.12.
 //  Copyright (c) 2012 Claus-Software. All rights reserved.
@@ -12,7 +12,6 @@
 #import "KTUser.h"
 #import "KTResponseLoader.h"
 #import "KTServerInfo.h"
-
 
 @implementation KTManager{
     
@@ -67,7 +66,7 @@
                }];
     
     
-    
+
 }
 
 
@@ -194,9 +193,11 @@
         
         // Logging für RestKit definieren
     
-        RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
+#ifdef DEBUG
+        RKLogConfigureByName("RestKit/Network", RKLogLevelInfo);
         RKLogConfigureFromEnvironment();
-        
+#endif
+    
         // Timeout definieren
       //  manager.client.timeoutInterval = 20.0; // 20 seconds
 
