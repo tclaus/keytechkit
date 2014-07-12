@@ -13,7 +13,7 @@
 /**
  Provides a fileinfo object and helps loading the file to local machine
  */
-@interface KTFileInfo : NSObject <NSCopying>
+@interface KTFileInfo : NSObject <NSCopying, NSURLSessionDownloadDelegate,NSURLSessionTaskDelegate>
 
 /**
  Provides the object Mapping for this class and given objectManager

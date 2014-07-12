@@ -161,32 +161,15 @@ static RKObjectManager *_usedManager;
         
         NSMutableURLRequest *request = [[RKObjectManager sharedManager].HTTPClient requestWithMethod:@"GET" path:resource parameters:nil ];
         
-        NSURLSession *session = [NSURLSession sharedSession];
+        [[KTManager sharedManager] setDefaultHeadersToRequest:request];
         
-        [[session downloadTaskWithRequest:request
-                        completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                            
-                            if (location) {
-                                NSFileManager *manager = [NSFileManager defaultManager];
-                                NSError *err;
-                                NSURL *targetURL = [[[KTManager sharedManager]applicationDataDirectory] URLByAppendingPathComponent:self.fileName];
-                                
-                                targetURL = [NSURL fileURLWithPath:[targetURL path]];
-                                
-                                [manager moveItemAtURL:location toURL:targetURL error:&err];
-                                
-                                
-                                [self willChangeValueForKey:@"localFileURL"];
-                                _localFileURL = targetURL;
-                                _isLoading = NO;
-                                [self didChangeValueForKey:@"localFileURL"];
-                            } else {
-                                // Fehler, Datei konnte nicht geladen werden
-                                _isLoading = NO;
-                            }
-                            
-                        }] resume];
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+
         
+        NSURLSessionDownloadTask *getFileTask= [session downloadTaskWithRequest:request];
+        [getFileTask resume];
         
         
         _isLoading = YES;
@@ -197,6 +180,61 @@ static RKObjectManager *_usedManager;
     }
 }
 
+
+
+-(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location{
+    
+    if (location) {
+        NSFileManager *manager = [NSFileManager defaultManager];
+        NSError *err;
+        NSURL *targetURL = [[[KTManager sharedManager]applicationDataDirectory] URLByAppendingPathComponent:self.fileName];
+        
+        targetURL = [NSURL fileURLWithPath:[targetURL path]];
+        
+        [manager moveItemAtURL:location toURL:targetURL error:&err];
+        
+        
+        [self willChangeValueForKey:@"localFileURL"];
+        _localFileURL = targetURL;
+        _isLoading = NO;
+        [self didChangeValueForKey:@"localFileURL"];
+    } else {
+        // Fehler, Datei konnte nicht geladen werden
+        _isLoading = NO;
+    }
+    
+}
+
+///Uploaded Data - Ignore invalid SSL (Self signed Certificates, Ugly but needed..)
+-(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler{
+    NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+    completionHandler(NSURLSessionAuthChallengeUseCredential,credential);
+}
+
+/// Downloaded Data Ignore invalid SSL (Self signed Certificates, Ugly but needed..)
+-(void)URLSession:(NSURLSession *)session didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler{
+    // SSL Certification
+    
+    if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+        NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+        completionHandler(NSURLSessionAuthChallengeUseCredential,credential);
+    }
+    
+    
+}
+
+/// Download Progress
+-(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite{
+    // Progress
+    
+    NSLog(@"Downloaded: %d / %d",(int)totalBytesWritten,(int)totalBytesExpectedToWrite);
+    
+}
+
+/// Upload Progress
+-(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didSendBodyData:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend{
+     NSLog(@"Uploaded: %d / %d",(int)totalBytesSent,(int)totalBytesExpectedToSend);
+}
 
 
 -(void)saveFile:(NSData *)data fileInfo:(KTFileInfo *)fileInfo
@@ -227,7 +265,6 @@ static RKObjectManager *_usedManager;
     
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    // TODO: In background..
     
     /*
      sessionConfiguration.HTTPAdditionalHeaders = @{
@@ -239,7 +276,7 @@ static RKObjectManager *_usedManager;
     
     // Create the session
     // We can use the delegate to track upload progress
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
     
     // Data uploading task. We could use NSURLSessionUploadTask instead of NSURLSessionDataTask if we needed to support uploads in the background
     
