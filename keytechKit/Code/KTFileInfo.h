@@ -15,11 +15,11 @@
 /**
  Send periodically to notify download progress 
  */
--(void)KTFileInfo:(KTFileInfo*)fileInfo downloadProgress:(int64_t)bytesWritten totalBytesWritten:(int64_t)bytesWritten;
+-(void)KTFileInfo:(KTFileInfo*)fileInfo downloadProgress:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten;
 /**
  Send periodiacally to notify upload progress
  */
--(void)KTFileInfo:(KTFileInfo*)fileInfo uploadProgress:(int64_t)bytesSent totalBytesSent:(int64_t)bytesSent;
+-(void)KTFileInfo:(KTFileInfo*)fileInfo uploadProgress:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent;
 
 
 @end
@@ -81,12 +81,12 @@ When file is loaded a local URL is returned. Nil otherwise
 /**
   Loads the remote file to a temporary store
  */
--(void) loadRemoteFile;
+-(void)loadRemoteFile;
 
 /**
- Stores this file to API
+ Stores this file to API. 
  */
--(void)saveFile:(NSData *)data fileInfo:(KTFileInfo *)fileInfo
+-(void)saveFile:(NSURL *)fileURL
         success:(void (^)(void))success
         failure:(void(^)(NSError *error))failure;
 
@@ -95,6 +95,15 @@ When file is loaded a local URL is returned. Nil otherwise
  A valid elementKey property is needed
  */
 -(void)deleteFile:(void(^)(void))success failure:(void(^)(NSError* error))failure;
+
+/**
+ Cancels a running upload
+ */
+-(void)cancelUpload;
+/**
+ Cancels the current download
+ */
+-(void)cancelDownload;
 
 /**
  Is YES while a file load is currently in progress.

@@ -150,11 +150,12 @@ static RKObjectManager *_usedManager;
 }
 
 // Loads the file, if not locally available
-//TODO: What is with chaing / Reloading ?
 -(void)loadRemoteFile{
     
     if (![self isLocalLoaded] && !_isLoading){
         _isLoading = YES;
+        NSLog(@"Start download of %@",self.fileName);
+        
         NSString* resource = [NSString stringWithFormat:@"files/%ld",(long)self.fileID];
         
         //NSURL *fileURL = [NSURL URLWithString:resource relativeToURL:[[RKObjectManager sharedManager].HTTPClient baseURL]];
@@ -184,6 +185,7 @@ static RKObjectManager *_usedManager;
 
 
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location{
+    NSLog(@"Download finished of: %@",self.fileName);
     
     if (location) {
         NSFileManager *manager = [NSFileManager defaultManager];
@@ -228,17 +230,18 @@ static RKObjectManager *_usedManager;
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite{
     // Progress
     
-    NSLog(@"Downloaded: %d / %d",(int)totalBytesWritten,(int)totalBytesExpectedToWrite);
+   NSLog(@"Downloaded %@: %d / %d",self.fileName, (int)totalBytesWritten,(int)totalBytesExpectedToWrite);
     if (delegate){
         if ([self.delegate respondsToSelector:@selector(KTFileInfo:downloadProgress:totalBytesWritten:)]) {
             [self.delegate KTFileInfo:self downloadProgress:bytesWritten totalBytesWritten:totalBytesExpectedToWrite];
         }
     }
+   
 }
 
 /// Upload Progress
 -(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didSendBodyData:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend{
-     NSLog(@"Uploaded: %d / %d",(int)totalBytesSent,(int)totalBytesExpectedToSend);
+    NSLog(@"Uploaded %@: %d / %d",self.fileName, (int)totalBytesSent,(int)totalBytesExpectedToSend);
    
     if ([self.delegate respondsToSelector:@selector(KTFileInfo:uploadProgress:totalBytesSent:)]) {
         [self.delegate KTFileInfo:self uploadProgress:totalBytesSent totalBytesSent:totalBytesExpectedToSend];
@@ -247,10 +250,16 @@ static RKObjectManager *_usedManager;
     
 }
 
-
--(void)saveFile:(NSData *)data fileInfo:(KTFileInfo *)fileInfo
+/// Saves the current file to API
+-(void)saveFile:(NSURL *)fileURL
         success:(void (^)(void))success
-        failure:(void(^)(NSError *error))failure{
+        failure:(void (^)(NSError *))failure{
+
+    // Check for Delegate
+    // Check for element Key
+    
+
+    
     
     NSString *resourcePath = [NSString stringWithFormat:@"elements/%@/files", self.elementKey];
     
@@ -266,8 +275,8 @@ static RKObjectManager *_usedManager;
     
     
     // Set additional headers
-    [postRequest setValue:fileInfo.fileName forHTTPHeaderField:@"Filename"];
-    [postRequest setValue:fileInfo.fileStorageType forHTTPHeaderField:@"StorageType"]; //
+    [postRequest setValue:self.fileName forHTTPHeaderField:@"Filename"];
+    [postRequest setValue:self.fileStorageType forHTTPHeaderField:@"StorageType"]; //
     
     // Designate the request a POST request and specify its body data
     [postRequest setHTTPMethod:@"POST"];
@@ -288,8 +297,11 @@ static RKObjectManager *_usedManager;
     // Create the session
     // We can use the delegate to track upload progress
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
-    
+
     // Data uploading task. We could use NSURLSessionUploadTask instead of NSURLSessionDataTask if we needed to support uploads in the background
+    NSData *data = [NSData dataWithContentsOfURL:[fileURL filePathURL]];
+    
+    self.fileSize = [data length];
     
     NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:postRequest fromData:data
                                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
