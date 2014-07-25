@@ -303,7 +303,7 @@ static RKObjectManager *_usedManager;
     
     self.fileSize = [data length];
     
-    NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:postRequest fromData:data
+    NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:postRequest fromFile:fileURL
                                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                           
                                                           
