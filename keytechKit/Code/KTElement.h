@@ -183,6 +183,10 @@
 @property (nonatomic,copy) NSString* itemChangedByLong;
 @property (nonatomic,copy) NSString* itemChangedBy;
 
+@property (nonatomic,copy) NSDate* itemReleasedAt;
+@property (nonatomic,copy) NSString* itemReleasedBy;
+@property (nonatomic,copy) NSString* itemReleasedByLong;
+
 /// Returns TRUE after a successfull delete
 @property (readonly) BOOL isDeleted;
 

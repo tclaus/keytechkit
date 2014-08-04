@@ -176,6 +176,9 @@ static RKObjectMapping* _mapping;
                                                        @"ChangedAt":@"itemChangedAt",
                                                        @"ChangedBy":@"itemChangedBy",
                                                        @"ChangedByLong":@"itemChangedByLong",
+                                                       @"ReleasedAt":@"itemReleasedAt",
+                                                       @"ReleasedBy":@"itemReleasedBy",
+                                                       @"ReleasedbyLong":@"itemReleasedByLong",
                                                        @"ThumbnailHint":@"itemThumbnailHint",
                                                        @"HasVersions":@"hasVersions"
                                                        }];
