@@ -276,7 +276,10 @@
     _serverErrorDescription = nil;
     [loader waitForResponse];
     
+    _serverErrorDescription = @"API not found. Check Path to Server";
+    
     if (loader.requestTimeout){
+        _serverErrorDescription = @"API Timeout";
         return 400;
     }
     
@@ -289,7 +292,7 @@
     if (loader.firstObject){
         KTUser* user = (KTUser*)loader.firstObject;
         
-        if ((user.isActive) ) {  // Check login.User must have at least 'BASE' login right.
+        if ((user.isActive) ) {  // Check login.User must have an 'active' - state
             return 200;
         }
     }
