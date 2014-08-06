@@ -29,4 +29,12 @@
  */
 @property (readonly)NSString *APIKernelVersion;
 
+/**
+ A unique key ti identify the current Server
+ */
+@property (readonly) NSString *ServerID;
+
++(instancetype)serverInfo;
+
+-(void)reload;
 @end

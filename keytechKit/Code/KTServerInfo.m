@@ -10,13 +10,14 @@
 #import "KTKeyValue.h"
 
 @implementation KTServerInfo{
-   
+
 }
+    static KTServerInfo *_serverInfo;
 
 @synthesize keyValueList = _keyValueList;
 
 // Mapping for Class
-static RKObjectMapping* _mapping;
+static RKObjectMapping *_mapping;
 static RKObjectManager *_usedManager;
 
 
@@ -69,6 +70,18 @@ static RKObjectManager *_usedManager;
     return nil;
 }
 
++(instancetype)serverInfo{
+    if (!_serverInfo) {
+        _serverInfo = [[KTServerInfo alloc]init];
+        [_serverInfo reload];
+    }
+    return _serverInfo;
+}
+
+-(NSString *)ServerID{
+    return [self valueForKey:@"ServerID"];
+}
+
 -(NSString *)APIKernelVersion{
     return [self valueForKey:@"keytech version"];
 }
@@ -77,5 +90,22 @@ static RKObjectManager *_usedManager;
     return [self valueForKey:@"API version"];
 }
 
+-(void)reload{
+    // TBD;
+    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTServerInfo mappingWithManager:manager];
+    
+    [manager getObject:self path:@"serverinfo" parameters:nil
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+
+                KTServerInfo *serverInfo = mappingResult.firstObject;
+
+               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   NSLog(@"Error while getting the API version: %@",error.localizedDescription);
+                  
+               }];
+
+}
 
 @end
