@@ -32,7 +32,7 @@
     [super setUp];
     // Put setup code here; it will be run once, before the first test case.
     
-    _webservice = [KTManager sharedWebservice];
+    _webservice = [KTManager sharedManager];
     elementKeyWithStructure = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API}
     classKey = @"3DMISC_SLDASM";
     

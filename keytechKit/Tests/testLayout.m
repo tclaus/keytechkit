@@ -26,7 +26,7 @@
     [super setUp];
     // Put setup code here; it will be run once, before the first test case.
     
-    _webservice = [KTManager sharedWebservice];
+    _webservice = [KTManager sharedManager];
     
     keytech = [[KTKeytech alloc]init];
     

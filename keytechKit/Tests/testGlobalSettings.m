@@ -25,7 +25,7 @@
 {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    _webservice = [KTManager sharedWebservice];
+    _webservice = [KTManager sharedManager];
 }
 
 - (void)tearDown
