@@ -26,7 +26,7 @@
     [super setUp];
     // Put setup code here; it will be run once, before the first test case.
     
-    _webservice = [KTManager sharedWebservice];
+    _webservice = [KTManager sharedManager];
     
     keytech = [[KTKeytech alloc]init];
     
@@ -60,7 +60,6 @@
     [keytech performSearch:@"dampf"
                     fields:nil
                    inClass:nil
-                 withScope:KTScopeAll
                       page:1
                   pageSize:1
             loaderDelegate:responseLoader];
@@ -77,7 +76,7 @@
 /// Performs a Search with user defined query with minimal Pagesize of 1.
 -(void)testPerformSearchByUserQuery{
     testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-    [keytech performSearchByQuery:380 page:1 withSize:500 loaderDelegate:responseLoader];
+    [keytech performSearchByQueryID:380 page:1 withSize:500 loaderDelegate:responseLoader];
     
     [responseLoader waitForResponse];
     

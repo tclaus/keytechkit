@@ -27,7 +27,7 @@
 {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-        _webservice = [KTManager sharedWebservice];
+        _webservice = [KTManager sharedManager];
     //_webservice.username = @"Admin";
     //_webservice.password = @"AdmiN2012";
     //[_webservice synchronizeServerCredentials];
@@ -53,9 +53,9 @@
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     
-    NSLog(@"Get permissionslist for %@",[KTManager sharedWebservice].username);
+    NSLog(@"Get permissionslist for %@",[KTManager sharedManager].username);
     
-    [keytech performGetPermissionsForUser:[KTManager sharedWebservice].username findPermissionName:nil findEffective:NO loaderDelegate:responseLoader];
+    [keytech performGetPermissionsForUser:[KTManager sharedManager].username findPermissionName:nil findEffective:NO loaderDelegate:responseLoader];
     
     
     [responseLoader waitForResponse];
@@ -71,7 +71,7 @@
     KTKeytech* keytech  = [[KTKeytech alloc]init];
     testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
-    [keytech performGetPermissionsForUser:[KTManager sharedWebservice].username findPermissionName:nil findEffective:YES loaderDelegate:responseLoader];
+    [keytech performGetPermissionsForUser:[KTManager sharedManager].username findPermissionName:nil findEffective:YES loaderDelegate:responseLoader];
     
     
     [responseLoader waitForResponse];
