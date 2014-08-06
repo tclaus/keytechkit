@@ -32,7 +32,7 @@
     // Set-up code here.
     
     // Webservice startet initiale Verbindung zum Dienst
-    _webservice = [KTManager sharedWebservice];
+    _webservice = [KTManager sharedManager];
     elementKeyWithStructure = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API}
 }
 
@@ -52,7 +52,7 @@
 
 -(void)testAllocWebservice
 {
-    KTManager* web = [KTManager sharedWebservice];
+    KTManager* web = [KTManager sharedManager];
     
     if (!web) XCTFail(@"could not allocate webservice Class");
     
@@ -162,7 +162,7 @@
     NSArray *fields = @[@"as_do__status=in Arbeit",@"as_do__version=-"];
     
     
-    [keytech performSearch:nil fields:fields inClass:nil withScope:KTScopeAll page:1 pageSize:25 loaderDelegate:responseLoader];
+    [keytech performSearch:nil fields:fields inClass:nil page:1 pageSize:25 loaderDelegate:responseLoader];
     
     [responseLoader waitForResponse];
     
@@ -194,7 +194,7 @@
     NSArray *fields = @[@"as_do__status=in Arbeit",@"as_do__version=-"];
     
     
-    [keytech performSearch:@"dampf" fields:fields inClass:nil withScope:KTScopeAll page:1 pageSize:25 loaderDelegate:responseLoader];
+    [keytech performSearch:@"dampf" fields:fields inClass:nil page:1 pageSize:25 loaderDelegate:responseLoader];
     
     [responseLoader waitForResponse];
     
@@ -229,7 +229,7 @@
     NSArray *fields = @[@"as_do__status=in Arbeit",@"as_do__version=-"];
     
     
-    [keytech performSearch:@"dampf" fields:fields inClass:@"" withScope:KTScopeDocuments page:1 pageSize:25 loaderDelegate:responseLoader];
+    [keytech performSearch:@"dampf" fields:fields inClass:@"" page:1 pageSize:25 loaderDelegate:responseLoader];
     
     [responseLoader waitForResponse];
     

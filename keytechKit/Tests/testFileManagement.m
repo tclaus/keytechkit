@@ -37,7 +37,7 @@ NSTimeInterval _timeOut = 12;
 {
     [super setUp];
     // Put setup code here; it will be run once, before the first test case.
-    webservice = [KTManager sharedWebservice];
+    webservice = [KTManager sharedManager];
     elementKeyWithStructure= @"3DMISC_SLDASM:2220"; //* Element with structure on Test API
 }
 
@@ -124,8 +124,7 @@ NSTimeInterval _timeOut = 12;
     
     KTFileInfo* firstFile = filesList[1];
 
-    NSURL* localFile =  [firstFile loadRemoteFile];
-    localFile = nil;
+    [firstFile loadRemoteFile];
     
     [firstFile addObserver:self forKeyPath:@"localFileURL" options:NSKeyValueObservingOptionNew context:nil];
     
@@ -136,8 +135,6 @@ NSTimeInterval _timeOut = 12;
     
     [firstFile removeObserver:self forKeyPath:@"localFileURL" context:nil];
     
-    
-    XCTAssertNotNil([firstFile loadRemoteFile], @"File not load");
     
 }
 
