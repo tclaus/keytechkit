@@ -9,6 +9,7 @@
 
 #import "KTFileInfo.h"
 #import "KTManager.h"
+#import "KTSendNotifications.h"
 
 @implementation KTFileInfo
 {
@@ -137,6 +138,9 @@ static RKObjectManager *_usedManager;
     [[RKObjectManager sharedManager]deleteObject:self path:nil parameters:nil
                                          success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                                              // Delete has no mapping result
+                                             
+                                             [[KTSendNotifications sharedSendNotification]sendElementFileHasBeenRemoved:self.elementKey];
+                                             
                                              if (success) {
                                                  success();
                                              }
@@ -340,6 +344,9 @@ static RKObjectManager *_usedManager;
                                                                   // Set Location with new Header
                                                                   NSString *location =[httpResponse.allHeaderFields objectForKey:@"Location"];
                                                                   self.fileID = [location intValue];
+                                                                  
+                                                                  
+                                                                  [[KTSendNotifications sharedSendNotification]sendElementFileUploaded:self.elementKey];
                                                                   
                                                               }
                                                               if (success) {

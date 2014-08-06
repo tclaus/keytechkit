@@ -213,6 +213,12 @@
 		657E50F1189E76F800CB7859 /* testResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E50F0189E76F800CB7859 /* testResponseLoader.m */; };
 		657E50F2189E76F800CB7859 /* testResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E50F0189E76F800CB7859 /* testResponseLoader.m */; };
 		657E512D189EC3A600CB7859 /* libkeytechKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085811189CEA9B00399949 /* libkeytechKit.a */; };
+		657E68EF19922FBE000BC057 /* KTSendNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 657E68ED19922FBE000BC057 /* KTSendNotifications.h */; };
+		657E68F019922FBE000BC057 /* KTSendNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 657E68ED19922FBE000BC057 /* KTSendNotifications.h */; };
+		657E68F119922FBE000BC057 /* KTSendNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68EE19922FBE000BC057 /* KTSendNotifications.m */; };
+		657E68F219922FBE000BC057 /* KTSendNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68EE19922FBE000BC057 /* KTSendNotifications.m */; };
+		657E68F419923C76000BC057 /* testSendNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68F319923C76000BC057 /* testSendNotification.m */; };
+		657E68F519923C77000BC057 /* testSendNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68F319923C76000BC057 /* testSendNotification.m */; };
 		65C8E31D189EE097005705CD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585A189CEE2200399949 /* CoreData.framework */; };
 		65C8E31E189EE0FE005705CD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085860189CEE3800399949 /* SystemConfiguration.framework */; };
 		65C8E31F189EE12C005705CD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585E189CEE3100399949 /* Security.framework */; };
@@ -429,6 +435,9 @@
 		6556944918C3EA0F00A0BBD1 /* testLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testLayout.m; sourceTree = "<group>"; };
 		657E50EF189E76F800CB7859 /* testResponseLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testResponseLoader.h; sourceTree = "<group>"; };
 		657E50F0189E76F800CB7859 /* testResponseLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testResponseLoader.m; sourceTree = "<group>"; };
+		657E68ED19922FBE000BC057 /* KTSendNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTSendNotifications.h; sourceTree = "<group>"; };
+		657E68EE19922FBE000BC057 /* KTSendNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSendNotifications.m; sourceTree = "<group>"; };
+		657E68F319923C76000BC057 /* testSendNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testSendNotification.m; sourceTree = "<group>"; };
 		65F810B41952CB5700992FD1 /* KTElementLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTElementLink.h; sourceTree = "<group>"; };
 		65F810B51952CB5700992FD1 /* KTElementLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTElementLink.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -659,6 +668,8 @@
 				65423E1718D5F4550020B294 /* NSPredicate+PredicateKTFormat.m */,
 				6527EA8019477EC800A37BDA /* NSString+ClassType.h */,
 				6527EA8119477EC800A37BDA /* NSString+ClassType.m */,
+				657E68ED19922FBE000BC057 /* KTSendNotifications.h */,
+				657E68EE19922FBE000BC057 /* KTSendNotifications.m */,
 			);
 			name = Code;
 			path = keytechKit/Code;
@@ -667,6 +678,7 @@
 		65085863189CEF9D00399949 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				657E68F319923C76000BC057 /* testSendNotification.m */,
 				6556944918C3EA0F00A0BBD1 /* testLayout.m */,
 				6508590B189CF0B100399949 /* en.lproj */,
 				6508590C189CF0B100399949 /* keytechKitTests-Info.plist */,
@@ -710,6 +722,7 @@
 				650858D8189CF08E00399949 /* KTNotifications.h in Headers */,
 				6567B69C191F62A50039D7C0 /* KTAttributeMapping.h in Headers */,
 				650858D2189CF08E00399949 /* KTLoaderInfo.h in Headers */,
+				657E68EF19922FBE000BC057 /* KTSendNotifications.h in Headers */,
 				650858C8189CF08E00399949 /* KTLoaderDelegate.h in Headers */,
 				650858CF189CF08E00399949 /* KTLayouts.h in Headers */,
 				65085905189CF08E00399949 /* KTSimpleKeyValuePair.h in Headers */,
@@ -758,6 +771,7 @@
 				6567B6BA191F63F30039D7C0 /* KTStatusHistoryItem.h in Headers */,
 				6567B6B6191F63E20039D7C0 /* KTSignedBy.h in Headers */,
 				6567B6AA191F63AC0039D7C0 /* KTKeyValue.h in Headers */,
+				657E68F019922FBE000BC057 /* KTSendNotifications.h in Headers */,
 				6567B6AE191F63C00039D7C0 /* KTNoteItem.h in Headers */,
 				6567B69F191F63750039D7C0 /* KTAttributeMapping.h in Headers */,
 				6567B6C0191F640D0039D7C0 /* KTSimpleKeyValuePair.h in Headers */,
@@ -1004,6 +1018,7 @@
 				6556944718C330A200A0BBD1 /* KTBaseObject.m in Sources */,
 				65085909189CF08E00399949 /* KTManager.m in Sources */,
 				65F810B81952CB5700992FD1 /* KTElementLink.m in Sources */,
+				657E68F119922FBE000BC057 /* KTSendNotifications.m in Sources */,
 				650858B3189CF08E00399949 /* KTChangeAction.m in Sources */,
 				650858EE189CF08E00399949 /* KTSimpleFavorite.m in Sources */,
 				65494E0018A227E100EF9FA4 /* KTGlobalSettingContext.m in Sources */,
@@ -1036,6 +1051,7 @@
 				6508594E189CF0F500399949 /* testUserSettings.m in Sources */,
 				65403C0B18A2778F006D3BE6 /* testCase.m in Sources */,
 				65085948189CF0F500399949 /* testFileManagement.m in Sources */,
+				657E68F419923C76000BC057 /* testSendNotification.m in Sources */,
 				65085944189CF0F500399949 /* testAttributeMappings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1062,6 +1078,7 @@
 				6507ACC719224525008CCB94 /* KTServerInfo.m in Sources */,
 				650858D1189CF08E00399949 /* KTLayouts.m in Sources */,
 				650858C0189CF08E00399949 /* KTGlobalSetting.m in Sources */,
+				657E68F219922FBE000BC057 /* KTSendNotifications.m in Sources */,
 				650858B1189CF08E00399949 /* KTBomItem.m in Sources */,
 				650858EC189CF08E00399949 /* KTSimpleControl.m in Sources */,
 				6527EA8519477EC800A37BDA /* NSString+ClassType.m in Sources */,
@@ -1102,6 +1119,7 @@
 				65085942189CF0F400399949 /* testUserSettings.m in Sources */,
 				65403C0C18A2778F006D3BE6 /* testCase.m in Sources */,
 				6508593C189CF0F400399949 /* testFileManagement.m in Sources */,
+				657E68F519923C77000BC057 /* testSendNotification.m in Sources */,
 				65085938189CF0F400399949 /* testAttributeMappings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1214,8 +1232,10 @@
 		65085808189CE73300399949 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = "@executable_path/../Frameworks";
@@ -1229,6 +1249,7 @@
 				);
 				INFOPLIST_FILE = "keytechKit/keytechKit-Info.plist";
 				INSTALL_PATH = "@rpath";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1237,6 +1258,7 @@
 				);
 				PRODUCT_NAME = keytechKit;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -1244,8 +1266,10 @@
 		65085809189CE73300399949 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = "@executable_path/../Frameworks";
@@ -1259,6 +1283,7 @@
 				);
 				INFOPLIST_FILE = "keytechKit/keytechKit-Info.plist";
 				INSTALL_PATH = "@rpath";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1328,6 +1353,7 @@
 				);
 				INSTALL_PATH = "@rpath";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1338,6 +1364,8 @@
 				PUBLIC_HEADERS_FOLDER_PATH = ../../Headers/keytechKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "keytechKit/Code/keytechKit-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "arm64 armv7 armv7s i386";
 			};
 			name = Debug;
@@ -1355,6 +1383,7 @@
 				);
 				INSTALL_PATH = "@rpath";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -1364,6 +1393,7 @@
 				PUBLIC_HEADERS_FOLDER_PATH = ../../Headers/keytechKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "keytechKit/Code/keytechKit-Bridging-Header.h";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s i386";
 			};

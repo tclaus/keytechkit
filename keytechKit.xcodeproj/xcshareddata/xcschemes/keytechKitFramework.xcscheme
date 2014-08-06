@@ -37,6 +37,17 @@
                BlueprintName = "keytechKitFrameworkTests"
                ReferencedContainer = "container:keytechKit.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "testGlobalSettings">
+               </Test>
+               <Test
+                  Identifier = "testRequestServers">
+               </Test>
+               <Test
+                  Identifier = "testUserSettings">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
@@ -49,6 +60,15 @@
       ignoresPersistentStateOnLaunch = "YES"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "650857DE189CE73300399949"
+            BuildableName = "keytechKit.framework"
+            BlueprintName = "keytechKitFramework"
+            ReferencedContainer = "container:keytechKit.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
          <AdditionalOption
             key = "NSZombieEnabled"

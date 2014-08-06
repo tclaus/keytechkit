@@ -12,6 +12,7 @@
 #import "KTLoaderInfo.h"
 #import "KTElement.h"
 #import "KTClass.h"
+#import "KTSendNotifications.h"
 
 @interface KTElement()
 
@@ -960,6 +961,8 @@ static long numberOfThumbnailsLoaded;
     [manager deleteObject:self path:nil parameters:nil
                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                       _isDeleted = YES;
+                      [[KTSendNotifications sharedSendNotification]sendElementHasBeenDeleted:self];
+                      
                       if (success) {
                           success(self);
                       }
@@ -987,7 +990,7 @@ static long numberOfThumbnailsLoaded;
     [KTElement mappingWithManager:manager];
 
     if (self.itemID == -1) {
-        // POST
+        // POST, create a new element
         [manager postObject:self
                        path:nil
                  parameters:nil
@@ -996,6 +999,9 @@ static long numberOfThumbnailsLoaded;
                         // API may has changed or added some valued
                         NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
                         self.itemKey = [response.allHeaderFields objectForKey:@"Location"];
+
+                        // Element was created (Send a notification?)
+                        // Who should get the notification? 
                         
                         if (success) {
                             success(self);
@@ -1022,6 +1028,7 @@ static long numberOfThumbnailsLoaded;
     [manager putObject:self
                   path:nil parameters:nil
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                    [[KTSendNotifications sharedSendNotification]sendElementHasBeenChanged:self];
                    if (success) {
                        success(self);
                    }
