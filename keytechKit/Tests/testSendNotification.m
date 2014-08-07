@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Claus-Software. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 #import <XCTest/XCTextCase+AsynchronousTesting.h>
 #import "KTElement.h"
 #import "KTSendNotifications.h"
+#import "KTManager.h"
 
 @interface testSendNotification : XCTestCase
 
@@ -18,10 +18,13 @@
 
 @implementation testSendNotification{
     KTElement *testElement;
+    KTManager *_webService;
 }
 
 - (void)setUp {
     [super setUp];
+    
+     _webService = [KTManager sharedManager];
     
     testElement = [[KTElement alloc]init];
     testElement.itemName = @"ITM-0001234";
@@ -61,11 +64,6 @@
     
 }
 
--(void)testElementChanged{
-    
-}
-
-
 
 
 
@@ -73,8 +71,8 @@
     
     // Put the code you want to measure the time of here.
     KTSendNotifications *sendNotfifications =[[KTSendNotifications alloc]init];
-    sendNotfifications.serverID = @"ServerID";
-    sendNotfifications.userID = @"Jgrant";
+    //sendNotfifications.serverID = @"ServerID";
+    //sendNotfifications.userID = @"Jgrant";
     [sendNotfifications sendElementHasBeenChanged:testElement];
 
 
@@ -85,8 +83,8 @@
     
     // Put the code you want to measure the time of here.
     KTSendNotifications *sendNotfifications =[[KTSendNotifications alloc]init];
-    sendNotfifications.serverID = @"ServerID";
-    sendNotfifications.userID = @"Jgrant";
+    //sendNotfifications.serverID = @"ServerID";
+    //sendNotfifications.userID = @"Jgrant";
     [sendNotfifications sendElementHasBeenDeleted:testElement];
     
     
@@ -97,8 +95,8 @@
     
     // Put the code you want to measure the time of here.
     KTSendNotifications *sendNotfifications =[[KTSendNotifications alloc]init];
-    sendNotfifications.serverID = @"ServerID";
-    sendNotfifications.userID = @"Jgrant";
+    //sendNotfifications.serverID = @"ServerID";
+    //sendNotfifications.userID = @"Jgrant";
     [sendNotfifications sendElementFileUploaded:@"DEFAULT_MI:1234"];
     
     

@@ -7,7 +7,7 @@
 //
 
 #import "KTSendNotifications.h"
-
+#import "KTManager.h"
 
 //curl -X POST \
 //-H "X-Parse-Application-Id: HIzV42mcFmWtGbButSMfaPanfjAVriWBpR7wd0im" \
@@ -30,7 +30,7 @@
 
 static KTSendNotifications *_sharedSendNotification;
 
-/// Hard coded Parse.com access codes
+/// Hard coded Parse.com access codes, Do not Share them!!!
 /// Allow overwrite but no Read!
 static NSString* ParseApplicationID = @"HIzV42mcFmWtGbButSMfaPanfjAVriWBpR7wd0im";
 static NSString* ParseRestAPIKey = @"hxIBBK60xY5xojEM6AWH5VAnzYpuOc2m6kVCtBCf";
@@ -40,6 +40,10 @@ static NSString* ParseURL = @"https://api.parse.com/1/push";
 -(instancetype) init {
     if (self = [super init])
     {
+        
+        self.serverID = [KTServerInfo sharedServerInfo].serverID;
+        self.userID = [KTManager sharedManager].username;
+        
         self.connectionSucceeded = NO;
         self.connectionFinished = NO;
     }
@@ -49,6 +53,7 @@ static NSString* ParseURL = @"https://api.parse.com/1/push";
 +(instancetype)sharedSendNotification{
     if (!_sharedSendNotification) {
         _sharedSendNotification = [[KTSendNotifications alloc]init];
+
     }
     return _sharedSendNotification;
 }
@@ -58,9 +63,15 @@ static NSString* ParseURL = @"https://api.parse.com/1/push";
 -(void)sendNotificationToChannels:(NSArray*)targetingChannels localizedMessageKey:(NSString*)messageKey localizedArguments:(NSArray*)arguments elementKey:(NSString*)elementKey{
     
     if (!(self.serverID || self.userID)) {
-        assert(@"You must have the ServerID and the userId set!");
+        NSLog(@"You must have the ServerID and the userID set!");
         return ;
     }
+
+    if (!elementKey) {
+        NSLog(@"Elementkey can not be nil set to empty string instead.");
+        elementKey = @"";
+    }
+
     
     NSURL *URL = [NSURL URLWithString:ParseURL];
     
@@ -136,7 +147,7 @@ static NSString* ParseURL = @"https://api.parse.com/1/push";
     [self sendNotificationToChannels:@[self.serverID,self.userID]
                  localizedMessageKey:@"ELEMENT_DELETED"   // "A Element was deleted", "Ein Element wurde gelöscht"
                   localizedArguments:@[element.itemName]
-                          elementKey:nil]; // Dont transpport the element Key
+                          elementKey:nil]; // Dont transpport the element Key, after deletion a clint can not read the data
 }
 
 
