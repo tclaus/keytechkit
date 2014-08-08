@@ -45,6 +45,9 @@
                   Identifier = "testRequestServers">
                </Test>
                <Test
+                  Identifier = "testStatus/testGetStatusChangeActions">
+               </Test>
+               <Test
                   Identifier = "testUserSettings">
                </Test>
             </SkippedTests>

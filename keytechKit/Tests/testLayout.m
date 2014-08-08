@@ -11,6 +11,8 @@
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 
+#import "KTLayouts.h"
+
 @interface testLayout : XCTestCase
 
 @end
