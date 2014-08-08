@@ -23,7 +23,7 @@
 {
     [super setUp];
     // Put setup code here; it will be run once, before the first test case.
-    webservice = [KTManager sharedWebservice];
+    webservice = [KTManager sharedManager];
 }
 
 - (void)tearDown

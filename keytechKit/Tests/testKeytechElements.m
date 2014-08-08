@@ -43,7 +43,7 @@ KTManager* _webservice;
     [super setUp];
     // Put setup code here; it will be run once, before the first test case.
     
-    _webservice = [KTManager sharedWebservice];
+    _webservice = [KTManager sharedManager];
     elementKeyWithStructure = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API
     elementKeyWithNotes = @"3dmisc_sldasm:2220"; //* Element with notes on Test API
     elementKeyWithStatusHistory = @"3dmisc_sldprt:2156"; //* Element with some status changed´s in the past. Will provide a status history
