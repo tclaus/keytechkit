@@ -10,6 +10,7 @@
 #import "KTManager.h"
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
+#import "KTLayouts.h"
 
 @interface testLayout : XCTestCase
 
@@ -19,6 +20,7 @@
 {
     KTManager* _webservice;
     KTKeytech* keytech;
+    
 }
 
 - (void)setUp
@@ -36,6 +38,37 @@
 {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+}
+
+/// Test loading multiple layouts
+-(void)testLoadLayout{
+    KTLayouts *layoutClass = [[KTLayouts alloc]init];
+    [layoutClass loadLayoutForClassKey:@"DEFAULT_DO"];
+    [layoutClass loadLayoutForClassKey:@"DEFAULT_MI"];
+    [layoutClass loadLayoutForClassKey:@"DEFAULT_FD"];
+    
+    // Wait until layout is loaded
+    
+#define POLL_INTERVAL 0.2 // 200ms
+#define N_SEC_TO_POLL 3.0 // poll for 3s
+#define MAX_POLL_COUNT N_SEC_TO_POLL / POLL_INTERVAL
+    
+    KTLayout *doLayout = [layoutClass layoutForClassKey:@"DEFAULT_DO"];
+    KTLayout *fdLayout = [layoutClass layoutForClassKey:@"DEFAULT_FD"];
+    KTLayout *miLayout = [layoutClass layoutForClassKey:@"DEFAULT_MI"];
+    
+    
+    NSUInteger pollCount = 0;
+    while (!([doLayout isLoaded] && [fdLayout isLoaded] && [miLayout isLoaded]) && (pollCount < MAX_POLL_COUNT)) {
+        NSDate* untilDate = [NSDate dateWithTimeIntervalSinceNow:POLL_INTERVAL];
+        [[NSRunLoop currentRunLoop] runUntilDate:untilDate];
+        pollCount++;
+    }
+    
+    XCTAssertTrue([doLayout isLoaded] && [fdLayout isLoaded] && [miLayout isLoaded],
+                  @"Layouts are not loaded. ");
+    
+    
 }
 
 - (void)testLayoutArchiving

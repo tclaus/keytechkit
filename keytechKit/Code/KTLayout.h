@@ -44,4 +44,9 @@
  */
 @property (readonly,copy) NSString *classType;
 
+/**
+ Return true if listerlayout and editorlayout is loaded
+ */
+-(BOOL)isLoaded;
+
 @end

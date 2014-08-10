@@ -48,6 +48,12 @@
     return  [self.classKey ktClassType];
 }
 
+
+
+-(BOOL)isLoaded{
+    return (_listerLayout !=nil && _editorLayout !=nil);
+}
+
 - (id)init
 {
     self = [super init];

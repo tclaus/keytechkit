@@ -58,6 +58,56 @@
     return ([_layoutsList objectForKey:classKey] !=nil);
 }
 
+
+/// Starts loading layout for the given classkey
+-(void)loadLayoutForClassKey:(NSString*)classKey {
+    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTSimpleControl mappingWithManager:manager];
+    
+    classKey = [KTBaseObject normalizeElementKey:classKey];
+    
+    
+    NSString* editorResourcePath = [NSString stringWithFormat:@"classes/%@/editorlayout", classKey];
+    NSString* listerResourcePath = [NSString stringWithFormat:@"classes/%@/listerlayout", classKey];
+    
+    // In layouts einsortieren
+    if (![_layoutsList valueForKey:classKey]){
+        KTLayout *layout =[[KTLayout alloc]init];
+        layout.classKey =classKey;
+        [_layoutsList setValue:layout forKey:classKey];
+        
+    }
+   
+    
+    
+    [manager getObjectsAtPath:editorResourcePath
+                   parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:classKey];
+                          layout.editorLayout = mappingResult.array;
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          
+                          
+                      }];
+    
+    [manager getObjectsAtPath:listerResourcePath
+                   parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          
+                          KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:classKey];
+                          layout.listerLayout = mappingResult.array;
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          
+                          
+                      }];
+    
+    
+}
+
+
 // Layout für die Klasse abholen
 -(KTLayout*)layoutForClassKey:(NSString *)classKey{
     
