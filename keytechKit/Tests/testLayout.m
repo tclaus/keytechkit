@@ -12,6 +12,8 @@
 #import "testResponseLoader.h"
 #import "KTLayouts.h"
 
+#import "KTLayouts.h"
+
 @interface testLayout : XCTestCase
 
 @end

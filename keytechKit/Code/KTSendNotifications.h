@@ -21,6 +21,12 @@
  */
 @property (nonatomic,copy) NSString* userID;
 
+/**
+ Registers a deviceID to the APN
+ */
+-(void)registerDevice:(NSString*)deviceID uniqueID:(NSString*)uniqueID;
+
+-(void)sendMessageToPushWoosh;
 
 -(void)sendElementHasBeenChanged:(KTElement*)element;
 -(void)sendElementHasBeenDeleted:(KTElement *)element;

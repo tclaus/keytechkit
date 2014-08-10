@@ -32,13 +32,12 @@
 {
     if (!_sharedLayouts) {
         
-    
-    self = [super init];
-    if (self) {
-        _sharedLayouts = self;
-        _layoutsList = [[NSMutableDictionary alloc]initWithCapacity:50];
-        _ktKeytech= [[KTKeytech alloc]init];
-        
+        self = [super init];
+        if (self) {
+            _sharedLayouts = self;
+            _layoutsList = [[NSMutableDictionary alloc]initWithCapacity:50];
+            _ktKeytech= [[KTKeytech alloc]init];
+            
         }
     } else {
         return _sharedLayouts;
@@ -110,7 +109,7 @@
 
 // Layout für die Klasse abholen
 -(KTLayout*)layoutForClassKey:(NSString *)classKey{
-    
+ 
     if (![_layoutsList valueForKey:classKey]){
         //Holen und per KVO später benachrichtigen
         [_ktKeytech performGetClassEditorLayoutForClassKey:classKey loaderDelegate:self]; //EditorLayout
@@ -158,7 +157,7 @@
     }
 
     
-    // Set lister and edirtor arrays
+    // Set lister and editor arrays
     if ([pathArray[2] isEqualToString:@"editorlayout"]){
         KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:forClassKey];
         layout.editorLayout  = searchResult;

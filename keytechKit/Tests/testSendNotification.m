@@ -42,6 +42,8 @@
 }
 
 
+
+
 -(void)testElementAdded{
     testElement = [[KTElement alloc]init];
     
@@ -65,6 +67,23 @@
 }
 
 
+-(void)testRegisterDevice{
+    NSString* deviceID =@"123456789";
+    NSString* hWID = @"HW: 12345";
+    
+    KTSendNotifications *sendNotfifications =[[KTSendNotifications alloc]init];
+    [sendNotfifications registerDevice:deviceID uniqueID:hWID];
+    
+    
+}
+
+-(void)testSendToPushWoosh{
+    
+    KTSendNotifications *sendNotfifications =[[KTSendNotifications alloc]init];
+    [sendNotfifications sendMessageToPushWoosh];
+    
+    
+}
 
 
 - (void) testSendingElementChangeNotifications{
