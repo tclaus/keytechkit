@@ -114,7 +114,7 @@ BOOL _isLoaded;
 -(void)waitUnitlLoad{
     // Do some polling to wait for the connections to complete
 #define POLL_INTERVAL 0.2 // 200ms
-#define N_SEC_TO_POLL 3.0 // poll for 3s
+#define N_SEC_TO_POLL 30.0 // poll for 30s
 #define MAX_POLL_COUNT N_SEC_TO_POLL / POLL_INTERVAL
     
     if (!_isloading && !_isLoaded) {

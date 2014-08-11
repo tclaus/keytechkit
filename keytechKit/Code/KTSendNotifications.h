@@ -16,17 +16,19 @@
  */
 @property (nonatomic,copy) NSString* serverID;
 
-/**
- The keytech user login that will receive the notification
- */
-@property (nonatomic,copy) NSString* userID;
+
 
 /**
  Registers a deviceID to the APN
  */
--(void)registerDevice:(NSString*)deviceID uniqueID:(NSString*)uniqueID;
+-(void)registerDevice:(NSData*)deviceToken uniqueID:(NSString*)uniqueID;
 
--(void)sendMessageToPushWoosh;
+/**
+ Registers a deviceID to the APN with the given two character language ID
+ */
+-(void)registerDevice:(NSData*)deviceToken uniqueID:(NSString*)uniqueID languageID:(NSString*)languageID;
+
+
 
 -(void)sendElementHasBeenChanged:(KTElement*)element;
 -(void)sendElementHasBeenDeleted:(KTElement *)element;

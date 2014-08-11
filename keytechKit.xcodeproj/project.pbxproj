@@ -215,8 +215,8 @@
 		657E50F1189E76F800CB7859 /* testResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E50F0189E76F800CB7859 /* testResponseLoader.m */; };
 		657E50F2189E76F800CB7859 /* testResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E50F0189E76F800CB7859 /* testResponseLoader.m */; };
 		657E512D189EC3A600CB7859 /* libkeytechKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085811189CEA9B00399949 /* libkeytechKit.a */; };
-		657E68EF19922FBE000BC057 /* KTSendNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 657E68ED19922FBE000BC057 /* KTSendNotifications.h */; };
-		657E68F019922FBE000BC057 /* KTSendNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 657E68ED19922FBE000BC057 /* KTSendNotifications.h */; };
+		657E68EF19922FBE000BC057 /* KTSendNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 657E68ED19922FBE000BC057 /* KTSendNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		657E68F019922FBE000BC057 /* KTSendNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 657E68ED19922FBE000BC057 /* KTSendNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		657E68F119922FBE000BC057 /* KTSendNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68EE19922FBE000BC057 /* KTSendNotifications.m */; };
 		657E68F219922FBE000BC057 /* KTSendNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68EE19922FBE000BC057 /* KTSendNotifications.m */; };
 		657E68F419923C76000BC057 /* testSendNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68F319923C76000BC057 /* testSendNotification.m */; };

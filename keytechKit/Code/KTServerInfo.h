@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ The keytech serverinfo data is available withoutthe need of a valid user logged in.
+ It provides information about the server and keytech version, a unique servce ID and statistical data
+ */
 @interface KTServerInfo : NSObject
 
 
@@ -48,8 +52,6 @@
  Loads the API's Serverinfo in background
  */
 -(void)reload;
-
-
 
 
 @end

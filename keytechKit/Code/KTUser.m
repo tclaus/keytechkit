@@ -13,7 +13,7 @@
 #import <RestKit/RestKit.h>
 
 @implementation KTUser{
-    @private
+@private
     BOOL _isGroupListLoaded; // Is loaded
     BOOL _isGroupListLoading; // During al loading process
     
@@ -22,6 +22,9 @@
     
     KTKeytech *ktManager;
 }
+
+static KTUser* _currentUser;
+
 
 @synthesize userEmail = _userEmail;
 
@@ -63,22 +66,29 @@ static RKObjectManager *_usedManager;
         
         _mapping = [RKObjectMapping mappingForClass:[KTUser class]];
         [_mapping addAttributeMappingsFromDictionary:@{@"IsActive":@"isActive",
-                                                      @"IsAdmin":@"isAdmin",
-                                                      @"IsSuperuser":@"isSuperuser",
-                                                      @"KeyName":@"userKey",
-                                                      @"Language":@"userLanguage",
-                                                      @"LongName":@"userLongName",
-                                                      @"eMail":@"userMail"
+                                                       @"IsAdmin":@"isAdmin",
+                                                       @"IsSuperuser":@"isSuperuser",
+                                                       @"KeyName":@"userKey",
+                                                       @"Language":@"userLanguage",
+                                                       @"LongName":@"userLongName",
+                                                       @"eMail":@"userMail"
                                                        }];
         RKResponseDescriptor *userResponse = [RKResponseDescriptor responseDescriptorWithMapping:_mapping
-                                                                                            method:RKRequestMethodAny
-                                                                                       pathPattern:nil keyPath:@"MembersList"
-                                                                                       statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-        // In case of an error an empty user is returned
-        RKResponseDescriptor *userResponseClientError = [RKResponseDescriptor responseDescriptorWithMapping:_mapping
                                                                                           method:RKRequestMethodAny
                                                                                      pathPattern:nil keyPath:@"MembersList"
-                                                                                     statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)];
+                                                                                     statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+        // In case of an error an empty user is returned
+        RKResponseDescriptor *userResponseClientError = [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                                                                     method:RKRequestMethodAny
+                                                                                                pathPattern:nil keyPath:@"MembersList"
+                                                                                                statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)];
+        
+        // Path Argument
+        [manager.router.routeSet addRoute:[RKRoute
+                                           routeWithClass:[KTUser class]
+                                           pathPattern:@"user/:userKey"
+                                           method:RKRequestMethodGET]] ;
+        
         
         [_usedManager addResponseDescriptor:userResponse];
         [_usedManager addResponseDescriptor:userResponseClientError];
@@ -146,11 +156,11 @@ static RKObjectManager *_usedManager;
         if (!_groupList){
             _groupList = [[NSMutableArray alloc] initWithArray:searchResult];
         }
-            
-            // Set by KVC
-            [self willChangeValueForKey:@"groupList"];
-            [self.groupList setArray:searchResult];
-            [self didChangeValueForKey:@"groupList"];
+        
+        // Set by KVC
+        [self willChangeValueForKey:@"groupList"];
+        [self.groupList setArray:searchResult];
+        [self didChangeValueForKey:@"groupList"];
         
         
         return;
@@ -159,7 +169,7 @@ static RKObjectManager *_usedManager;
     if ([resourcePath rangeOfString:@"/permissions"].location !=NSNotFound) {
         _isPermissionLoading = NO;
         _isPermissionLoaded = YES;
-
+        
         if(!_permissionsList){
             _permissionsList = [NSMutableArray array];
         }
@@ -171,4 +181,82 @@ static RKObjectManager *_usedManager;
     
 }
 
+
++(instancetype)currentUser{
+    if (!_currentUser) {
+        _currentUser = [[KTUser alloc]init];
+        _currentUser.userKey = [KTManager sharedManager].username;
+        [_currentUser reload];
+    }
+    return _currentUser;
+}
+
+
+BOOL _isloading;
+BOOL _isLoaded;
+
+
+/// Loads the serverinfo in background, but wait until return.
+-(void)reload{
+    if (!_isloading) {
+        _isLoaded = NO;
+        _isloading = YES;
+        
+        RKObjectManager *manager = [RKObjectManager sharedManager];
+        [KTUser mappingWithManager:manager];
+        
+        
+        [manager getObject:self path:nil parameters:nil
+                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                       
+                       KTUser *user = mappingResult.firstObject;
+                       
+                       _isLoaded = YES;
+                       _isloading = NO;
+                       
+                       self.userEmail =user.userEmail;
+                       self.userLanguage = user.userLanguage;
+                       self.userLongName = user.userLongName;
+                       
+                       
+                   } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                       NSLog(@"Error while getting the user-Object: %@",error.localizedDescription);
+                       _isLoaded = NO;
+                       _isloading = NO;
+                   }];
+    }
+    //[self waitForData];
+    
+}
+
+-(void)waitForData{
+    // Wait
+#define POLL_INTERVAL 0.2 // 200ms
+#define N_SEC_TO_POLL 30.0 // poll for 30s
+#define MAX_POLL_COUNT N_SEC_TO_POLL / POLL_INTERVAL
+    
+    if (!_isloading && !_isLoaded) {
+        // Load was not triggered
+        return;
+    }
+    
+    NSUInteger pollCount = 0;
+    while (!_isLoaded && (pollCount < MAX_POLL_COUNT)) {
+        NSDate* untilDate = [NSDate dateWithTimeIntervalSinceNow:POLL_INTERVAL];
+        [[NSRunLoop currentRunLoop] runUntilDate:untilDate];
+        pollCount++;
+    }
+    
+    if (pollCount== MAX_POLL_COUNT) {
+        NSLog(@"Loading Error in KTUSer!");
+    }
+    
+}
+
+
+
 @end
+
+
+
+

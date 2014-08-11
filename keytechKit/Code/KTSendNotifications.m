@@ -8,6 +8,7 @@
 
 #import "KTSendNotifications.h"
 #import "KTManager.h"
+#import "KTUser.h"
 
 
 // Parse.com
@@ -35,7 +36,9 @@
 
 
 @implementation KTSendNotifications{
-
+    NSString *_hardwareID;
+    NSString *_localLanguage;
+    KTUser *_currentUser;
 }
 
 static KTSendNotifications *_sharedSendNotification;
@@ -57,7 +60,8 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     {
         
         self.serverID = [KTServerInfo sharedServerInfo].serverID;
-        self.userID = [KTManager sharedManager].username;
+        
+        _localLanguage = [NSLocale preferredLanguages][0]; // Set, until its overwritten by register Device
         
         self.connectionSucceeded = NO;
         self.connectionFinished = NO;
@@ -73,8 +77,32 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     return _sharedSendNotification;
 }
 
-/// Registers the device ID to the service
--(void)registerDevice:(NSString*)deviceID uniqueID:(NSString*)uniqueID{
+/// Registers the device ID to the service with the default language
+-(void)registerDevice:(NSData*)deviceToken uniqueID:(NSString*)uniqueID {
+    [self registerDevice:deviceToken uniqueID:uniqueID languageID:_localLanguage];
+}
+
+/// Returns the short username (keyname)
+-(NSString*)shortUserName{
+    
+    if (!_currentUser) {
+        _currentUser= [KTUser currentUser];
+    }
+    
+    return [_currentUser.userKey lowercaseString];
+}
+
+/// Returns the current long username
+-(NSString*)longUserName{
+    if (!_currentUser) {
+        _currentUser= [KTUser currentUser];
+    }
+    return _currentUser.userLongName;
+}
+
+
+/// Registers the device ID to the service with the given langugae
+-(void)registerDevice:(NSData*)deviceToken uniqueID:(NSString*)uniqueID languageID:(NSString*)languageID{
     // Register deviceID to PushWoosh service
     // Method: registerDevice
 
@@ -91,6 +119,22 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
 //        }
 //    }
 
+    // locally store the Hardware ID
+    _hardwareID = uniqueID;
+    
+    if (!languageID) {
+        NSLog(@"Language ID can not be empty!");
+        return;
+    }
+    
+    NSUInteger capacity = deviceToken.length * 2;
+    NSMutableString *sbuf = [NSMutableString stringWithCapacity:capacity];
+    const unsigned char *buf = deviceToken.bytes;
+    NSInteger i;
+    for (i=0; i<deviceToken.length; ++i) {
+        [sbuf appendFormat:@"%02lX", (unsigned long)buf[i]];
+    }
+
 
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:APNURL,@"registerDevice"]];
     
@@ -99,16 +143,21 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     
     [urlRequest setHTTPMethod:@"POST"];
 
+    
+    
     NSDictionary *payload = @{@"request":@{
                                               @"application":APNApplictionID,
-                                              @"push_token":deviceID,
+                                              @"push_token":sbuf,
+                                              @"language":languageID,
                                               @"hwid":uniqueID,
-                                              @"device_type":@"1"  // 1= iPhone, 7 = MacOS
+                                              @"device_type":@"7"  // 1= iPhone, 7 = MacOS
                                               }};
     
 
     [self sendDataToService:urlRequest jsonPayload:payload];
 
+    [self setTags];
+    
 }
 
 
@@ -130,16 +179,29 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
 }
 
 
-//
--(void)sendNotificationPushWoosh{
-   //createMessage
-    
-}
 
-
--(void)sendNotification:(NSString*)message{
+/// Sends the keytech ServerID and current username to APN Service as a filter Tag
+-(void)setTags{
     
-    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:APNURL,@"createMessage"]];
+    //    {
+    //        "request":{
+    //            "application":"DEAD0-BEEF0",
+    //            "hwid": "device hardware id",
+    //            "tags": {
+    //                "StringTag": "string value",
+    //                "IntegerTag": 42,
+    //                "ListTag": ["string1","string2"]
+    //            }
+    //        }
+    //    }
+    //
+    
+    if (!_hardwareID) {
+        NSLog(@"Register Device first");
+        return;
+    }
+    
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:APNURL,@"setTags"]];
     
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:URL];
     [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -149,11 +211,39 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     NSDictionary *payload = @{@"request":@{
                                       @"application":APNApplictionID,
                                       @"auth":APNAPIToken,
-                                      @"notification":@[@{@"send_date":@"now",
-                                                          @"ignore_user_timezone":@"true",
-                                                          @"content":message,
-                                                          @"data":@{@"Custom":@"Custom Data"},
-                                                          @"platforms":@[@1,@7]
+                                      @"hwid":_hardwareID,
+                                      @"tags":@{@"serverid":self.serverID,
+                                                  @"username":[self shortUserName],
+                                                  }
+                                      }
+                              };
+    
+    
+    [self sendDataToService:urlRequest jsonPayload:payload];
+}
+
+/// Sends a pushwoosh notification, to the Owner of the element
+-(void)sendNotification:(NSDictionary*)messageDictionary elementKey:(NSString*)elementKey elementCreatedBy:(NSString*)elementOwner{
+    
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:APNURL,@"createMessage"]];
+    
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:URL];
+    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    [urlRequest setHTTPMethod:@"POST"];
+    
+    NSArray *Tag_ConditionServerID = @[@"serverid",@"EQ",self.serverID];   // Array: <tagname>,<operator>,<value> ["SERVERID","EQ","<ID>"]
+    NSArray *Tag_ConditionUsername =@[@"username",@"EQ",elementOwner]; //["SERVERID","EQ","<ID>"]
+    
+    NSDictionary *payload = @{@"request":@{
+                                      @"application":APNApplictionID,
+                                      @"auth":APNAPIToken,
+                                      @"notifications":@[@{@"send_date":@"now",
+                                                          @"ignore_user_timezone":@1,
+                                                          @"content":messageDictionary, //message as a languageCode- Message dictionary,
+                                                          @"data":@{@"elementkey":elementKey},
+                                                          @"platforms":@[@1,@7],
+                                                          @"conditions":@[Tag_ConditionServerID,Tag_ConditionUsername]
                                                           }]
                                       }
                               };
@@ -200,11 +290,11 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
 
 /// Actually send the notification and poayload data
 -(void)sendNotificationToChannels:(NSArray*)targetingChannels localizedMessageKey:(NSString*)messageKey localizedArguments:(NSArray*)arguments elementKey:(NSString*)elementKey{
-    
-    if (!(self.serverID || self.userID)) {
-        NSLog(@"You must have the ServerID and the userID set!");
-        return ;
-    }
+//    
+//    if (!(self.serverID || self.userID)) {
+//        NSLog(@"You must have the ServerID and the userID set!");
+//        return ;
+//    }
 
     if (!elementKey) {
         NSLog(@"Elementkey can not be nil set to empty string instead.");
@@ -228,7 +318,7 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
                                           @"data":@{@"alert":alertMessage,
                                                     @"sound":@"default"}};
 */
-    NSDictionary *payloadChannels = @{@"channels":@[self.serverID,self.userID] ,
+    NSDictionary *payloadChannels = @{@"channels":@[self.serverID,[self shortUserName]] ,
                                       @"data":@{@"alert":@{@"loc-key":messageKey,@"loc-args":arguments},
                                                 @"sound":@"default"},
                                                  @"EKey":elementKey};
@@ -246,12 +336,16 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:payload
                                                        options:kNilOptions error:&error];
     
+    
+#ifdef DEBUG
     //print out the data contents
-    NSString *JSONMessageBody = [[NSString alloc] initWithData:jsonData
+    NSString *JSONMessageBody = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:payload
+                                                                                               options:NSJSONWritingPrettyPrinted error:&error]
                                                       encoding:NSUTF8StringEncoding];
     
     NSLog(@"Sending JSON: %@",JSONMessageBody);
     NSLog(@"Sending Request: %@",urlRequest);
+#endif
     
     urlRequest.HTTPBody = jsonData;
     
@@ -259,6 +353,7 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:urlRequest delegate:connectionDelegate];
     [connection start];
+    //return;
     
     // Do some polling to wait for the connections to complete
     // In Release dont wait - send in background!
@@ -276,20 +371,56 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
 
 }
 
-/// Returns a lower case username
--(NSString *)userID{
-    return _userID.lowercaseString;
+
+
+-(NSDictionary*)localizedTextElementChanged:(NSString*)elementName userName:(NSString*)userName{
+    NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Das Element %@ wurde von %@ geändert." ,elementName,userName],
+                          @"en":[NSString stringWithFormat:@"The element %@ has been changed by %@.",elementName,userName]};
+    return dict;
+}
+
+-(NSDictionary*)localizedTextElementDeleted:(NSString*)elementName userName:(NSString*)userName{
+    NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Das Element %@ wurde von %@ gelöscht.",elementName,userName],
+                           @"en":[NSString stringWithFormat:@"The element %@ has been deleted by %@.",elementName,userName]};
+    return dict;
 }
 
 
--(void)sendMessageToPushWoosh{
-    [self sendNotification:@"Element has changed"];
+-(NSDictionary*)localizedTextElementRemovedFromLink:(NSString*)elementName userName:(NSString*)userName folderName:(NSString*)folderName{
+    NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Das Element %@ wurde von %@ aus der Mappe %@ entfernt.",elementName,userName,folderName],
+                           @"en":[NSString stringWithFormat:@"The element %@ has been removed from %@.",elementName,folderName]};
+    return dict;
 }
+
+
+-(NSDictionary*)localizedTextElementAddedToLink:(NSString*)elementName userName:(NSString*)userName folderName:(NSString*)folderName{
+    NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Das Element %@ wurde in %@ eingefügt.",elementName,folderName],
+                           @"en":[NSString stringWithFormat:@"The element %@ has been added to %@.",elementName,folderName]};
+    return dict;
+}
+
+-(NSDictionary*)localizedTextElementFileAdded:(NSString*)elementName{
+    NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Eine Datei wurde dem Element %@ hinzugefügt.",elementName],
+                           @"en":[NSString stringWithFormat:@"A file was added to element %@",elementName]};
+    return dict;
+}
+
+-(NSDictionary*)localizedTextElementFileRemoved:(NSString*)elementName{
+    NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Eine Datei wurde vom Element %@ entfernt.",elementName],
+                           @"en":[NSString stringWithFormat:@"A file was removed from element %@",elementName]};
+    return dict;
+}
+
 
 -(void)sendElementHasBeenChanged:(KTElement *)element{
     
-
-    [self sendNotificationToChannels:@[self.serverID,self.userID]
+    [self sendNotification:[self localizedTextElementChanged:element.itemName userName:[self longUserName]]
+                elementKey:element.itemKey
+        elementCreatedBy:element.itemCreatedBy];
+    
+    return;
+    
+    [self sendNotificationToChannels:@[self.serverID,[self longUserName]]
                  localizedMessageKey:@"ELEMENT_CHANGED"   // "Element %@ has been changed", "Das element %@ wurde geändert"
                   localizedArguments:@[element.itemName]
                           elementKey:element.itemKey];
@@ -297,7 +428,14 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
 }
 
 -(void)sendElementHasBeenDeleted:(KTElement *)element{
-    [self sendNotificationToChannels:@[self.serverID,self.userID]
+    
+    [self sendNotification:[self localizedTextElementDeleted:element.itemName userName:[self longUserName]]
+                elementKey:element.itemKey
+        elementCreatedBy:element.itemCreatedBy];
+    
+    return;
+    
+    [self sendNotificationToChannels:@[self.serverID,[self longUserName]]
                  localizedMessageKey:@"ELEMENT_DELETED"   // "A Element was deleted", "Ein Element wurde gelöscht"
                   localizedArguments:@[element.itemName]
                           elementKey:nil]; // Dont transpport the element Key, after deletion a clint can not read the data
@@ -305,19 +443,32 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
 
 
 -(void)sendElementFileHasBeenRemoved:(NSString *)elementKey{
-    [self sendNotificationToChannels:@[self.serverID,self.userID]
+    [self sendNotification:[self localizedTextElementFileRemoved:@"" ] elementKey:elementKey
+     elementCreatedBy:@""];
+    
+    return;
+    
+    
+    [self sendNotificationToChannels:@[self.serverID,[self longUserName]]
                  localizedMessageKey:@"ELEMENTFILE_REMOVED"   // "A file was removed from an element.", "Eine Datei wurde von einem Element entfernt."
                   localizedArguments:@[]
                           elementKey:elementKey];
 
 }
 -(void)sendElementFileUploaded:(NSString *)elementKey{
-    [self sendNotificationToChannels:@[self.serverID,self.userID]
+        [self sendNotification:[self localizedTextElementFileAdded:@""]
+                    elementKey:elementKey
+            elementCreatedBy:@""];
+         return;
+    
+    [self sendNotificationToChannels:@[self.serverID,[self longUserName]]
                  localizedMessageKey:@"ELEMENTFILE_ADDED"   // "A file was added to an element.", "Eine Datei wurde an einem Element hinzugefügt"
                   localizedArguments:@[]
                           elementKey:elementKey];
 }
 
+#pragma mark -
+#pragma mark connectionDelegate
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     self.connectionSucceeded = YES;
     self.connectionFinished = YES;
