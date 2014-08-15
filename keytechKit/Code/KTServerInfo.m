@@ -123,7 +123,7 @@ BOOL _isLoaded;
     }
     
     NSUInteger pollCount = 0;
-    while (!_isLoaded && (pollCount < MAX_POLL_COUNT)) {
+    while (_isloading &&  !_isLoaded && (pollCount < MAX_POLL_COUNT)) {
         NSDate* untilDate = [NSDate dateWithTimeIntervalSinceNow:POLL_INTERVAL];
         [[NSRunLoop currentRunLoop] runUntilDate:untilDate];
         pollCount++;

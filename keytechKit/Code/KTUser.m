@@ -25,6 +25,9 @@
 
 static KTUser* _currentUser;
 
+@synthesize isLoaded = _isLoaded;
+@synthesize isLoading = _isLoading;
+
 
 @synthesize userEmail = _userEmail;
 
@@ -192,15 +195,14 @@ static RKObjectManager *_usedManager;
 }
 
 
-BOOL _isloading;
-BOOL _isLoaded;
+
 
 
 /// Loads the serverinfo in background, but wait until return.
 -(void)reload{
-    if (!_isloading) {
+    if (!_isLoading) {
         _isLoaded = NO;
-        _isloading = YES;
+        _isLoading = YES;
         
         RKObjectManager *manager = [RKObjectManager sharedManager];
         [KTUser mappingWithManager:manager];
@@ -212,7 +214,7 @@ BOOL _isLoaded;
                        KTUser *user = mappingResult.firstObject;
                        
                        _isLoaded = YES;
-                       _isloading = NO;
+                       _isLoading = NO;
                        
                        self.userEmail =user.userEmail;
                        self.userLanguage = user.userLanguage;
@@ -222,7 +224,7 @@ BOOL _isLoaded;
                    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                        NSLog(@"Error while getting the user-Object: %@",error.localizedDescription);
                        _isLoaded = NO;
-                       _isloading = NO;
+                       _isLoading = NO;
                    }];
     }
     //[self waitForData];
@@ -235,7 +237,7 @@ BOOL _isLoaded;
 #define N_SEC_TO_POLL 30.0 // poll for 30s
 #define MAX_POLL_COUNT N_SEC_TO_POLL / POLL_INTERVAL
     
-    if (!_isloading && !_isLoaded) {
+    if (!_isLoading && !_isLoaded) {
         // Load was not triggered
         return;
     }

@@ -11,44 +11,29 @@
 #import "KTUser.h"
 
 
-// Parse.com
-//curl -X POST \
-//-H "X-Parse-Application-Id: HIzV42mcFmWtGbButSMfaPanfjAVriWBpR7wd0im" \
-//-H "X-Parse-REST-API-Key: hxIBBK60xY5xojEM6AWH5VAnzYpuOc2m6kVCtBCf" \
-//-H "Content-Type: application/json" \
-//-d '{
-//"channels": [
-//             "Giants",
-//             "Mets"
-//             ],
-//"data": {
-//    "alert": "The Giants won against the Mets 2-3."
-//}
-//}' \
-//https://api.parse.com/1/push
-
-
 // PushWoosh
 // https://cp.pushwoosh.com/json/1.3/%methodName%
 // API Token : BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8sxaxEnrQnM0UlAf2aQpFRPSwjrT2WeaUig7aB
 // Keep it secret !
 
 
+@interface KTSendNotifications ()
+
+/// Returns the long username of current usercontext
+@property  (nonatomic,copy,readonly)  NSString* longUserName;
+
+@end
 
 @implementation KTSendNotifications{
     NSString *_hardwareID;
     NSString *_localLanguage;
     KTUser *_currentUser;
+
+
 }
 
+
 static KTSendNotifications *_sharedSendNotification;
-
-/// Hard coded Parse.com access codes, Do not Share them!!!
-/// Allow overwrite but no Read!
-static NSString* ParseApplicationID = @"HIzV42mcFmWtGbButSMfaPanfjAVriWBpR7wd0im";
-static NSString* ParseRestAPIKey = @"hxIBBK60xY5xojEM6AWH5VAnzYpuOc2m6kVCtBCf";
-
-static NSString* ParseURL = @"https://api.parse.com/1/push";
 
 // URL for PushWoosh service
 static NSString* APNURL =@"https://cp.pushwoosh.com/json/1.3/%@";
@@ -143,7 +128,6 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     
     [urlRequest setHTTPMethod:@"POST"];
 
-    
     
     NSDictionary *payload = @{@"request":@{
                                               @"application":APNApplictionID,
@@ -288,45 +272,6 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
 //   }
 }
 
-/// Actually send the notification and poayload data
--(void)sendNotificationToChannels:(NSArray*)targetingChannels localizedMessageKey:(NSString*)messageKey localizedArguments:(NSArray*)arguments elementKey:(NSString*)elementKey{
-//    
-//    if (!(self.serverID || self.userID)) {
-//        NSLog(@"You must have the ServerID and the userID set!");
-//        return ;
-//    }
-
-    if (!elementKey) {
-        NSLog(@"Elementkey can not be nil set to empty string instead.");
-        elementKey = @"";
-    }
-
-    
-    NSURL *URL = [NSURL URLWithString:ParseURL];
-    
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:URL];
-    [urlRequest addValue:ParseApplicationID forHTTPHeaderField:@"X-Parse-Application-Id"];
-    [urlRequest addValue:ParseRestAPIKey forHTTPHeaderField:@"X-Parse-REST-API-Key"];
-    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    
-    [urlRequest setHTTPMethod:@"POST"];
-
-  //loc-key , loc-args
-   /*
-    NSDictionary *payloadChannels = @{@"channels":@[self.serverID,self.userID] ,
-                                          @"data":@{@"alert":alertMessage,
-                                                    @"sound":@"default"}};
-*/
-    NSDictionary *payloadChannels = @{@"channels":@[self.serverID,[self shortUserName]] ,
-                                      @"data":@{@"alert":@{@"loc-key":messageKey,@"loc-args":arguments},
-                                                @"sound":@"default"},
-                                                 @"EKey":elementKey};
-
-    [self sendDataToService:urlRequest jsonPayload:payloadChannels];
-    
-    
-}
 
 /** 
  Send data to service
@@ -358,6 +303,7 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     // Do some polling to wait for the connections to complete
     // In Release dont wait - send in background!
     
+    #ifdef DEBUG
 #define POLL_INTERVAL 0.2 // 200ms
 #define N_SEC_TO_POLL 3.0 // poll for 3s
 #define MAX_POLL_COUNT N_SEC_TO_POLL / POLL_INTERVAL
@@ -368,11 +314,16 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
         [[NSRunLoop currentRunLoop] runUntilDate:untilDate];
         pollCount++;
     }
-
+#endif
+    
 }
 
 
-
+/**
+ 
+ @param elememtName: The Elememt which has changes
+ @param userNAme: The own username
+ */
 -(NSDictionary*)localizedTextElementChanged:(NSString*)elementName userName:(NSString*)userName{
     NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Das Element %@ wurde von %@ geändert." ,elementName,userName],
                           @"en":[NSString stringWithFormat:@"The element %@ has been changed by %@.",elementName,userName]};
@@ -394,7 +345,7 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
 
 
 -(NSDictionary*)localizedTextElementAddedToLink:(NSString*)elementName userName:(NSString*)userName folderName:(NSString*)folderName{
-    NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Das Element %@ wurde in %@ eingefügt.",elementName,folderName],
+    NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Das Element %@ wurde in die Mappe %@ eingefügt.",elementName,folderName],
                            @"en":[NSString stringWithFormat:@"The element %@ has been added to %@.",elementName,folderName]};
     return dict;
 }
@@ -412,6 +363,9 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
 }
 
 
+
+#pragma mark Send Notifications
+
 -(void)sendElementHasBeenChanged:(KTElement *)element{
     
     [self sendNotification:[self localizedTextElementChanged:element.itemName userName:[self longUserName]]
@@ -419,11 +373,6 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
         elementCreatedBy:element.itemCreatedBy];
     
     return;
-    
-    [self sendNotificationToChannels:@[self.serverID,[self longUserName]]
-                 localizedMessageKey:@"ELEMENT_CHANGED"   // "Element %@ has been changed", "Das element %@ wurde geändert"
-                  localizedArguments:@[element.itemName]
-                          elementKey:element.itemKey];
     
 }
 
@@ -435,24 +384,23 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     
     return;
     
-    [self sendNotificationToChannels:@[self.serverID,[self longUserName]]
-                 localizedMessageKey:@"ELEMENT_DELETED"   // "A Element was deleted", "Ein Element wurde gelöscht"
-                  localizedArguments:@[element.itemName]
-                          elementKey:nil]; // Dont transpport the element Key, after deletion a clint can not read the data
 }
 
 
 -(void)sendElementFileHasBeenRemoved:(NSString *)elementKey{
-    [self sendNotification:[self localizedTextElementFileRemoved:@"" ] elementKey:elementKey
-     elementCreatedBy:@""];
+    
+
+    [KTElement loadElementWithKey:elementKey success:^(KTElement *element) {
+        [self sendNotification:[self localizedTextElementFileRemoved:element.itemName]
+                    elementKey:elementKey
+              elementCreatedBy:element.itemCreatedBy];
+
+    }];
+    
     
     return;
     
     
-    [self sendNotificationToChannels:@[self.serverID,[self longUserName]]
-                 localizedMessageKey:@"ELEMENTFILE_REMOVED"   // "A file was removed from an element.", "Eine Datei wurde von einem Element entfernt."
-                  localizedArguments:@[]
-                          elementKey:elementKey];
 
 }
 -(void)sendElementFileUploaded:(NSString *)elementKey{
@@ -461,11 +409,33 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
             elementCreatedBy:@""];
          return;
     
-    [self sendNotificationToChannels:@[self.serverID,[self longUserName]]
-                 localizedMessageKey:@"ELEMENTFILE_ADDED"   // "A file was added to an element.", "Eine Datei wurde an einem Element hinzugefügt"
-                  localizedArguments:@[]
-                          elementKey:elementKey];
 }
+
+-(void)sendElementHasNewChildLink:(NSString *)elementKey addedtoFolder:( NSString*)folderName{
+       [KTElement loadElementWithKey:elementKey success:^(KTElement *element) {
+           
+       [self sendNotification:
+        [self localizedTextElementAddedToLink:element.itemName userName:self.longUserName folderName:folderName]
+                   elementKey:elementKey
+             elementCreatedBy:element.itemCreatedBy];
+       }];
+        
+        
+}
+
+
+-(void)sendElementChildLinkRemoved:(NSString*)elementKey removedFromFolder:(NSString*)folderName{
+    [KTElement loadElementWithKey:elementKey success:^(KTElement *element) {
+        
+        [self sendNotification:
+         [self localizedTextElementRemovedFromLink:element.itemName userName:self.longUserName folderName:folderName]
+                    elementKey:elementKey
+              elementCreatedBy:element.itemCreatedBy];
+    }];
+    
+    
+}
+
 
 #pragma mark -
 #pragma mark connectionDelegate

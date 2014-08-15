@@ -277,6 +277,8 @@
     
     KTResponseLoader *loader = [[KTResponseLoader alloc]init];
     
+
+    
     [self.ktKeytech performGetUser:self.username loaderDelegate:loader];
     _serverErrorDescription = nil;
     [loader waitForResponse];

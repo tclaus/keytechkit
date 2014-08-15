@@ -34,6 +34,9 @@
 -(void)sendElementHasBeenDeleted:(KTElement *)element;
 -(void)sendElementFileUploaded:(NSString *)elementKey;
 -(void)sendElementFileHasBeenRemoved:(NSString *)elementKey;
+-(void)sendElementHasNewChildLink:(NSString *)elementKey addedtoFolder:( NSString*)folderName;
+-(void)sendElementChildLinkRemoved:(NSString*)elementKey removedFromFolder:(NSString*)folderName;
+
 // More to be come
 
 +(instancetype)sharedSendNotification;
