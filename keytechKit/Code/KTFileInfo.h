@@ -78,13 +78,15 @@ When file is loaded a local URL is returned. Nil otherwise
  */
 @property (readonly) NSURL *localFileURL;
 
+#pragma mark Methods
+
 /**
   Loads the remote file to a temporary store
  */
 -(void)loadRemoteFile;
 
 /**
- Stores this file to API. 
+ Stores this file to API. Uses the delegate to inform about progress
  */
 -(void)saveFile:(NSURL *)fileURL
         success:(void (^)(void))success

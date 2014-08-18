@@ -26,9 +26,9 @@
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
- Initializes a new element with the given ClassKey
+ Initializes a new element with the type of classKey
  */
--(instancetype)initAs:(NSString*)classKey;
+-(instancetype)initWithClassKey:(NSString*)classKey;
 
 
 /**
