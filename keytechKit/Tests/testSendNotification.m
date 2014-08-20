@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Claus-Software. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 #import <XCTest/XCTextCase+AsynchronousTesting.h>
 #import "KTElement.h"
 #import "KTSendNotifications.h"
+#import "KTManager.h"
 
 @interface testSendNotification : XCTestCase
 
@@ -18,10 +18,13 @@
 
 @implementation testSendNotification{
     KTElement *testElement;
+    KTManager *_webService;
 }
 
 - (void)setUp {
     [super setUp];
+    
+     _webService = [KTManager sharedManager];
     
     testElement = [[KTElement alloc]init];
     testElement.itemName = @"ITM-0001234";
@@ -37,6 +40,8 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
+
+
 
 
 -(void)testElementAdded{
@@ -61,20 +66,32 @@
     
 }
 
--(void)testElementChanged{
+
+-(void)testRegisterDevice{
+    NSString* deviceID =@"123456789";
+    NSString* hWID = @"HW: 12345";
+    
+    KTSendNotifications *sendNotfifications =[[KTSendNotifications alloc]init];
+    [sendNotfifications registerDevice:deviceID uniqueID:hWID];
+    
     
 }
 
-
-
+-(void)testSendToPushWoosh{
+    
+    KTSendNotifications *sendNotfifications =[[KTSendNotifications alloc]init];
+    [sendNotfifications sendMessageToPushWoosh];
+    
+    
+}
 
 
 - (void) testSendingElementChangeNotifications{
     
     // Put the code you want to measure the time of here.
     KTSendNotifications *sendNotfifications =[[KTSendNotifications alloc]init];
-    sendNotfifications.serverID = @"ServerID";
-    sendNotfifications.userID = @"Jgrant";
+    //sendNotfifications.serverID = @"ServerID";
+    //sendNotfifications.userID = @"Jgrant";
     [sendNotfifications sendElementHasBeenChanged:testElement];
 
 
@@ -85,8 +102,8 @@
     
     // Put the code you want to measure the time of here.
     KTSendNotifications *sendNotfifications =[[KTSendNotifications alloc]init];
-    sendNotfifications.serverID = @"ServerID";
-    sendNotfifications.userID = @"Jgrant";
+    //sendNotfifications.serverID = @"ServerID";
+    //sendNotfifications.userID = @"Jgrant";
     [sendNotfifications sendElementHasBeenDeleted:testElement];
     
     
@@ -97,8 +114,8 @@
     
     // Put the code you want to measure the time of here.
     KTSendNotifications *sendNotfifications =[[KTSendNotifications alloc]init];
-    sendNotfifications.serverID = @"ServerID";
-    sendNotfifications.userID = @"Jgrant";
+    //sendNotfifications.serverID = @"ServerID";
+    //sendNotfifications.userID = @"Jgrant";
     [sendNotfifications sendElementFileUploaded:@"DEFAULT_MI:1234"];
     
     

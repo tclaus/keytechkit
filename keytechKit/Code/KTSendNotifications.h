@@ -16,16 +16,27 @@
  */
 @property (nonatomic,copy) NSString* serverID;
 
+
+
 /**
- The keytech user login that will receive the notification
+ Registers a deviceID to the APN
  */
-@property (nonatomic,copy) NSString* userID;
+-(void)registerDevice:(NSData*)deviceToken uniqueID:(NSString*)uniqueID;
+
+/**
+ Registers a deviceID to the APN with the given two character language ID
+ */
+-(void)registerDevice:(NSData*)deviceToken uniqueID:(NSString*)uniqueID languageID:(NSString*)languageID;
+
 
 
 -(void)sendElementHasBeenChanged:(KTElement*)element;
 -(void)sendElementHasBeenDeleted:(KTElement *)element;
 -(void)sendElementFileUploaded:(NSString *)elementKey;
 -(void)sendElementFileHasBeenRemoved:(NSString *)elementKey;
+-(void)sendElementHasNewChildLink:(NSString *)elementKey addedtoFolder:( NSString*)folderName;
+-(void)sendElementChildLinkRemoved:(NSString*)elementKey removedFromFolder:(NSString*)folderName;
+
 // More to be come
 
 +(instancetype)sharedSendNotification;

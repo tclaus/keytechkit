@@ -394,6 +394,8 @@ static RKObjectMapping* _mapping;
             [self.itemStructureList removeObject:linkToElementKey];
         }
         
+        [[KTSendNotifications sharedSendNotification] sendElementChildLinkRemoved:linkToElementKey removedFromFolder:self.itemName];
+        
         if (success) {
             success();
         }
@@ -407,13 +409,15 @@ static RKObjectMapping* _mapping;
 }
 
 -(void)addLinkTo:(NSString *)linkToElementKey success:(void (^)(KTElement *elementLink))success failure:(void (^)(NSError * error))failure{
+   
     KTElementLink *newLink = [[KTElementLink alloc]initWithParent:self.itemKey childKey:linkToElementKey];
-    
     [newLink saveLink:^(KTElement *childElement) {
 
         if (_isStructureListLoaded) {
             [self.itemStructureList addObject:childElement]; // Der Struktur hinzufügen
         }
+        
+        [[KTSendNotifications sharedSendNotification] sendElementHasNewChildLink:linkToElementKey addedtoFolder:self.itemName];
         
         if (success) {
             success(childElement);
@@ -919,6 +923,8 @@ static long numberOfThumbnailsLoaded;
     self = [super init];
     if (self) {
         
+        [KTElement mappingWithManager:[RKObjectManager sharedManager]];
+        
         numberOfThumbnailsLoaded = 0;
         // Pre allocate some mutables arrays to support lazy loading
         
@@ -1041,6 +1047,20 @@ static long numberOfThumbnailsLoaded;
                    }
                }];
     }
+    
+}
+
+
++(void)loadElementWithKey:(NSString *)elementKey success:(void (^)(KTElement *))success{
+    KTElement* element = [[KTElement alloc]init];
+    
+    element.itemKey = elementKey;
+    
+    [element refresh:^(KTElement *element) {
+        if  (success){
+            success(element);
+        }
+    }];
     
 }
 

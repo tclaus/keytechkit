@@ -26,6 +26,9 @@
 /// Returns the shared instance of layouts
 +(instancetype)sharedLayouts;
 
+
+-(void)loadLayoutForClassKey:(NSString*)classKey;
+
 /**
  Returns the layoutdata for the given class. Starts a download in background if not already loaded;
  */

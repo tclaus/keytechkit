@@ -2,8 +2,6 @@
 // Prefix header for all source files of the 'IOS_Framework' target in the 'IOS_Framework' project
 //
 
-
-
     #ifdef __OBJC__
         #import <UIKit/UIKit.h>
         #import <Foundation/Foundation.h>
@@ -15,5 +13,5 @@
 #import "NSString+ClassType.h"
 
 #import "Restkit/restkit.h"
-
+#import "KTBaseObject.h"
 

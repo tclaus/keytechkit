@@ -78,4 +78,23 @@ The users longname.
  */
 -(void)refreshPermissions;
 
+/**
+ Returns the instance of the currently logged in user account
+ */
++(instancetype)currentUser;
+
+/**
+ Indicates that a loading is in progress
+ */
+@property (nonatomic,readonly)BOOL isLoaded;
+/**
+ Indicates that the object is loaded
+ */
+@property (nonatomic,readonly) BOOL isLoading;
+
 @end
+
+
+
+
+
