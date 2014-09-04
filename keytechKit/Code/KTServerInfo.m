@@ -27,6 +27,8 @@ static KTServerInfo *_sharedServerInfo;
     self = [super init];
     if (self) {
         [KTServerInfo mappingWithManager:[RKObjectManager sharedManager]];
+        _isLoaded = YES;
+        _isloading = NO;
     }
     return self;
 }
@@ -105,6 +107,7 @@ BOOL _isLoaded;
                    }];
 
         
+        [self waitUnitlLoad];
     }
     
     
@@ -124,7 +127,7 @@ BOOL _isLoaded;
     }
     
     NSUInteger pollCount = 0;
-    while (_isloading &&  !_isLoaded && (pollCount < MAX_POLL_COUNT)) {
+    while (_isloading && (pollCount < MAX_POLL_COUNT)) {
         NSDate* untilDate = [NSDate dateWithTimeIntervalSinceNow:POLL_INTERVAL];
         [[NSRunLoop currentRunLoop] runUntilDate:untilDate];
         pollCount++;
@@ -171,23 +174,6 @@ BOOL _isLoaded;
     return [self valueForKey:@"API version"];
 }
 
--(void)reload{
-    // TBD;
-    
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTServerInfo mappingWithManager:manager];
-    
-    [manager getObject:self path:@"serverinfo" parameters:nil
-               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-
-                KTServerInfo *serverInfo = mappingResult.firstObject;
-
-               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   NSLog(@"Error while getting the API version: %@",error.localizedDescription);
-                  
-               }];
-
-}
 -(NSString *)licencedCompany{
     [self waitUnitlLoad];
     return [self valueForKey:@"LicensedCompany"];

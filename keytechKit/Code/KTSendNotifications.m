@@ -29,7 +29,6 @@
     NSString *_localLanguage;
     KTUser *_currentUser;
 
-
 }
 
 
@@ -43,8 +42,9 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
 -(instancetype) init {
     if (self = [super init])
     {
+
+        self.serverID = [KTManager sharedManager].serverInfo.serverID;
         
-        self.serverID = [KTServerInfo sharedServerInfo].serverID;
         
         _localLanguage = [NSLocale preferredLanguages][0]; // Set, until its overwritten by register Device
         
@@ -62,10 +62,6 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     return _sharedSendNotification;
 }
 
-/// Registers the device ID to the service with the default language
--(void)registerDevice:(NSData*)deviceToken uniqueID:(NSString*)uniqueID {
-    [self registerDevice:deviceToken uniqueID:uniqueID languageID:_localLanguage];
-}
 
 /// Returns the short username (keyname)
 -(NSString*)shortUserName{
@@ -85,6 +81,10 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     return _currentUser.userLongName;
 }
 
+/// Registers the device ID to the service with the default language
+-(void)registerDevice:(NSData*)deviceToken uniqueID:(NSString*)uniqueID {
+    [self registerDevice:deviceToken uniqueID:uniqueID languageID:_localLanguage];
+}
 
 /// Registers the device ID to the service with the given langugae
 -(void)registerDevice:(NSData*)deviceToken uniqueID:(NSString*)uniqueID languageID:(NSString*)languageID{
@@ -100,7 +100,7 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
 //            "language":"en",  // optional
 //            "hwid": "hardware device id",
 //            "timezone": 3600, // offset in seconds
-//            "device_type":1 // 1 iPhone, / Mac
+//            "device_type":1 // 1 iPhone, 7 Mac
 //        }
 //    }
 
@@ -127,14 +127,21 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     [urlRequest setHTTPMethod:@"POST"];
-
+    NSNumber *deviceType;
+    
+    // 1= iPhone, 7 = MacOS, PushWoosh device Type IDs
+#ifdef __IPHONE_5_0
+    deviceType = @1;
+#else
+    deviceType=@7;
+#endif
     
     NSDictionary *payload = @{@"request":@{
                                               @"application":APNApplictionID,
                                               @"push_token":sbuf,
                                               @"language":languageID,
                                               @"hwid":uniqueID,
-                                              @"device_type":@"7"  // 1= iPhone, 7 = MacOS
+                                              @"device_type":deviceType
                                               }};
     
 
@@ -294,16 +301,16 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     
     urlRequest.HTTPBody = jsonData;
     
-    KTSendNotifications *connectionDelegate = [[KTSendNotifications alloc]init];
+   // KTSendNotifications *connectionDelegate = [[KTSendNotifications alloc]init];
     
-    NSURLConnection *connection = [NSURLConnection connectionWithRequest:urlRequest delegate:connectionDelegate];
-    [connection start];
+    [NSURLConnection connectionWithRequest:urlRequest delegate:self];
+
     //return;
     
     // Do some polling to wait for the connections to complete
     // In Release dont wait - send in background!
     
-    #ifdef DEBUG
+  /*  #ifdef DEBUG
 #define POLL_INTERVAL 0.2 // 200ms
 #define N_SEC_TO_POLL 3.0 // poll for 3s
 #define MAX_POLL_COUNT N_SEC_TO_POLL / POLL_INTERVAL
@@ -315,6 +322,7 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
         pollCount++;
     }
 #endif
+    */
     
 }
 
@@ -370,7 +378,7 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     
     [self sendNotification:[self localizedTextElementChanged:element.itemName userName:[self longUserName]]
                 elementKey:element.itemKey
-        elementCreatedBy:element.itemCreatedBy];
+        elementCreatedBy:element.itemCreatedByLong];
     
     return;
     
@@ -404,23 +412,25 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
 
 }
 -(void)sendElementFileUploaded:(NSString *)elementKey{
-        [self sendNotification:[self localizedTextElementFileAdded:@""]
+    [KTElement loadElementWithKey:elementKey success:^(KTElement *element) {
+        [self sendNotification:[self localizedTextElementFileAdded:element.itemName]
                     elementKey:elementKey
-            elementCreatedBy:@""];
-         return;
+              elementCreatedBy:element.itemCreatedBy];
+    }];
+    
+    return;
     
 }
 
 -(void)sendElementHasNewChildLink:(NSString *)elementKey addedtoFolder:( NSString*)folderName{
-       [KTElement loadElementWithKey:elementKey success:^(KTElement *element) {
-           
-       [self sendNotification:
-        [self localizedTextElementAddedToLink:element.itemName userName:self.longUserName folderName:folderName]
-                   elementKey:elementKey
-             elementCreatedBy:element.itemCreatedBy];
-       }];
-        
-        
+    [KTElement loadElementWithKey:elementKey success:^(KTElement *element) {
+        [self sendNotification:
+         [self localizedTextElementAddedToLink:element.itemName userName:self.longUserName folderName:folderName]
+                    elementKey:elementKey
+              elementCreatedBy:element.itemCreatedBy];
+    }];
+    
+    
 }
 
 
@@ -440,6 +450,7 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
 #pragma mark -
 #pragma mark connectionDelegate
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    NSLog(@"Sending Notification OK:");
     self.connectionSucceeded = YES;
     self.connectionFinished = YES;
 }
