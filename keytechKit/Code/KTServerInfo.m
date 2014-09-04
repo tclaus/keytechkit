@@ -12,11 +12,12 @@
 @implementation KTServerInfo{
 
 }
+    static KTServerInfo *_serverInfo;
 
 @synthesize keyValueList = _keyValueList;
 
 // Mapping for Class
-static RKObjectMapping* _mapping;
+static RKObjectMapping *_mapping;
 static RKObjectManager *_usedManager;
 
 static KTServerInfo *_sharedServerInfo;
@@ -26,6 +27,8 @@ static KTServerInfo *_sharedServerInfo;
     self = [super init];
     if (self) {
         [KTServerInfo mappingWithManager:[RKObjectManager sharedManager]];
+        _isLoaded = YES;
+        _isloading = NO;
     }
     return self;
 }
@@ -104,6 +107,7 @@ BOOL _isLoaded;
                    }];
 
         
+        [self waitUnitlLoad];
     }
     
     
@@ -123,7 +127,7 @@ BOOL _isLoaded;
     }
     
     NSUInteger pollCount = 0;
-    while (_isloading &&  !_isLoaded && (pollCount < MAX_POLL_COUNT)) {
+    while (_isloading && (pollCount < MAX_POLL_COUNT)) {
         NSDate* untilDate = [NSDate dateWithTimeIntervalSinceNow:POLL_INTERVAL];
         [[NSRunLoop currentRunLoop] runUntilDate:untilDate];
         pollCount++;
@@ -146,8 +150,17 @@ BOOL _isLoaded;
     return nil;
 }
 
++(instancetype)serverInfo{
+    if (!_serverInfo) {
+        _serverInfo = [[KTServerInfo alloc]init];
+        [_serverInfo reload];
+    }
+    return _serverInfo;
+}
+
 -(NSString*)serverID{
     [self waitUnitlLoad];
+
     return [self valueForKey:@"ServerID"];
 }
 
@@ -165,6 +178,5 @@ BOOL _isLoaded;
     [self waitUnitlLoad];
     return [self valueForKey:@"LicensedCompany"];
 }
-
 
 @end

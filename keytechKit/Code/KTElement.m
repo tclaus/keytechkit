@@ -1068,7 +1068,7 @@ static long numberOfThumbnailsLoaded;
 -(void)refresh:(void(^)(KTElement *element))success{
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    __block KTElement *mySelf = self;
+    KTElement *mySelf = self;
     
     [manager getObject:self path:nil parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         

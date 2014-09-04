@@ -25,8 +25,10 @@
     KTPreferencesConnection* _preferences;
     NSString *_serverVersion;
     NSString *_serverErrorDescription;
-    
+    KTServerInfo *_sharedServerInfo;
 }
+
+
 
 
 -(NSString*) servername{
@@ -50,6 +52,10 @@
     _preferences.password = password;
 }
 
+-(KTServerInfo*)serverInfo{
+    return _sharedServerInfo;
+}
+
 -(void)serverInfo:(void (^)(KTServerInfo* serverInfo))resultBlock failure:(void(^)(NSError* error))failureBlock{
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
@@ -59,10 +65,11 @@
     [manager getObject:nil path:@"serverinfo" parameters:nil
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    if (resultBlock) {
-                       KTServerInfo *serverInfo = mappingResult.firstObject;
-                       
-                       resultBlock(serverInfo);
+                       _sharedServerInfo = mappingResult.firstObject;
+
+                       resultBlock(_sharedServerInfo);
                    }
+                   
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                    NSLog(@"Error while getting the API version: %@",error.localizedDescription);
                    if(failureBlock){

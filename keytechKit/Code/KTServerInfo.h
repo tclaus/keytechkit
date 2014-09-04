@@ -39,9 +39,11 @@
 @property (readonly)NSString *APIKernelVersion;
 
 /**
- Returns a unique ID for the connected database
+ A unique key to identify the current Server
  */
-@property (readonly) NSString* serverID;
+@property (readonly) NSString *serverID;
+
++(instancetype)serverInfo;
 
 /**
  Returns the company String used for license generations
@@ -52,6 +54,5 @@
  Loads the API's Serverinfo in background
  */
 -(void)reload;
-
 
 @end
