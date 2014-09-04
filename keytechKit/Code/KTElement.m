@@ -1052,6 +1052,9 @@ static long numberOfThumbnailsLoaded;
 
 
 +(void)loadElementWithKey:(NSString *)elementKey success:(void (^)(KTElement *))success{
+    
+    [KTElement mappingWithManager:[RKObjectManager sharedManager]];
+    
     KTElement* element = [[KTElement alloc]init];
     
     element.itemKey = elementKey;

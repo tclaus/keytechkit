@@ -43,6 +43,7 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     if (self = [super init])
     {
 
+        
         self.serverID = [KTManager sharedManager].serverInfo.serverID;
         
         
@@ -104,6 +105,17 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
 //        }
 //    }
 
+    // Force loading serverID from configuration setting, if currently not loaded
+    if (!self.serverID) {
+        [[KTManager sharedManager] serverInfo:^(KTServerInfo *serverInfo) {
+            self.serverID = serverInfo.serverID;
+            [self registerDevice:deviceToken uniqueID:uniqueID languageID:languageID];
+        } failure:^(NSError *error) {
+            
+        }];
+        return;
+    }
+    
     // locally store the Hardware ID
     _hardwareID = uniqueID;
     
@@ -130,11 +142,14 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     NSNumber *deviceType;
     
     // 1= iPhone, 7 = MacOS, PushWoosh device Type IDs
-#ifdef __IPHONE_5_0
-    deviceType = @1;
+    
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
+    deviceType = @7;
 #else
-    deviceType=@7;
+    deviceType = @1;
 #endif
+    
+    
     
     NSDictionary *payload = @{@"request":@{
                                               @"application":APNApplictionID,
