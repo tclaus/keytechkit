@@ -67,7 +67,7 @@ static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
     [self registerDevice:deviceToken uniqueID:uniqueID languageID:_localLanguage];
 }
 
-/// Returns the short username (keyname)
+/// Returns the short username which is used for communicating with keytech (keytech username).
 -(NSString*)shortUserName{
     
     if (!_currentUser) {
