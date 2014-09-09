@@ -184,7 +184,7 @@
     // (Deleted stuff): Make no assume about user preferences. Caller has to take care about user credentials.
     
     // Defaults to demo-Server
-    if (self.servername ==nil) self.servername = keytechDefaultServerURL; // @"https://api.keytech.de";
+    if (self.servername ==nil) self.servername = keytechDefaultServerURL; // @"demo URL"
     if (self.username ==nil) self.username = keytechDefaultServerUser; // @"jgrant";
     if (self.password ==nil) self.password =@"";
     
