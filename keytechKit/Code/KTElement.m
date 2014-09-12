@@ -128,6 +128,13 @@ static RKObjectMapping* _mapping;
     return -1;
 }
 
+-(void)setItemKey:(NSString *)itemKey{
+    
+// change any % - classtypes to 'default'
+    _itemKey = [KTBaseObject normalizeElementKey:itemKey];
+    
+}
+
 -(void)setItemClassKey:(NSString *)itemClassKey{
     // Will fail if assigned to a already full Element
     assert(self.itemID == -1);
