@@ -128,6 +128,13 @@ static RKObjectMapping* _mapping;
     return -1;
 }
 
+-(void)setItemKey:(NSString *)itemKey{
+    
+// change any % - classtypes to 'default'
+    _itemKey = [KTBaseObject normalizeElementKey:itemKey];
+    
+}
+
 -(void)setItemClassKey:(NSString *)itemClassKey{
     // Will fail if assigned to a already full Element
     assert(self.itemID == -1);
@@ -394,6 +401,8 @@ static RKObjectMapping* _mapping;
             [self.itemStructureList removeObject:linkToElementKey];
         }
         
+        [[KTSendNotifications sharedSendNotification] sendElementChildLinkRemoved:linkToElementKey removedFromFolder:self.itemName];
+        
         if (success) {
             success();
         }
@@ -407,13 +416,15 @@ static RKObjectMapping* _mapping;
 }
 
 -(void)addLinkTo:(NSString *)linkToElementKey success:(void (^)(KTElement *elementLink))success failure:(void (^)(NSError * error))failure{
+   
     KTElementLink *newLink = [[KTElementLink alloc]initWithParent:self.itemKey childKey:linkToElementKey];
-    
     [newLink saveLink:^(KTElement *childElement) {
 
         if (_isStructureListLoaded) {
             [self.itemStructureList addObject:childElement]; // Der Struktur hinzufügen
         }
+        
+        [[KTSendNotifications sharedSendNotification] sendElementHasNewChildLink:linkToElementKey addedtoFolder:self.itemName];
         
         if (success) {
             success(childElement);
@@ -919,6 +930,8 @@ static long numberOfThumbnailsLoaded;
     self = [super init];
     if (self) {
         
+        [KTElement mappingWithManager:[RKObjectManager sharedManager]];
+        
         numberOfThumbnailsLoaded = 0;
         // Pre allocate some mutables arrays to support lazy loading
         
@@ -1044,11 +1057,28 @@ static long numberOfThumbnailsLoaded;
     
 }
 
+
++(void)loadElementWithKey:(NSString *)elementKey success:(void (^)(KTElement *))success{
+    
+    [KTElement mappingWithManager:[RKObjectManager sharedManager]];
+    
+    KTElement* element = [[KTElement alloc]init];
+    
+    element.itemKey = elementKey;
+    
+    [element refresh:^(KTElement *element) {
+        if  (success){
+            success(element);
+        }
+    }];
+    
+}
+
 /// Reloads the current element form Database
 -(void)refresh:(void(^)(KTElement *element))success{
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    __block KTElement *mySelf = self;
+    KTElement *mySelf = self;
     
     [manager getObject:self path:nil parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         

@@ -202,7 +202,7 @@ static int const kMaxDefaultPageSize = 500;
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                    
                    NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-
+                   
                    [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
                }];
      
@@ -333,6 +333,7 @@ static int const kMaxDefaultPageSize = 500;
                       }];
     
 }
+
 
 /**
 Getting lister layout data for the given classkey and the current logged in user.

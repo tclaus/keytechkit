@@ -13,6 +13,11 @@
 #import "KTResponseLoader.h"
 #import "KTServerInfo.h"
 
+
+#define keytechDefaultServerURL @"https://api.vm-kt-explorer.keytech.de/keytech"  // internal default URL )(for testing)
+#define keytechDefaultServerUser @"jgrant"
+#define keytechDefaultServerPassword @""
+
 @implementation KTManager{
     
     KTKeytech *_ktKeytech;
@@ -20,8 +25,10 @@
     KTPreferencesConnection* _preferences;
     NSString *_serverVersion;
     NSString *_serverErrorDescription;
-    
+    KTServerInfo *_sharedServerInfo;
 }
+
+
 
 
 -(NSString*) servername{
@@ -45,6 +52,10 @@
     _preferences.password = password;
 }
 
+-(KTServerInfo*)serverInfo{
+    return _sharedServerInfo;
+}
+
 -(void)serverInfo:(void (^)(KTServerInfo* serverInfo))resultBlock failure:(void(^)(NSError* error))failureBlock{
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
@@ -54,10 +65,11 @@
     [manager getObject:nil path:@"serverinfo" parameters:nil
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    if (resultBlock) {
-                       KTServerInfo *serverInfo = mappingResult.firstObject;
-                       
-                       resultBlock(serverInfo);
+                       _sharedServerInfo = mappingResult.firstObject;
+
+                       resultBlock(_sharedServerInfo);
                    }
+                   
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                    NSLog(@"Error while getting the API version: %@",error.localizedDescription);
                    if(failureBlock){
@@ -66,7 +78,7 @@
                }];
     
     
-
+    
 }
 
 
@@ -89,15 +101,15 @@
 
 /// returns true if no servername was given. User interaction is required
 -(BOOL)needsInitialSetup{
-   
+    
     if (![self servername]) {
         return YES;
     }
     else {
         return NO;
-        }
+    }
 }
-    
+
 
 // Returns the apps cache directory
 - (NSURL*)applicationCacheDirectory {
@@ -137,8 +149,8 @@
     NSError* err;
     NSURL* appDirectory;
     NSURL* appSupportDir = [sharedFM URLForDirectory:NSApplicationSupportDirectory
-                                             inDomain:NSUserDomainMask
-                             appropriateForURL:nil create:YES error:&err];
+                                            inDomain:NSUserDomainMask
+                                   appropriateForURL:nil create:YES error:&err];
     
     NSURL* systemTemp = [NSURL URLWithString:[self createTemporaryDirectory]];
     
@@ -166,41 +178,41 @@
 - (id)init
 {
     self = [super init];
-
-        _preferences = [[KTPreferencesConnection alloc]init];
-        
-        // (Deleted stuff): Make no assume about user preferences. Caller has to take care about user credentials.
-        
-        // Defaults to demo-Server
-        if (self.servername ==nil) self.servername = @"https://api.keytech.de";
-        if (self.username ==nil) self.username =@"jgrant";
-        if (self.password ==nil) self.password =@"";
-
-        RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.servername]]] ;// @"http://192.168.0.10:8080/keytech"];
-        
-        [objectManager.HTTPClient setAuthorizationHeaderWithUsername:self.username password:self.password];
-        [[RKValueTransformer defaultValueTransformer]addValueTransformer:[RKDotNetDateFormatter dotNetDateFormatterWithTimeZone:[NSTimeZone localTimeZone]]];
-        
-         [RKMIMETypeSerialization registerClass:[RKMIMETypeTextXML class] forMIMEType:@"text/html"];
-         [RKMIMETypeSerialization registerClass:[RKMIMETypeTextXML class] forMIMEType:@"text/plain"];
-         [objectManager setRequestSerializationMIMEType: RKMIMETypeJSON];
+    
+    _preferences = [[KTPreferencesConnection alloc]init];
+    
+    // (Deleted stuff): Make no assume about user preferences. Caller has to take care about user credentials.
+    
+    // Defaults to demo-Server
+    if (self.servername ==nil) self.servername = keytechDefaultServerURL; // @"demo URL"
+    if (self.username ==nil) self.username = keytechDefaultServerUser; // @"jgrant";
+    if (self.password ==nil) self.password =@"";
+    
+    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.servername]]] ;// @"http://192.168.0.10:8080/keytech"];
+    
+    [objectManager.HTTPClient setAuthorizationHeaderWithUsername:self.username password:self.password];
+    [[RKValueTransformer defaultValueTransformer]addValueTransformer:[RKDotNetDateFormatter dotNetDateFormatterWithTimeZone:[NSTimeZone localTimeZone]]];
+    
+    [RKMIMETypeSerialization registerClass:[RKMIMETypeTextXML class] forMIMEType:@"text/html"];
+    [RKMIMETypeSerialization registerClass:[RKMIMETypeTextXML class] forMIMEType:@"text/plain"];
+    [objectManager setRequestSerializationMIMEType: RKMIMETypeJSON];
     
     
     //RKXMLReaderSerialization, RKMIMETypeJSON
     
-        // Suchprovider angeben
-        _ktKeytech= [[KTKeytech alloc]init];
-        
-        // Logging für RestKit definieren
+    // Suchprovider angeben
+    _ktKeytech= [[KTKeytech alloc]init];
+    
+    // Logging für RestKit definieren
     
 #ifdef DEBUG
-        RKLogConfigureByName("RestKit/Network", RKLogLevelInfo);
-        RKLogConfigureFromEnvironment();
+    RKLogConfigureByName("RestKit/Network", RKLogLevelInfo);
+    RKLogConfigureFromEnvironment();
 #endif
     
-        // Timeout definieren
-      //  manager.client.timeoutInterval = 20.0; // 20 seconds
-
+    // Timeout definieren
+    //  manager.client.timeoutInterval = 20.0; // 20 seconds
+    
     
     return self;
 }
@@ -241,19 +253,19 @@
 -(BOOL)currentUserHasActiveAdminRole{
     //TODO:  Store value for a short period of time
     /*
-    ResponseLoader *loader = [[ResponseLoader alloc]init];
-    
-    [ktKeytech performGetUser:self.username loaderDelegate:loader];
-    [loader waitForResponse];
-    
-    
-    if (loader.objects.count>0){
-        KTUser* user = (KTUser*)loader.objects[0];
-        
-        if ((user.isAdmin && user.isActive) ) {
-            return YES;
-        }
-    }
+     ResponseLoader *loader = [[ResponseLoader alloc]init];
+     
+     [ktKeytech performGetUser:self.username loaderDelegate:loader];
+     [loader waitForResponse];
+     
+     
+     if (loader.objects.count>0){
+     KTUser* user = (KTUser*)loader.objects[0];
+     
+     if ((user.isAdmin && user.isActive) ) {
+     return YES;
+     }
+     }
      */
     return NO;
     
@@ -269,8 +281,10 @@
  Waits until keytech responds
  */
 -(NSUInteger)currentUserHasLoginRight{
-   
-     KTResponseLoader *loader = [[KTResponseLoader alloc]init];
+    
+    KTResponseLoader *loader = [[KTResponseLoader alloc]init];
+    
+
     
     [self.ktKeytech performGetUser:self.username loaderDelegate:loader];
     _serverErrorDescription = nil;
@@ -306,7 +320,7 @@
     return 400; // Unknown error
 }
 
-/// Synchonizes changed user credentials with the api level. 
+/// Synchonizes changed user credentials with the api level.
 -(void)synchronizeServerCredentials{
     NSString *Servername;
     NSString *Username;

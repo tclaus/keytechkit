@@ -26,9 +26,9 @@
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
- Initializes with teh given ClassKey
+ Initializes a new element with the type of classKey
  */
--(instancetype)initAs:(NSString*)classKey;
+-(instancetype)initWithClassKey:(NSString*)classKey;
 
 
 /**
@@ -196,7 +196,10 @@
 
 #pragma mark Methods
 
-
+/**
+ Loads the element with the given Key from the API
+ */
++(void)loadElementWithKey:(NSString*)elementKey success:(void(^)(KTElement *element))success;
 
 /**
  Deletes this element from keytech API
