@@ -43,6 +43,10 @@
  */
 @property (readonly) NSString *serverID;
 
+/**
+ Loads the current Serverinfo with globally set ServerURL. 
+ Waits until server responds.
+ */
 +(instancetype)serverInfo;
 
 /**

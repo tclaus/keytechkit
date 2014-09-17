@@ -36,12 +36,42 @@
 -(void)registerDevice:(NSData*)deviceToken uniqueID:(NSString*)uniqueID languageID:(NSString*)languageID;
 
 
-
+/**
+ Sends a message with informs the receiver about an changed element.
+ @param element The element object that has been changed
+ */
 -(void)sendElementHasBeenChanged:(KTElement*)element;
+
+/**
+ Sends a message with informs the receiver about a deletd element.
+ @param element The element object that has been deleted.
+ */
 -(void)sendElementHasBeenDeleted:(KTElement *)element;
+
+/**
+ Sends a message with informs the receiver about an element that has received a new file.
+ @param elementKey The elementKey of the element that has received a file.
+ */
 -(void)sendElementFileUploaded:(NSString *)elementKey;
+
+/**
+ Sends a message with informs the receiver about an element that has a deleted file. (Primary or secondary file).
+ @param elementKey The elementKey of the element that has a deleted file.
+ */
 -(void)sendElementFileHasBeenRemoved:(NSString *)elementKey;
+
+/**
+ Sends a message with informs the receiver that an element has been linked to a folder.
+ @param elementKey The elementKey that has been linked to a folder
+ @param folderName The name of the parent folder
+ */
 -(void)sendElementHasNewChildLink:(NSString *)elementKey addedtoFolder:( NSString*)folderName;
+
+/**
+ Sends a message with informs the receiver that an element has been unlinked from a folder.
+ @param elementKey The elementKey that has been unlinked from a folder
+ @param folderName The name of the parent folder
+ */
 -(void)sendElementChildLinkRemoved:(NSString*)elementKey removedFromFolder:(NSString*)folderName;
 
 // More to be come
