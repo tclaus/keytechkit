@@ -11,11 +11,6 @@
 #import "KTUser.h"
 
 
-// PushWoosh
-// https://cp.pushwoosh.com/json/1.3/%methodName%
-// API Token : BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8sxaxEnrQnM0UlAf2aQpFRPSwjrT2WeaUig7aB
-// Keep it secret !
-
 
 @interface KTSendNotifications ()
 
@@ -34,10 +29,20 @@
 
 static KTSendNotifications *_sharedSendNotification;
 
+// PushWoosh
+// https://cp.pushwoosh.com/json/1.3/%methodName%
+// API Token : BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8sxaxEnrQnM0UlAf2aQpFRPSwjrT2WeaUig7aB
+// Keep it secret !
+
 // URL for PushWoosh service
 static NSString* APNURL =@"https://cp.pushwoosh.com/json/1.3/%@";
 static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8sxaxEnrQnM0UlAf2aQpFRPSwjrT2WeaUig7aB";
-static NSString* APNApplictionID =@"A1270-D0C69"; // The Server Application
+
+#ifndef DEBUG
+ static NSString* APNApplictionID =@"A1270-D0C69"; // The Production Server Application
+#else
+ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox App
+#endif
 
 -(instancetype) init {
     if (self = [super init])
