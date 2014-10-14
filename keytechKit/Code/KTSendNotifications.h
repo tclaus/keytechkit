@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "KTElement.h"
+@class KTUser;
 
 @interface KTSendNotifications : NSObject <NSURLConnectionDataDelegate>
 
@@ -15,7 +16,6 @@
  Identifies the unique ServerID. Only clients connected to this ServerID will receive the message. You can get the serverID by asking the KTServerInfo object.
  */
 @property (nonatomic,copy) NSString* serverID;
-
 
 
 /**
@@ -34,6 +34,11 @@
  @param languageID The language ID is the 2 character iso language identifier. If nil the english language will be used for notifications.
  */
 -(void)registerDevice:(NSData*)deviceToken uniqueID:(NSString*)uniqueID languageID:(NSString*)languageID;
+
+/*
+ Notifies about an opend push
+ */
+-(void)sendPushOpend:(NSString*)pushHashValue;
 
 
 /**

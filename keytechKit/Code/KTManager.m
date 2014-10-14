@@ -14,7 +14,7 @@
 #import "KTServerInfo.h"
 
 
-#define keytechDefaultServerURL @"https://api.vm-kt-explorer.keytech.de/keytech"  // internal default URL )(for testing)
+#define keytechDefaultServerURL @"https://demo.keytech.de"  // internal default URL )(for testing)
 #define keytechDefaultServerUser @"jgrant"
 #define keytechDefaultServerPassword @""
 

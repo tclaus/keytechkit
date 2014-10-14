@@ -21,17 +21,6 @@
 @interface KTKeytech : NSObject
 
 
-typedef enum {
-    /// Returns the reduced list of Attributes (default)
-    KTResponseNoneAttributes           = 0,
-    /// Return all available attributes for this element
-    KTResponseFullAttributes           = 1,
-    /// Return attribuites only needed for a editor layout
-    KTRespnseEditorAttributes     = 2,
-    KTResponseListerAttributes   = 3
-} KTResponseAttributes;
-
-
 /**
  Provides acces to basic system level management functions
  */
@@ -135,42 +124,41 @@ typedef enum {
  @param delegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
  */
 -(void)performGetElementBom:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate;
-/**
- Queries element from API with given elementKey
-  @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
- */
--(void)performGetElement:(NSString*)elementKey withMetaData:(KTResponseAttributes)metadata loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate;
-
 
 /**
  Starts a query to get the element status history.
   @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
  */
--(void)performGetElementStatusHistory:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;
+-(void)performGetElementStatusHistory:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate
+__attribute__((deprecated));
 
 /**
  Get layout for editor for the given classkey an currently logged in user
   @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
  */
--(void)performGetClassEditorLayoutForClassKey:(NSString *)classKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;
+-(void)performGetClassEditorLayoutForClassKey:(NSString *)classKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate
+__attribute__((deprecated));
 
 /**
  Get default BOM Layout
   @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
  */
--(void)performGetClassBOMListerLayout:(NSObject<KTLoaderDelegate>*) loaderDelegate;
+-(void)performGetClassBOMListerLayout:(NSObject<KTLoaderDelegate>*) loaderDelegate
+__attribute__((deprecated));
 
 /**
  Get layout for lister layout for the given classkey an currently logged in user
  @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
  */
--(void)performGetClassListerLayout:(NSString *)classKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;
+-(void)performGetClassListerLayout:(NSString *)classKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate
+__attribute__((deprecated));
 
 /**
  Get fileslist from given element
 @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
  */
--(void)performGetFileList:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;
+-(void)performGetFileList:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate
+__attribute__((deprecated));
 
 /**
  Gets the permissions set for this user.

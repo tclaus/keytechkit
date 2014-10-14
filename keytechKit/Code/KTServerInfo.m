@@ -55,7 +55,7 @@ static KTServerInfo *_sharedServerInfo;
                                                        @"Value":@"value"}];
        
          _mapping = [RKObjectMapping mappingForClass:[self class]];
-        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"ServerInfoResult" toKeyPath:@"keyValueList" withMapping:kvMapping]];
+        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"ServerInfoResult" toKeyPath:@"KeyValueList" withMapping:kvMapping]];
         /*
         [RKRelationshipMapping relationshipMappingFromKeyPath:@"ServerInfoResult"
                                                     toKeyPath:@"keyValueList"
@@ -66,7 +66,7 @@ static KTServerInfo *_sharedServerInfo;
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
         RKResponseDescriptor *serverInfoDescriptor = [RKResponseDescriptor
                                                       responseDescriptorWithMapping:_mapping
-                                                      method:RKRequestMethodAny
+                                                      method:RKRequestMethodGET
                                                       pathPattern:@"serverinfo"
                                                       keyPath:nil
                                                       statusCodes:statusCodes];

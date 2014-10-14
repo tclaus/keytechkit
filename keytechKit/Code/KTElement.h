@@ -20,6 +20,16 @@
  */
 @interface KTElement :  NSObject <KTLoaderDelegate>
 
+typedef enum {
+    /// Returns the reduced list of Attributes (default)
+    KTResponseNoneAttributes            = 0,
+    /// Return all available attributes for this element
+    KTResponseFullAttributes            = 1,
+    /// Return attribuites only needed for a editor layout
+    KTResponseEditorAttributes          = 2,
+    KTResponseListerAttributes          = 3
+} KTResponseAttributes;
+
 /**
  Provides the object Mapping for this class and given objectManager
  */
@@ -109,7 +119,17 @@
  Array contains full elements
  */
 @property (readonly,strong  ) NSMutableArray* itemStructureList;
-@property (readonly) BOOL isStructureListLoaded;
+
+
+/**
+ Starts loadin the list of child elements
+ @param page The page with a given size. 
+ @param size The count of elements wothin a page
+ */
+-(void)loadStructureList:(int)page size:(int)size
+                 success:(void(^)(NSArray* itemsList))success
+                 failure:(void(^)(NSError *error))failure;
+
 
 -(void)addLinkTo:(NSString*)linkToElementKey success:(void(^)(KTElement *elementLink))success failure:(void(^)(NSError* error))failure;
 
@@ -198,9 +218,21 @@
 
 /**
  Loads the element with the given Key from the API
+ @param success Is excecuted after a element is fetched
+ @param failure Is excecuded in any case of an error
  */
-+(void)loadElementWithKey:(NSString*)elementKey success:(void(^)(KTElement *element))success;
++(void)loadElementWithKey:(NSString *)elementKey success:(void (^)(KTElement *theElement))success failure:(void(^)(NSError *error))failure;
 
+/**
+ Loads the element with the key and metadata
+ @param withMetaData: Can be one of ALL, Editor,Lister or None. In addition to the default attributes more attributes can be loaded. If 'ALL' is set, every attribute is loaded with the element. The attribute count can be high. Consider only fetching Editor attributes. Defaults to none.
+ @param success Is excecuted after a element is fetched
+ @param failure Is excecuded in any case of an error
+ */
++(void)loadElementWithKey:(NSString *)elementKey withMetaData:(KTResponseAttributes)metadata
+                  success:(void (^)(KTElement *theElement))success
+                  failure:(void(^)(NSError *error))failure;
+                                                                                                                                                       
 /**
  Deletes this element from keytech API
  */
@@ -217,8 +249,15 @@
 /**
  Refreshes this instance immediatley by loading from API
  @param success will be performed when completed.
+ @param failure In case of any error the failure block is called
  */
--(void)refresh:(void(^)(KTElement *element))success;
+-(void)reload:(void(^)(KTElement *element))success failure:(void(^)(NSError *error))failure;
+
+/**
+ Refreshes this instance immediatley by loading from API
+ @param success will be performed when completed.
+ */
+-(void)reload:(KTResponseAttributes)metadata success:(void(^)(KTElement *element))success failure:(void (^)(NSError *))failure;
 @end
 
 

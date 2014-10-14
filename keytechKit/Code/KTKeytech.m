@@ -405,7 +405,7 @@ Getting lister layout data for the given classkey and the current logged in user
         case KTResponseFullAttributes:
             rpcData[@"attributes"] = @"ALL";
             break;
-        case KTRespnseEditorAttributes:
+        case KTResponseEditorAttributes:
             rpcData[@"attributes"] = @"Editor";
             break;
         case KTResponseListerAttributes:

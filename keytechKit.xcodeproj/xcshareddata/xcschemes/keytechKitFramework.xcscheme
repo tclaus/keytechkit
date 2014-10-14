@@ -39,6 +39,9 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "testAttributeMappings/testGetAttributeMappings">
+               </Test>
+               <Test
                   Identifier = "testGlobalSettings">
                </Test>
                <Test

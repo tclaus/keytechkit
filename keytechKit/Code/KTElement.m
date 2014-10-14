@@ -24,9 +24,7 @@
     /// Notifies about loading in process
     BOOL _isStatusHistoryLoading;
     
-    
-    /// Notifies about loading in process
-    BOOL _isStructureLoading;
+    BOOL _isStructureListLoaded;
     /// Notifies about loading in process
     BOOL _isItemFileslistLoading;
     /// Notifies about loading in process
@@ -45,7 +43,6 @@
     
     /// Notifies is load is in progress
     BOOL _isItemVersionListLoading;
-    
     
     // Hilfsobjekt, das weitere Eigenschaften nachladen kann durchführt
     KTKeytech* ktManager;
@@ -76,9 +73,6 @@ static RKObjectMapping* _mapping;
 @synthesize itemStatusHistory = _itemStatusHistory;
 @synthesize isStatusHistoryLoaded = _isStatusHistoryLoaded;
 
-@synthesize itemStructureList = _itemStructureList;
-@synthesize isStructureListLoaded = _isStructureListLoaded;
-
 @synthesize itemVersionsList =_itemVersionsList;
 @synthesize isVersionListLoaded = _isVersionListLoaded;
 
@@ -93,6 +87,8 @@ static RKObjectMapping* _mapping;
 
 @synthesize itemThumbnail = _itemThumbnail;
 //Sonderfall
+
+@synthesize itemStructureList = _itemStructureList;
 
 @synthesize itemWhereUsedList = _itemWhereUsedList;
 @synthesize isWhereUsedListLoaded =_isWhereUsedListLoaded;
@@ -421,7 +417,7 @@ static RKObjectMapping* _mapping;
     [newLink saveLink:^(KTElement *childElement) {
 
         if (_isStructureListLoaded) {
-            [self.itemStructureList addObject:childElement]; // Der Struktur hinzufügen
+            [_itemStructureList addObject:childElement]; // Der Struktur hinzufügen
         }
         
         [[KTSendNotifications sharedSendNotification] sendElementHasNewChildLink:linkToElementKey addedtoFolder:self.itemName];
@@ -438,23 +434,56 @@ static RKObjectMapping* _mapping;
     
 }
 
+/// Returns the current list of child elements
+-(NSArray*)itemStructureList{
+    return _itemStructureList;
+}
+
 /**
- Performs lazy loading of structural data. Every elementtype might have structural data.
- Child elements linked to this parent element.
- Loading is asynchron. So first getting this property returns a nil value. After Request returns KVO should send a value changed signal.
+ Loads the structure with the given page and pagesize. Every query adds the structure list to the internal array.
  */
--(NSMutableArray*)itemStructureList{
-    if (_isStructureListLoaded &!_isStructureLoading){
-        return _itemStructureList;
-    }else{
-        if (!_isStructureLoading) {
-            _isStructureLoading = YES;
-            [ktManager performGetElementStructure:self.itemKey loaderDelegate:self];
-        }
-        return _itemStructureList;
+-(void)loadStructureList:(int)page size:(int)size
+                 success:(void(^)(NSArray* itemsList))success
+                 failure:(void(^)(NSError *error))failure{
+    
+    if (page==0) {
+        page=1;
     }
     
+    if (size==0) {
+        size=500; // maximum size
+    }
+    
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/structure",self.itemKey];
+    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+
+                          // add sequenty structured lists to one result array
+                          if (page==1) {
+                              _itemStructureList = nil;
+                          }
+                          
+                          NSMutableArray *newArray = [NSMutableArray arrayWithArray:_itemStructureList];
+                          [newArray addObjectsFromArray:mappingResult.array];
+                          _itemStructureList = newArray;
+                          if (success) {
+                              success(mappingResult.array);
+                          }
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          
+                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                          
+                          if (failure) {
+                              failure(error);
+                          }
+                          
+                      }];
+
 }
+
 
 
 -(KTFileInfo*)masterFile{
@@ -501,9 +530,6 @@ static RKObjectMapping* _mapping;
     if ([loaderInfo.resourcePath hasSuffix:@"nextstatus"])
         _isItemNextStatesListLoading = NO;
     
-    if ([loaderInfo.resourcePath hasSuffix:@"structure"])
-        _isStructureLoading = NO;
-    
     if ([loaderInfo.resourcePath hasSuffix:@"files"])
         _isItemFileslistLoading = NO;
     
@@ -527,25 +553,6 @@ static RKObjectMapping* _mapping;
 -(void)requestDidProceed:(NSArray*)searchResult fromResourcePath:(NSString*)resourcePath{
     
     
-    // Structure
-    if ([resourcePath hasSuffix:@"structure"]){
-        // Set for KVC
-        _isStructureLoading = NO;
-        _isStructureListLoaded = YES;
-        
-        if (!_itemStructureList){
-            _itemStructureList = [[NSMutableArray alloc] initWithArray:searchResult];
-        }else {
-            
-            // Set by KVC
-            [self willChangeValueForKey:@"itemStructureList"];
-            [_itemStructureList addObjectsFromArray: searchResult];
-            //[_itemStructureList setArray:searchResult];
-            [self didChangeValueForKey:@"itemStructureList"];
-        }
-        
-        return;
-    }
     
     //WhereUsed
     if ([resourcePath hasSuffix:@"whereused"]){
@@ -1057,30 +1064,74 @@ static long numberOfThumbnailsLoaded;
     
 }
 
++(void)loadElementWithKey:(NSString *)elementKey success:(void (^)(KTElement *theElement))success failure:(void(^)(NSError *error))failure{
+[KTElement loadElementWithKey:elementKey withMetaData:KTResponseNoneAttributes
+                      success:^(KTElement *theElement) {
+                          success(theElement);
+                      } failure:^(NSError *error) {
+                          failure(error);
+                      }];
+}
 
-+(void)loadElementWithKey:(NSString *)elementKey success:(void (^)(KTElement *))success{
++(void)loadElementWithKey:(NSString *)elementKey withMetaData:(KTResponseAttributes)metadata
+                  success:(void (^)(KTElement *theElement))success
+                  failure:(void(^)(NSError *error))failure{
     
     [KTElement mappingWithManager:[RKObjectManager sharedManager]];
-    
     KTElement* element = [[KTElement alloc]init];
     
     element.itemKey = elementKey;
     
-    [element refresh:^(KTElement *element) {
+    [element reload:metadata
+    success:^(KTElement *element) {
         if  (success){
             success(element);
         }
-    }];
+    }
+    failure:^(NSError *error){
+        if (failure) {
+            failure(error);
+        }
+    }
+    ];
     
 }
 
+/// Reloads the current element form Database with no extra attributes
+-(void)reload:(void(^)(KTElement *element))success failure:(void (^)(NSError *))failure{
+    [self reload:KTResponseNoneAttributes success:success failure:failure];
+}
+
+
 /// Reloads the current element form Database
--(void)refresh:(void(^)(KTElement *element))success{
+-(void)reload:(KTResponseAttributes)metadata success:(void(^)(KTElement *element))success failure:(void (^)(NSError *))failure{
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     KTElement *mySelf = self;
     
-    [manager getObject:self path:nil parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
+   
+    // Elementlist
+    switch (metadata) {
+        case KTResponseNoneAttributes:
+            // No special treatment
+            break;
+        case KTResponseFullAttributes:
+            rpcData[@"attributes"] = @"ALL";
+            break;
+        case KTResponseEditorAttributes:
+            rpcData[@"attributes"] = @"Editor";
+            break;
+        case KTResponseListerAttributes:
+            rpcData[@"attributes"] = @"Lister";
+            break;
+        default:
+            break;
+    }
+
+    
+    
+    [manager getObject:self path:nil parameters:rpcData success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         
         NSLog(@"New element: %@",mappingResult.firstObject);
         if (mappingResult.firstObject == mySelf) {
@@ -1093,7 +1144,10 @@ static long numberOfThumbnailsLoaded;
             success(mappingResult.firstObject);
         }
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        NSLog(@"Error refreshing element: %@",error.localizedDescription);
+
+        if (failure) {
+            failure(error);
+        }
     }];
     
 }

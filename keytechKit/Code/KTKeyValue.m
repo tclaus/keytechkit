@@ -43,7 +43,7 @@ static RKObjectManager *_usedManager;
                                                                 method:RKRequestMethodPOST|RKRequestMethodPUT];
         
         
-        RKResponseDescriptor *serverkeyValues = [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny pathPattern:nil keyPath:@"ServerInforesult" statusCodes:nil];
+        RKResponseDescriptor *serverkeyValues = [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny pathPattern:nil keyPath:@"ServerInfoResult" statusCodes:nil];
         
         
         
