@@ -11,6 +11,7 @@
 #import <XCTest/XCTest.h>
 #import "KTManager.h"
 #import "KTQuery.h"
+#import "testCase.h"
 
 @interface testQueries : XCTestCase
 
@@ -24,6 +25,7 @@
 - (void)setUp {
     [super setUp];
     if (!_webservice) {
+        [testCase initialize];
         _webservice = [KTManager sharedManager];
     }
     
@@ -89,7 +91,8 @@
         }
         
     } failure:^(NSError *error) {
-        XCTFail(@"Error while fetching data: %@",error);
+        // Cancel is tested - so a failure is correct
+            [documentOpenExpectation fulfill];
     }];
     
     [query cancelSearches];
@@ -133,7 +136,7 @@
 
 
 
-- (void)testQueryByPredicate{
+- (void)testQueryByPredicateLesserThanDate{
     
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
     
@@ -141,7 +144,7 @@
     
     // Date field lesser than
 
-    NSPredicate *predicateDateLesserThan = [NSPredicate predicateWithFormat:@"created_at < %@",@"/Date(1411828338)/"];
+    NSPredicate *predicateDateLesserThan = [NSPredicate predicateWithFormat:@"created_at < %@",@"/Date(1411828338000)/"];
     
     [query queryByPredicate:predicateDateLesserThan inClasses:nil paged:_pagedObject block:^(NSArray *results) {  // 'keytech' exist in most databases
         XCTAssertNotNil(results);
@@ -163,10 +166,15 @@
         }
     }];
 
-    
+}
+
+- (void)testQueryByPredicateGreaterThanDate{
     // Date field greater than
-    NSPredicate *predicateDateGreaterThan = [NSPredicate predicateWithFormat:@"created_at > %@",@"/Date(946995932)/"];
     
+    NSPredicate *predicateDateGreaterThan = [NSPredicate predicateWithFormat:@"created_at > %@",@"/Date(946995932000)/"];
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
+    
+    KTQuery *query = [[KTQuery alloc]init];
     [query queryByPredicate:predicateDateGreaterThan inClasses:nil paged:_pagedObject block:^(NSArray *results) {  // 'keytech' exist in most databases
         XCTAssertNotNil(results);
         if (results.count>0) {
@@ -186,23 +194,32 @@
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
+}
 
+
+- (void)testQueryByPredicateItemNameEquals{
+
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
+    
+    KTQuery *query = [[KTQuery alloc]init];
     
     // Exact Name
     NSPredicate *predicateName = [NSPredicate predicateWithFormat:@"name==%@",@"ITM-100145"];
     
     [query queryByPredicate:predicateName inClasses:nil paged:_pagedObject block:^(NSArray *results) {  // 'keytech' exist in most databases
         XCTAssertNotNil(results);
+        [documentOpenExpectation fulfill];
         if (results.count>0) {
-            [documentOpenExpectation fulfill];
         } else{
             XCTFail(@"Result query should have data");
         }
         
     } failure:^(NSError *error) {
-        if (!error) {
+        [documentOpenExpectation fulfill];
+        if (error) {
             XCTFail(@"Error while fetching data: %@",error);
         }
+        
     }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
@@ -211,7 +228,12 @@
         }
     }];
 
+}
+
+- (void)testQueryByPredicateBeginsWith{
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
     
+    KTQuery *query = [[KTQuery alloc]init];
     
     // BeginsWith createdBy
     NSPredicate *predicateNameBeginsWith = [NSPredicate predicateWithFormat:@"created_by BEGINSWITH %@",@"jg"]; // jgrant..
@@ -225,7 +247,7 @@
         }
         
     } failure:^(NSError *error) {
-        if (!error) {
+        if (error) {
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
@@ -236,18 +258,70 @@
         }
     }];
 
-                                                                                             
-                                                                                             
-                                                                                             
     
-    // Kombinuert
-    NSCompoundPredicate *copoundPredicates = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicateName,predicateDateLesserThan,predicateDateGreaterThan]];
-    
-    
-    
-    XCTAssert(YES, @"Pass");
 }
 
+- (void)testQueryByPredicateEndsWith{
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
+    
+    KTQuery *query = [[KTQuery alloc]init];
+    
+    // BeginsWith createdBy
+    NSPredicate *predicateNameBeginsWith = [NSPredicate predicateWithFormat:@"created_by ENDSWITH %@",@"grant"]; // jgrant..
+    
+    [query queryByPredicate:predicateNameBeginsWith inClasses:nil paged:_pagedObject block:^(NSArray *results){
+        XCTAssertNotNil(results);
+        if (results.count>0) {
+            [documentOpenExpectation fulfill];
+        } else{
+            XCTFail(@"Result query should have data");
+        }
+        
+    } failure:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Error while fetching data: %@",error);
+        }
+    }];
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Error while fetching data: %@",error);
+        }
+    }];
+    
+    
+}
+
+- (void)testQueryByPredicateContains{
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
+    
+    KTQuery *query = [[KTQuery alloc]init];
+    
+    // BeginsWith createdBy
+    NSPredicate *predicateNameBeginsWith = [NSPredicate predicateWithFormat:@"created_by CONTAINS %@",@"gran"]; // jgrant..
+    
+    [query queryByPredicate:predicateNameBeginsWith inClasses:nil paged:_pagedObject block:^(NSArray *results){
+        XCTAssertNotNil(results);
+        if (results.count>0) {
+            [documentOpenExpectation fulfill];
+        } else{
+            XCTFail(@"Result query should have data");
+        }
+        
+    } failure:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Error while fetching data: %@",error);
+        }
+    }];
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Error while fetching data: %@",error);
+        }
+    }];
+    
+    
+}
 
 - (void)testQueryWithPagedObject {
     

@@ -10,6 +10,7 @@
 #import <XCTest/XCTest.h>
 #import "KTUser.h"
 #import "KTManager.h"
+#import "testCase.h"
 
 @interface testUser : XCTestCase
 
@@ -22,6 +23,8 @@ static KTManager  *_webservice;
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     if (!_webservice) {
+        [testCase initialize];
+        
         _webservice = [KTManager sharedManager];
     }
     

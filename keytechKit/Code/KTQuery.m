@@ -65,12 +65,10 @@
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                    NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                   if (!operation.isCancelled){
                        if (failure) {
                            failure(error);
                        }
 
-                   }
                }];
     
 }
@@ -124,12 +122,11 @@
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                    NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                   if (!operation.isCancelled){
-                       // ??? What to do if any error occured?
+
                        if (failure) {
                            failure(error);
                        }
-                   }
+
                }];
     
 
@@ -163,12 +160,10 @@
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                    NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                   if (!operation.isCancelled) {
                        if (failure) {
                            failure(error);
                        }
 
-                   }
                }];
     
 }

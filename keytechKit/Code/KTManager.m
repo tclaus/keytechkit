@@ -65,8 +65,10 @@
     [manager getObject:nil path:@"serverinfo" parameters:nil
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    if (resultBlock) {
-                       _sharedServerInfo = mappingResult.firstObject;
-
+                       
+                       _sharedServerInfo = [[KTServerInfo alloc]init];
+                       [_sharedServerInfo setValue:[mappingResult array] forKey:@"keyValueList"];
+                       
                        resultBlock(_sharedServerInfo);
                    }
                    

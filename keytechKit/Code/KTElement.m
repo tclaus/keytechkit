@@ -40,13 +40,23 @@
     /// Notifies about loading in process
     
     BOOL _isItemBomListLoading;
+    /// Noti
+    BOOL _isItemStructureListLoading;
     
     /// Notifies is load is in progress
     BOOL _isItemVersionListLoading;
     
     // Hilfsobjekt, das weitere Eigenschaften nachladen kann durchführt
     KTKeytech* ktManager;
-
+    
+    NSMutableArray *_itemStructureList;
+    NSMutableArray *_itemBomList;
+    NSMutableArray *_itemWhereUsedList;
+    NSMutableArray *_itemStatusHistory;
+    NSMutableArray *_itemNotesList;
+    NSMutableArray *_itemVersionsList;
+    NSMutableArray *_itemFilesList;
+    
 }
 
 /// The last used manager for mapping
@@ -67,30 +77,27 @@ static NSObject* dummy;
 // Mapping für diese Klasse merken
 static RKObjectMapping* _mapping;
 
+/// The maximum number of items to be returned in one query
+int maxPagesize=500;
 
 
 #pragma mark Properties
-@synthesize itemStatusHistory = _itemStatusHistory;
+
 @synthesize isStatusHistoryLoaded = _isStatusHistoryLoaded;
 
-@synthesize itemVersionsList =_itemVersionsList;
 @synthesize isVersionListLoaded = _isVersionListLoaded;
 
-@synthesize itemFilesList = _itemFilesList;
 @synthesize isFilesListLoaded = _isFilesListLoaded;
 
-@synthesize itemBomList = _itemBomList;
 @synthesize isBomListLoaded = _isBomListLoaded;
 
-@synthesize itemNotesList = _itemNotesList;
 @synthesize isNotesListLoaded =_isNotesListLoaded;
 
 @synthesize itemThumbnail = _itemThumbnail;
 //Sonderfall
 
-@synthesize itemStructureList = _itemStructureList;
+@synthesize isItemStructureListLoaded = _isItemStructureListLoaded;
 
-@synthesize itemWhereUsedList = _itemWhereUsedList;
 @synthesize isWhereUsedListLoaded =_isWhereUsedListLoaded;
 
 @synthesize itemNextAvailableStatusList = _itemNextAvailableStatusList;
@@ -126,7 +133,7 @@ static RKObjectMapping* _mapping;
 
 -(void)setItemKey:(NSString *)itemKey{
     
-// change any % - classtypes to 'default'
+    // change any % - classtypes to 'default'
     _itemKey = [KTBaseObject normalizeElementKey:itemKey];
     
 }
@@ -163,7 +170,7 @@ static RKObjectMapping* _mapping;
     
     if (usedRKManager!=manager){
         usedRKManager = manager;
-
+        
         _mapping = [RKObjectMapping mappingForClass:[KTElement class]];
         
         
@@ -198,24 +205,24 @@ static RKObjectMapping* _mapping;
         
         // Zentralisiert ?
         RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor
-                                                   responseDescriptorWithMapping:_mapping
-                                                   method:RKRequestMethodGET | RKRequestMethodPOST | RKRequestMethodPUT
-                                                   pathPattern:nil
-                                                   keyPath:@"ElementList"
-                                                   statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+                                                    responseDescriptorWithMapping:_mapping
+                                                    method:RKRequestMethodGET | RKRequestMethodPOST | RKRequestMethodPUT
+                                                    pathPattern:nil
+                                                    keyPath:@"ElementList"
+                                                    statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
         
         
         // For POST and PUT only the keyValue List and key parameter is needed.
         RKObjectMapping *requestMapping = [RKObjectMapping requestMapping];
         
         [requestMapping addAttributeMappingsFromDictionary:@{@"itemKey":@"Key"}];
-
+        
         
         RKRelationshipMapping *keyValueRelationShipRequest =
-       [RKRelationshipMapping relationshipMappingFromKeyPath:@"keyValueList"
+        [RKRelationshipMapping relationshipMappingFromKeyPath:@"keyValueList"
                                                     toKeyPath:@"KeyValueList"
                                                   withMapping:[keyValueMapping inverseMapping ]];
-       
+        
         [requestMapping addPropertyMapping:keyValueRelationShipRequest];
         
         
@@ -226,7 +233,7 @@ static RKObjectMapping* _mapping;
                                                          objectClass:[KTElement class]
                                                          rootKeyPath:nil
                                                          method:RKRequestMethodPOST|RKRequestMethodPUT];
-
+        
         
         // Path Argument
         [manager.router.routeSet addRoute:[RKRoute
@@ -298,16 +305,9 @@ static RKObjectMapping* _mapping;
 #endif
 
 
--(NSMutableArray*)itemWhereUsedList{
-    if (_isWhereUsedListLoaded &!_isItemWhereUsedListLoading){
-        return _itemWhereUsedList;
-    }else {
-        if (!_isItemWhereUsedListLoading){
-            _isItemWhereUsedListLoading = YES;
-            [ktManager performGetElementWhereUsed:self.itemKey loaderDelegate:self];
-        }
-        return _itemWhereUsedList;
-    }
+-(NSArray*)itemWhereUsedList{
+    
+    return [NSArray arrayWithArray:_itemWhereUsedList];
 }
 
 // Returns the current list or queries a new one.
@@ -326,55 +326,24 @@ static RKObjectMapping* _mapping;
     }
 }
 
--(NSMutableArray*)itemStatusHistory{
-    if (_isStatusHistoryLoaded &!_isStatusHistoryLoading){
-        return _itemStatusHistory;
-    }else{
-        if(!_isStatusHistoryLoading){
-            _isStatusHistoryLoading = YES;
-            // Return preparied (empty) array but perform fill the list
-            [ktManager performGetElementStatusHistory:self.itemKey loaderDelegate:self];
-        }
-        return _itemStatusHistory;
-    }
-    
+-(NSArray*)itemStatusHistory{
+    return [NSArray arrayWithArray:_itemStatusHistory];
 }
 
 /**
- Performs lazy loading of bom lists.
- Only Items may return valid Bom lists.
+ Returns the BOM list. Load bom with the load selector
  */
--(NSMutableArray*)itemBomList{
-    if (_isBomListLoaded &! _isItemBomListLoading){
-        return _itemBomList;
-    }else {
-        if(!_isItemBomListLoading){
-            _isItemBomListLoading = YES;
-            [ktManager performGetElementBom:self.itemKey loaderDelegate:self];
-        }
-        
-        return _itemBomList;
-    }
+-(NSArray*)itemBomList{
+    return [NSArray arrayWithArray:_itemBomList];
 }
 
 /**
  Performs a load of Versionslist - if hasVersion is True
  */
--(NSMutableArray *)itemVersionsList{
-    if (self.hasVersions) {
-        if (_isVersionListLoaded &! _isItemVersionListLoading){
-            return _itemVersionsList;
-        } else {
-            if (!_isItemVersionListLoading) {
-                [ktManager performGetElementVersions:self.itemKey loaderDelegate:self];
-            }
-        }
-        
-        return _itemVersionsList;
-        
-    } else {
-        return _itemVersionsList;
-    }
+-(NSArray *)itemVersionsList{
+    
+    return [NSArray arrayWithArray:_itemVersionsList];
+    
 }
 
 -(BOOL)isEqual:(id)object{
@@ -392,9 +361,9 @@ static RKObjectMapping* _mapping;
     
     KTElementLink *newLink = [[KTElementLink alloc]initWithParent:self.itemKey childKey:linkToElementKey];
     [newLink deleteLink:^{
-
+        
         if (_isStructureListLoaded) {
-            [self.itemStructureList removeObject:linkToElementKey];
+            [_itemStructureList removeObject:linkToElementKey];
         }
         
         [[KTSendNotifications sharedSendNotification] sendElementChildLinkRemoved:linkToElementKey removedFromFolder:self.itemName];
@@ -412,10 +381,10 @@ static RKObjectMapping* _mapping;
 }
 
 -(void)addLinkTo:(NSString *)linkToElementKey success:(void (^)(KTElement *elementLink))success failure:(void (^)(NSError * error))failure{
-   
+    
     KTElementLink *newLink = [[KTElementLink alloc]initWithParent:self.itemKey childKey:linkToElementKey];
     [newLink saveLink:^(KTElement *childElement) {
-
+        
         if (_isStructureListLoaded) {
             [_itemStructureList addObject:childElement]; // Der Struktur hinzufügen
         }
@@ -430,44 +399,100 @@ static RKObjectMapping* _mapping;
             failure(error);
         }
     }];
- 
+    
     
 }
 
 /// Returns the current list of child elements
 -(NSArray*)itemStructureList{
-    return _itemStructureList;
+    return [NSArray arrayWithArray:_itemStructureList];
 }
 
-/**
- Loads the structure with the given page and pagesize. Every query adds the structure list to the internal array.
- */
--(void)loadStructureList:(int)page size:(int)size
-                 success:(void(^)(NSArray* itemsList))success
-                 failure:(void(^)(NSError *error))failure{
+
+-(void)loadWhereUsedListPage:(int)page
+                    withSize:(int)size
+                     success:(void (^)(NSArray *))success
+                     failure:(void (^)(NSError *))failure
+{
+    
+    NSString *elementKey = [KTBaseObject normalizeElementKey:self.itemKey];
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/whereused",elementKey];
+    
+    [self loadDataToArray:_itemWhereUsedList
+              resoucePath:resourcePath
+                 fromPage:page
+                 withSize:size
+                  success:success
+                  failure:failure];
+}
+
+
+NSMutableDictionary *_lastPages;
+
+-(void)setPageDefinitionForResource:(NSString*)resourcePath PageDefinition:(PageDefinition)pageDefinition{
+    
+    if (!_lastPages) {
+        _lastPages = [NSMutableDictionary dictionary];
+    }
+    
+    NSValue *value = [NSValue valueWithBytes:&pageDefinition objCType:@encode(PageDefinition)];
+    [_lastPages setObject:value forKey:resourcePath];
+    
+}
+
+-(PageDefinition)pageDefinitionForResource:(NSString*)resourcePath
+{
+    if (!_lastPages) {
+        _lastPages = [NSMutableDictionary dictionary];
+    }
+    
+    
+    PageDefinition structValue;
+    NSValue *value = [_lastPages objectForKey:resourcePath];
+    [value getValue:&structValue];
+    
+    return structValue;
+    
+}
+
+-(void)loadDataToArray:(NSMutableArray*)targetArray
+           resoucePath:(NSString*)resourcePath
+              fromPage:(int)page
+              withSize:(int)size
+               success:(void (^)(NSArray *))success
+               failure:(void (^)(NSError *))failure
+
+{
+    
     
     if (page==0) {
         page=1;
     }
     
     if (size==0) {
-        size=500; // maximum size
+        size=maxPagesize;
     }
     
-    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/structure",self.itemKey];
+    
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [manager getObjectsAtPath:resourcePath parameters:nil
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-
-                          // add sequenty structured lists to one result array
-                          if (page==1) {
-                              _itemStructureList = nil;
+                          
+                          PageDefinition pageDefinition = [self pageDefinitionForResource:resourcePath];
+                          
+                          // add new arrays in a sequence
+                          if (pageDefinition.page != page-1 || pageDefinition.size != size) {
+                              [targetArray removeAllObjects];
                           }
                           
-                          NSMutableArray *newArray = [NSMutableArray arrayWithArray:_itemStructureList];
-                          [newArray addObjectsFromArray:mappingResult.array];
-                          _itemStructureList = newArray;
+                          pageDefinition.size = size;
+                          pageDefinition.page = page;
+                          
+                          [self setPageDefinitionForResource:resourcePath PageDefinition:pageDefinition];
+                          
+                          [targetArray addObjectsFromArray:mappingResult.array];
+                          
                           if (success) {
                               success(mappingResult.array);
                           }
@@ -475,13 +500,141 @@ static RKObjectMapping* _mapping;
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                           
                           NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                          
+                          NSLog(@"Status code: %ld",(long)response.statusCode);
                           if (failure) {
                               failure(error);
                           }
                           
                       }];
+    
+}
 
+/**
+ Loads the structure with the given page and pagesize. Every query adds the structure list to the internal array.
+ */
+-(void)loadStatusHistoryListSuccess:(void(^)(NSArray* itemsList))success
+                            failure:(void(^)(NSError *error))failure
+{
+    
+    NSString *elementKey = [KTBaseObject normalizeElementKey:self.itemKey];
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/statushistory",elementKey];
+    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTStatusHistoryItem mappingWithManager:manager];
+    
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          
+                          [_itemStatusHistory removeAllObjects];
+                          [_itemStatusHistory addObjectsFromArray:mappingResult.array];
+                          
+                          if (success) {
+                              success(mappingResult.array);
+                          }
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          
+                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                          NSLog(@"Status code: %ld",(long)response.statusCode);
+                          if (failure) {
+                              failure(error);
+                          }
+                          
+                      }];
+    
+}
+
+
+-(void)loadNotesListSuccess:(void(^)(NSArray* itemsList))success
+                    failure:(void(^)(NSError *error))failure
+{
+    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTNoteItem mappingWithManager:manager];
+    
+    NSString *elementKey = [KTBaseObject normalizeElementKey:self.itemKey];
+    
+    NSString *resourcePath = [NSString stringWithFormat:@"elements/%@/notes", elementKey];
+    [self loadDataToArray:_itemNotesList
+              resoucePath:resourcePath
+                 fromPage:0
+                 withSize:0
+                  success:success
+                  failure:failure];
+    
+}
+
+/**
+ Loads the structure with the given page and pagesize. Every query adds the structure list to the internal array.
+ */
+-(void)loadStructureListPage:(int)page
+                    withSize:(int)size
+                     success:(void(^)(NSArray* itemsList))success
+                     failure:(void(^)(NSError *error))failure
+{
+    
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/structure",self.itemKey];
+    
+    [self loadDataToArray:_itemStructureList
+              resoucePath:resourcePath
+                 fromPage:page
+                 withSize:size
+                  success:success
+                  failure:failure];
+    
+}
+
+-(void)loadBomListPage:(int)page
+              withSize:(int)size
+               success:(void(^)(NSArray* itemsList))success
+               failure:(void(^)(NSError *error))failure
+{
+    
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/bom",self.itemKey];
+    
+    [self loadDataToArray:_itemBomList
+              resoucePath:resourcePath
+                 fromPage:page
+                 withSize:size
+                  success:success
+                  failure:failure];
+    
+}
+
+-(void)loadFileListSuccess:(void(^)(NSArray* itemsList))success
+                   failure:(void(^)(NSError *error))failure
+{
+    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTFileInfo mappingWithManager:manager];
+    
+    NSString *elementKey = [KTBaseObject normalizeElementKey:self.itemKey];
+    
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/files", elementKey];
+    [self loadDataToArray:_itemFilesList
+              resoucePath:resourcePath
+                 fromPage:0
+                 withSize:0
+                  success:success
+                  failure:failure];
+    
+}
+
+/// Loads all Versions of this element
+-(void)loadVersionListSuccess:(void(^)(NSArray* itemsList))success
+                      failure:(void(^)(NSError *error))failure
+{
+    
+    NSString *elementKey = [KTBaseObject normalizeElementKey:self.itemKey];
+    
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/versions",elementKey];
+    [self loadDataToArray:_itemVersionsList
+              resoucePath:resourcePath
+                 fromPage:0
+                 withSize:0
+                  success:success
+                  failure:failure];
+    
 }
 
 
@@ -498,25 +651,16 @@ static RKObjectMapping* _mapping;
 }
 
 // Return current filelist or requests a new one from server
--(NSMutableArray*)itemFilesList{
-    if (_isFilesListLoaded & !_isItemFileslistLoading){
-        return _itemFilesList;
-    }else{
-        _isItemFileslistLoading = YES;
-        [ktManager performGetFileList:self.itemKey loaderDelegate:self];
-        return _itemFilesList;
-    }
+-(NSArray*)itemFilesList{
+    
+    return [NSArray arrayWithArray:_itemFilesList];
 }
 
 // Return current notes list or requests a new one from server.
--(NSMutableArray*)itemNotesList{
-    if (_isNotesListLoaded &!_isItemNotesListLoading){
-        return _itemNotesList;
-    }else{
-        _isItemNotesListLoading = YES;
-        [ktManager performGetElementNotes:self.itemKey loaderDelegate:self];
-        return _itemNotesList;
-    }
+-(NSArray*)itemNotesList{
+    
+    return [NSArray arrayWithArray:_itemNotesList];
+    
 }
 
 #pragma mark Server response
@@ -554,49 +698,6 @@ static RKObjectMapping* _mapping;
     
     
     
-    //WhereUsed
-    if ([resourcePath hasSuffix:@"whereused"]){
-        _isItemWhereUsedListLoading = NO;
-        _isWhereUsedListLoaded = YES;
-        //Set by KVC
-        [self willChangeValueForKey:@"itemWhereUsedList"];
-        [_itemWhereUsedList setArray:searchResult];
-        [self didChangeValueForKey:@"itemWhereUsedList"];
-        
-        return;
-    }
-    
-    
-    // BOM
-    if ([resourcePath hasSuffix:@"bom"]){
-        // Set for KVC
-        _isItemBomListLoading = NO;
-        _isBomListLoaded = YES;
-        
-        if (!_itemBomList){
-            _itemBomList = [[NSMutableArray alloc] initWithArray:searchResult];
-        }else {
-            
-            // Set by KVC
-            [self willChangeValueForKey:@"itemBomList"];
-            [_itemBomList setArray:searchResult];
-            [self didChangeValueForKey:@"itemBomList"];
-        }
-        
-        return;
-    }
-    
-    //Statushistory
-    if ([resourcePath hasSuffix:@"statushistory"]){
-        _isStatusHistoryLoading = NO;
-        _isStatusHistoryLoaded = YES;
-        //Set by KVC
-        [self willChangeValueForKey:@"itemStatusHistory"];
-        [_itemStatusHistory setArray:searchResult];
-        [self didChangeValueForKey:@"itemStatusHistory"];
-        
-        return;
-    }
     
     //next available status
     if ([resourcePath hasSuffix:@"nextstatus"]){
@@ -617,48 +718,8 @@ static RKObjectMapping* _mapping;
         return;
     }
     
-    if ([resourcePath hasSuffix:@"versions"]){
-        
-        _isItemVersionListLoading = NO;
-        _isVersionListLoaded = YES;
-        //Set by KVC
-        if (!_itemVersionsList){
-            _itemVersionsList = [[NSMutableArray alloc]initWithArray:searchResult];
-        } else {
-            
-            [self willChangeValueForKey:@"itemVersionsList"];
-            
-            [_itemVersionsList setArray:searchResult];
-            [self didChangeValueForKey:@"itemVersionsList"];
-            
-        }
-        return;
-    }
     
     
-    // FilesList
-    if ([resourcePath hasSuffix:@"files"]){
-        
-        _isItemFileslistLoading = NO;
-        _isFilesListLoaded = YES;
-        if (!_itemFilesList) {
-            _itemFilesList = [[NSMutableArray alloc ]initWithArray:searchResult];
-            
-        }else {
-            //set by KVC
-            [self willChangeValueForKey:@"itemFilesList"];
-            [_itemFilesList setArray:searchResult];
-            [self didChangeValueForKey:@"itemFilesList"];
-        }
-        
-        // Set elementKey to every file
-        [_itemFilesList enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            KTFileInfo *file = (KTFileInfo*)obj;
-            file.elementKey = self.itemKey;
-        }];
-        
-        return;
-    }
     
     //notes
     if ([resourcePath hasSuffix:@"notes"]){
@@ -791,9 +852,9 @@ static long numberOfThumbnailsLoaded;
                                   
                                   @try {
                                       dispatch_sync(dispatch_get_main_queue(), ^{
-                                      [self willChangeValueForKey:@"itemThumbnail"]; //Start KVC
+                                          [self willChangeValueForKey:@"itemThumbnail"]; //Start KVC
                                       });
-                                }
+                                  }
                                   @catch(NSException* __unused exception){}
                                   
                                   
@@ -820,12 +881,12 @@ static long numberOfThumbnailsLoaded;
                                   
                                   @try{
                                       dispatch_sync(dispatch_get_main_queue(), ^{
-                                      [self didChangeValueForKey:@"itemThumbnail"];
+                                          [self didChangeValueForKey:@"itemThumbnail"];
                                       });
-                                    }
+                                  }
                                   @catch(NSException * __unused exception){}
-        
-                                
+                                  
+                                  
                               }];
         
         
@@ -925,11 +986,17 @@ static long numberOfThumbnailsLoaded;
     return fileURL;
 }
 
++(instancetype)elementWithElementKey:(NSString *)elementKey{
+    KTElement *element = [[KTElement alloc]initWithElementKey:elementKey];
+    return element;
+}
 
--(instancetype)initAs:(NSString*)classKey{
-    self = [KTElement init];
-    [self setItemClassKey:classKey];
-    return self;
+-(instancetype)initWithElementKey:(NSString*)elementKey{
+    
+    KTElement *element=[self init];
+    [element setItemKey:[elementKey copy]];
+    
+    return element;
 }
 
 - (id)init
@@ -956,7 +1023,7 @@ static long numberOfThumbnailsLoaded;
         
         _barrierQueue = dispatch_queue_create("de.claus-software.keytechPLM-ThumbnailDownloader", DISPATCH_QUEUE_CONCURRENT);
         
-    #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
         [NSImage imageNamed:NSImageNameAdvanced]; // Placeholder image
 #else
         
@@ -1008,7 +1075,7 @@ static long numberOfThumbnailsLoaded;
     
     // Make sure a mapping is set
     [KTElement mappingWithManager:manager];
-
+    
     if (self.itemID == -1) {
         // POST, create a new element
         [manager postObject:self
@@ -1019,9 +1086,9 @@ static long numberOfThumbnailsLoaded;
                         // API may has changed or added some valued
                         NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
                         self.itemKey = [response.allHeaderFields objectForKey:@"Location"];
-
+                        
                         // Element was created (Send a notification?)
-                        // Who should get the notification? 
+                        // Who should get the notification?
                         
                         if (success) {
                             success(self);
@@ -1031,9 +1098,9 @@ static long numberOfThumbnailsLoaded;
                         NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
                         NSError *outError;
                         if (response) {
-                        
-                        NSDictionary *userInfo = @{NSLocalizedDescriptionKey:[[response allHeaderFields]objectForKey:@"X-ErrorDescription"]};
-                        outError = [NSError errorWithDomain:@"" code:0 userInfo:userInfo];
+                            
+                            NSDictionary *userInfo = @{NSLocalizedDescriptionKey:[[response allHeaderFields]objectForKey:@"X-ErrorDescription"]};
+                            outError = [NSError errorWithDomain:@"" code:0 userInfo:userInfo];
                         } else {
                             outError = error;
                         }
@@ -1044,33 +1111,36 @@ static long numberOfThumbnailsLoaded;
                     }];
         
     } else { // PUT
-    
-    [manager putObject:self
-                  path:nil parameters:nil
-               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                    [[KTSendNotifications sharedSendNotification]sendElementHasBeenChanged:self];
-                   if (success) {
-                       success(self);
-                   }
-               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                   NSDictionary *userInfo = @{NSLocalizedDescriptionKey:[[response allHeaderFields]objectForKey:@"X-ErrorDescription"]};
-                   NSError *outError = [NSError errorWithDomain:@"" code:0 userInfo:userInfo];
-                   if (failure) {
-                       failure(self,outError);
-                   }
-               }];
+        
+        [manager putObject:self
+                      path:nil parameters:nil
+                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                       [[KTSendNotifications sharedSendNotification]sendElementHasBeenChanged:self];
+                       if (success) {
+                           success(self);
+                       }
+                   } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                       NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                       NSDictionary *userInfo = @{NSLocalizedDescriptionKey:[[response allHeaderFields]objectForKey:@"X-ErrorDescription"]};
+                       NSError *outError = [NSError errorWithDomain:@"" code:0 userInfo:userInfo];
+                       if (failure) {
+                           failure(self,outError);
+                       }
+                   }];
     }
     
 }
 
 +(void)loadElementWithKey:(NSString *)elementKey success:(void (^)(KTElement *theElement))success failure:(void(^)(NSError *error))failure{
-[KTElement loadElementWithKey:elementKey withMetaData:KTResponseNoneAttributes
-                      success:^(KTElement *theElement) {
-                          success(theElement);
-                      } failure:^(NSError *error) {
-                          failure(error);
-                      }];
+    [KTElement loadElementWithKey:elementKey withMetaData:KTResponseNoneAttributes
+                          success:^(KTElement *theElement) {
+                              success(theElement);
+                          } failure:^(NSError *error) {
+                              if (failure) {
+                                  failure(error);
+                              }
+                              
+                          }];
 }
 
 +(void)loadElementWithKey:(NSString *)elementKey withMetaData:(KTResponseAttributes)metadata
@@ -1083,17 +1153,17 @@ static long numberOfThumbnailsLoaded;
     element.itemKey = elementKey;
     
     [element reload:metadata
-    success:^(KTElement *element) {
-        if  (success){
-            success(element);
-        }
-    }
-    failure:^(NSError *error){
-        if (failure) {
-            failure(error);
-        }
-    }
-    ];
+            success:^(KTElement *element) {
+                if  (success){
+                    success(element);
+                }
+            }
+            failure:^(NSError *error){
+                if (failure) {
+                    failure(error);
+                }
+            }
+     ];
     
 }
 
@@ -1110,7 +1180,7 @@ static long numberOfThumbnailsLoaded;
     KTElement *mySelf = self;
     
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
-   
+    
     // Elementlist
     switch (metadata) {
         case KTResponseNoneAttributes:
@@ -1128,7 +1198,7 @@ static long numberOfThumbnailsLoaded;
         default:
             break;
     }
-
+    
     
     
     [manager getObject:self path:nil parameters:rpcData success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
@@ -1144,7 +1214,7 @@ static long numberOfThumbnailsLoaded;
             success(mappingResult.firstObject);
         }
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-
+        
         if (failure) {
             failure(error);
         }

@@ -36,9 +36,16 @@ typedef enum {
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
- Initializes a new element with the type of classKey
+ Instantiates a new element with the given ElementKey. To receive Element Data run theh refresh selector
  */
--(instancetype)initWithClassKey:(NSString*)classKey;
++(instancetype)elementWithElementKey:(NSString*)elementKey;
+
+/**
+ Initializes a new element with the type of elementKey.
+ You can also set a classkey as parameter.
+ @param elementkey A element or classkey. If a classKey was submitted the element can be stored as a new element to the keytech API.
+ */
+-(instancetype)initWithElementKey:(NSString*)elementKey;
 
 
 /**
@@ -93,7 +100,7 @@ typedef enum {
  */
 @property (readonly) BOOL hasVersions;
 
-@property (readonly,strong) NSMutableArray *itemVersionsList;
+@property (readonly,strong) NSArray *itemVersionsList;
 @property (readonly) BOOL isVersionListLoaded;
 
 /**
@@ -118,18 +125,46 @@ typedef enum {
  Returns the next level of linked elements. If not currentlty loaded a request starts.
  Array contains full elements
  */
-@property (readonly,strong  ) NSMutableArray* itemStructureList;
-
+@property (readonly,strong) NSArray* itemStructureList;
+@property (readonly) BOOL isItemStructureListLoaded;
 
 /**
- Starts loadin the list of child elements
+ Starts loading the list of child elements
  @param page The page with a given size. 
  @param size The count of elements wothin a page
  */
--(void)loadStructureList:(int)page size:(int)size
+-(void)loadStructureListPage:(int)page withSize:(int)size
                  success:(void(^)(NSArray* itemsList))success
                  failure:(void(^)(NSError *error))failure;
 
+-(void)loadBomListPage:(int)page withSize:(int)size
+                 success:(void(^)(NSArray* itemsList))success
+                 failure:(void(^)(NSError *error))failure;
+
+-(void)loadWhereUsedListPage:(int)page withSize:(int)size
+                 success:(void(^)(NSArray* itemsList))success
+                 failure:(void(^)(NSError *error))failure;
+/**
+ Starts loading the status history.
+ */
+-(void)loadStatusHistoryListSuccess:(void(^)(NSArray* itemsList))success
+                            failure:(void(^)(NSError *error))failure;
+/**
+ Starts loading the notes list
+ */
+-(void)loadNotesListSuccess:(void(^)(NSArray* itemsList))success
+                    failure:(void(^)(NSError *error))failure;
+/**
+ Starts loading the filelist
+ */
+-(void)loadFileListSuccess:(void(^)(NSArray* itemsList))success
+                   failure:(void(^)(NSError *error))failure;
+
+/**
+ Starts loading the list of recent versions
+ */
+-(void)loadVersionListSuccess:(void(^)(NSArray* itemsList))success
+                   failure:(void(^)(NSError *error))failure;
 
 -(void)addLinkTo:(NSString*)linkToElementKey success:(void(^)(KTElement *elementLink))success failure:(void(^)(NSError* error))failure;
 
@@ -142,9 +177,9 @@ typedef enum {
 /**
  Returns the bill of material if this element is of type 'masteritem'. Returns an empty list if not loaded.
  */
-@property (readonly,strong) NSMutableArray* itemBomList; // Only Items can have a bomlist
+@property (readonly,strong) NSArray* itemBomList; // Only Items can have a bomlist
 /**
- Retun true if Bom LIst ist loaded
+ Retun true if Bom List ist loaded
  */
 @property (readonly) BOOL isBomListLoaded;
 
@@ -155,13 +190,13 @@ typedef enum {
 /**
  Returny the attached filelist. If not currentlty loaded a request starts.
  */
-@property (readonly,strong) NSMutableArray* itemFilesList; // Nur bei Dokumente!
+@property (readonly,strong) NSArray* itemFilesList; // Nur bei Dokumente!
 @property (readonly) BOOL isFilesListLoaded;
 
 /**
  Loads the list of parent elements in which this Element is used.
  */
-@property (readonly,strong) NSMutableArray* itemWhereUsedList;
+@property (readonly,strong) NSArray* itemWhereUsedList;
 @property (readonly) BOOL isWhereUsedListLoaded;
 
 /**
@@ -173,7 +208,7 @@ typedef enum {
 /**
  Loads notes assigned notes to this element. If not currentlty loaded a request starts.
  */
-@property (nonatomic,readonly) NSMutableArray* itemNotesList;
+@property (nonatomic,readonly) NSArray* itemNotesList;
 @property (readonly) BOOL isNotesListLoaded;
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
@@ -190,7 +225,7 @@ typedef enum {
  */
 -(NSString*)fileURLOfFileID:(int)fileID;
 
-@property (nonatomic,readonly) NSMutableArray* itemStatusHistory;
+@property (nonatomic,readonly) NSArray* itemStatusHistory;
 @property (readonly) BOOL isStatusHistoryLoaded;
 
 

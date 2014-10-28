@@ -10,7 +10,7 @@
 #import "KTManager.h"
 #import "KTElement.h"
 #import "testResponseLoader.h"
-
+#import "testCase.h"
 
 @interface testKeytechElements : XCTestCase
 
@@ -18,7 +18,7 @@
 
 @implementation testKeytechElements
 {
-    @private
+@private
     NSString* elementKeyWithStructure;// = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API
     NSString* elementKeyWithBOM; //DEFAULT_MI:2007
     NSString* elementKeyWithNotes;// = @"2DMISC_SLDDRW:2221"; //* Element with notes on Test API
@@ -34,13 +34,14 @@ KTManager* _webservice;
 /**
  supports lazy loading
  */
-    Boolean awaitingResponse;
-    NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
+Boolean awaitingResponse;
+NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
 
 
 - (void)setUp
 {
     [super setUp];
+    [testCase initialize];
     // Put setup code here; it will be run once, before the first test case.
     
     _webservice = [KTManager sharedManager];
@@ -88,19 +89,19 @@ KTManager* _webservice;
 
 -(void)testGenerateClassKeyFromElementKey{
     KTElement* item = [[KTElement alloc]init];
-
+    
     item.itemKey = @"3dmisc_SLDPRW:1234"; // DO ;
-    XCTAssertTrue( [item.itemClassType isEqualToString:@"DO"],@"Document did not return 'DO' as classtype");                
+    XCTAssertTrue( [item.itemClassType isEqualToString:@"DO"],@"Document did not return 'DO' as classtype");
     
     item.itemKey = @"Files_WF:1234"; // FD
     XCTAssertTrue( [item.itemClassType isEqualToString:@"FD"],@"Folder did not return 'FD' as classtype");
     
     item.itemKey = @"%_MI:12345";  //MI
     XCTAssertTrue( [item.itemClassType isEqualToString:@"MI"],@"Masteritem did not return 'MI' as classtype");
-
+    
     item.itemKey = @"Default_MI:12345";  //MI
     XCTAssertTrue( [item.itemClassType isEqualToString:@"MI"],@"Masteritem did not return 'MI' as classtype");
-
+    
     
     
 }
@@ -141,12 +142,14 @@ KTManager* _webservice;
     
     __block KTElement *_theElement;
     
-    [KTElement loadElementWithKey:elementKeyWithStructure success:^(KTElement *theElement) {
-        _theElement =theElement;
-        [expectation fulfill];
-    } failure:^(NSError *error) {
-        NSLog(@"Error loading element: %@",error);
-    }];
+    [KTElement loadElementWithKey:elementKeyWithStructure
+                          success:^(KTElement *theElement) {
+                              _theElement =theElement;
+                              [expectation fulfill];
+                          } failure:^(NSError *error) {
+                              [expectation fulfill];
+                              XCTFail(@"Error loading element: %@",error);
+                          }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
         if (error){
@@ -191,110 +194,85 @@ KTManager* _webservice;
 
 
 /**
- Try to request a files list from an invaid elementkey. Should return a valid array object.
- */
--(void)testGetFilesFromInvalidElement{
-    
-    KTKeytech* keytech = [[KTKeytech alloc]init];
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-    
-    // Fetching a files List with an invalid elementkey
-    [keytech performGetFileList:@"invalidItemKey" loaderDelegate:responseLoader];
-    
-    [responseLoader waitForResponse];
-    
-    NSArray* array = [responseLoader objects];
-    
-    if (array!=nil) XCTFail(@"The results array should be nil");
-    // if ([array count]==0) XCTFail(@"At least one element was expected but we found %d",[array count]);
-    
-    
-}
-
-/**
- Try to request a files list from an well known element with files. Should return some files in a list.
- */
--(void)testGetFilesFromValidElement{
-    
-    KTKeytech* keytech = [[KTKeytech alloc]init];
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-    
-    // Fetching a files List. Element 3DMISC_SLDASM:2220 should have some files
-    [keytech performGetFileList:@"3DMISC_SLDASM:2220" loaderDelegate:responseLoader];
-    
-    [responseLoader waitForResponse];
-    
-    NSArray* array = [responseLoader objects];
-    
-    if (array==nil) XCTFail(@"The results array should not be nil");
-    if ([array count]==0) XCTFail(@"At least one element was expected but we found %ld",(long)[array count]);
-    
-    
-}
-
-
-/**
  Performs deferred getting whereused data.
  */
 - (void)testGetElementWhereUsed
 {
     
-    KTElement* item = [[KTElement alloc]init];
-    item.itemKey = elementKeyWithStructure;
+    KTElement* element = [[KTElement alloc]initWithElementKey:elementKeyWithStructure];
     
-    NSMutableArray* structure =  item.itemWhereUsedList;
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"WhereUsed Loaded"];
     
-    [item addObserver:self forKeyPath:@"itemWhereUsedList" options:NSKeyValueObservingOptionNew context:nil];
+    [element loadWhereUsedListPage:0 withSize:0
+                           success:^(NSArray *itemsList) {
+                               
+                               XCTAssertNotNil(itemsList, @"Wherused list should not be nil");
+                               XCTAssertTrue(itemsList.count>0, @"Whereused list should have some items");
+                               XCTAssertTrue(element.itemWhereUsedList.count>0,@"Element property should not be empty");
+                               
+                               [documentOpenExpectation fulfill];
+                               
+                           } failure:^(NSError *error) {
+                               XCTFail(@"Failed loading whereUsed: %@",error);
+                               [documentOpenExpectation fulfill];
+                           }];
     
-    [self waitForResponse];
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+    }];
     
-    [item removeObserver:self forKeyPath:@"itemWhereUsedList" context:nil];
-    
-    XCTAssertNotNil(structure, @"Wherused list should not be nil");
-    XCTAssertTrue(structure.count>0, @"Whereused list should have some items");
     
 }
 
 /**
  Performs deferred getting filelist data.
-
+ 
  */
 - (void)testGetElementFileList
 {
-    KTElement* item = [[KTElement alloc]init];
-    item.itemKey = elementKeyWithStructure;
+    KTElement* element = [[KTElement alloc]initWithElementKey:elementKeyWithStructure];
     
-    NSMutableArray* structure =  item.itemFilesList;
     
-    [item addObserver:self forKeyPath:@"itemFilesList" options:NSKeyValueObservingOptionNew context:nil];
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Filelist Loaded"];
     
-    [self waitForResponse];
+    [element loadFileListSuccess:^(NSArray *itemsList) {
+        
+        XCTAssertNotNil(itemsList, @"Fiellist list should not be nil");
+        XCTAssertTrue(itemsList.count>0, @"Filelist list should have some items");
+        XCTAssertTrue(element.itemFilesList.count>0,@"Element property should not be empty");
+        [documentOpenExpectation fulfill];
+        
+    } failure:^(NSError *error) {
+        XCTFail(@"Failed loading filelist: %@",error);
+        [documentOpenExpectation fulfill];
+    }];
     
-    [item removeObserver:self forKeyPath:@"itemFilesList" context:nil];
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+    }];
     
-    XCTAssertNotNil(structure, @"itemFileList should not be nil");
-    XCTAssertTrue(structure.count>0, @"itemFileList should have some items");
     
 }
 
-
-/**
- Fetching some notes from invalid element. Should not return a nil value
- */
--(void)testGetNotesFromInvalidElement{
+/// Gets the list of version from the given element
+- (void)testGetElementVersionsList
+{
+    KTElement* element = [[KTElement alloc]initWithElementKey:elementKeyWithStructure];
     
-    KTKeytech* keytech = [[KTKeytech alloc]init];
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Filelist Loaded"];
     
-    // Fetching a notes List. Element 3DMISC_SLDASM:2220 should have some files
-    [keytech performGetElementNotes:@"invalidItemKey" loaderDelegate:responseLoader];
+    [element loadVersionListSuccess:^(NSArray *itemsList) {
+        
+        XCTAssertNotNil(itemsList, @"Fiellist list should not be nil");
+        XCTAssertTrue(itemsList.count>0, @"Filelist list should have some items");
+        XCTAssertTrue(element.itemVersionsList.count>0,@"Element property should not be empty");
+        [documentOpenExpectation fulfill];
+        
+    } failure:^(NSError *error) {
+        XCTFail(@"Failed loading filelist: %@",error);
+        [documentOpenExpectation fulfill];
+    }];
     
-    [responseLoader waitForResponse];
-    
-    NSArray* array = [responseLoader objects];
-    
-    if (array!=nil) XCTFail(@"The results array should be nil");
-    //if ([array count]==0) XCTFail(@"At least one element was expected but we found %d",[array count]);
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+    }];
     
     
 }
@@ -304,60 +282,69 @@ KTManager* _webservice;
  */
 - (void)testGetElementNotesList
 {
-    KTElement* item = [[KTElement alloc]init];
-    item.itemKey = elementKeyWithNotes;
+    KTElement* element = [[KTElement alloc]initWithElementKey:elementKeyWithNotes];
     
-    NSMutableArray* structure =  item.itemNotesList;
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Noteslist loaded"];
     
-    [item addObserver:self forKeyPath:@"itemNotesList" options:NSKeyValueObservingOptionNew context:nil];
+    [element loadNotesListSuccess:^(NSArray *itemsList) {
+        
+        XCTAssertNotNil(itemsList, @"Noteslist list should not be nil");
+        XCTAssertTrue(itemsList.count>0, @"Noteslist list should have some items");
+        XCTAssertTrue(element.itemNotesList.count>0,@"Element property should not be empty");
+        
+        [documentOpenExpectation fulfill];
+        
+    } failure:^(NSError *error) {
+        XCTFail(@"Failed loading noteslist: %@",error);
+        [documentOpenExpectation fulfill];
+    }];
     
-    [self waitForResponse];
-    [item removeObserver:self forKeyPath:@"itemNotesList" context:nil];
-    
-    XCTAssertNotNil(structure, @"itemNotesList should not be nil");
-    XCTAssertTrue(structure.count>0, @"itemNotesList should have some items");
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+    }];
     
 }
 
 
 
 /**
-Performs a GET on an Elements BOM (Bill of Material)s list.
- Every Element should return a non-NIL object. 
+ Performs a GET on an Elements BOM (Bill of Material)s list.
+ Every Element should return a non-NIL object.
  Only Articles (Items) should have a BOM.
  */
 - (void)testGetElementBOM
 {
-    KTElement* item = [[KTElement alloc]init];
-    item.itemKey = elementKeyWithBOM;
+    KTElement* element = [[KTElement alloc]initWithElementKey:elementKeyWithBOM];
     
-    NSMutableArray* structure =  item.itemBomList;
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"BOM Loaded"];
     
-    [item addObserver:self forKeyPath:@"itemBomList" options:NSKeyValueObservingOptionNew context:nil];
+    [element loadStructureListPage:1
+                          withSize:100
+                           success:^(NSArray *itemsList) {
+                               
+                               XCTAssertNotNil(itemsList);
+                               XCTAssertTrue(itemsList.count>0);
+                               XCTAssertTrue(element.itemBomList.count>0,@"Element property should not be empty");
+                               
+                               [documentOpenExpectation fulfill];
+                               
+                           } failure:^(NSError *error) {
+                               
+                               XCTAssert(NO);
+                               [documentOpenExpectation fulfill];
+                           }];
     
-    [self waitForResponse];
-    [item removeObserver:self forKeyPath:@"itemBomList" context:nil];
     
-    XCTAssertNotNil(structure, @"itemBomList should not be nil");
-    item=nil; // Not for use in further testing.
+    // Expectation
+    // The test will pause here, running the run loop, until the timeout is hit
+    // or all expectations are fulfilled.
+    [self waitForExpectationsWithTimeout:8 handler:^(NSError *error) {
+        // Clean up test
+        if (error){
+            NSLog(@"%@",error);
+        }
+    }];
     
     
-    // Now Test a real article with a bom list
-    
-    KTElement* bomitem = [[KTElement alloc]init];
-    bomitem.itemKey = elementKeyItem;
-    
-    structure = bomitem.itemBomList;
-    
-    // Request the BOM
-    [bomitem addObserver:self forKeyPath:@"itemBomList" options:NSKeyValueObservingOptionNew context:nil];
-    
-    [self waitForResponse];
-    [bomitem removeObserver:self forKeyPath:@"itemBomList" context:nil];
-    
-    XCTAssertNotNil(structure, @"itemBomList should not be nil");
-    
-    XCTAssertTrue(structure.count>0, @"itemBomList should have some items");
     
 }
 
@@ -370,37 +357,46 @@ Performs a GET on an Elements BOM (Bill of Material)s list.
     item.itemKey = elementKeyWithStateWork;
     
     NSMutableArray* structure =  item.itemNextAvailableStatusList;
-
+    
     [item addObserver:self forKeyPath:@"itemNextAvailableStatusList" options:NSKeyValueObservingOptionNew context:nil];
     
     [self waitForResponse];
     [item removeObserver:self forKeyPath:@"itemNextAvailableStatusList" context:nil];
     
     XCTAssertNotNil(structure, @"itemNextAvailableStatusList should not be nil");
-
+    
     // Maybe the user dont have the right to make a status change
-   // XCTAssertTrue(structure.count>0, @"itemNextAvailableStatusList should have some items");
+    // XCTAssertTrue(structure.count>0, @"itemNextAvailableStatusList should have some items");
     
 }
 
 /**
- Performs deferred getting available status from current element.
+ Performs getting the status history
  */
 - (void)testGetElementStatusHistory
 {
-    KTElement* item = [[KTElement alloc]init];
-    item.itemKey = @"3dmisc_sldprt:2156";
+    KTElement* element = [[KTElement alloc]initWithElementKey:@"3dmisc_sldprt:2156"];
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Status history Loaded"];
     
-    NSMutableArray* structure =  item.itemStatusHistory;
+    [element loadStatusHistoryListSuccess:^(NSArray *itemsList) {
+        [documentOpenExpectation fulfill];
+        
+        XCTAssertNotNil(itemsList);
+        XCTAssertTrue(itemsList.count>0);
+        XCTAssertTrue(element.itemStatusHistory.count>0,@"Element property should not be empty");
+        
+    } failure:^(NSError *error) {
+        [documentOpenExpectation fulfill];
+        XCTFail(@"Failed with: %@",error);
+    }];
     
-    [item addObserver:self forKeyPath:@"itemStatusHistory" options:NSKeyValueObservingOptionNew context:nil];
+    [self waitForExpectationsWithTimeout:8 handler:^(NSError *error) {
+        // Clean up test
+        if (error){
+            NSLog(@"%@",error);
+        }
+    }];
     
-    [self waitForResponse];
-    [item removeObserver:self forKeyPath:@"itemStatusHistory" context:nil];
-    
-    XCTAssertNotNil(structure, @"itemStatusHistory should not be nil");
-    
-     XCTAssertTrue(structure.count>0, @"itemStatusHistory should have some items");
     
 }
 
@@ -410,11 +406,11 @@ Performs a GET on an Elements BOM (Bill of Material)s list.
 -(void)testGetElementThumbnail{
     KTElement* item = [[KTElement alloc]init];
     item.itemKey = elementKeyWithStructure;
-    #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
     NSImage* image = item.itemThumbnail;
-    #else
+#else
     UIImage* image =item.itemThumbnail;
-    #endif
+#endif
     
     image=nil;
     
@@ -425,7 +421,7 @@ Performs a GET on an Elements BOM (Bill of Material)s list.
     [item removeObserver:self forKeyPath:@"itemThumbnail" context:nil];
     
     XCTAssertNotNil(item.itemThumbnail, @" Image should return a meaningful image in any case");
-
+    
 }
 
 
@@ -434,27 +430,27 @@ Performs a GET on an Elements BOM (Bill of Material)s list.
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"Load element structure"];
     
-    __block KTElement *_theElement;
-    [KTElement loadElementWithKey:elementKeyWithStructure
-                          success:^(KTElement *theElement) {
-                              
-                              _theElement = theElement;
-                              [_theElement loadStructureList:0 size:0
-                                                     success:^(NSArray *itemsList) {
-                                                         XCTAssertNotNil(itemsList,@"The fetched structured list was empty");
-                                                         [expectation fulfill];
-                                                     } failure:nil];
-                              
-                          }
-                          failure:nil];
+    KTElement *element = [[KTElement alloc] initWithElementKey:elementKeyWithStructure];
     
-     
-                              
+    [element loadStructureListPage:0 withSize:0
+                           success:^(NSArray *itemsList) {
+                               
+                               XCTAssertNotNil(itemsList,@"The fetched structured list was empty");
+                               XCTAssertTrue(itemsList.count>0,@"The structurelist should have some items");
+                               XCTAssertTrue(element.itemStructureList.count>0,@"Element property should not be empty");
+                               
+                               [expectation fulfill];
+                               
+                           } failure:^(NSError *error) {
+                               XCTFail(@"Element returned no tructure");
+                               [expectation fulfill];
+                           }];
+    
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
         if  (!error) {
             
-            if (_theElement){
-                if  (!_theElement.itemStructureList){
+            if (element){
+                if  (!element.itemStructureList){
                     XCTFail(@"The structure list was empty");
                 } else {
                     // OK
@@ -468,8 +464,8 @@ Performs a GET on an Elements BOM (Bill of Material)s list.
             XCTFail(@"Error while loading structure: %@",error);
         }
     }];
-                              
-                              
+    
+    
     
 }
 

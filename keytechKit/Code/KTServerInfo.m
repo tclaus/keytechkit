@@ -55,7 +55,7 @@ static KTServerInfo *_sharedServerInfo;
                                                        @"Value":@"value"}];
        
          _mapping = [RKObjectMapping mappingForClass:[self class]];
-        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"ServerInfoResult" toKeyPath:@"KeyValueList" withMapping:kvMapping]];
+        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"ServerInfoResult" toKeyPath:@"_keyValueList" withMapping:kvMapping]];
         /*
         [RKRelationshipMapping relationshipMappingFromKeyPath:@"ServerInfoResult"
                                                     toKeyPath:@"keyValueList"
@@ -96,8 +96,9 @@ BOOL _isLoaded;
         
         [manager getObject:nil path:@"serverinfo" parameters:nil
                    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                       KTServerInfo *serverInfo = mappingResult.firstObject;
-                       _keyValueList = [serverInfo.keyValueList mutableCopy];
+
+                       // Key Value liste austauschen
+                    _keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
                        _isLoaded = YES;
                        _isloading = NO;
                    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -165,7 +166,7 @@ BOOL _isLoaded;
 }
 
 -(NSString *)APIKernelVersion{
-        [self waitUnitlLoad];
+    [self waitUnitlLoad];
     return [self valueForKey:@"keytech version"];
 }
 

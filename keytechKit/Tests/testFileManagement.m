@@ -12,6 +12,7 @@
 #import "testResponseLoader.h"
 #import "KTFileInfo.h"
 #import "KTElement.h"
+#import "testCase.h"
 
 /**
  Tests file related thinks
@@ -36,6 +37,7 @@ NSTimeInterval _timeOut = 12;
 - (void)setUp
 {
     [super setUp];
+    [testCase initialize];
     // Put setup code here; it will be run once, before the first test case.
     webservice = [KTManager sharedManager];
     elementKeyWithStructure= @"3DMISC_SLDASM:2220"; //* Element with structure on Test API
