@@ -235,15 +235,16 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Filelist Loaded"];
     
     [element loadFileListSuccess:^(NSArray *itemsList) {
-        
+        [documentOpenExpectation fulfill];
         XCTAssertNotNil(itemsList, @"Fiellist list should not be nil");
         XCTAssertTrue(itemsList.count>0, @"Filelist list should have some items");
         XCTAssertTrue(element.itemFilesList.count>0,@"Element property should not be empty");
-        [documentOpenExpectation fulfill];
+
         
     } failure:^(NSError *error) {
-        XCTFail(@"Failed loading filelist: %@",error);
         [documentOpenExpectation fulfill];
+        XCTFail(@"Failed loading filelist: %@",error);
+        
     }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
@@ -317,27 +318,27 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"BOM Loaded"];
     
-    [element loadStructureListPage:1
+    [element loadBomListPage:1
                           withSize:100
                            success:^(NSArray *itemsList) {
-                               
+                               [documentOpenExpectation fulfill];
                                XCTAssertNotNil(itemsList);
                                XCTAssertTrue(itemsList.count>0);
                                XCTAssertTrue(element.itemBomList.count>0,@"Element property should not be empty");
                                
-                               [documentOpenExpectation fulfill];
+                               
                                
                            } failure:^(NSError *error) {
-                               
-                               XCTAssert(NO);
                                [documentOpenExpectation fulfill];
+                               XCTAssert(NO);
+
                            }];
     
     
     // Expectation
     // The test will pause here, running the run loop, until the timeout is hit
     // or all expectations are fulfilled.
-    [self waitForExpectationsWithTimeout:8 handler:^(NSError *error) {
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
         // Clean up test
         if (error){
             NSLog(@"%@",error);

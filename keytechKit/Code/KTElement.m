@@ -13,6 +13,7 @@
 #import "KTElement.h"
 #import "KTClass.h"
 #import "KTSendNotifications.h"
+#import "KTBomItem.h"
 
 @interface KTElement()
 
@@ -211,6 +212,13 @@ int maxPagesize=500;
                                                     keyPath:@"ElementList"
                                                     statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
         
+        RKResponseDescriptor *responseDescriptorSearchEngine = [RKResponseDescriptor
+                                                    responseDescriptorWithMapping:_mapping
+                                                    method:RKRequestMethodGET
+                                                    pathPattern:nil
+                                                    keyPath:@"Element"
+                                                    statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+        
         
         // For POST and PUT only the keyValue List and key parameter is needed.
         RKObjectMapping *requestMapping = [RKObjectMapping requestMapping];
@@ -256,7 +264,7 @@ int maxPagesize=500;
                                            pathPattern:@"elements/:itemKey"
                                            method:RKRequestMethodDELETE]] ;
         
-        [manager addResponseDescriptorsFromArray:@[ responseDescriptor ]];
+        [manager addResponseDescriptorsFromArray:@[ responseDescriptor, responseDescriptorSearchEngine ]];
         [manager addRequestDescriptor:elementRequestDescriptor];
         
     }
@@ -474,9 +482,13 @@ NSMutableDictionary *_lastPages;
     }
     
     
+    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
+    rpcData[@"page"] = @((int)page);
+    rpcData[@"size"] = @((int)size);
+    
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    [manager getObjectsAtPath:resourcePath parameters:nil
+    [manager getObjectsAtPath:resourcePath parameters:rpcData
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                           
                           PageDefinition pageDefinition = [self pageDefinitionForResource:resourcePath];
@@ -590,6 +602,7 @@ NSMutableDictionary *_lastPages;
                failure:(void(^)(NSError *error))failure
 {
     
+    [KTBomItem mappingWithManager:[RKObjectManager sharedManager]];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/bom",self.itemKey];
     
     [self loadDataToArray:_itemBomList

@@ -133,6 +133,57 @@
     
 }
 
+/// Starts a Solr Vault query
+-(void)queryInVaultsByText:(NSString *)fileContentText
+                     paged:(KTPagedObject *)pagedObject
+                     block:(void (^)(NSArray *))block
+                   failure:(void (^)(NSError *))failure
+{
+    [self cancelSearches];
+    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    
+    [KTElement mappingWithManager:manager];
+    
+    NSString *resourcePath = @"Searchengine";
+    
+    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
+    
+    // If QueryText then ??? Exception ?
+    
+    if (fileContentText) { // server will search this text in more than one attribute at once. Look at the server configuration
+        rpcData[@"q"] = fileContentText;
+    }
+   
+    
+    if (pagedObject) {
+        rpcData[@"page"] = @((int)pagedObject.page);
+        rpcData[@"size"] = @((int)pagedObject.size);
+    }
+    
+    [manager getObject:nil path:resourcePath parameters:rpcData
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                   
+                   // Dont call Block and delegate
+                   if (block) {
+                       block(mappingResult.array);
+                   }
+                   
+               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                   
+                   if (failure) {
+                       failure(error);
+                   }
+                   
+               }];
+    
+    
+    
+}
+
+
+
 -(void)queryByStoredSearch:(NSInteger)storedQueryID paged:(KTPagedObject *)pagedObject
                      block:(void (^)(NSArray *))block
                    failure:(void(^)(NSError *error))failure{

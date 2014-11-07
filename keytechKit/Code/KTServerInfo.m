@@ -65,10 +65,10 @@ static KTServerInfo *_sharedServerInfo;
         
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
         RKResponseDescriptor *serverInfoDescriptor = [RKResponseDescriptor
-                                                      responseDescriptorWithMapping:_mapping
+                                                      responseDescriptorWithMapping:kvMapping
                                                       method:RKRequestMethodGET
-                                                      pathPattern:@"serverinfo"
-                                                      keyPath:nil
+                                                      pathPattern:nil
+                                                      keyPath:@"ServerInfoResult"
                                                       statusCodes:statusCodes];
         
         
@@ -144,11 +144,36 @@ BOOL _isLoaded;
 -(id)valueForKey:(NSString *)key{
     
     for (KTKeyValue *kv in self.keyValueList) {
-        if ([kv.key isEqualToString:key]) {
+        if ([kv.key compare:kv.key options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             return kv.value;
         }
     }
     return nil;
+}
+/// Returns a Boolean value
+-(BOOL)boolValueForKey:(NSString *)key{
+    
+    for (KTKeyValue *kv in self.keyValueList) {
+        if ([kv.key compare:key options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            
+            if ([kv.value compare:@"true" options:NSCaseInsensitiveSearch]==NSOrderedSame){
+                return YES;
+            };
+            
+            if ([kv.value compare:@"yes" options:NSCaseInsensitiveSearch]==NSOrderedSame){
+                return YES;
+            };
+            
+            if ([kv.value compare:@"1" options:NSCaseInsensitiveSearch]==NSOrderedSame){
+                return YES;
+            };
+            
+            return NO;
+            
+        }
+    }
+    
+    return NO;
 }
 
 +(instancetype)serverInfo{
@@ -165,9 +190,16 @@ BOOL _isLoaded;
     return [self valueForKey:@"ServerID"];
 }
 
--(NSString *)APIKernelVersion{
+-(BOOL)isIndexServerEnabled{
     [self waitUnitlLoad];
-    return [self valueForKey:@"keytech version"];
+    return [self boolValueForKey:@"Supports Index Server"];
+    
+}
+
+
+-(NSString *)databaseVersion{
+    [self waitUnitlLoad];
+    return [self valueForKey:@"keytech database version"];
 }
 
 -(NSString *)APIVersion{

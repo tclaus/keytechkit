@@ -90,7 +90,7 @@ NSTimeInterval _timeOut = 12;
     KTElement* item = [[KTElement alloc]init];
     item.itemKey = elementKeyWithStructure;
     
-    NSMutableArray* filesList =  item.itemFilesList;
+    NSArray* filesList =  item.itemFilesList;
     XCTAssertNotNil(filesList, @"FilesList should not be empty on first fetching"); // All layzy loaded arrays should point to a array structure.
 
     [item addObserver:self forKeyPath:@"itemFilesList" options:NSKeyValueObservingOptionNew context:nil];

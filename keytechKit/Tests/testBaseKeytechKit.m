@@ -87,7 +87,7 @@
     KTKeytech* keytech = [[KTKeytech alloc]init];
     testResponseLoader* responseLoader = [testResponseLoader responseLoader];
 
-    [keytech performSearch:@"dampf" loaderDelegate:responseLoader];
+    [keytech performSearch:@"keytech" loaderDelegate:responseLoader];
     
     [responseLoader waitForResponse];
     

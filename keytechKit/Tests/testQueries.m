@@ -12,6 +12,7 @@
 #import "KTManager.h"
 #import "KTQuery.h"
 #import "testCase.h"
+#import "KTSearchengineResult.h"
 
 @interface testQueries : XCTestCase
 
@@ -50,21 +51,23 @@
  */
 - (void)testQueryByText {
     
-    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
+    XCTestExpectation *queryExpectation = [self expectationWithDescription:@"Query returned with data"];
     
     KTQuery *query = [[KTQuery alloc]init];
     
     [query queryByText:@"keytech" paged:_pagedObject block:^(NSArray *results) {  // 'keytech' exist in most databases
         
         XCTAssertNotNil(results);
+        [queryExpectation fulfill];
         
         if (results.count>0) {
-            [documentOpenExpectation fulfill];
+            
         } else{
             XCTFail(@"Result query should have data");
         }
         
     } failure:^(NSError *error) {
+        [queryExpectation fulfill];
         XCTFail(@"Error while waiting for data: %@",error);
     }];
     
@@ -73,26 +76,28 @@
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
-        XCTAssert(YES, @"Pass");
+    XCTAssert(YES, @"Pass");
 }
 
 /// A search request is canceled immediately
 -(void)testStartAndCancelQuery{
-    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
+    XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
     KTQuery *query = [[KTQuery alloc]init];
     
     [query queryByText:@"keytech" paged:_pagedObject block:^(NSArray *results) {  // 'keytech' exist in most databases
+        [queryExpectation fulfill];
         XCTAssertNotNil(results);
+        
         if (results.count>0) {
-            [documentOpenExpectation fulfill];
+            
         } else{
             XCTFail(@"Result query should have data");
         }
         
     } failure:^(NSError *error) {
         // Cancel is tested - so a failure is correct
-            [documentOpenExpectation fulfill];
+        [queryExpectation fulfill];
     }];
     
     [query cancelSearches];
@@ -102,26 +107,28 @@
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
-        XCTAssert(YES, @"Pass");
+    XCTAssert(YES, @"Pass");
 }
 
 /// Test by given searchword and class restriction
 - (void)testQueryByTextWithClassRestriction {
     
-    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
+    XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
     KTQuery *query = [[KTQuery alloc]init];
     // Test by name
     [query queryByText:@"keytech"  inClasses:@[@"PROPOSAL_WF",@"AB_FILE",@""] paged:_pagedObject block:^(NSArray *results) {  // 'keytech' exist in most databases
+        [queryExpectation fulfill];
         XCTAssertNotNil(results);
         if (results.count>0) {
-            [documentOpenExpectation fulfill];
+            
         } else{
             XCTFail(@"Result query should have data");
         }
         
     } failure:^(NSError *error) {
-        if (!error) {
+        [queryExpectation fulfill];
+        if (error) {
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
@@ -131,31 +138,33 @@
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
-        XCTAssert(YES, @"Pass");
+    XCTAssert(YES, @"Pass");
 }
 
 
 
 - (void)testQueryByPredicateLesserThanDate{
     
-    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
+    XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
     KTQuery *query = [[KTQuery alloc]init];
     
     // Date field lesser than
-
+    
     NSPredicate *predicateDateLesserThan = [NSPredicate predicateWithFormat:@"created_at < %@",@"/Date(1411828338000)/"];
     
     [query queryByPredicate:predicateDateLesserThan inClasses:nil paged:_pagedObject block:^(NSArray *results) {  // 'keytech' exist in most databases
+        [queryExpectation fulfill];
         XCTAssertNotNil(results);
         if (results.count>0) {
-            [documentOpenExpectation fulfill];
+            
         } else{
             XCTFail(@"Result query should have data");
         }
         
     } failure:^(NSError *error) {
-        if (!error) {
+        [queryExpectation fulfill];
+        if (error) {
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
@@ -165,26 +174,28 @@
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
-
+    
 }
 
 - (void)testQueryByPredicateGreaterThanDate{
     // Date field greater than
     
     NSPredicate *predicateDateGreaterThan = [NSPredicate predicateWithFormat:@"created_at > %@",@"/Date(946995932000)/"];
-    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
+    XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
     KTQuery *query = [[KTQuery alloc]init];
     [query queryByPredicate:predicateDateGreaterThan inClasses:nil paged:_pagedObject block:^(NSArray *results) {  // 'keytech' exist in most databases
+        [queryExpectation fulfill];
         XCTAssertNotNil(results);
         if (results.count>0) {
-            [documentOpenExpectation fulfill];
+            
         } else{
             XCTFail(@"Result query should have data");
         }
         
     } failure:^(NSError *error) {
-        if (!error) {
+        [queryExpectation fulfill];
+        if (error) {
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
@@ -198,8 +209,8 @@
 
 
 - (void)testQueryByPredicateItemNameEquals{
-
-    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
+    
+    XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
     KTQuery *query = [[KTQuery alloc]init];
     
@@ -208,14 +219,14 @@
     
     [query queryByPredicate:predicateName inClasses:nil paged:_pagedObject block:^(NSArray *results) {  // 'keytech' exist in most databases
         XCTAssertNotNil(results);
-        [documentOpenExpectation fulfill];
+        [queryExpectation fulfill];
         if (results.count>0) {
         } else{
             XCTFail(@"Result query should have data");
         }
         
     } failure:^(NSError *error) {
-        [documentOpenExpectation fulfill];
+        [queryExpectation fulfill];
         if (error) {
             XCTFail(@"Error while fetching data: %@",error);
         }
@@ -227,11 +238,11 @@
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
-
+    
 }
 
 - (void)testQueryByPredicateBeginsWith{
-    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
+    XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
     KTQuery *query = [[KTQuery alloc]init];
     
@@ -239,14 +250,16 @@
     NSPredicate *predicateNameBeginsWith = [NSPredicate predicateWithFormat:@"created_by BEGINSWITH %@",@"jg"]; // jgrant..
     
     [query queryByPredicate:predicateNameBeginsWith inClasses:nil paged:_pagedObject block:^(NSArray *results){
+        [queryExpectation fulfill];
         XCTAssertNotNil(results);
         if (results.count>0) {
-            [documentOpenExpectation fulfill];
+            
         } else{
             XCTFail(@"Result query should have data");
         }
         
     } failure:^(NSError *error) {
+        [queryExpectation fulfill];
         if (error) {
             XCTFail(@"Error while fetching data: %@",error);
         }
@@ -257,12 +270,12 @@
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
-
+    
     
 }
 
 - (void)testQueryByPredicateEndsWith{
-    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
+    XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
     KTQuery *query = [[KTQuery alloc]init];
     
@@ -270,14 +283,16 @@
     NSPredicate *predicateNameBeginsWith = [NSPredicate predicateWithFormat:@"created_by ENDSWITH %@",@"grant"]; // jgrant..
     
     [query queryByPredicate:predicateNameBeginsWith inClasses:nil paged:_pagedObject block:^(NSArray *results){
+        [queryExpectation fulfill];
         XCTAssertNotNil(results);
         if (results.count>0) {
-            [documentOpenExpectation fulfill];
+            
         } else{
             XCTFail(@"Result query should have data");
         }
         
     } failure:^(NSError *error) {
+        [queryExpectation fulfill];
         if (error) {
             XCTFail(@"Error while fetching data: %@",error);
         }
@@ -293,7 +308,7 @@
 }
 
 - (void)testQueryByPredicateContains{
-    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
+    XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
     KTQuery *query = [[KTQuery alloc]init];
     
@@ -301,14 +316,16 @@
     NSPredicate *predicateNameBeginsWith = [NSPredicate predicateWithFormat:@"created_by CONTAINS %@",@"gran"]; // jgrant..
     
     [query queryByPredicate:predicateNameBeginsWith inClasses:nil paged:_pagedObject block:^(NSArray *results){
+        [queryExpectation fulfill];
         XCTAssertNotNil(results);
         if (results.count>0) {
-            [documentOpenExpectation fulfill];
+            
         } else{
             XCTFail(@"Result query should have data");
         }
         
     } failure:^(NSError *error) {
+        [queryExpectation fulfill];
         if (error) {
             XCTFail(@"Error while fetching data: %@",error);
         }
@@ -330,14 +347,16 @@
     KTQuery *query = [[KTQuery alloc]init];
     
     [query queryByText:@"keytech" paged:[KTPagedObject initWithPage:1 size:1] block:^(NSArray *results) {  // 'keytech' exist in most databases
+        [documentOpenExpectation fulfill];
         XCTAssertNotNil(results);
         if (results.count==1) {
-            [documentOpenExpectation fulfill];
+            
         } else{
             XCTFail(@"Result query should have data");
         }
         
     } failure:^(NSError *error) {
+        [documentOpenExpectation fulfill];
         if (!error) {
             XCTFail(@"Error while fetching data: %@",error);
         }
@@ -351,8 +370,78 @@
     XCTAssert(YES, @"Pass");
 }
 
+
+-(void)testQueryWithSolr{
+    
+    XCTestExpectation *solrsearchexpectation = [self expectationWithDescription:@"Solr search returned"];
+    
+    KTQuery *query = [[KTQuery alloc]init];
+    [KTElement mappingWithManager:[RKObjectManager sharedManager]];
+    [KTSearchengineResult mappingWithManager:[RKObjectManager sharedManager]];
+    
+    
+    [[RKObjectManager sharedManager] getObjectsAtPath:@"searchengine"
+                                           parameters:@{@"q": @"keytech"}
+                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                  [solrsearchexpectation fulfill];
+                                                  KTSearchengineResult *firstelement = [mappingResult firstObject];
+                                                  KTElement *element = firstelement.element;
+                                                  
+                                                  XCTAssertNotNil(element,@"Element was nil");
+                                                  
+                                                  NSLog(@"OK");
+                                              } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                  [solrsearchexpectation fulfill];
+                                                  NSLog(@"Failure");
+                                              }];
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Error while fetching data: %@",error);
+        }
+    }];
+    
+    
+}
+
 /**
-Starts a query that will return only 1 element by specifiying the pages and size attributes
+ Test a Solr search.
+ Gets any files from Solr Search engine with a given searchtext
+ */
+- (void)testQueryWithSolrVaults {
+    
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Solr search returned"];
+    
+    KTQuery *query = [[KTQuery alloc]init];
+    
+    
+    [query queryInVaultsByText:@"keytech" paged:[KTPagedObject initWithPage:1 size:1] block:^(NSArray *results) {  // 'keytech' exist in most databases
+        [documentOpenExpectation fulfill];
+        XCTAssertNotNil(results);
+        if (results.count==1) {
+            
+        } else{
+            XCTFail(@"Result query should have data");
+        }
+        
+    } failure:^(NSError *error) {
+        [documentOpenExpectation fulfill];
+        if (error) {
+            XCTFail(@"Error while fetching data: %@",error);
+        }
+    }];
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Error while fetching data: %@",error);
+        }
+    }];
+    XCTAssert(YES, @"Pass");
+}
+
+
+/**
+ Starts a query that will return only 1 element by specifiying the pages and size attributes
  */
 -(void)testStoredQuery{
     
@@ -361,16 +450,17 @@ Starts a query that will return only 1 element by specifiying the pages and size
     KTQuery *query = [[KTQuery alloc]init];
     
     [query queryByStoredSearch:[@380 integerValue] paged:_pagedObject block:^(NSArray *results) {  // a Query with the IS'42' must exist in database
-        
+        [documentOpenExpectation fulfill];
         XCTAssertNotNil(results);
         
         if (results.count>0) {
-            [documentOpenExpectation fulfill];
+            
         } else{
             XCTFail(@"Result query should have data");
         }
         
     } failure:^(NSError *error) {
+        [documentOpenExpectation fulfill];
         XCTFail(@"Error while waiting for data: %@",error);
     }];
     
@@ -382,7 +472,7 @@ Starts a query that will return only 1 element by specifiying the pages and size
     
     // Ist das assert hier korrekt?
     XCTAssert(YES, @"Pass");
-
+    
     
 }
 

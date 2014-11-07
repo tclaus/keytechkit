@@ -47,4 +47,12 @@
                      block:(void(^)(NSArray* results))block
                    failure:(void(^)(NSError *error))failure;
 
+/**
+ Starts a query in vaults (Solr search in Vaults)
+ @param fileContentText: A text fragment to be searched in files
+ */
+-(void)queryInVaultsByText:(NSString *)fileContentText paged:(KTPagedObject*)pagedObject
+                     block:(void(^)(NSArray* results))block
+                   failure:(void(^)(NSError *error))failure;
+
 @end
