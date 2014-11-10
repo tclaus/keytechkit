@@ -39,15 +39,6 @@
     KTSystemManagement* systemManagement = [[KTSystemManagement alloc]init];
     testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
-    [systemManagement performGetAttributeMappings:responseLoader ];
-    [responseLoader waitForResponse];
-    
-    
-    NSArray* results = [responseLoader objects];
-    
-    XCTAssert(results!=nil, @"Results should not be nil");
-    XCTAssert(results.count>0, @"AttributeMappings list should have some items");
-    
 }
 
 @end

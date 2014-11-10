@@ -29,7 +29,7 @@
 #import "KTManager.h"
 
 @implementation KTKeytech{
-
+    
 }
 
 
@@ -65,14 +65,14 @@ static int const kMaxDefaultPageSize = 500;
 
 /// Gets Permission for the given username.
 -(void)performGetPermissionsForUser:(NSString *)userName findPermissionName:(NSString*)permissionName findEffective:(BOOL)effective loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     [KTPermission mappingWithManager:manager];
     
     NSMutableDictionary *rpcData = [NSMutableDictionary dictionary];
     
-
+    
     if (permissionName) {
         rpcData[@"type"] = permissionName; // Only the type. Should be nil
     }
@@ -87,7 +87,7 @@ static int const kMaxDefaultPageSize = 500;
     
     
     [manager getObjectsAtPath:resourcePath parameters:rpcData
-    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
      {
          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
          
@@ -101,38 +101,38 @@ static int const kMaxDefaultPageSize = 500;
 
 //Gets the users Tasks.
 -(void)performGetTasksForUser:(NSString *)userName loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-
+    
     /*
-    
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    
-    
-    RKObjectMapping* itemMapping = [KTElement setMapping];
-    itemMapping.rootKeyPath = @"ElementList";
-    
-    NSString* resourcePath = [NSString stringWithFormat:@"user/%@/tasks",userName];
-    
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-    }];
-    */
+     
+     RKObjectManager *manager = [RKObjectManager sharedManager];
+     
+     
+     RKObjectMapping* itemMapping = [KTElement setMapping];
+     itemMapping.rootKeyPath = @"ElementList";
+     
+     NSString* resourcePath = [NSString stringWithFormat:@"user/%@/tasks",userName];
+     
+     [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
+     loader.method = RKRequestMethodGET;
+     loader.objectMapping = itemMapping;
+     loader.delegate = self;
+     loader.targetObject = nil;
+     }];
+     */
 }
 
 /*
  Ruft für den aktuellen Benutzer die gespeicherten Suchen (intelligente Listen) ab der Ebene ab
  */
 -(void)performGetUserQueries:(NSInteger)parentLevel loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-
+    
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTTargetLink mappingWithManager:manager];
     
     NSString* username = [KTManager sharedManager].username;
     
-
+    
     NSString* resourcePath;
     
     // Parentlevel wird nicht unterstützt!
@@ -146,12 +146,12 @@ static int const kMaxDefaultPageSize = 500;
     }
     
     
-[manager getObjectsAtPath:resourcePath parameters:nil
-                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                      [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
-                  } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                      [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
-                  }];
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
+                      }];
     
     
 }
@@ -161,7 +161,7 @@ static int const kMaxDefaultPageSize = 500;
  Getting a list of user favorites
  */
 -(void)performGetUserFavorites:(NSInteger)parentLevel loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-
+    
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
@@ -169,11 +169,11 @@ static int const kMaxDefaultPageSize = 500;
     
     [KTTargetLink mappingWithManager:manager];
     NSString* resourcePath;
-
+    
     if (parentLevel!= 0){
-     resourcePath= [NSString stringWithFormat:@"user/%@/favorites/%ld", username,(long)parentLevel ];
+        resourcePath= [NSString stringWithFormat:@"user/%@/favorites/%ld", username,(long)parentLevel ];
     }else {
-     resourcePath= [NSString stringWithFormat:@"user/%@/favorites", username ];
+        resourcePath= [NSString stringWithFormat:@"user/%@/favorites", username ];
     }
     
     
@@ -183,16 +183,16 @@ static int const kMaxDefaultPageSize = 500;
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                           [loaderDelegate requestProceedWithError:[KTLoaderInfo ktLoaderInfo] error:error];
                       }];
-
+    
     
 }
 
 /// Returns a single user identified by shortname
 -(void)performGetUser:(NSString*)userName loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;{
-
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTUser mappingWithManager:manager];
-
+    
     //
     NSString* resourcePath = [NSString stringWithFormat:@"user/%@", userName];;
     
@@ -205,13 +205,13 @@ static int const kMaxDefaultPageSize = 500;
                    
                    [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
                }];
-     
-
+    
+    
 }
 
 /// Returns a full userlist
 -(void)performGetUserList:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-
+    
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
@@ -226,37 +226,37 @@ static int const kMaxDefaultPageSize = 500;
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                           [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
                       }];
-
- }
+    
+}
 
 /// Returns the userlist which are member of the given group
 -(void)performGetUsersInGroup:(NSString*)groupname loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-/*
-    
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    
-    
-    RKObjectMapping* itemMapping = [KTUser setMapping];
-    itemMapping.rootKeyPath = @"MembersList";
-    
-
-    NSString* resourcePath = [NSString stringWithFormat:@"/groups/%@/users",groupname];
-    
-    
-    [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
-        loader.method = RKRequestMethodGET;
-        loader.objectMapping = itemMapping;
-        loader.delegate = self;
-        loader.targetObject = nil;
-        loader.serializationMIMEType = RKMIMETypeJSON;
-    }];
-    */
+    /*
+     
+     RKObjectManager *manager = [RKObjectManager sharedManager];
+     
+     
+     RKObjectMapping* itemMapping = [KTUser setMapping];
+     itemMapping.rootKeyPath = @"MembersList";
+     
+     
+     NSString* resourcePath = [NSString stringWithFormat:@"/groups/%@/users",groupname];
+     
+     
+     [manager loadObjectsAtResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
+     loader.method = RKRequestMethodGET;
+     loader.objectMapping = itemMapping;
+     loader.delegate = self;
+     loader.targetObject = nil;
+     loader.serializationMIMEType = RKMIMETypeJSON;
+     }];
+     */
     
 }
 
 /// Returns the full group list
 -(void)performGetGroupList:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTGroup mappingWithManager:manager];
     
@@ -273,12 +273,12 @@ static int const kMaxDefaultPageSize = 500;
 
 /// Returns all groups with the given username in it.
 -(void)performGetGroupsWithUser:(NSString *)username loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-
+    
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     [KTGroup mappingWithManager:manager];
-
+    
     NSString* resourcePath = [NSString stringWithFormat:@"user/%@/groups",username];
     
     
@@ -291,33 +291,12 @@ static int const kMaxDefaultPageSize = 500;
                       }];
 }
 
-// Getting notes
--(void)performGetElementNotes:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTNoteItem mappingWithManager:manager];
-    
-    elementKey = [KTBaseObject normalizeElementKey:elementKey];
-    
-    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/notes", elementKey];
-    
-    
-    [manager getObjectsAtPath:resourcePath
-                   parameters:nil
-                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
-                          
-                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                        [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResourceString:resourcePath] error:error];
-                      }];
-
-}
 
 /**
  Getting the default BOM lister layout
  */
 -(void)performGetClassBOMListerLayout:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTSimpleControl mappingWithManager:manager];
     
@@ -336,7 +315,7 @@ static int const kMaxDefaultPageSize = 500;
 
 
 /**
-Getting lister layout data for the given classkey and the current logged in user.
+ Getting lister layout data for the given classkey and the current logged in user.
  */
 -(void)performGetClassListerLayout:(NSString *)classKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
     
@@ -362,7 +341,7 @@ Getting lister layout data for the given classkey and the current logged in user
  Ruft das Editor-Layout der angegebenen Klasse ab
  */
 -(void)performGetClassEditorLayoutForClassKey:(NSString *)classKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
- 
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTSimpleControl mappingWithManager:manager];
     
@@ -386,7 +365,7 @@ Getting lister layout data for the given classkey and the current logged in user
 
 // gets a Element
 -(void)performGetElement:(NSString*)elementKey withMetaData:(KTResponseAttributes)metadata loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate{
-
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     // ResourcePath zusammenbauen
@@ -405,7 +384,7 @@ Getting lister layout data for the given classkey and the current logged in user
         case KTResponseFullAttributes:
             rpcData[@"attributes"] = @"ALL";
             break;
-        case KTRespnseEditorAttributes:
+        case KTResponseEditorAttributes:
             rpcData[@"attributes"] = @"Editor";
             break;
         case KTResponseListerAttributes:
@@ -415,27 +394,27 @@ Getting lister layout data for the given classkey and the current logged in user
             break;
     }
     
-
     
-
+    
+    
     [manager getObject:nil path:resourcePath parameters:rpcData
-    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                   [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                   
+               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                   [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
+               }];
     
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-        [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
-    }];
     
-
-
+    
 }
 
 
 
 
 /**
-Gets the filelist of given elementKey
+ Gets the filelist of given elementKey
  */
 -(void)performGetFileList:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
     
@@ -447,40 +426,20 @@ Gets the filelist of given elementKey
     
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/files", elementKey];
     
-   [manager getObjectsAtPath:resourcePath
-                  parameters:nil
-                     success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                         [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
-                         
-                     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                         
-                         NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                         [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
-                     }];
-
-}
-
-
-/// Ruft von einem gegebenen Elementschlüssel die zugehörige Statushistorie ab
--(void)performGetElementStatusHistory:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-    
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    
-    [KTStatusHistoryItem mappingWithManager:manager];
-    elementKey = [KTBaseObject normalizeElementKey:elementKey];
-    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/statushistory",elementKey];
-    
-    [manager getObjectsAtPath:resourcePath parameters:nil
+    [manager getObjectsAtPath:resourcePath
+                   parameters:nil
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
+                          
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          
                           NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
                           [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
-                          
-                          
                       }];
     
 }
+
+
 
 // Gets the List of parent elements which links to the given element
 -(void)performGetElementWhereUsed:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
@@ -505,8 +464,8 @@ Gets the filelist of given elementKey
 
 //Gets a list of available target status. Starting from current element with its given state.
 -(void)performGetElementNextAvailableStatus:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-
-     RKObjectManager *manager = [RKObjectManager sharedManager];
+    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTStatusItem mappingWithManager:manager];
     
     elementKey = [KTBaseObject normalizeElementKey:elementKey];
@@ -520,28 +479,9 @@ Gets the filelist of given elementKey
                           NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
                           [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
                       }];
-
-}
-
-/// Gets a list of the given Elemets versions
--(void)performGetElementVersions:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-    
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTElement mappingWithManager:[RKObjectManager sharedManager]];
-     
-    elementKey = [KTBaseObject normalizeElementKey:elementKey];
-    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/versions",elementKey];
-    
-    [manager getObjectsAtPath:resourcePath parameters:nil
-                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
-                          
-                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
-                      }];
     
 }
+
 
 // Queries a full list of root folder without any parents. Uses maximal pagesize
 -(void)performGetRootFolder:(NSObject<KTLoaderDelegate> *)loaderDelegate{
@@ -550,36 +490,13 @@ Gets the filelist of given elementKey
 
 // Queries a full list of root folder without any parents.]
 -(void)performGetRootFolderWithPage:(NSInteger)page withSize:(NSInteger)pageSize loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-
+    
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     [KTElement mappingWithManager:[RKObjectManager sharedManager]];
     
     NSString* resourcePath = @"folder/rootfolder";
-    
-    [manager getObjectsAtPath:resourcePath
-               parameters:nil
-                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                      [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
-                      
-                  } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                      NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                      [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
-                      
-                  }];
-    
-
-}
-
-// Gets the Bom of provided element
--(void)performGetElementBom:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-    
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTBomItem mappingWithManager:manager];
-    
-    elementKey = [KTBaseObject normalizeElementKey:elementKey];
-    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/bom",elementKey];
     
     [manager getObjectsAtPath:resourcePath
                    parameters:nil
@@ -589,40 +506,19 @@ Gets the filelist of given elementKey
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                           NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
                           [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
-                      }];
- 
-}
-
-
-
-/// Queries the underlying element structure.
--(void)performGetElementStructure:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-    
-    
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    
-    [KTElement mappingWithManager:manager];
-    
-    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/structure",elementKey];
-    
-    [manager getObjectsAtPath:resourcePath parameters:nil
-                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                           
-                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          
-                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
                       }];
     
+    
 }
+
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 
 -(void)cancelSearches{
     [[RKObjectManager sharedManager] cancelAllObjectRequestOperationsWithMethod:RKRequestMethodGET
                                                             matchingPathPattern:@"Search"];
-
+    
 }
 
 -(void)performSearchByPredicate:(NSPredicate*)predicate page:(NSInteger)page withSize:(NSInteger)size loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate{
@@ -631,15 +527,15 @@ Gets the filelist of given elementKey
                           withSize:size
                     loaderDelegate:loaderDelegate
                            success:nil];
-     
+    
 }
 
 -(void)performSearchByPredicate:(NSPredicate*)predicate
-     page:(NSInteger)page
-     withSize:(NSInteger)size
-     loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate
-     success:(void(^)(NSArray *result))success {
-  
+                           page:(NSInteger)page
+                       withSize:(NSInteger)size
+                 loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate
+                        success:(void(^)(NSArray *result))success {
+    
     [self cancelSearches];
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
@@ -664,13 +560,13 @@ Gets the filelist of given elementKey
     if (fieldList) {
         rpcData[@"fields"] = fieldList;
     }
-
+    
     rpcData[@"page"] = @((int)page);
     rpcData[@"size"] = @((int)size);
     
     [manager getObject:nil path:resourcePath parameters:rpcData
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-
+                   
                    // Dont call Block and delegate
                    if (success) {
                        success(mappingResult.array);
@@ -690,8 +586,8 @@ Gets the filelist of given elementKey
 
 /// Stats a Search by its queryID
 -(void)performSearchByQueryID:(NSInteger)queryID page:(NSInteger)page withSize:(NSInteger)size loaderDelegate:(NSObject<KTLoaderDelegate>*)loaderDelegate{
-
-
+    
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTElement mappingWithManager:[RKObjectManager sharedManager]];
     
@@ -715,7 +611,7 @@ Gets the filelist of given elementKey
                    [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
                }];
     
-
+    
 }
 
 
@@ -734,16 +630,16 @@ Gets the filelist of given elementKey
 
 /// The search
 -(void)performSearch:(NSString *)searchToken
-        fields:(NSArray*)searchFields
-        inClass:(NSString*)inClass
-        page:(NSInteger)page
-        pageSize:(NSInteger)size
-        loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
-
-        
+              fields:(NSArray*)searchFields
+             inClass:(NSString*)inClass
+                page:(NSInteger)page
+            pageSize:(NSInteger)size
+      loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate{
+    
+    
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
-   
+    
     // Initialize the mapping if not already done
     [KTElement mappingWithManager:[RKObjectManager sharedManager]];
     
@@ -764,18 +660,18 @@ Gets the filelist of given elementKey
         for (NSString* item in searchFields) {
             if ([fields length]>0){
                 
-            [fields appendString:@":"]; // add a new string
+                [fields appendString:@":"]; // add a new string
             }
             [fields appendString:item];
         }
         
         rpcData[@"fields"] = fields;
     }
-
+    
     
     rpcData[@"page"] = @((int)page);
     rpcData[@"size"] = @((int)size);
-
+    
     
     
     [manager getObject:nil path:resourcePath parameters:rpcData
@@ -783,11 +679,11 @@ Gets the filelist of given elementKey
                    [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-
+                   
                    NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
                    [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
                }];
-
+    
 }
 
 

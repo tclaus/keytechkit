@@ -14,7 +14,7 @@
 #import "KTServerInfo.h"
 
 
-#define keytechDefaultServerURL @"https://api.vm-kt-explorer.keytech.de/keytech"  // internal default URL )(for testing)
+#define keytechDefaultServerURL @"https://demo.keytech.de"  // internal default URL )(for testing)
 #define keytechDefaultServerUser @"jgrant"
 #define keytechDefaultServerPassword @""
 
@@ -65,8 +65,10 @@
     [manager getObject:nil path:@"serverinfo" parameters:nil
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    if (resultBlock) {
-                       _sharedServerInfo = mappingResult.firstObject;
-
+                       
+                       _sharedServerInfo = [[KTServerInfo alloc]init];
+                       [_sharedServerInfo setValue:[mappingResult array] forKey:@"keyValueList"];
+                       
                        resultBlock(_sharedServerInfo);
                    }
                    

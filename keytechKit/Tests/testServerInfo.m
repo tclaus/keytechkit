@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "KTManager.h"
 #import "KTServerInfo.h"
+#import "testCase.h"
 
 @interface testServerInfo : XCTestCase {
     KTManager *_webService;
@@ -21,6 +22,7 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    [testCase initialize];
     
     
     _webService = [KTManager sharedManager];
@@ -40,10 +42,13 @@
     
     [serverInfo reload];
     
-    XCTAssertNotNil(serverInfo.serverID,@"ServeID should not be nil");
-    XCTAssertNotNil(serverInfo.APIKernelVersion,@"KerbnelVersion should not be nil");
-    XCTAssertNotNil(serverInfo.APIVersion,@"API Version should not be nil");
+    XCTAssertNotNil(serverInfo.serverID,@"ServerID should not be nil");
+    XCTAssertNotNil(serverInfo.databaseVersion,@"Databaseversion should not be nil");
+    XCTAssertNotNil(serverInfo.APIVersion,@"Version should not be nil");
     XCTAssertNotNil(serverInfo.licencedCompany,@"licencedCompany should not be nil");
+
+    // Boolean value
+    XCTAssertTrue(serverInfo.isIndexServerEnabled == YES,@"Index Server should be true");
     
 }
 
