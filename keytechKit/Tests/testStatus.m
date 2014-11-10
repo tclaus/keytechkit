@@ -13,6 +13,8 @@
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 #import "KTStatusItem.h"
+#import "testCase.h"
+
 
 @interface testStatus : XCTestCase
 
@@ -25,7 +27,8 @@
 - (void)setUp
 {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    [testCase initialize];
+    
     webservice  = [KTManager sharedManager];
     
 }
@@ -69,23 +72,6 @@
     XCTAssert(results.count>0, @"StatusChangeAction list should have some items");
     
 }
-// Test Status actions
 
-
--(void)testGetElementStatusHistory{
-
-    KTKeytech *keytech = [[KTKeytech alloc]init];
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-    
-    [keytech performGetElementStatusHistory:@"3dmisc_sldprt:2156" loaderDelegate:responseLoader];
-    [responseLoader waitForResponse];
-    
-    
-    NSArray* results = [responseLoader objects];
-    
-    XCTAssert(results!=nil, @"Results should not be nil");
-    XCTAssert(results.count>0, @"Status History list should have some items");
-    
-}
 
 @end

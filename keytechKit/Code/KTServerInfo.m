@@ -55,7 +55,7 @@ static KTServerInfo *_sharedServerInfo;
                                                        @"Value":@"value"}];
        
          _mapping = [RKObjectMapping mappingForClass:[self class]];
-        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"ServerInfoResult" toKeyPath:@"keyValueList" withMapping:kvMapping]];
+        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"ServerInfoResult" toKeyPath:@"_keyValueList" withMapping:kvMapping]];
         /*
         [RKRelationshipMapping relationshipMappingFromKeyPath:@"ServerInfoResult"
                                                     toKeyPath:@"keyValueList"
@@ -65,10 +65,10 @@ static KTServerInfo *_sharedServerInfo;
         
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
         RKResponseDescriptor *serverInfoDescriptor = [RKResponseDescriptor
-                                                      responseDescriptorWithMapping:_mapping
-                                                      method:RKRequestMethodAny
-                                                      pathPattern:@"serverinfo"
-                                                      keyPath:nil
+                                                      responseDescriptorWithMapping:kvMapping
+                                                      method:RKRequestMethodGET
+                                                      pathPattern:nil
+                                                      keyPath:@"ServerInfoResult"
                                                       statusCodes:statusCodes];
         
         
@@ -96,8 +96,9 @@ BOOL _isLoaded;
         
         [manager getObject:nil path:@"serverinfo" parameters:nil
                    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                       KTServerInfo *serverInfo = mappingResult.firstObject;
-                       _keyValueList = [serverInfo.keyValueList mutableCopy];
+
+                       // Key Value liste austauschen
+                    _keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
                        _isLoaded = YES;
                        _isloading = NO;
                    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -143,11 +144,36 @@ BOOL _isLoaded;
 -(id)valueForKey:(NSString *)key{
     
     for (KTKeyValue *kv in self.keyValueList) {
-        if ([kv.key isEqualToString:key]) {
+        if ([kv.key compare:kv.key options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             return kv.value;
         }
     }
     return nil;
+}
+/// Returns a Boolean value
+-(BOOL)boolValueForKey:(NSString *)key{
+    
+    for (KTKeyValue *kv in self.keyValueList) {
+        if ([kv.key compare:key options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            
+            if ([kv.value compare:@"true" options:NSCaseInsensitiveSearch]==NSOrderedSame){
+                return YES;
+            };
+            
+            if ([kv.value compare:@"yes" options:NSCaseInsensitiveSearch]==NSOrderedSame){
+                return YES;
+            };
+            
+            if ([kv.value compare:@"1" options:NSCaseInsensitiveSearch]==NSOrderedSame){
+                return YES;
+            };
+            
+            return NO;
+            
+        }
+    }
+    
+    return NO;
 }
 
 +(instancetype)serverInfo{
@@ -164,9 +190,16 @@ BOOL _isLoaded;
     return [self valueForKey:@"ServerID"];
 }
 
--(NSString *)APIKernelVersion{
-        [self waitUnitlLoad];
-    return [self valueForKey:@"keytech version"];
+-(BOOL)isIndexServerEnabled{
+    [self waitUnitlLoad];
+    return [self boolValueForKey:@"Supports Index Server"];
+    
+}
+
+
+-(NSString *)databaseVersion{
+    [self waitUnitlLoad];
+    return [self valueForKey:@"keytech database version"];
 }
 
 -(NSString *)APIVersion{

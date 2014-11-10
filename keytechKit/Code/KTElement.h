@@ -20,15 +20,32 @@
  */
 @interface KTElement :  NSObject <KTLoaderDelegate>
 
+typedef enum {
+    /// Returns the reduced list of Attributes (default)
+    KTResponseNoneAttributes            = 0,
+    /// Return all available attributes for this element
+    KTResponseFullAttributes            = 1,
+    /// Return attribuites only needed for a editor layout
+    KTResponseEditorAttributes          = 2,
+    KTResponseListerAttributes          = 3
+} KTResponseAttributes;
+
 /**
  Provides the object Mapping for this class and given objectManager
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
- Initializes a new element with the type of classKey
+ Instantiates a new element with the given ElementKey. To receive Element Data run theh refresh selector
  */
--(instancetype)initWithClassKey:(NSString*)classKey;
++(instancetype)elementWithElementKey:(NSString*)elementKey;
+
+/**
+ Initializes a new element with the type of elementKey.
+ You can also set a classkey as parameter.
+ @param elementkey A element or classkey. If a classKey was submitted the element can be stored as a new element to the keytech API.
+ */
+-(instancetype)initWithElementKey:(NSString*)elementKey;
 
 
 /**
@@ -83,7 +100,7 @@
  */
 @property (readonly) BOOL hasVersions;
 
-@property (readonly,strong) NSMutableArray *itemVersionsList;
+@property (readonly,strong) NSArray *itemVersionsList;
 @property (readonly) BOOL isVersionListLoaded;
 
 /**
@@ -108,8 +125,46 @@
  Returns the next level of linked elements. If not currentlty loaded a request starts.
  Array contains full elements
  */
-@property (readonly,strong  ) NSMutableArray* itemStructureList;
-@property (readonly) BOOL isStructureListLoaded;
+@property (readonly,strong) NSArray* itemStructureList;
+@property (readonly) BOOL isItemStructureListLoaded;
+
+/**
+ Starts loading the list of child elements
+ @param page The page with a given size. 
+ @param size The count of elements wothin a page
+ */
+-(void)loadStructureListPage:(int)page withSize:(int)size
+                 success:(void(^)(NSArray* itemsList))success
+                 failure:(void(^)(NSError *error))failure;
+
+-(void)loadBomListPage:(int)page withSize:(int)size
+                 success:(void(^)(NSArray* itemsList))success
+                 failure:(void(^)(NSError *error))failure;
+
+-(void)loadWhereUsedListPage:(int)page withSize:(int)size
+                 success:(void(^)(NSArray* itemsList))success
+                 failure:(void(^)(NSError *error))failure;
+/**
+ Starts loading the status history.
+ */
+-(void)loadStatusHistoryListSuccess:(void(^)(NSArray* itemsList))success
+                            failure:(void(^)(NSError *error))failure;
+/**
+ Starts loading the notes list
+ */
+-(void)loadNotesListSuccess:(void(^)(NSArray* itemsList))success
+                    failure:(void(^)(NSError *error))failure;
+/**
+ Starts loading the filelist
+ */
+-(void)loadFileListSuccess:(void(^)(NSArray* itemsList))success
+                   failure:(void(^)(NSError *error))failure;
+
+/**
+ Starts loading the list of recent versions
+ */
+-(void)loadVersionListSuccess:(void(^)(NSArray* itemsList))success
+                   failure:(void(^)(NSError *error))failure;
 
 -(void)addLinkTo:(NSString*)linkToElementKey success:(void(^)(KTElement *elementLink))success failure:(void(^)(NSError* error))failure;
 
@@ -122,9 +177,9 @@
 /**
  Returns the bill of material if this element is of type 'masteritem'. Returns an empty list if not loaded.
  */
-@property (readonly,strong) NSMutableArray* itemBomList; // Only Items can have a bomlist
+@property (readonly,strong) NSArray* itemBomList; // Only Items can have a bomlist
 /**
- Retun true if Bom LIst ist loaded
+ Retun true if Bom List ist loaded
  */
 @property (readonly) BOOL isBomListLoaded;
 
@@ -135,13 +190,13 @@
 /**
  Returny the attached filelist. If not currentlty loaded a request starts.
  */
-@property (readonly,strong) NSMutableArray* itemFilesList; // Nur bei Dokumente!
+@property (readonly,strong) NSArray* itemFilesList; // Nur bei Dokumente!
 @property (readonly) BOOL isFilesListLoaded;
 
 /**
  Loads the list of parent elements in which this Element is used.
  */
-@property (readonly,strong) NSMutableArray* itemWhereUsedList;
+@property (readonly,strong) NSArray* itemWhereUsedList;
 @property (readonly) BOOL isWhereUsedListLoaded;
 
 /**
@@ -153,7 +208,7 @@
 /**
  Loads notes assigned notes to this element. If not currentlty loaded a request starts.
  */
-@property (nonatomic,readonly) NSMutableArray* itemNotesList;
+@property (nonatomic,readonly) NSArray* itemNotesList;
 @property (readonly) BOOL isNotesListLoaded;
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
@@ -170,7 +225,7 @@
  */
 -(NSString*)fileURLOfFileID:(int)fileID;
 
-@property (nonatomic,readonly) NSMutableArray* itemStatusHistory;
+@property (nonatomic,readonly) NSArray* itemStatusHistory;
 @property (readonly) BOOL isStatusHistoryLoaded;
 
 
@@ -198,9 +253,21 @@
 
 /**
  Loads the element with the given Key from the API
+ @param success Is excecuted after a element is fetched
+ @param failure Is excecuded in any case of an error
  */
-+(void)loadElementWithKey:(NSString*)elementKey success:(void(^)(KTElement *element))success;
++(void)loadElementWithKey:(NSString *)elementKey success:(void (^)(KTElement *theElement))success failure:(void(^)(NSError *error))failure;
 
+/**
+ Loads the element with the key and metadata
+ @param withMetaData: Can be one of ALL, Editor,Lister or None. In addition to the default attributes more attributes can be loaded. If 'ALL' is set, every attribute is loaded with the element. The attribute count can be high. Consider only fetching Editor attributes. Defaults to none.
+ @param success Is excecuted after a element is fetched
+ @param failure Is excecuded in any case of an error
+ */
++(void)loadElementWithKey:(NSString *)elementKey withMetaData:(KTResponseAttributes)metadata
+                  success:(void (^)(KTElement *theElement))success
+                  failure:(void(^)(NSError *error))failure;
+                                                                                                                                                       
 /**
  Deletes this element from keytech API
  */
@@ -217,8 +284,15 @@
 /**
  Refreshes this instance immediatley by loading from API
  @param success will be performed when completed.
+ @param failure In case of any error the failure block is called
  */
--(void)refresh:(void(^)(KTElement *element))success;
+-(void)reload:(void(^)(KTElement *element))success failure:(void(^)(NSError *error))failure;
+
+/**
+ Refreshes this instance immediatley by loading from API
+ @param success will be performed when completed.
+ */
+-(void)reload:(KTResponseAttributes)metadata success:(void(^)(KTElement *element))success failure:(void (^)(NSError *))failure;
 @end
 
 

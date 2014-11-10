@@ -14,17 +14,21 @@
 
 @interface KTSendNotifications ()
 
-/// Returns the long username of current usercontext
-@property  (nonatomic,copy,readonly)  NSString* longUserName;
+@property (readonly,copy) NSString *shortUserName;
+@property (readonly,copy) NSString *longUserName;
 
 @end
 
 @implementation KTSendNotifications{
     NSString *_hardwareID;
-    NSString *_localLanguage;
-    KTUser *_currentUser;
-
+    NSString *_localDeviceLanguage;
+    
+    NSString *_shortUserName;
+    NSString *_longUserName;
+    
 }
+@synthesize shortUserName = _shortUserName;
+@synthesize longUserName = _longUserName;
 
 
 static KTSendNotifications *_sharedSendNotification;
@@ -48,11 +52,13 @@ static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8s
     if (self = [super init])
     {
 
+        _shortUserName = [KTUser currentUser].userKey;
+        _longUserName = [KTUser currentUser].userLongName;
         
         self.serverID = [KTManager sharedManager].serverInfo.serverID;
         
         
-        _localLanguage = [NSLocale preferredLanguages][0]; // Set, until its overwritten by register Device
+        _localDeviceLanguage = [NSLocale preferredLanguages][0]; // Set, until its overwritten by register Device
         
         self.connectionSucceeded = NO;
         self.connectionFinished = NO;
@@ -69,27 +75,9 @@ static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8s
 }
 
 
-/// Returns the short username which is used for communicating with keytech (keytech username).
--(NSString*)shortUserName{
-    
-    if (!_currentUser) {
-        _currentUser= [KTUser currentUser];
-    }
-    
-    return [_currentUser.userKey lowercaseString];
-}
-
-/// Returns the current long username
--(NSString*)longUserName{
-    if (!_currentUser) {
-        _currentUser= [KTUser currentUser];
-    }
-    return _currentUser.userLongName;
-}
-
 /// Registers the device ID to the service with the default language
 -(void)registerDevice:(NSData*)deviceToken uniqueID:(NSString*)uniqueID {
-    [self registerDevice:deviceToken uniqueID:uniqueID languageID:_localLanguage];
+    [self registerDevice:deviceToken uniqueID:uniqueID languageID:_localDeviceLanguage];
 }
 
 /// Registers the device ID to the service with the given langugae
@@ -189,6 +177,34 @@ static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8s
 
 }
 
+/*
+ Notifies about an opend push
+ */
+-(void)sendPushOpend:(NSString*)pushHashValue{
+//    {
+//        "request":{
+//            "application": "DEAD0-BEEF0",
+//            "hwid": "HWID",
+//            "hash": "hash"         // received in the push notification in the "p" parameter
+//        }
+//    }
+
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:APNURL,@"pushStat"]];
+    
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:URL];
+    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    [urlRequest setHTTPMethod:@"POST"];
+
+    NSDictionary *payload = @{@"request":@{
+                                      @"application":APNApplictionID,
+                                      @"hwid":_hardwareID,
+                                      @"hash":pushHashValue
+                                      }};
+
+    [self sendDataToService:urlRequest jsonPayload:payload];
+
+}
 
 
 /// Sends the keytech ServerID and current username to APN Service as a filter Tag
@@ -330,19 +346,19 @@ static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8s
     // Do some polling to wait for the connections to complete
     // In Release dont wait - send in background!
     
-  /*  #ifdef DEBUG
+   #ifdef DEBUG
 #define POLL_INTERVAL 0.2 // 200ms
 #define N_SEC_TO_POLL 3.0 // poll for 3s
 #define MAX_POLL_COUNT N_SEC_TO_POLL / POLL_INTERVAL
     
     NSUInteger pollCount = 0;
-    while (!connectionDelegate.connectionFinished && (pollCount < MAX_POLL_COUNT)) {
+    while (!self.connectionFinished && (pollCount < MAX_POLL_COUNT)) {
         NSDate* untilDate = [NSDate dateWithTimeIntervalSinceNow:POLL_INTERVAL];
         [[NSRunLoop currentRunLoop] runUntilDate:untilDate];
         pollCount++;
     }
 #endif
-    */
+    
     
 }
 
@@ -395,8 +411,9 @@ static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8s
 #pragma mark Send Notifications
 
 -(void)sendElementHasBeenChanged:(KTElement *)element{
+
     
-    [self sendNotification:[self localizedTextElementChanged:element.itemName userName:[self longUserName]]
+    [self sendNotification:[self localizedTextElementChanged:element.itemName userName:_longUserName]
                 elementKey:element.itemKey
         elementCreatedBy:element.itemCreatedBy];
     
@@ -406,7 +423,7 @@ static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8s
 
 -(void)sendElementHasBeenDeleted:(KTElement *)element{
     
-    [self sendNotification:[self localizedTextElementDeleted:element.itemName userName:[self longUserName]]
+    [self sendNotification:[self localizedTextElementDeleted:element.itemName userName:_longUserName]
                 elementKey:element.itemKey
         elementCreatedBy:element.itemCreatedBy];
     
@@ -423,20 +440,22 @@ static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8s
                     elementKey:elementKey
               elementCreatedBy:element.itemCreatedBy];
 
-    }];
-    
+    }
+     failure:nil];
     
     return;
     
     
 
 }
+
 -(void)sendElementFileUploaded:(NSString *)elementKey{
     [KTElement loadElementWithKey:elementKey success:^(KTElement *element) {
         [self sendNotification:[self localizedTextElementFileAdded:element.itemName]
                     elementKey:elementKey
               elementCreatedBy:element.itemCreatedBy];
-    }];
+    }
+                          failure:nil];
     
     return;
     
@@ -448,7 +467,8 @@ static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8s
          [self localizedTextElementAddedToLink:element.itemName userName:self.longUserName folderName:folderName]
                     elementKey:elementKey
               elementCreatedBy:element.itemCreatedBy];
-    }];
+    }
+     failure:nil];
     
     
 }
@@ -461,7 +481,8 @@ static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8s
          [self localizedTextElementRemovedFromLink:element.itemName userName:self.longUserName folderName:folderName]
                     elementKey:elementKey
               elementCreatedBy:element.itemCreatedBy];
-    }];
+    }
+     failure:nil];
     
     
 }
