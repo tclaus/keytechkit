@@ -7,6 +7,7 @@
 //
 
 #import "KTQuery.h"
+#import "KTSearchengineResult.h"
 
 @implementation KTQuery
 
@@ -144,7 +145,8 @@
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     [KTElement mappingWithManager:manager];
-    
+    [KTSearchengineResult mappingWithManager:[RKObjectManager sharedManager]];
+
     NSString *resourcePath = @"Searchengine";
     
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];

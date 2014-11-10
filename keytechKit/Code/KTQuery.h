@@ -34,7 +34,9 @@
              block:(void(^)(NSArray* results))block
            failure:(void(^)(NSError *error))failure;
 
-/// Most powerful search
+/**
+ Starts a powerful search by using composed search predicates
+*/
 -(void)queryByPredicate:(NSPredicate*)predicate inClasses:(NSArray*)inClasses paged:(KTPagedObject*)pagedObject
                   block:(void(^)(NSArray* results))block
                 failure:(void(^)(NSError *error))failure;

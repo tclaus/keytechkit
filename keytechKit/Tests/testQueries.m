@@ -370,12 +370,12 @@
     XCTAssert(YES, @"Pass");
 }
 
-
+/// Test direct Solr vault fetch
 -(void)testQueryWithSolr{
     
     XCTestExpectation *solrsearchexpectation = [self expectationWithDescription:@"Solr search returned"];
     
-    KTQuery *query = [[KTQuery alloc]init];
+   
     [KTElement mappingWithManager:[RKObjectManager sharedManager]];
     [KTSearchengineResult mappingWithManager:[RKObjectManager sharedManager]];
     
@@ -385,6 +385,8 @@
                                               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                                                   [solrsearchexpectation fulfill];
                                                   KTSearchengineResult *firstelement = [mappingResult firstObject];
+
+                                                  XCTAssertNotNil(firstelement,@"Response was nil");
                                                   KTElement *element = firstelement.element;
                                                   
                                                   XCTAssertNotNil(element,@"Element was nil");
@@ -436,7 +438,7 @@
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
-    XCTAssert(YES, @"Pass");
+
 }
 
 

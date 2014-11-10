@@ -12,6 +12,13 @@
 @interface KTSearchengineResult : NSObject
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
+/**
+ The underlying element that contains the searched value
+ */
 @property (nonatomic) KTElement *element;
+
+/**
+ The internal Solr ID to uniquely identify the element in the search index.
+ */
 @property (nonatomic) NSString *solrIndexID;
 @end

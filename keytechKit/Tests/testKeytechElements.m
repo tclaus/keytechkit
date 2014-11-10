@@ -248,6 +248,9 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            NSLog(@"%@",error);
+        }
     }];
     
     
