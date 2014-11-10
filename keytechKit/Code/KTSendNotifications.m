@@ -398,7 +398,7 @@ static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8s
     
     [self sendNotification:[self localizedTextElementChanged:element.itemName userName:[self longUserName]]
                 elementKey:element.itemKey
-        elementCreatedBy:element.itemCreatedByLong];
+        elementCreatedBy:element.itemCreatedBy];
     
     return;
     

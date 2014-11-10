@@ -334,12 +334,7 @@
     if (![Servername hasSuffix:@"/"])
         Servername = [Servername stringByAppendingString:@"/"];
     
-    
-    // Save at locale datastructure
-    KTPreferencesConnection* preferences  = [[KTPreferencesConnection alloc]init];
-    preferences.servername = Servername;
-    preferences.username = Username;
-    preferences.password = Password;
+
     
     bool objectsAreEqual =     [[RKObjectManager sharedManager].HTTPClient.baseURL isEqual:[NSURL URLWithString:Servername]];
     if (!objectsAreEqual){
