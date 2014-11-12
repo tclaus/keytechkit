@@ -15,13 +15,17 @@
 @interface KTServerInfo : NSObject
 
 
-
 /**
  Provides the object Mapping for this class and given objectManager
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 +(instancetype)sharedServerInfo;
+
+/**
+ returns TRUE if serverinfo was fetched
+ */
+@property (readonly) BOOL isLoaded;
 
 /**
  Contains the full key-value list of all bom attribes, including all element attributes
@@ -48,7 +52,6 @@
  */
 @property (readonly) BOOL isIndexServerEnabled;
 
-
 /**
  Returns the company String used for license generations
  */
@@ -66,5 +69,9 @@
  Loads the API's Serverinfo in background
  */
 -(void)reload;
+/**
+ Reloads the API in background and executed block after succeed
+ */
+-(void)reloadWithCompletionBlock:(void(^)(void))completionBlock;
 
 @end

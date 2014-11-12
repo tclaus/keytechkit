@@ -58,28 +58,34 @@
 
 -(void)serverInfo:(void (^)(KTServerInfo* serverInfo))resultBlock failure:(void(^)(NSError* error))failureBlock{
     
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTServerInfo mappingWithManager:manager];
-    
-    
-    [manager getObject:nil path:@"serverinfo" parameters:nil
-               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                   if (resultBlock) {
+    if (!_sharedServerInfo) { // Do not reload server info
+        
+        
+        RKObjectManager *manager = [RKObjectManager sharedManager];
+        [KTServerInfo mappingWithManager:manager];
+        
+        [manager getObject:nil path:@"serverinfo" parameters:nil
+                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                       if (resultBlock) {
+                           
+                           _sharedServerInfo = [[KTServerInfo alloc]init];
+                           [_sharedServerInfo setValue:[mappingResult array] forKey:@"keyValueList"];
+                           
+                           resultBlock(_sharedServerInfo);
+                       }
                        
-                       _sharedServerInfo = [[KTServerInfo alloc]init];
-                       [_sharedServerInfo setValue:[mappingResult array] forKey:@"keyValueList"];
-                       
-                       resultBlock(_sharedServerInfo);
-                   }
-                   
-               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   NSLog(@"Error while getting the API version: %@",error.localizedDescription);
-                   if(failureBlock){
-                       failureBlock(error);
-                   }
-               }];
-    
-    
+                   } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                       NSLog(@"Error while getting the API version: %@",error.localizedDescription);
+                       if(failureBlock){
+                           failureBlock(error);
+                       }
+                   }];
+        
+    } else {
+        if (resultBlock) {
+            resultBlock(_sharedServerInfo);
+        }
+    }
     
 }
 
@@ -336,7 +342,7 @@
     if (![Servername hasSuffix:@"/"])
         Servername = [Servername stringByAppendingString:@"/"];
     
-
+    
     
     bool objectsAreEqual =     [[RKObjectManager sharedManager].HTTPClient.baseURL isEqual:[NSURL URLWithString:Servername]];
     if (!objectsAreEqual){
@@ -345,6 +351,10 @@
         RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:Servername]];
         [objectManager setRequestSerializationMIMEType: RKMIMETypeJSON];
         [RKObjectManager setSharedManager:objectManager];
+        
+        // If server changed, then reload serverInfo
+        [[KTServerInfo serverInfo] reloadWithCompletionBlock:nil];
+        
     }
     
     // Set new Authorization

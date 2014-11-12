@@ -10,9 +10,12 @@
 #import "KTKeyValue.h"
 
 @implementation KTServerInfo{
+    BOOL _isloading;
+    BOOL _isLoaded;
 
 }
     static KTServerInfo *_serverInfo;
+
 
 @synthesize keyValueList = _keyValueList;
 
@@ -27,7 +30,7 @@ static KTServerInfo *_sharedServerInfo;
     self = [super init];
     if (self) {
         [KTServerInfo mappingWithManager:[RKObjectManager sharedManager]];
-        _isLoaded = YES;
+        _isLoaded = NO;
         _isloading = NO;
     }
     return self;
@@ -40,6 +43,10 @@ static KTServerInfo *_sharedServerInfo;
         [_sharedServerInfo reload];
     }
     return _sharedServerInfo;
+}
+
+-(BOOL)isLoaded{
+    return _isLoaded;
 }
 
 // Sets the Object mapping for JSON
@@ -80,11 +87,8 @@ static KTServerInfo *_sharedServerInfo;
     return _mapping;
 }
 
-BOOL _isloading;
-BOOL _isLoaded;
 
-
-/// Loads the serverinfo in background
+/// Loads the serverinfo and waits until return
 -(void)reload{
     if (!_isloading) {
         _isLoaded = NO;
@@ -96,7 +100,7 @@ BOOL _isLoaded;
         
         [manager getObject:nil path:@"serverinfo" parameters:nil
                    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-
+                       NSLog(@"Serverinfo loaded.");
                        // Key Value liste austauschen
                     _keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
                        _isLoaded = YES;
@@ -109,6 +113,39 @@ BOOL _isLoaded;
 
         
         [self waitUnitlLoad];
+    }
+    
+    
+}
+
+-(void)reloadWithCompletionBlock:(void(^)(void))completionBlock{
+    if (!_isloading) {
+        _isLoaded = NO;
+        _isloading = YES;
+        
+        RKObjectManager *manager = [RKObjectManager sharedManager];
+        [KTServerInfo mappingWithManager:manager];
+        
+        
+        [manager getObject:nil path:@"serverinfo" parameters:nil
+                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                       NSLog(@"Serverinfo loaded.");
+                       // Key Value liste austauschen
+                       _keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
+                       _isLoaded = YES;
+                       _isloading = NO;
+                       
+                       if (completionBlock) {
+                           completionBlock();
+                       }
+                       
+                   } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                       NSLog(@"Error while getting the API version: %@",error.localizedDescription);
+                       _isLoaded = NO;
+                       _isloading = NO;
+                   }];
+        
+        
     }
     
     
@@ -179,36 +216,29 @@ BOOL _isLoaded;
 +(instancetype)serverInfo{
     if (!_serverInfo) {
         _serverInfo = [[KTServerInfo alloc]init];
-        [_serverInfo reload];
     }
     return _serverInfo;
 }
 
 -(NSString*)serverID{
-    [self waitUnitlLoad];
-
+    
     return [self valueForKey:@"ServerID"];
 }
 
 -(BOOL)isIndexServerEnabled{
-    [self waitUnitlLoad];
     return [self boolValueForKey:@"Supports Index Server"];
-    
 }
 
 
 -(NSString *)databaseVersion{
-    [self waitUnitlLoad];
     return [self valueForKey:@"keytech database version"];
 }
 
 -(NSString *)APIVersion{
-    [self waitUnitlLoad];
     return [self valueForKey:@"API version"];
 }
 
 -(NSString *)licencedCompany{
-    [self waitUnitlLoad];
     return [self valueForKey:@"LicensedCompany"];
 }
 

@@ -35,6 +35,29 @@
     [super tearDown];
 }
 
+/// Reloads the ServerInfo
+- (void)testReloadServerInfo {
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Serverinfo reloaded"];
+    
+    [[KTServerInfo serverInfo] reloadWithCompletionBlock:^{
+        [expectation fulfill];
+        KTServerInfo *serverInfo = [KTServerInfo serverInfo];
+        
+        XCTAssertNotNil(serverInfo.serverID,@"ServerID should not be nil");
+    }];
+    
+    
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Failed fetching a file: %@",error);
+        }
+        
+    }];
+    
+}
+
 - (void)testLoadServerInfo {
     KTServerInfo *serverInfo = [[KTServerInfo alloc]init];
 

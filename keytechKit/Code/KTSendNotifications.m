@@ -29,6 +29,7 @@
 }
 @synthesize shortUserName = _shortUserName;
 @synthesize longUserName = _longUserName;
+@synthesize serverID = _serverID;
 
 
 static KTSendNotifications *_sharedSendNotification;
@@ -43,19 +44,26 @@ static NSString* APNURL =@"https://cp.pushwoosh.com/json/1.3/%@";
 static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8sxaxEnrQnM0UlAf2aQpFRPSwjrT2WeaUig7aB";
 
 #ifndef DEBUG
- static NSString* APNApplictionID =@"A1270-D0C69"; // The Production Server Application
+ static NSString* APNApplictionID =@"A1270-D0C69"; // The Production Service
 #else
- static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox App
+ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
 #endif
 
 -(instancetype) init {
     if (self = [super init])
     {
 
-        _shortUserName = [KTUser currentUser].userKey;
-        _longUserName = [KTUser currentUser].userLongName;
+        [KTUser loadUserWithKey:[KTManager sharedManager].username
+                        success:^(KTUser *user) {
+                            _shortUserName = user.userKey;
+                            _longUserName = user.userLongName;
+                            
+                        } failure:^(NSError *error) {
+                            //
+                        }];
         
-        self.serverID = [KTManager sharedManager].serverInfo.serverID;
+        
+        _serverID = [KTServerInfo serverInfo].serverID;
         
         
         _localDeviceLanguage = [NSLocale preferredLanguages][0]; // Set, until its overwritten by register Device
@@ -251,6 +259,11 @@ static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8s
 
 /// Sends a pushwoosh notification, to the Owner of the element
 -(void)sendNotification:(NSDictionary*)messageDictionary elementKey:(NSString*)elementKey elementCreatedBy:(NSString*)elementOwner{
+    
+    if (!self.serverID) {
+        // If not currently initialzed, then do not send any notifications
+        return;
+    }
     
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:APNURL,@"createMessage"]];
     

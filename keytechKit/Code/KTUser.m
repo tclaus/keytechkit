@@ -115,7 +115,7 @@ static RKObjectManager *_usedManager;
 
 // Starts reloading the user. The userkey is needed.
 -(void)reload{
-    NSLog(@"Start reloadung user with key %@",self.userKey);
+    NSLog(@"Start reloading user with key %@",self.userKey);
     if (!_isLoading) {
         _isLoaded = NO;
         _isLoading = YES;

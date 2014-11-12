@@ -13,6 +13,12 @@
 
 @interface KTClass : NSObject <NSCoding>
 
+/**
+ Load a list of available classes
+ */
+-(void)loadClassList:(void(^)(NSArray* classList))success
+                 failure:(void(^)(NSError *error))failure;
+
 
 /**
  Provides the object Mapping for this class and given objectManager
@@ -59,6 +65,13 @@
  Any change of a status may start a status-change-action
  */
 @property (assign) BOOL classHasChangeManagement;
+
+/**
+ A YES indicates that new elements of this class use a auto number generator to set its unique name property. 
+ A client must not fill the name attribute manually.
+ */
+@property (assign) BOOL classHasNumberGenerator;
+
 /**
  If YES a new version of this class will create a new version number defined on the core system.
  Any client must read the newVersion information to create a well defined new Version. 
