@@ -86,7 +86,7 @@ static KTElement *testElement;
     testElement = [[KTElement alloc]init];
     
     KTKeyValue *keyValue = [[KTKeyValue alloc]init];
-    keyValue.key = @"as_mi__desciption";
+    keyValue.key = @"as_mi__description";
     keyValue.value = @"testElememt";
     
     testElement.itemKey = @"DEFAULT_MI";
@@ -94,7 +94,7 @@ static KTElement *testElement;
     
     [testElement saveItem:^(KTElement *element) {
         // elememnt was created
-        NSLog(@"Elememt created");
+        NSLog(@"Element created");
         
     } failure:nil];
     

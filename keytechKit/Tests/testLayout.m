@@ -48,7 +48,7 @@
     [layoutClass loadLayoutForClassKey:@"DEFAULT_DO"];
     [layoutClass loadLayoutForClassKey:@"DEFAULT_MI"];
     [layoutClass loadLayoutForClassKey:@"DEFAULT_FD"];
-    
+
     // Wait until layout is loaded
     
 #define POLL_INTERVAL 0.2 // 200ms

@@ -13,6 +13,9 @@
 #import "KTFileInfo.h"
 #import "KTElement.h"
 #import "testCase.h"
+#import "Restkit/RKTestFixture.h"
+
+static NSBundle *fixtureBundle = nil;
 
 /**
  Tests file related thinks
@@ -25,13 +28,24 @@
 {
     KTManager* webservice;
     NSString* elementKeyWithStructure;
+    
 }
 
 BOOL awaitingResponse;
 NSTimeInterval _timeOut = 12;
 
+-(NSBundle *)fixtureBundle
+{
+    NSAssert(fixtureBundle != nil, @"Bundle for fixture has not been set. Use setFixtureBundle: to set it.");
+    return fixtureBundle;
+}
 
- 
+-(NSURL*)urlForFixture:(NSString*)fixtureName{
+    
+    NSString *path= [[self fixtureBundle] pathForResource:fixtureName ofType:nil];
+    NSURL *fixtureURL = [NSURL fileURLWithPath:path];
+    return fixtureURL;
+}
 
 
 - (void)setUp
@@ -41,6 +55,12 @@ NSTimeInterval _timeOut = 12;
     // Put setup code here; it will be run once, before the first test case.
     webservice = [KTManager sharedManager];
     elementKeyWithStructure= @"3DMISC_SLDASM:2220"; //* Element with structure on Test API
+    
+    fixtureBundle = [NSBundle bundleForClass:[testFileManagement class]];
+    
+    
+
+    
 }
 
 - (void)tearDown
@@ -80,7 +100,38 @@ NSTimeInterval _timeOut = 12;
 
 
 
-
+-(void)testUploadFileInBackground
+{
+    // Create a new element
+    KTElement *element = [KTElement elementWithElementKey:@"MISC_FILE"];
+    XCTestExpectation *elementFileExpectation = [self expectationWithDescription:@"File Loaded"];
+    
+    
+    [element saveItem:^(KTElement *element) {
+        [elementFileExpectation fulfill];
+        
+        KTFileInfo *newFile = [KTFileInfo fileInfoWithElement:element];
+        newFile.fileName = @"Aerial04.jpg";
+        newFile.fileStorageType = FileTypeMaster;
+        
+        NSURL *fileURL = [self urlForFixture:@"Aerial04.jpg"];
+        [newFile saveFileInBackground:fileURL];
+        
+        //
+    } failure:^(KTElement *element, NSError *error) {
+        [elementFileExpectation fulfill];
+        
+    }];
+    
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Failed uploading a file: %@",error);
+        }
+        
+    }];
+    
+}
 
 /**
  Test for a filellist in this Element

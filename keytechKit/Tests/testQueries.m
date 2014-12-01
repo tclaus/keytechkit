@@ -373,6 +373,12 @@
 /// Test direct Solr vault fetch
 -(void)testQueryWithSolr{
     
+    if (![KTServerInfo sharedServerInfo].isIndexServerEnabled) {
+        NSLog(@"Test Server dont supports Solr indexing");
+        return;
+    }
+    
+    
     XCTestExpectation *solrsearchexpectation = [self expectationWithDescription:@"Solr search returned"];
     
    
@@ -411,6 +417,11 @@
  Gets any files from Solr Search engine with a given searchtext
  */
 - (void)testQueryWithSolrVaults {
+    
+    if (![KTServerInfo sharedServerInfo].isIndexServerEnabled) {
+        NSLog(@"Test Server dont supports Solr indexing");
+        return;
+    }
     
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Solr search returned"];
     

@@ -205,13 +205,21 @@ int maxPagesize=500;
         [_mapping addPropertyMapping:keyValueListResponse];
         
         // Zentralisiert ?
-        RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor
+        RKResponseDescriptor *responseGETDescriptor = [RKResponseDescriptor
                                                     responseDescriptorWithMapping:_mapping
-                                                    method:RKRequestMethodGET | RKRequestMethodPOST | RKRequestMethodPUT
+                                                    method:RKRequestMethodGET
                                                     pathPattern:nil
                                                     keyPath:@"ElementList"
                                                     statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
         
+        RKResponseDescriptor *responsePOSTDescriptor = [RKResponseDescriptor
+                                                       responseDescriptorWithMapping:_mapping
+                                                       method:RKRequestMethodPOST
+                                                       pathPattern:nil
+                                                       keyPath:nil
+                                                       statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+        
+        // Only for Searches with Solr
         RKResponseDescriptor *responseDescriptorSearchEngine = [RKResponseDescriptor
                                                     responseDescriptorWithMapping:_mapping
                                                     method:RKRequestMethodGET
@@ -234,8 +242,8 @@ int maxPagesize=500;
         [requestMapping addPropertyMapping:keyValueRelationShipRequest];
         
         
-        
         // If POST or PUT, the new element will be returned
+        
         RKRequestDescriptor *elementRequestDescriptor = [RKRequestDescriptor
                                                          requestDescriptorWithMapping:requestMapping
                                                          objectClass:[KTElement class]
@@ -264,8 +272,8 @@ int maxPagesize=500;
                                            pathPattern:@"elements/:itemKey"
                                            method:RKRequestMethodDELETE]] ;
         
-        [manager addResponseDescriptorsFromArray:@[ responseDescriptor, responseDescriptorSearchEngine ]];
-        [manager addRequestDescriptor:elementRequestDescriptor];
+        [manager addResponseDescriptorsFromArray:@[ responseGETDescriptor,responsePOSTDescriptor, responseDescriptorSearchEngine ]]; // GET
+        [manager addRequestDescriptor:elementRequestDescriptor]; // POST, PUT
         
     }
     return _mapping;
@@ -655,7 +663,7 @@ NSMutableDictionary *_lastPages;
 -(KTFileInfo*)masterFile{
     if (_isFilesListLoaded) {
         for (KTFileInfo *fileInfo in self.itemFilesList) {
-            if ([fileInfo.fileStorageType isEqualToString:@"MASTER"]) {
+            if (fileInfo.fileStorageType ==FileTypeMaster) {
                 return fileInfo;
             }
         }
@@ -1002,13 +1010,13 @@ static long numberOfThumbnailsLoaded;
 +(instancetype)elementWithElementKey:(NSString *)elementKey{
     KTElement *element = [[KTElement alloc]initWithElementKey:elementKey];
     return element;
+    
 }
 
 -(instancetype)initWithElementKey:(NSString*)elementKey{
     
     KTElement *element=[self init];
     [element setItemKey:[elementKey copy]];
-    
     return element;
 }
 

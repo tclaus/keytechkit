@@ -44,7 +44,7 @@ static RKObjectManager *_usedManager;
         [_mapping addAttributeMappingsFromDictionary:@{@"FileID":@"fileID",
                                                        @"FileName":@"fileName",
                                                        @"FileSize":@"fileSize",
-                                                       @"FileStorageType":@"fileStorageType"
+                                                       @"FileStorageType":@"fileStorageTextType"
                                                        }];
         
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
@@ -63,6 +63,52 @@ static RKObjectManager *_usedManager;
     }
     return _mapping;
 }
+
++(instancetype)fileInfoWithElement:(KTElement *)element{
+    KTFileInfo *fileInfo = [[KTFileInfo alloc]init];
+    if (fileInfo) {
+        fileInfo.elementKey = element.itemKey;
+    }
+    return fileInfo;
+}
+
+-(void)setFileStorageTextType:(NSString*)storageType{
+    if ([storageType compare:@"Master" options:NSCaseInsensitiveSearch] == NSOrderedSame ) {
+        self.fileStorageType =FileTypeMaster;
+        return;
+    }
+    if ([storageType compare:@"Preview" options:NSCaseInsensitiveSearch] == NSOrderedSame ) {
+        self.fileStorageType =FileTypePreview;
+        return;
+    }
+    
+    if ([storageType compare:@"OleRef" options:NSCaseInsensitiveSearch] == NSOrderedSame ) {
+        self.fileStorageType =FileTypeOleRef;
+        return;
+    }
+    
+}
+
+-(NSString*)fileStorageTextType{
+    switch (self.fileStorageType) {
+       
+        case FileTypeMaster:
+            return @"MASTER";
+            break;
+       
+        case FileTypeOleRef:
+            return @"OLEREF";
+            break;
+            
+        case FileTypePreview:
+            return @"PREVIEW";
+            break;
+            
+        default:
+            break;
+    }
+}
+
 
 -(id)copyWithZone:(NSZone *)zone{
     KTFileInfo *newcopy = [[KTFileInfo alloc] init];
@@ -186,7 +232,14 @@ static RKObjectManager *_usedManager;
     }
 }
 
+-(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error{
+    NSLog(@"Completes: %s",__PRETTY_FUNCTION__);
 
+    if ([self.delegate respondsToSelector:@selector(FinishedUploadWithFileInfo:)]) {
+        [self.delegate FinishedUploadWithFileInfo:self];
+    }
+    
+}
 
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location{
     NSLog(@"Download finished of: %@",self.fileName);
@@ -259,7 +312,80 @@ static RKObjectManager *_usedManager;
     
 }
 
-/// Saves the current file to API
+
+-(void)saveFileInBackground:(NSURL *)fileURL{
+    
+    NSString *resourcePath = [NSString stringWithFormat:@"elements/%@/files", self.elementKey];
+    
+    
+    NSURL *url =[[KTManager sharedManager].baseURL URLByAppendingPathComponent:resourcePath];
+    
+    NSMutableURLRequest *postRequest = [NSMutableURLRequest
+                                        requestWithURL:url ];
+    
+    // Add Default- and Auth Header
+    
+    [[KTManager sharedManager]setDefaultHeadersToRequest:postRequest];
+    
+    
+    // Set additional headers
+    [postRequest setValue:self.fileName forHTTPHeaderField:@"Filename"];
+    [postRequest setValue:self.fileStorageTextType forHTTPHeaderField:@"StorageType"]; //
+    
+    // Designate the request a POST request and specify its body data
+    [postRequest setHTTPMethod:@"POST"];
+    
+
+    // Create the session
+    // We can use the delegate to track upload progress
+    NSURLSession *session = [self backgroundSession];
+    
+    // Data uploading task. We could use NSURLSessionUploadTask instead of NSURLSessionDataTask if we needed to support uploads in the background
+   // NSData *data = [NSData dataWithContentsOfURL:[fileURL filePathURL]];
+    
+    //self.fileSize = [data length];
+    
+    NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:postRequest fromFile:fileURL];
+    uploadTask.taskDescription =@"Add file to Element";
+    
+    [uploadTask resume];
+    
+}
+
+-(void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(NSError *)error{
+    NSLog(@"Session become invalid with: %@",error);
+}
+
+-(void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session{
+    NSLog(@"URLSessionDidFinishEventsForBackgroundURLSession");
+}
+
+- (NSURLSession *)backgroundSession
+{
+    /*
+     Using dispatch_once here ensures that multiple background sessions with the same identifier are not created in this instance of the application. If you want to support multiple background sessions within a single process, you should create each session with its own identifier.
+     */
+    static NSURLSession *session = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // Generate a Upload TAsk with this fileID
+        NSURLSessionConfiguration *configuration;
+        if (floor(NSAppKitVersionNumber)>NSAppKitVersionNumber10_9) {
+            configuration= [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:[NSString stringWithFormat:@"de.claus-software.keytech.upload:%@",self.elementKey]];
+        } else {
+            configuration= [NSURLSessionConfiguration backgroundSessionConfiguration:[NSString stringWithFormat:@"de.claus-software.keytech.upload:%@",self.elementKey]];
+        }
+
+        
+        configuration.sharedContainerIdentifier =@"de.claus-software.keytech-plm";
+        session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+
+    });
+    return session;
+}
+
+
+/// Saves the current file to API as normaul upload task
 -(void)saveFile:(NSURL *)fileURL
         success:(void (^)(void))success
         failure:(void (^)(NSError *))failure{
@@ -285,7 +411,7 @@ static RKObjectManager *_usedManager;
     
     // Set additional headers
     [postRequest setValue:self.fileName forHTTPHeaderField:@"Filename"];
-    [postRequest setValue:self.fileStorageType forHTTPHeaderField:@"StorageType"]; //
+    [postRequest setValue:self.fileStorageTextType forHTTPHeaderField:@"StorageType"]; //
     
     // Designate the request a POST request and specify its body data
     [postRequest setHTTPMethod:@"POST"];
@@ -305,13 +431,13 @@ static RKObjectManager *_usedManager;
     
     // Create the session
     // We can use the delegate to track upload progress
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
+    NSURLSession *session = [NSURLSession  sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
 
     // Data uploading task. We could use NSURLSessionUploadTask instead of NSURLSessionDataTask if we needed to support uploads in the background
     NSData *data = [NSData dataWithContentsOfURL:[fileURL filePathURL]];
     
     self.fileSize = [data length];
-    
+
     NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:postRequest fromFile:fileURL
                                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                           

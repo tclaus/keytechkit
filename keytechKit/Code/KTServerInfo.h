@@ -72,6 +72,6 @@
 /**
  Reloads the API in background and executed block after succeed
  */
--(void)reloadWithCompletionBlock:(void(^)(void))completionBlock;
+-(void)reloadWithCompletionBlock:(void(^)(NSError* error))completionBlock;
 
 @end

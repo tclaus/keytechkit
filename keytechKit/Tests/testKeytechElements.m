@@ -106,6 +106,32 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
 }
 
+-(void)testPostElement
+{
+    // Create a new element
+    KTElement *element = [KTElement elementWithElementKey:@"MISC_FILE"];
+    XCTestExpectation *elementFileExpectation = [self expectationWithDescription:@"Element Created"];
+    
+    
+    [element saveItem:^(KTElement *element) {
+        [elementFileExpectation fulfill];
+        
+        
+        //
+    } failure:^(KTElement *element, NSError *error) {
+        [elementFileExpectation fulfill];
+        
+    }];
+    
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Failed uploading a file: %@",error);
+        }
+        
+    }];
+    
+}
 
 /**
  Test to get a invalid Element. No element with this key should be found. But response array should not be nil.

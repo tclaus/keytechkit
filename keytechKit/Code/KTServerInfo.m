@@ -56,7 +56,6 @@ static KTServerInfo *_sharedServerInfo;
         _usedManager = manager;
         
        
-        
         RKObjectMapping *kvMapping = [RKObjectMapping mappingForClass:[KTKeyValue class]];
         [kvMapping addAttributeMappingsFromDictionary:@{@"Key":@"key",
                                                        @"Value":@"value"}];
@@ -106,7 +105,7 @@ static KTServerInfo *_sharedServerInfo;
                        _isLoaded = YES;
                        _isloading = NO;
                    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                       NSLog(@"Error while getting the API version: %@",error.localizedDescription);
+                       NSLog(@"Error while getting the serverinfo resource: %@",error.localizedDescription);
                        _isLoaded = NO;
                        _isloading = NO;
                    }];
@@ -118,7 +117,7 @@ static KTServerInfo *_sharedServerInfo;
     
 }
 
--(void)reloadWithCompletionBlock:(void(^)(void))completionBlock{
+-(void)reloadWithCompletionBlock:(void(^)(NSError* error))completionBlock{
     if (!_isloading) {
         _isLoaded = NO;
         _isloading = YES;
@@ -136,13 +135,19 @@ static KTServerInfo *_sharedServerInfo;
                        _isloading = NO;
                        
                        if (completionBlock) {
-                           completionBlock();
+                           completionBlock(nil);
                        }
                        
                    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                       NSLog(@"Error while getting the API version: %@",error.localizedDescription);
+                       NSLog(@"Error while getting the serverinfo resource: %@",error.localizedDescription);
                        _isLoaded = NO;
                        _isloading = NO;
+                       
+                       if (completionBlock) {
+                           completionBlock(error);
+                       }
+
+                       
                    }];
         
         

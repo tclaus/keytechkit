@@ -79,8 +79,9 @@
  */
 -(void)sendElementChildLinkRemoved:(NSString*)elementKey removedFromFolder:(NSString*)folderName;
 
-// More to be come
-
+/**
+ Returns a shared instance of KTSendNotification
+ */
 +(instancetype)sharedSendNotification;
 
 @property (nonatomic) BOOL connectionSucceeded;

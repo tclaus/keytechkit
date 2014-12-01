@@ -352,13 +352,17 @@
         [objectManager setRequestSerializationMIMEType: RKMIMETypeJSON];
         [RKObjectManager setSharedManager:objectManager];
         
+        // Set new authorization for new SharedObjectManager
+        [[RKObjectManager sharedManager].HTTPClient setAuthorizationHeaderWithUsername:Username password:Password];
+        
         // If server changed, then reload serverInfo
+        [KTServerInfo mappingWithManager:objectManager];
         [[KTServerInfo serverInfo] reloadWithCompletionBlock:nil];
         
+    } else {
+        // Set new Authorization
+        [[RKObjectManager sharedManager].HTTPClient setAuthorizationHeaderWithUsername:Username password:Password];
     }
-    
-    // Set new Authorization
-    [[RKObjectManager sharedManager].HTTPClient setAuthorizationHeaderWithUsername:Username password:Password];
     
 }
 

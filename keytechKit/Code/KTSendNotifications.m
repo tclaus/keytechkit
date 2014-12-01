@@ -31,6 +31,13 @@
 @synthesize longUserName = _longUserName;
 @synthesize serverID = _serverID;
 
+-(void)setShortUserName:(NSString *)shortUserName{
+    _shortUserName = shortUserName;
+}
+
+-(void)setLongUserName:(NSString *)longUserName{
+    _longUserName = longUserName;
+}
 
 static KTSendNotifications *_sharedSendNotification;
 
@@ -53,10 +60,12 @@ static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8s
     if (self = [super init])
     {
 
+        __block KTSendNotifications *notification = self;
+        
         [KTUser loadUserWithKey:[KTManager sharedManager].username
                         success:^(KTUser *user) {
-                            _shortUserName = user.userKey;
-                            _longUserName = user.userLongName;
+                            [notification setLongUserName:user.userKey];
+                            [notification setShortUserName:user.userLongName];
                             
                         } failure:^(NSError *error) {
                             //
@@ -110,6 +119,8 @@ static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8s
     if (!self.serverID) {
         [[KTManager sharedManager] serverInfo:^(KTServerInfo *serverInfo) {
             self.serverID = serverInfo.serverID;
+            
+            
             [self registerDevice:deviceToken uniqueID:uniqueID languageID:languageID];
         } failure:^(NSError *error) {
             

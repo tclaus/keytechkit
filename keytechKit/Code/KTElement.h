@@ -36,7 +36,8 @@ typedef enum {
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
- Instantiates a new element with the given ElementKey. To receive Element Data run theh refresh selector
+ Creates and returns a new element with the elementkey in the argument. To receive element data run the refresh selector
+ @elementKey A full qualified element key or a classkey. (ElementKey without the nummeric identifier) to create a new element
  */
 +(instancetype)elementWithElementKey:(NSString*)elementKey;
 
