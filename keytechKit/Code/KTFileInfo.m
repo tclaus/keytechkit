@@ -14,6 +14,8 @@
 @implementation KTFileInfo
 {
     NSString* _fileDivider;
+    NSURLSession *_backgroundSession;
+    
 }
 
 @synthesize isLoading = _isLoading;
@@ -28,6 +30,7 @@ static RKObjectManager *_usedManager;
     self = [super init];
     if (self) {
         _fileDivider = @"-+-";
+        _fileStorageType = FileTypeMaster;
     }
     return self;
 }
@@ -82,6 +85,11 @@ static RKObjectManager *_usedManager;
         return;
     }
     
+    if ([storageType compare:@"QuickPreview" options:NSCaseInsensitiveSearch] == NSOrderedSame ) {
+        self.fileStorageType =FileTypeQuickPreview;
+        return;
+    }
+    
     if ([storageType compare:@"OleRef" options:NSCaseInsensitiveSearch] == NSOrderedSame ) {
         self.fileStorageType =FileTypeOleRef;
         return;
@@ -103,8 +111,14 @@ static RKObjectManager *_usedManager;
         case FileTypePreview:
             return @"PREVIEW";
             break;
+        
+        case FileTypeQuickPreview:
+            return @"QuickPreview";
+            break;
             
         default:
+            NSLog(@"No filetype set!");
+            return @"";
             break;
     }
 }
@@ -179,6 +193,7 @@ static RKObjectManager *_usedManager;
     
     if (!self.elementKey) {
         // Return an error
+        NSAssert(NO, @"ElementKey can not be nil");
     }
     
     [[RKObjectManager sharedManager]deleteObject:self path:nil parameters:nil
@@ -191,6 +206,24 @@ static RKObjectManager *_usedManager;
                                                  success();
                                              }
                                          } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                             
+                                             NSInteger statuscode = operation.HTTPRequestOperation.response.statusCode;
+                                             if (statuscode>0) {
+                                                 // 403 indicates insufficient rights
+                                                 // This can be a Error template
+                                                 if (statuscode>=400) {
+                                                     NSError* APIError = [NSError
+                                                                          errorWithDomain:@"keytech PLM"
+                                                                          code:statuscode
+                                                                          userInfo:@{NSLocalizedDescriptionKey:@"You can not delete this file" ,
+                                                                                     NSLocalizedFailureReasonErrorKey:@"Insufficient right to delete file"}];
+
+                                                     if (failure) {
+                                                         failure(APIError);
+                                                         return;
+                                                     }
+                                                 }
+                                             }
                                              
                                              if (failure)
                                                  // Error- request
@@ -338,14 +371,15 @@ static RKObjectManager *_usedManager;
 
     // Create the session
     // We can use the delegate to track upload progress
-    NSURLSession *session = [self backgroundSession];
+     _backgroundSession = [self backgroundSession];
     
     // Data uploading task. We could use NSURLSessionUploadTask instead of NSURLSessionDataTask if we needed to support uploads in the background
    // NSData *data = [NSData dataWithContentsOfURL:[fileURL filePathURL]];
     
     //self.fileSize = [data length];
     
-    NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:postRequest fromFile:fileURL];
+    NSURLSessionUploadTask *uploadTask = [_backgroundSession uploadTaskWithRequest:postRequest fromFile:fileURL];
+
     uploadTask.taskDescription =@"Add file to Element";
     
     [uploadTask resume];
@@ -353,12 +387,19 @@ static RKObjectManager *_usedManager;
 }
 
 -(void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(NSError *)error{
-    NSLog(@"Session become invalid with: %@",error);
+    if (error) {
+        NSLog(@"Session become invalid with: %@",error);
+    }
+    
 }
 
 -(void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session{
     NSLog(@"URLSessionDidFinishEventsForBackgroundURLSession");
+    [_backgroundSession invalidateAndCancel];
+    _backgroundSession = nil;
 }
+
+
 
 - (NSURLSession *)backgroundSession
 {
@@ -370,15 +411,18 @@ static RKObjectManager *_usedManager;
     dispatch_once(&onceToken, ^{
         // Generate a Upload TAsk with this fileID
         NSURLSessionConfiguration *configuration;
+        
         if (floor(NSAppKitVersionNumber)>NSAppKitVersionNumber10_9) {
+            
             configuration= [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:[NSString stringWithFormat:@"de.claus-software.keytech.upload:%@",self.elementKey]];
+
         } else {
             configuration= [NSURLSessionConfiguration backgroundSessionConfiguration:[NSString stringWithFormat:@"de.claus-software.keytech.upload:%@",self.elementKey]];
         }
 
         
-        configuration.sharedContainerIdentifier =@"de.claus-software.keytech-plm";
-        session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+        configuration.sharedContainerIdentifier =@"group.de.claus-software.keytech-plm";
+        session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue mainQueue]];
 
     });
     return session;

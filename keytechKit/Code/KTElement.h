@@ -178,7 +178,7 @@ typedef enum {
 /**
  Returns the bill of material if this element is of type 'masteritem'. Returns an empty list if not loaded.
  */
-@property (readonly,strong) NSArray* itemBomList; // Only Items can have a bomlist
+@property (readonly,strong) NSMutableArray* itemBomList; // Only Items can have a bomlist
 /**
  Retun true if Bom List ist loaded
  */
@@ -191,13 +191,13 @@ typedef enum {
 /**
  Returny the attached filelist. If not currentlty loaded a request starts.
  */
-@property (readonly,strong) NSArray* itemFilesList; // Nur bei Dokumente!
+@property (readonly,strong) NSMutableArray* itemFilesList; // Nur bei Dokumente!
 @property (readonly) BOOL isFilesListLoaded;
 
 /**
  Loads the list of parent elements in which this Element is used.
  */
-@property (readonly,strong) NSArray* itemWhereUsedList;
+@property (readonly,strong) NSMutableArray* itemWhereUsedList;
 @property (readonly) BOOL isWhereUsedListLoaded;
 
 /**
@@ -209,7 +209,7 @@ typedef enum {
 /**
  Loads notes assigned notes to this element. If not currentlty loaded a request starts.
  */
-@property (nonatomic,readonly) NSArray* itemNotesList;
+@property (nonatomic,readonly) NSMutableArray* itemNotesList;
 @property (readonly) BOOL isNotesListLoaded;
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED

@@ -177,7 +177,7 @@ NSTimeInterval _timeOut = 12;
     
     [element loadFileListSuccess:^(NSArray *itemsList) {
         [documentOpenExpectation fulfill];
-        XCTAssertNotNil(itemsList, @"Fiellist list should not be nil");
+        XCTAssertNotNil(itemsList, @"Filelist list should not be nil");
         XCTAssertTrue(itemsList.count>0, @"Filelist list should have some items");
         XCTAssertTrue(element.itemFilesList.count>0,@"Element property should not be empty");
         

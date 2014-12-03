@@ -12,6 +12,7 @@
 typedef NS_ENUM(NSUInteger, FileStorageType) {
     FileTypeMaster,
     FileTypePreview,
+    FileTypeQuickPreview,
     FileTypeOleRef,
 };
 

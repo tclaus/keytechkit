@@ -93,7 +93,7 @@
 @property (readonly,copy) NSString *largeClassImageURL;
 
 /**
- Returns the Classtype
+ Returns the classtype as a string value. One of DO,MI,FD.
  */
 @property (readonly,copy) NSString *classType;
 @end

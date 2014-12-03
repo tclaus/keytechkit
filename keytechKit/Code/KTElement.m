@@ -475,8 +475,8 @@ NSMutableDictionary *_lastPages;
            resoucePath:(NSString*)resourcePath
               fromPage:(int)page
               withSize:(int)size
-               success:(void (^)(NSArray *))success
-               failure:(void (^)(NSError *))failure
+               success:(void (^)(NSArray *itemsList))success
+               failure:(void (^)(NSError *error))failure
 
 {
     
@@ -514,7 +514,7 @@ NSMutableDictionary *_lastPages;
                           [targetArray addObjectsFromArray:mappingResult.array];
                           
                           if (success) {
-                              success(mappingResult.array);
+                              success(targetArray);
                           }
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -636,7 +636,15 @@ NSMutableDictionary *_lastPages;
               resoucePath:resourcePath
                  fromPage:0
                  withSize:0
-                  success:success
+                  success:^(NSArray *itemArray) {
+                      [itemArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                          KTFileInfo *fileInfo = (KTFileInfo*)obj;
+                          fileInfo.elementKey = self.itemKey;
+                      }];
+                      if(success){
+                          success(itemArray);
+                      }
+                  }
                   failure:failure];
     
 }
@@ -672,15 +680,15 @@ NSMutableDictionary *_lastPages;
 }
 
 // Return current filelist or requests a new one from server
--(NSArray*)itemFilesList{
+-(NSMutableArray*)itemFilesList{
     
-    return [NSArray arrayWithArray:_itemFilesList];
+    return [NSMutableArray arrayWithArray:_itemFilesList];
 }
 
 // Return current notes list or requests a new one from server.
--(NSArray*)itemNotesList{
+-(NSMutableArray*)itemNotesList{
     
-    return [NSArray arrayWithArray:_itemNotesList];
+    return [NSMutableArray arrayWithArray:_itemNotesList];
     
 }
 

@@ -91,7 +91,7 @@ static NSDictionary *_classTypes;
 
 
 +(NSInteger)version{
-    return 5; //Incement with every class property change!
+    return 6; //Incement with every class property change!
 }
 
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
