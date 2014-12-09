@@ -119,6 +119,8 @@
     [output appendString:cp.leftExpression.keyPath]; // Left Expression
     [output appendString:[cp predicateKTOperatorTypeString]];
     
+    NSLog(@"extression Type: %@",[[cp.rightExpression constantValue] className]);
+    
     if ([[[cp.rightExpression constantValue] className] isEqualToString:@"__NSDate"]) {
         // Date to JSON Convert
         NSDate *date = [cp.rightExpression constantValue];

@@ -323,7 +323,7 @@ int maxPagesize=500;
 
 -(NSArray*)itemWhereUsedList{
     
-    return [NSArray arrayWithArray:_itemWhereUsedList];
+    return _itemWhereUsedList;
 }
 
 // Returns the current list or queries a new one.
@@ -421,7 +421,7 @@ int maxPagesize=500;
 
 /// Returns the current list of child elements
 -(NSArray*)itemStructureList{
-    return [NSArray arrayWithArray:_itemStructureList];
+    return _itemStructureList;
 }
 
 
@@ -637,10 +637,12 @@ NSMutableDictionary *_lastPages;
                  fromPage:0
                  withSize:0
                   success:^(NSArray *itemArray) {
+                      _isFilesListLoaded = YES;
                       [itemArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                           KTFileInfo *fileInfo = (KTFileInfo*)obj;
                           fileInfo.elementKey = self.itemKey;
                       }];
+                      
                       if(success){
                           success(itemArray);
                       }
@@ -682,14 +684,13 @@ NSMutableDictionary *_lastPages;
 // Return current filelist or requests a new one from server
 -(NSMutableArray*)itemFilesList{
     
-    return [NSMutableArray arrayWithArray:_itemFilesList];
+    return _itemFilesList;
 }
 
 // Return current notes list or requests a new one from server.
 -(NSMutableArray*)itemNotesList{
     
-    return [NSMutableArray arrayWithArray:_itemNotesList];
-    
+    return _itemNotesList;
 }
 
 #pragma mark Server response
