@@ -214,11 +214,12 @@ int maxPagesize=500;
         
         RKResponseDescriptor *responsePOSTDescriptor = [RKResponseDescriptor
                                                        responseDescriptorWithMapping:_mapping
-                                                       method:RKRequestMethodPOST
+                                                       method:RKRequestMethodPOST | RKRequestMethodPUT
                                                        pathPattern:nil
                                                        keyPath:nil
                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
         
+
         // Only for Searches with Solr
         RKResponseDescriptor *responseDescriptorSearchEngine = [RKResponseDescriptor
                                                     responseDescriptorWithMapping:_mapping
@@ -271,6 +272,7 @@ int maxPagesize=500;
                                            routeWithClass:[KTElement class]
                                            pathPattern:@"elements/:itemKey"
                                            method:RKRequestMethodDELETE]] ;
+        
         
         [manager addResponseDescriptorsFromArray:@[ responseGETDescriptor,responsePOSTDescriptor, responseDescriptorSearchEngine ]]; // GET
         [manager addRequestDescriptor:elementRequestDescriptor]; // POST, PUT
@@ -1119,7 +1121,7 @@ static long numberOfThumbnailsLoaded;
                         
                         // Element was created (Send a notification?)
                         // Who should get the notification?
-                        
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"ElementDidCreate" object:self];
                         if (success) {
                             success(self);
                         }
@@ -1146,6 +1148,10 @@ static long numberOfThumbnailsLoaded;
                       path:nil parameters:nil
                    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                        [[KTSendNotifications sharedSendNotification]sendElementHasBeenChanged:self];
+
+                       // Who should get the notification?
+                       [[NSNotificationCenter defaultCenter] postNotificationName:@"ElementDidChange" object:self];
+                       
                        if (success) {
                            success(self);
                        }
