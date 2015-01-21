@@ -207,11 +207,20 @@ int maxPagesize=500;
         // Zentralisiert ?
         RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor
                                                     responseDescriptorWithMapping:_mapping
-                                                    method:RKRequestMethodGET | RKRequestMethodPOST | RKRequestMethodPUT
+                                                    method:RKRequestMethodGET
                                                     pathPattern:nil
                                                     keyPath:@"ElementList"
                                                     statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
         
+        RKResponseDescriptor *responseDescriptorPost = [RKResponseDescriptor
+                                                    responseDescriptorWithMapping:_mapping
+                                                    method:RKRequestMethodPOST | RKRequestMethodPUT
+                                                    pathPattern:nil
+                                                    keyPath:nil
+                                                    statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+        
+        
+        // response for Solr Search
         RKResponseDescriptor *responseDescriptorSearchEngine = [RKResponseDescriptor
                                                     responseDescriptorWithMapping:_mapping
                                                     method:RKRequestMethodGET
@@ -264,7 +273,7 @@ int maxPagesize=500;
                                            pathPattern:@"elements/:itemKey"
                                            method:RKRequestMethodDELETE]] ;
         
-        [manager addResponseDescriptorsFromArray:@[ responseDescriptor, responseDescriptorSearchEngine ]];
+        [manager addResponseDescriptorsFromArray:@[ responseDescriptor,responseDescriptorPost, responseDescriptorSearchEngine ]];
         [manager addRequestDescriptor:elementRequestDescriptor];
         
     }
@@ -1232,6 +1241,65 @@ static long numberOfThumbnailsLoaded;
             failure(error);
         }
     }];
+    
+}
+
+/// Moves to a new class
+-(void)moveToClass:(NSString *)targetClassKey success:(void (^)(NSString *))success failure:(void (^)(NSError *error))failure
+{
+    /*
+     Move Action: 
+     {"MoveTo":<targetClassKey>}
+     
+     
+     */
+    NSString *baseURL =[[KTManager sharedManager].baseURL absoluteString];
+    
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@elements/%@",baseURL, self.itemKey]];
+    
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:URL];
+    [[KTManager sharedManager] setDefaultHeadersToRequest:urlRequest];
+    
+    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    [urlRequest setHTTPMethod:@"POST"];
+    
+    NSError *error;
+    NSDictionary *jsonDictionary = @{@"MoveTo": targetClassKey};
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:jsonDictionary
+                                                       options:kNilOptions error:&error];
+    
+    urlRequest.HTTPBody = jsonData;
+    
+    KTElement *theElement;
+    theElement = self;
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               if (!connectionError){
+                                   
+                                   
+                                   NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
+                                   NSString *location =  [httpResponse allHeaderFields][@"Location"];
+                                   
+                                   NSLog(@"Element moved! New elementID: %@",location);
+                                   
+                                   // set the new location key after move
+                                   theElement.itemKey = location;
+                                   
+                                   if (success){
+                                       success(location);
+                                   }
+                               } else {
+                                   if (failure){
+                                       NSLog(@"Error while elememt moving: %@",connectionError.localizedDescription);
+                                       failure(connectionError);
+                                   }
+                               }
+                           }];
+    
+
     
 }
 
