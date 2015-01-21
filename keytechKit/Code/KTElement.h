@@ -304,6 +304,12 @@ typedef enum {
  @param success will be performed when completed.
  */
 -(void)reload:(KTResponseAttributes)metadata success:(void(^)(KTElement *element))success failure:(void (^)(NSError *))failure;
+
+/**
+ Moves the element to a new target class
+ */
+-(void)moveToClass:(NSString*)targetClassKey success:(void(^)(NSString *newElementkey))success failure:(void(^)(NSError *error))failure;
+
 @end
 
 

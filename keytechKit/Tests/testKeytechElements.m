@@ -495,10 +495,57 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         }
     }];
     
-    
-    
 }
 
+/// Starts moving a elemnet to another class
+-(void)testMoveElement{
+    // Create a dummy element
+    // Move it to another class
+    
+    XCTestExpectation *elementSavedExpectation = [self expectationWithDescription:@"Element saved"];
+    
+    
+    KTElement *element = [KTElement elementWithElementKey:@"MISC_FILE"];
+    [element saveItem:^(KTElement *element) {
+        [elementSavedExpectation fulfill];
+        NSLog(@"Element created with ID: %@",element.itemKey);
+        
+    } failure:^(KTElement *element, NSError *error) {
+        NSLog(@"Creation failed");
+        [elementSavedExpectation fulfill];
+        XCTFail(@"Could not store a new element");
+    }];
+    
+        [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+            if (error) {
+                XCTFail(@"Could not cerate a new element");
+            }
+        }];
+    
+    XCTestExpectation *elementMovedExpectation = [self expectationWithDescription:@"Element moved"];
+    
+    NSString *newExpectedID = [NSString stringWithFormat:@"TEST_FILE:%D",element.itemID];
+    
+    [element moveToClass:@"TEST_FILE"
+                 success:^(NSString *newElementkey) {
+                     
+                    XCTAssert([newElementkey isEqualToString:newExpectedID]);
+                     
+                      [elementMovedExpectation fulfill];
+
+                 } failure:^(NSError *error) {
+                     XCTFail(@"Element move server failure: %@",error);
+                      [elementMovedExpectation fulfill];
+                 }];
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if  (error) {
+             XCTFail(@"Element could not be moved: %@",error);
+        }
+    }];
+
+    
+}
 
 
 @end
