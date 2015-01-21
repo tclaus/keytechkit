@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 
+typedef NS_ENUM(NSUInteger, FileStorageType) {
+    FileTypeMaster,
+    FileTypePreview,
+    FileTypeQuickPreview,
+    FileTypeOleRef,
+};
+
 @class KTFileInfo;
 @protocol KTFileObjectDelegate <NSObject>
 
@@ -21,13 +28,19 @@
  */
 -(void)KTFileInfo:(KTFileInfo*)fileInfo uploadProgress:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent;
 
-
+@optional
+/**
+ Sends a response that a file was uploaded
+ */
+-(void)FinishedUploadWithFileInfo:(KTFileInfo*)fileInfo;
+@optional
 @end
 
+@class KTElement;
 /**
  Provides a fileinfo object and helps loading the file to local machine
  */
-@interface KTFileInfo : NSObject <NSCopying, NSURLSessionDownloadDelegate,NSURLSessionTaskDelegate>
+@interface KTFileInfo : NSObject <NSCopying, NSURLSessionDownloadDelegate,NSURLSessionTaskDelegate,NSURLSessionDelegate>
 
 /**
  Provides the object Mapping for this class and given objectManager
@@ -35,12 +48,17 @@
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
+ Creates and returns a file object attached to the element in the argument
+ */
++(instancetype)fileInfoWithElement:(KTElement*)element;
+
+/**
  A delegate to communicate upload und download progress
  */
 @property (nonatomic) id <KTFileObjectDelegate> delegate;
 
 /**
- Gets the unique fileID
+ The unique fileID
  */
 @property (nonatomic) NSInteger fileID;
 /**
@@ -59,9 +77,15 @@
  @property (nonatomic,readonly) NSString* shortFileName;
 
 /**
- A text representation of the file Type : MASTER, PREVIEW, QUICKPREVIEW
+ A text representation of the file Type : MASTER, PREVIEW, OLEREF
  */
-@property (nonatomic,copy) NSString* fileStorageType;
+@property (nonatomic) FileStorageType fileStorageType;
+
+/**
+ Returns the text expression of the files storage Type
+ */
+@property (readonly) NSString* fileStorageTextType;
+
 /**
  Gets the filesize in bytes
  */
@@ -85,6 +109,10 @@ When file is loaded a local URL is returned. Nil otherwise
  */
 -(void)loadRemoteFile;
 
+/**
+ Saves a file in a background task
+ */
+-(void)saveFileInBackground:(NSURL *)fileURL;
 /**
  Stores this file to API. Uses the delegate to inform about progress
  */

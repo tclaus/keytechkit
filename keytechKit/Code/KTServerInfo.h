@@ -15,7 +15,6 @@
 @interface KTServerInfo : NSObject
 
 
-
 /**
  Provides the object Mapping for this class and given objectManager
  */
@@ -24,35 +23,55 @@
 +(instancetype)sharedServerInfo;
 
 /**
+ returns TRUE if serverinfo was fetched
+ */
+@property (readonly) BOOL isLoaded;
+
+/**
  Contains the full key-value list of all bom attribes, including all element attributes
  */
-@property (readonly)NSMutableArray* keyValueList;
+@property (readonly) NSMutableArray* keyValueList;
 
 /**
  Returns the current API Version from Server
  */
-@property (readonly)NSString *APIVersion;
+@property (readonly)NSString *databaseVersion;
 
 /**
  Return the API Kernel version from Server
  */
-@property (readonly)NSString *APIKernelVersion;
+@property (readonly)NSString *APIVersion;
 
 /**
  A unique key to identify the current Server
  */
 @property (readonly) NSString *serverID;
 
-+(instancetype)serverInfo;
+/**
+ Returns YES if web API supports index Server (SOLR server on vaults)
+ */
+@property (readonly) BOOL isIndexServerEnabled;
 
 /**
  Returns the company String used for license generations
  */
 @property (readonly) NSString* licencedCompany;
 
+
+/**
+ Loads the current Serverinfo with globally set ServerURL. 
+ Waits until server responds.
+ */
++(instancetype)serverInfo;
+
+
 /**
  Loads the API's Serverinfo in background
  */
 -(void)reload;
+/**
+ Reloads the API in background and executed block after succeed
+ */
+-(void)reloadWithCompletionBlock:(void(^)(NSError* error))completionBlock;
 
 @end

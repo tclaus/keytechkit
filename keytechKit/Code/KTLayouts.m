@@ -8,23 +8,33 @@
 
 #import "KTLayouts.h"
 
+@interface KTLayouts() {}
+    typedef void(^successfulLadedLayout)(KTLayout *layout);
+    
+
+@end
+
 @implementation KTLayouts{
     KTKeytech* _ktKeytech;
-
+    
+    /// A list of all layouts for all classes
     NSMutableDictionary *_layoutsList;
     
 }
+@synthesize isAllLoaded = _isAllLoaded;
 
-    static KTLayouts *_sharedLayouts;
-
-@synthesize delegate;
+static KTLayouts *_sharedLayouts;
 
 
 +(instancetype)sharedLayouts{
-    if (!_sharedLayouts) {
+    
+    
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
         _sharedLayouts = [[KTLayouts alloc]init];
-    }
-
+    });
+    
     return _sharedLayouts;
 }
 
@@ -37,7 +47,7 @@
             _sharedLayouts = self;
             _layoutsList = [[NSMutableDictionary alloc]initWithCapacity:50];
             _ktKeytech= [[KTKeytech alloc]init];
-            
+            _isAllLoaded = NO;
         }
     } else {
         return _sharedLayouts;
@@ -48,9 +58,10 @@
 
 
 
-/// Clears all Layout data
+/// Clears all layout data
 -(void)clearLayoutData{
     [_layoutsList removeAllObjects];
+    _isAllLoaded = NO;
 }
 
 -(BOOL)isLayoutLoaded:(NSString*)classKey{
@@ -58,8 +69,23 @@
 }
 
 
+
+-(void)loadLayoutForClassKey:(NSString *)classKey{
+        [self loadLayoutForClassKey:classKey
+                            success:nil
+                            failure:nil];
+}
+
 /// Starts loading layout for the given classkey
--(void)loadLayoutForClassKey:(NSString*)classKey {
+-(void)loadLayoutForClassKey:(NSString *)classKey
+                     success:(void (^)(KTLayout *))success
+                     failure:(void (^)(NSError *))failure {
+    
+
+    if (!classKey) {
+        return;
+    }
+    
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTSimpleControl mappingWithManager:manager];
@@ -83,8 +109,18 @@
     [manager getObjectsAtPath:editorResourcePath
                    parameters:nil
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          
+                          [self layoutDidLoadForClassKey:classKey];
+                          // Editor layout was loaded
                           KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:classKey];
                           layout.editorLayout = mappingResult.array;
+                          
+                          
+                          if (layout.isLoaded) {
+                              if (success) {
+                                  success(layout);
+                              }
+                          }
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                           
@@ -94,14 +130,25 @@
     [manager getObjectsAtPath:listerResourcePath
                    parameters:nil
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                          
+                        
+                          [self layoutDidLoadForClassKey:classKey];
+                          // Lister layout was loaded
                           KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:classKey];
                           layout.listerLayout = mappingResult.array;
+                          
+                          
+                          if (layout.isLoaded) {
+                              if (success) {
+                                  success(layout);
+                              }
+                          }
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                           
                           
                       }];
+    
+    
     
     
 }
@@ -111,13 +158,7 @@
 -(KTLayout*)layoutForClassKey:(NSString *)classKey{
  
     if (![_layoutsList valueForKey:classKey]){
-        //Holen und per KVO später benachrichtigen
-        [_ktKeytech performGetClassEditorLayoutForClassKey:classKey loaderDelegate:self]; //EditorLayout
-        [_ktKeytech performGetClassListerLayout:classKey loaderDelegate:self]; // Lister Layout
-
-        // Da Requests Asynchron kommen aber noch nicht in _layoutslist eingetragen wurden, kann dier selbe Anfrage immer wieder kommen, bevor eine
-        // Antwort eingegangen ist.
-        // Daher hier schon das dictionary auffüllen
+        
         
         // In layouts einsortieren
         if (![_layoutsList valueForKey:classKey]){
@@ -135,51 +176,18 @@
     
 }
 
--(void)requestProceedWithError:(KTLoaderInfo *)loaderInfo error:(NSError *)theError{
-    
-}
-
-/* Suche kehrte mit einem Ergebnis zurück
+/**
+ Add to layout list an return YES if layout is fully loaded
  */
--(void)requestDidProceed:(NSArray *)searchResult fromResourcePath:(NSString *)resourcePath{
-    // Habe nun Layoutcontrols zurückerhalten
-    // Der Form /classes/classkey/editorLayout
-    // Das in die Cache-Liste einbauen und Signalisieren
-    NSArray *pathArray = [resourcePath componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-    
-    NSString *forClassKey = pathArray[1];
+-(void)layoutDidLoadForClassKey:(NSString*)classKey{
 
-    // In layouts einsortieren
-    if (![_layoutsList valueForKey:forClassKey]){
+    // Add to Layouts list
+    if (![_layoutsList valueForKey:classKey]){
         KTLayout *layout =[[KTLayout alloc]init];
-        layout.classKey =forClassKey;
-        [_layoutsList setValue:layout forKey:forClassKey];
+        layout.classKey =classKey;
+        [_layoutsList setValue:layout forKey:classKey];
     }
 
-    
-    // Set lister and editor arrays
-    if ([pathArray[2] isEqualToString:@"editorlayout"]){
-        KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:forClassKey];
-        layout.editorLayout  = searchResult;
-        if (layout.listerLayout) {
-            if ([delegate respondsToSelector:@selector(layoutDidLoad:)]){
-                [delegate layoutDidLoad:layout];
-            }
-        }
-    }
-
-    if ([pathArray[2] isEqualToString:@"listerlayout"]){
-        KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:forClassKey];
-        layout.listerLayout  = searchResult;
-        if (layout.editorLayout) {
-            
-            if ([self.delegate respondsToSelector:@selector(layoutDidLoad:)]){
-                [self.delegate layoutDidLoad:layout];
-            }
-        }
-        
-    }
-    
 }
 
 @end

@@ -16,10 +16,12 @@
 
 + (void)initialize{
     
-    KTManager* webservice = [[KTManager alloc]init];
-    webservice.servername = @"http://10.0.246.14:8080/keytech";
+    KTManager* webservice = [KTManager sharedManager];
+                             
+    //webservice.servername = @"https://demo.keytech.de";
+    webservice.servername = @"http://claus-pc.keytech.de:8080/keytech";
+    webservice.username = @"jgrant";
     [webservice synchronizeServerCredentials];
-    
     
 }
 

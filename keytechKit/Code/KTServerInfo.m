@@ -10,9 +10,12 @@
 #import "KTKeyValue.h"
 
 @implementation KTServerInfo{
+    BOOL _isloading;
+    BOOL _isLoaded;
 
 }
     static KTServerInfo *_serverInfo;
+
 
 @synthesize keyValueList = _keyValueList;
 
@@ -27,7 +30,7 @@ static KTServerInfo *_sharedServerInfo;
     self = [super init];
     if (self) {
         [KTServerInfo mappingWithManager:[RKObjectManager sharedManager]];
-        _isLoaded = YES;
+        _isLoaded = NO;
         _isloading = NO;
     }
     return self;
@@ -42,6 +45,10 @@ static KTServerInfo *_sharedServerInfo;
     return _sharedServerInfo;
 }
 
+-(BOOL)isLoaded{
+    return _isLoaded;
+}
+
 // Sets the Object mapping for JSON
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
     
@@ -49,13 +56,12 @@ static KTServerInfo *_sharedServerInfo;
         _usedManager = manager;
         
        
-        
         RKObjectMapping *kvMapping = [RKObjectMapping mappingForClass:[KTKeyValue class]];
         [kvMapping addAttributeMappingsFromDictionary:@{@"Key":@"key",
                                                        @"Value":@"value"}];
        
          _mapping = [RKObjectMapping mappingForClass:[self class]];
-        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"ServerInfoResult" toKeyPath:@"keyValueList" withMapping:kvMapping]];
+        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"ServerInfoResult" toKeyPath:@"_keyValueList" withMapping:kvMapping]];
         /*
         [RKRelationshipMapping relationshipMappingFromKeyPath:@"ServerInfoResult"
                                                     toKeyPath:@"keyValueList"
@@ -65,10 +71,10 @@ static KTServerInfo *_sharedServerInfo;
         
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
         RKResponseDescriptor *serverInfoDescriptor = [RKResponseDescriptor
-                                                      responseDescriptorWithMapping:_mapping
-                                                      method:RKRequestMethodAny
-                                                      pathPattern:@"serverinfo"
-                                                      keyPath:nil
+                                                      responseDescriptorWithMapping:kvMapping
+                                                      method:RKRequestMethodGET
+                                                      pathPattern:nil
+                                                      keyPath:@"ServerInfoResult"
                                                       statusCodes:statusCodes];
         
         
@@ -80,11 +86,8 @@ static KTServerInfo *_sharedServerInfo;
     return _mapping;
 }
 
-BOOL _isloading;
-BOOL _isLoaded;
 
-
-/// Loads the serverinfo in background
+/// Loads the serverinfo and waits until return
 -(void)reload{
     if (!_isloading) {
         _isLoaded = NO;
@@ -96,18 +99,58 @@ BOOL _isLoaded;
         
         [manager getObject:nil path:@"serverinfo" parameters:nil
                    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                       KTServerInfo *serverInfo = mappingResult.firstObject;
-                       _keyValueList = [serverInfo.keyValueList mutableCopy];
+                       NSLog(@"Serverinfo loaded.");
+                       // Key Value liste austauschen
+                    _keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
                        _isLoaded = YES;
                        _isloading = NO;
                    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                       NSLog(@"Error while getting the API version: %@",error.localizedDescription);
+                       NSLog(@"Error while getting the serverinfo resource: %@",error.localizedDescription);
                        _isLoaded = NO;
                        _isloading = NO;
                    }];
 
         
         [self waitUnitlLoad];
+    }
+    
+    
+}
+
+-(void)reloadWithCompletionBlock:(void(^)(NSError* error))completionBlock{
+    if (!_isloading) {
+        _isLoaded = NO;
+        _isloading = YES;
+        
+        RKObjectManager *manager = [RKObjectManager sharedManager];
+        [KTServerInfo mappingWithManager:manager];
+        
+        
+        [manager getObject:nil path:@"serverinfo" parameters:nil
+                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                       NSLog(@"Serverinfo loaded.");
+                       // Key Value liste austauschen
+                       _keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
+                       _isLoaded = YES;
+                       _isloading = NO;
+                       
+                       if (completionBlock) {
+                           completionBlock(nil);
+                       }
+                       
+                   } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                       NSLog(@"Error while getting the serverinfo resource: %@",error.localizedDescription);
+                       _isLoaded = NO;
+                       _isloading = NO;
+                       
+                       if (completionBlock) {
+                           completionBlock(error);
+                       }
+
+                       
+                   }];
+        
+        
     }
     
     
@@ -143,39 +186,64 @@ BOOL _isLoaded;
 -(id)valueForKey:(NSString *)key{
     
     for (KTKeyValue *kv in self.keyValueList) {
-        if ([kv.key isEqualToString:key]) {
+        if ([kv.key compare:kv.key options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             return kv.value;
         }
     }
     return nil;
 }
+/// Returns a Boolean value
+-(BOOL)boolValueForKey:(NSString *)key{
+    
+    for (KTKeyValue *kv in self.keyValueList) {
+        if ([kv.key compare:key options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            
+            if ([kv.value compare:@"true" options:NSCaseInsensitiveSearch]==NSOrderedSame){
+                return YES;
+            };
+            
+            if ([kv.value compare:@"yes" options:NSCaseInsensitiveSearch]==NSOrderedSame){
+                return YES;
+            };
+            
+            if ([kv.value compare:@"1" options:NSCaseInsensitiveSearch]==NSOrderedSame){
+                return YES;
+            };
+            
+            return NO;
+            
+        }
+    }
+    
+    return NO;
+}
 
 +(instancetype)serverInfo{
     if (!_serverInfo) {
         _serverInfo = [[KTServerInfo alloc]init];
-        [_serverInfo reload];
     }
     return _serverInfo;
 }
 
 -(NSString*)serverID{
-    [self waitUnitlLoad];
-
+    
     return [self valueForKey:@"ServerID"];
 }
 
--(NSString *)APIKernelVersion{
-        [self waitUnitlLoad];
-    return [self valueForKey:@"keytech version"];
+-(BOOL)isIndexServerEnabled{
+    return [self boolValueForKey:@"Supports Index Server"];
+}
+
+
+-(NSString *)databaseVersion{
+    return [self valueForKey:@"keytech database version"];
 }
 
 -(NSString *)APIVersion{
-    [self waitUnitlLoad];
     return [self valueForKey:@"API version"];
 }
 
 -(NSString *)licencedCompany{
-    [self waitUnitlLoad];
     return [self valueForKey:@"LicensedCompany"];
 }
 

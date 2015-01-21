@@ -25,6 +25,7 @@
 
 static KTUser* _currentUser;
 
+
 @synthesize isLoaded = _isLoaded;
 @synthesize isLoading = _isLoading;
 
@@ -102,7 +103,61 @@ static RKObjectManager *_usedManager;
     
 }
 
-// Returns the key
++(void)loadUserWithKey:(NSString *)username success:(void (^)(KTUser *user))success failure:(void (^)(NSError *error))failure{
+    
+    KTUser *user = [[KTUser alloc]init] ;
+    user.userKey = username;
+    NSLog(@"Start loading user with key %@",username);
+    
+    [user reload:success];
+    
+}
+
+// Starts reloading the user. The userkey is needed.
+-(void)reload{
+    NSLog(@"Start reloading user with key %@",self.userKey);
+    if (!_isLoading) {
+        _isLoaded = NO;
+        _isLoading = YES;
+        
+        [self reload:nil];
+        [self waitForData];
+    }
+    
+}
+
+-(void)reload:(void (^)(KTUser *))success{
+        NSLog(@"Start reloading user with key %@",self.userKey);
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTUser mappingWithManager:manager];
+    
+    __weak KTUser *userObject = self;
+    
+    [manager getObject:userObject path:nil parameters:nil
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                       NSLog(@"Successful reloaded user with key %@",self.userKey);
+                   KTUser *user = mappingResult.firstObject;
+                   
+                   _isLoaded = YES;
+                   _isLoading = NO;
+                   
+                   self.userEmail =user.userEmail;
+                   self.userLanguage = user.userLanguage;
+                   self.userLongName = user.userLongName;
+                   
+                   if (success) {
+                       success(self);
+                   }
+                   
+               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   NSLog(@"Error while getting the user-object: %@",error.localizedDescription);
+                   _isLoaded = NO;
+                   _isLoading = NO;
+               }];
+
+}
+
+// Returns the unique indetifier key
 -(NSString*)identifier{
     return _userKey;
 }
@@ -195,41 +250,6 @@ static RKObjectManager *_usedManager;
 }
 
 
-
-
-
-/// Loads the serverinfo in background, but wait until return.
--(void)reload{
-    if (!_isLoading) {
-        _isLoaded = NO;
-        _isLoading = YES;
-        
-        RKObjectManager *manager = [RKObjectManager sharedManager];
-        [KTUser mappingWithManager:manager];
-        
-        
-        [manager getObject:self path:nil parameters:nil
-                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                       
-                       KTUser *user = mappingResult.firstObject;
-                       
-                       _isLoaded = YES;
-                       _isLoading = NO;
-                       
-                       self.userEmail =user.userEmail;
-                       self.userLanguage = user.userLanguage;
-                       self.userLongName = user.userLongName;
-                       
-                       
-                   } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                       NSLog(@"Error while getting the user-Object: %@",error.localizedDescription);
-                       _isLoaded = NO;
-                       _isLoading = NO;
-                   }];
-    }
-    //[self waitForData];
-    
-}
 
 -(void)waitForData{
     // Wait

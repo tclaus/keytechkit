@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0600"
+   LastUpgradeVersion = "0620"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -38,6 +38,9 @@
                ReferencedContainer = "container:keytechKit.xcodeproj">
             </BuildableReference>
             <SkippedTests>
+               <Test
+                  Identifier = "testAttributeMappings/testGetAttributeMappings">
+               </Test>
                <Test
                   Identifier = "testGlobalSettings">
                </Test>

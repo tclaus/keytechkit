@@ -12,6 +12,10 @@
 #import "testResponseLoader.h"
 #import "KTFileInfo.h"
 #import "KTElement.h"
+#import "testCase.h"
+#import "Restkit/RKTestFixture.h"
+
+static NSBundle *fixtureBundle = nil;
 
 /**
  Tests file related thinks
@@ -24,21 +28,39 @@
 {
     KTManager* webservice;
     NSString* elementKeyWithStructure;
+    
 }
 
 BOOL awaitingResponse;
 NSTimeInterval _timeOut = 12;
 
+-(NSBundle *)fixtureBundle
+{
+    NSAssert(fixtureBundle != nil, @"Bundle for fixture has not been set. Use setFixtureBundle: to set it.");
+    return fixtureBundle;
+}
 
- 
+-(NSURL*)urlForFixture:(NSString*)fixtureName{
+    
+    NSString *path= [[self fixtureBundle] pathForResource:fixtureName ofType:nil];
+    NSURL *fixtureURL = [NSURL fileURLWithPath:path];
+    return fixtureURL;
+}
 
 
 - (void)setUp
 {
     [super setUp];
+    [testCase initialize];
     // Put setup code here; it will be run once, before the first test case.
     webservice = [KTManager sharedManager];
     elementKeyWithStructure= @"3DMISC_SLDASM:2220"; //* Element with structure on Test API
+    
+    fixtureBundle = [NSBundle bundleForClass:[testFileManagement class]];
+    
+    
+
+    
 }
 
 - (void)tearDown
@@ -78,30 +100,68 @@ NSTimeInterval _timeOut = 12;
 
 
 
-
+-(void)testUploadFileInBackground
+{
+    // Create a new element
+    KTElement *element = [KTElement elementWithElementKey:@"MISC_FILE"];
+    XCTestExpectation *elementFileExpectation = [self expectationWithDescription:@"File Loaded"];
+    
+    
+    [element saveItem:^(KTElement *element) {
+        [elementFileExpectation fulfill];
+        
+        KTFileInfo *newFile = [KTFileInfo fileInfoWithElement:element];
+        newFile.fileName = @"Aerial04.jpg";
+        newFile.fileStorageType = FileTypeMaster;
+        
+        NSURL *fileURL = [self urlForFixture:@"Aerial04.jpg"];
+        [newFile saveFileInBackground:fileURL];
+        
+        //
+    } failure:^(KTElement *element, NSError *error) {
+        [elementFileExpectation fulfill];
+        
+    }];
+    
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Failed uploading a file: %@",error);
+        }
+        
+    }];
+    
+}
 
 /**
  Test for a filellist in this Element
 */
 - (void)testElementHasFiles
 {
-    KTElement* item = [[KTElement alloc]init];
-    item.itemKey = elementKeyWithStructure;
+    KTElement* element = [[KTElement alloc]initWithElementKey:elementKeyWithStructure];
     
-    NSMutableArray* filesList =  item.itemFilesList;
-    XCTAssertNotNil(filesList, @"FilesList should not be empty on first fetching"); // All layzy loaded arrays should point to a array structure.
+    
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Filelist Loaded"];
+    
+    [element loadFileListSuccess:^(NSArray *itemsList) {
+        [documentOpenExpectation fulfill];
+        XCTAssertNotNil(itemsList, @"Fiellist list should not be nil");
+        XCTAssertTrue(itemsList.count>0, @"Filelist list should have some items");
+        XCTAssertTrue(element.itemFilesList.count>0,@"Element property should not be empty");
+        
+        
+    } failure:^(NSError *error) {
+        [documentOpenExpectation fulfill];
+        XCTFail(@"Failed loading filelist: %@",error);
+        
+    }];
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Failed fetching a file: %@",error);
+        }
 
-    [item addObserver:self forKeyPath:@"itemFilesList" options:NSKeyValueObservingOptionNew context:nil];
-    
-    [self waitForResponse];
-    
-    [item removeObserver:self forKeyPath:@"itemFilesList" context:nil];
-    
-    XCTAssertTrue(item.itemFilesList.count>0, @"Filelist shuld not be Empty.");
-    
-    KTFileInfo* firstFile = filesList[1];
-
-    XCTAssertTrue([firstFile.shortFileName length]>0, @"Short filename sould not be empty.");
+    }];
     
 }
 
@@ -109,20 +169,33 @@ NSTimeInterval _timeOut = 12;
  Fetching a file
  */
 -(void)testFetchingFile{
-    KTElement* item = [[KTElement alloc]init];
-    item.itemKey = elementKeyWithStructure;
+   
+    KTElement* element = [[KTElement alloc]initWithElementKey:elementKeyWithStructure];
     
-    NSMutableArray* filesList =  item.itemFilesList;
-    XCTAssertNotNil(filesList, @"FilesList should not be empty on first fetching"); // All layzy loaded arrays should point to a array structure.
     
-    [item addObserver:self forKeyPath:@"itemFilesList" options:NSKeyValueObservingOptionNew context:nil];
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Filelist Loaded"];
     
-    [self waitForResponse];
+    [element loadFileListSuccess:^(NSArray *itemsList) {
+        [documentOpenExpectation fulfill];
+        XCTAssertNotNil(itemsList, @"Filelist list should not be nil");
+        XCTAssertTrue(itemsList.count>0, @"Filelist list should have some items");
+        XCTAssertTrue(element.itemFilesList.count>0,@"Element property should not be empty");
+        
+        
+    } failure:^(NSError *error) {
+        [documentOpenExpectation fulfill];
+        XCTFail(@"Failed loading filelist: %@",error);
+        
+    }];
     
-    [item removeObserver:self forKeyPath:@"itemFilesList" context:nil];
-    XCTAssertTrue(filesList.count>0, @"Filelist shuld not be Empty.");
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Failed fetching a file: %@",error);
+        }
+        
+    }];
     
-    KTFileInfo* firstFile = filesList[1];
+    KTFileInfo* firstFile = element.itemFilesList[0];
 
     [firstFile loadRemoteFile];
     
@@ -134,6 +207,8 @@ NSTimeInterval _timeOut = 12;
     NSURL * targetURL = [firstFile localFileURL];
     
     [firstFile removeObserver:self forKeyPath:@"localFileURL" context:nil];
+    
+    XCTAssertNotNil(targetURL,@"targetURl was nil. expected a valid target URL");
     
     
 }

@@ -10,6 +10,7 @@
 #import "KTManager.h"
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
+#import "testCase.h"
 
 @interface testEnvironment : XCTestCase
 
@@ -25,7 +26,7 @@
 {
     [super setUp];
     // Put setup code here; it will be run once, before the first test case.
-    
+    [testCase initialize];
     _webservice = [KTManager sharedManager];
     
     keytech = [[KTKeytech alloc]init];
