@@ -212,6 +212,16 @@ typedef enum {
 @property (nonatomic,readonly) NSMutableArray* itemNotesList;
 @property (readonly) BOOL isNotesListLoaded;
 
+/**
+ Only documents can be reserverd. In case of items or folder this property returns false.
+ */
+@property (nonatomic) BOOL isReserved;
+
+/**
+ Returns the full name of who has reserverd.
+ */
+@property (nonatomic,readonly) NSString *isReservedBy;
+
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 @property (readonly,nonatomic,copy) NSImage* itemThumbnail; // Versucht, zu diesem Element ein Thumbnail zu laden
 #else

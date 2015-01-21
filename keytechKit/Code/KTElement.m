@@ -961,6 +961,30 @@ static long numberOfThumbnailsLoaded;
     return NO;
 }
 
+
+-(BOOL)isReserved{
+    if ([self.itemClassType isEqualToString:@"DO"]) {
+        NSString *reservedBy =  [self valueForAttribute:@"as_do__reserved"];
+        if (!reservedBy) {
+            return NO; // unknown, advanced information
+        } else {
+            //TODO: need to swap from short name to fullname
+            return YES;
+        }
+    }
+    return NO;
+}
+
+-(void)setIsReserved:(BOOL)isReserved{
+    //TODO: SetIsReserverd
+}
+
+-(NSString *)isReservedBy{
+    // My return nil
+    return [self valueForAttribute:@"as_do__reserved"];
+}
+
+
 /*
  Gibt die erweiterte Liste der Eigenschaften zurück
  */
