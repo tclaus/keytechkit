@@ -1075,6 +1075,9 @@ static long numberOfThumbnailsLoaded;
         _itemBomList = [[NSMutableArray alloc]init];
         _itemVersionsList = [[NSMutableArray alloc]init];
         
+        _itemReleasedBy = @"";
+        _itemReleasedByLong = @"";
+
         _isDeleted = NO;
         
         _barrierQueue = dispatch_queue_create("de.claus-software.keytechPLM-ThumbnailDownloader", DISPATCH_QUEUE_CONCURRENT);
@@ -1319,16 +1322,28 @@ static long numberOfThumbnailsLoaded;
                                    
                                    
                                    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
-                                   NSString *location =  [httpResponse allHeaderFields][@"Location"];
-                                   
-                                   NSLog(@"Element moved! New elementID: %@",location);
-                                   
-                                   // set the new location key after move
-                                   theElement.itemKey = location;
-                                   
-                                   if (success){
-                                       success(location);
+                                   if (httpResponse.statusCode>=400) {
+                                       NSLog(@"Could not move element! No server implementation?");
+                                       if (failure) {
+                                           NSError *error = [NSError errorWithDomain:@"keytech" code:100
+                                                                            userInfo:@{NSLocalizedDescriptionKey: @"Server has no 'move' implementation."}];
+                                           failure(error);
+                                           return;
+                                       }
+                                   } else {
+                                       
+                                       NSString *location =  [httpResponse allHeaderFields][@"Location"];
+                                       
+                                       NSLog(@"Element moved! New elementID: %@",location);
+                                       
+                                       // set the new location key after move
+                                       theElement.itemKey = location;
+                                       
+                                       if (success){
+                                           success(location);
+                                       }
                                    }
+                                   
                                } else {
                                    if (failure){
                                        NSLog(@"Error while elememt moving: %@",connectionError.localizedDescription);
