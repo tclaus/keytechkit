@@ -462,6 +462,25 @@ static int const kMaxDefaultPageSize = 500;
     
 }
 
+-(void)performGetElementNextAvailableStatus:(NSString *)elementKey success:(void(^)(NSArray *result))success{
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTStatusItem mappingWithManager:manager];
+    
+    elementKey = [KTBaseObject normalizeElementKey:elementKey];
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/nextstatus",elementKey];
+    
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          if (success) {
+                              success(mappingResult.array);
+                          }
+                          
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          //TODO: Return the eError state 
+                      }];
+}
+
 //Gets a list of available target status. Starting from current element with its given state.
 -(void)performGetElementNextAvailableStatus:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
     

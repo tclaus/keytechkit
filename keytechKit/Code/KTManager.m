@@ -196,7 +196,10 @@
     if (self.username ==nil) self.username = keytechDefaultServerUser; // @"jgrant";
     if (self.password ==nil) self.password =@"";
     
+
+    
     RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.servername]]] ;// @"http://192.168.0.10:8080/keytech"];
+    
     
     [objectManager.HTTPClient setAuthorizationHeaderWithUsername:self.username password:self.password];
     [[RKValueTransformer defaultValueTransformer]addValueTransformer:[RKDotNetDateFormatter dotNetDateFormatterWithTimeZone:[NSTimeZone localTimeZone]]];

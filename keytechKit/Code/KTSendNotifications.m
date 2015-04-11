@@ -53,7 +53,7 @@ static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8s
 #ifndef DEBUG
  static NSString* APNApplictionID =@"A1270-D0C69"; // The Production Service
 #else
- static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
+static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
 #endif
 
 -(instancetype) init {

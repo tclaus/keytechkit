@@ -89,7 +89,13 @@
  @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
  */
 -(void)performGetElementNextAvailableStatus:(NSString *)elementKey loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate
-__attribute__((deprecated));
+__attribute__((deprecated("Use performGetElementNextAvailableStatus: success: instead")));
+
+/**
+ Gets a list of available target status. Starting from current element with its given state.
+ @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
+ */
+-(void)performGetElementNextAvailableStatus:(NSString *)elementKey success:(void(^)(NSArray *result))success;
 
 
 /**

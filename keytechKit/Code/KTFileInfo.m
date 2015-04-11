@@ -99,11 +99,11 @@ static RKObjectManager *_usedManager;
 
 -(NSString*)fileStorageTextType{
     switch (self.fileStorageType) {
-       
+            
         case FileTypeMaster:
             return @"MASTER";
             break;
-       
+            
         case FileTypeOleRef:
             return @"OLEREF";
             break;
@@ -111,7 +111,7 @@ static RKObjectManager *_usedManager;
         case FileTypePreview:
             return @"PREVIEW";
             break;
-        
+            
         case FileTypeQuickPreview:
             return @"QuickPreview";
             break;
@@ -217,7 +217,7 @@ static RKObjectManager *_usedManager;
                                                                           code:statuscode
                                                                           userInfo:@{NSLocalizedDescriptionKey:@"You can not delete this file" ,
                                                                                      NSLocalizedFailureReasonErrorKey:@"Insufficient right to delete file"}];
-
+                                                     
                                                      if (failure) {
                                                          failure(APIError);
                                                          return;
@@ -249,9 +249,9 @@ static RKObjectManager *_usedManager;
         [[KTManager sharedManager] setDefaultHeadersToRequest:request];
         
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-
+        
         NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
-
+        
         
         NSURLSessionDownloadTask *getFileTask= [session downloadTaskWithRequest:request];
         [getFileTask resume];
@@ -267,7 +267,7 @@ static RKObjectManager *_usedManager;
 
 -(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error{
     NSLog(@"Completes: %s",__PRETTY_FUNCTION__);
-
+    
     if ([self.delegate respondsToSelector:@selector(FinishedUploadWithFileInfo:)]) {
         [self.delegate FinishedUploadWithFileInfo:self];
     }
@@ -320,7 +320,7 @@ static RKObjectManager *_usedManager;
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite{
     // Progress
 #if DEBUG
-   NSLog(@"Downloaded %@: %d / %d",self.fileName, (int)totalBytesWritten,(int)totalBytesExpectedToWrite);
+    NSLog(@"Downloaded %@: %d / %d",self.fileName, (int)totalBytesWritten,(int)totalBytesExpectedToWrite);
 #endif
     
     if (delegate){
@@ -328,12 +328,12 @@ static RKObjectManager *_usedManager;
             [self.delegate KTFileInfo:self downloadProgress:bytesWritten totalBytesWritten:totalBytesExpectedToWrite];
         }
     }
-   
+    
 }
 
 /// Upload Progress
 -(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didSendBodyData:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend{
-
+    
 #if DEBUG
     NSLog(@"Uploaded %@: %d / %d",self.fileName, (int)totalBytesSent,(int)totalBytesExpectedToSend);
 #endif
@@ -341,7 +341,7 @@ static RKObjectManager *_usedManager;
     if ([self.delegate respondsToSelector:@selector(KTFileInfo:uploadProgress:totalBytesSent:)]) {
         [self.delegate KTFileInfo:self uploadProgress:totalBytesSent totalBytesSent:totalBytesExpectedToSend];
     }
-
+    
     
 }
 
@@ -368,18 +368,18 @@ static RKObjectManager *_usedManager;
     // Designate the request a POST request and specify its body data
     [postRequest setHTTPMethod:@"POST"];
     
-
+    
     // Create the session
     // We can use the delegate to track upload progress
-     _backgroundSession = [self backgroundSession];
+    _backgroundSession = [self backgroundSession];
     
     // Data uploading task. We could use NSURLSessionUploadTask instead of NSURLSessionDataTask if we needed to support uploads in the background
-   // NSData *data = [NSData dataWithContentsOfURL:[fileURL filePathURL]];
+    // NSData *data = [NSData dataWithContentsOfURL:[fileURL filePathURL]];
     
     //self.fileSize = [data length];
     
     NSURLSessionUploadTask *uploadTask = [_backgroundSession uploadTaskWithRequest:postRequest fromFile:fileURL];
-
+    
     uploadTask.taskDescription =@"Add file to Element";
     
     [uploadTask resume];
@@ -415,15 +415,15 @@ static RKObjectManager *_usedManager;
         if (floor(NSAppKitVersionNumber)>NSAppKitVersionNumber10_9) {
             
             configuration= [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:[NSString stringWithFormat:@"de.claus-software.keytech.upload:%@",self.elementKey]];
-
+            
         } else {
             configuration= [NSURLSessionConfiguration backgroundSessionConfiguration:[NSString stringWithFormat:@"de.claus-software.keytech.upload:%@",self.elementKey]];
         }
-
+        
         
         configuration.sharedContainerIdentifier =@"group.de.claus-software.keytech-plm";
         session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue mainQueue]];
-
+        
     });
     return session;
 }
@@ -433,11 +433,11 @@ static RKObjectManager *_usedManager;
 -(void)saveFile:(NSURL *)fileURL
         success:(void (^)(void))success
         failure:(void (^)(NSError *))failure{
-
+    
     // Check for Delegate
     // Check for element Key
     
-
+    
     
     
     NSString *resourcePath = [NSString stringWithFormat:@"elements/%@/files", self.elementKey];
@@ -457,6 +457,7 @@ static RKObjectManager *_usedManager;
     [postRequest setValue:self.fileName forHTTPHeaderField:@"Filename"];
     [postRequest setValue:self.fileStorageTextType forHTTPHeaderField:@"StorageType"]; //
     
+    
     // Designate the request a POST request and specify its body data
     [postRequest setHTTPMethod:@"POST"];
     
@@ -464,6 +465,7 @@ static RKObjectManager *_usedManager;
     
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    sessionConfiguration.timeoutIntervalForRequest = 60;
     
     /*
      sessionConfiguration.HTTPAdditionalHeaders = @{
@@ -476,18 +478,22 @@ static RKObjectManager *_usedManager;
     // Create the session
     // We can use the delegate to track upload progress
     NSURLSession *session = [NSURLSession  sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
-
+    
     // Data uploading task. We could use NSURLSessionUploadTask instead of NSURLSessionDataTask if we needed to support uploads in the background
     NSData *data = [NSData dataWithContentsOfURL:[fileURL filePathURL]];
     
     self.fileSize = [data length];
-
+    
+    
     NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:postRequest fromFile:fileURL
                                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                           
                                                           
                                                           if (error) {
                                                               NSLog(@"File upload finished with error: %@",error.localizedDescription);
+                                                              NSHTTPURLResponse *httpResponse =(NSHTTPURLResponse*)response;
+                                                              NSLog(@"With Status Code: %ld",httpResponse.statusCode);
+                                                              
                                                               if (failure)
                                                                   failure(error);
                                                               return;
@@ -499,6 +505,9 @@ static RKObjectManager *_usedManager;
                                                               NSHTTPURLResponse *httpResponse =(NSHTTPURLResponse*)response;
                                                               
                                                               if ([httpResponse statusCode]>299 ) {
+                                                                  
+                                                                  NSLog(@"http response : %ld",(long)[httpResponse statusCode]);
+                                                                  
                                                                   if (failure) {
                                                                       
                                                                       NSString *errorDescription = [httpResponse.allHeaderFields objectForKey:@"X-ErrorDescription"];
@@ -509,7 +518,7 @@ static RKObjectManager *_usedManager;
                                                                       
                                                                       NSError *error = [[NSError alloc]
                                                                                         initWithDomain:NSURLErrorDomain
-                                                                                        code:0
+                                                                                        code:[httpResponse statusCode]
                                                                                         userInfo: @{ NSLocalizedDescriptionKey : errorDescription}];
                                                                       
                                                                       failure(error);
@@ -531,7 +540,7 @@ static RKObjectManager *_usedManager;
                                                           
                                                       }];
     [uploadTask resume];
-    
+    // NSLog(@"Headers: %@",sessionConfiguration.HTTPAdditionalHeaders);
     
 }
 
