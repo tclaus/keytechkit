@@ -65,15 +65,50 @@ static KTLayouts *_sharedLayouts;
 }
 
 -(BOOL)isLayoutLoaded:(NSString*)classKey{
-    return ([_layoutsList objectForKey:classKey] !=nil);
+    if ([_layoutsList objectForKey:classKey] !=nil){
+        KTLayout *layout =  [_layoutsList objectForKey:classKey];
+        return layout.isLoaded;
+    } else {
+        return NO;
+    }
+}
+
+// Returns the layout by its classekey
+-(KTLayout*)layoutForClassKey:(NSString*) classKey{
+    return [_layoutsList objectForKey:classKey];
 }
 
 
-
 -(void)loadLayoutForClassKey:(NSString *)classKey{
-        [self loadLayoutForClassKey:classKey
-                            success:nil
-                            failure:nil];
+    
+    if ([self isLayoutLoaded:classKey]){
+        return;
+    }
+    
+    
+    __block BOOL awaitingResponse;
+    awaitingResponse = NO;
+    [self loadLayoutForClassKey:classKey
+                            success:^(KTLayout *layout) {
+                                awaitingResponse = NO;
+                            } failure:^(NSError *error) {
+                                awaitingResponse = NO;
+                            }];
+    
+    //Wait...
+    
+    NSDate *startDate = [NSDate date];
+    int timeout = 30;
+    
+    while (awaitingResponse) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        if ([[NSDate date] timeIntervalSinceDate:startDate] > timeout) {
+            awaitingResponse = NO;
+            //[NSException raise:TestResponseLoaderTimeoutException format:@"*** Operation timed out after %d seconds...", timeout];
+            
+        }
+    }
+    
 }
 
 /// Starts loading layout for the given classkey
@@ -153,28 +188,6 @@ static KTLayouts *_sharedLayouts;
     
 }
 
-
-// Layout für die Klasse abholen
--(KTLayout*)layoutForClassKey:(NSString *)classKey{
- 
-    if (![_layoutsList valueForKey:classKey]){
-        
-        
-        // In layouts einsortieren
-        if (![_layoutsList valueForKey:classKey]){
-            KTLayout *layout =[[KTLayout alloc]init];
-            layout.classKey =classKey;
-            [_layoutsList setValue:layout forKey:classKey];
-            
-        }
-        
-        return NULL;
-    }	
-    
-    //
-    return (KTLayout*)[_layoutsList valueForKey:classKey];
-    
-}
 
 /**
  Add to layout list an return YES if layout is fully loaded

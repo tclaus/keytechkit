@@ -20,7 +20,7 @@
 
 
 +(NSInteger)version{
-    return 7; // Dev notice: Increment if definition in header changes
+    return 7; // Dev notice: Increment if definition if header changes
 }
 
 - (id)initWithCoder:(NSCoder *)coder

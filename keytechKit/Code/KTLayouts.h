@@ -18,8 +18,7 @@
 +(instancetype)sharedLayouts;
 
 /**
- Starts loading a layout for the class. A layout for the current user/group will be loaded. 
- Check finish loading with the isLoaded selector
+Loads a layout -Editor and lister- and waits until layout is loaded.
  */
 -(void)loadLayoutForClassKey:(NSString*)classKey;
 

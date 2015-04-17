@@ -138,15 +138,14 @@ static int const kMaxDefaultPageSize = 500;
     // Parentlevel wird nicht unterstützt!
     // es wird immer die vollständige Liste angefordert
     parentLevel = 0;
-    
+    NSDictionary *parameter = @{@"WithSystemqueries":@"ALL"};
     if (parentLevel!= 0){
         resourcePath= [NSString stringWithFormat:@"user/%@/queries/%ld", username,(long)parentLevel ];
     }else {
         resourcePath= [NSString stringWithFormat:@"user/%@/queries", username ];
     }
     
-    
-    [manager getObjectsAtPath:resourcePath parameters:nil
+    [manager getObjectsAtPath:resourcePath parameters:parameter
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                           [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {

@@ -337,7 +337,20 @@ int maxPagesize=500;
         if (!_isItemNextStatesListLoading){
             _isItemNextStatesListLoading = YES;
             // Starts the query and returns the current (empty) list
-            [ktManager performGetElementNextAvailableStatus:self.itemKey loaderDelegate:self];
+            //[ktManager performGetElementNextAvailableStatus:self.itemKey loaderDelegate:self];
+            
+            [ktManager performGetElementNextAvailableStatus:self.itemKey
+                                                    success:^(NSArray *result) {
+                                                        
+                                                        _isItemNextStatesListLoading = NO;
+                                                        
+                                                        [self willChangeValueForKey:@"itemNextAvailableStatusList"];
+                                                        [_itemNextAvailableStatusList addObjectsFromArray:result];
+                                                        [self didChangeValueForKey:@"itemNextAvailableStatusList"];
+                                                        
+                                                    }];
+            
+            
         }
         
         return _itemNextAvailableStatusList;
@@ -729,7 +742,7 @@ NSMutableDictionary *_lastPages;
 -(void)requestDidProceed:(NSArray*)searchResult fromResourcePath:(NSString*)resourcePath{
     
     
-    
+    /*
     
     //next available status
     if ([resourcePath hasSuffix:@"nextstatus"]){
@@ -750,7 +763,7 @@ NSMutableDictionary *_lastPages;
         return;
     }
     
-    
+    */
     
     
     //notes
