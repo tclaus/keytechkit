@@ -200,7 +200,10 @@ static RKObjectManager *_usedManager;
                                          success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                                              // Delete has no mapping result
                                              
-                                             [[KTSendNotifications sharedSendNotification]sendElementFileHasBeenRemoved:self.elementKey];
+                                             // Send notification Async
+                                             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                 [[KTSendNotifications sharedSendNotification]sendElementFileHasBeenRemoved:self.elementKey];
+                                             });
                                              
                                              if (success) {
                                                  success();
@@ -283,6 +286,11 @@ static RKObjectManager *_usedManager;
         NSURL *targetURL = [[[KTManager sharedManager]applicationDataDirectory] URLByAppendingPathComponent:self.fileName];
         
         targetURL = [NSURL fileURLWithPath:[targetURL path]];
+        
+        [manager removeItemAtURL:targetURL error:&err];
+        if (err) {
+            NSLog(@"Target file can not be deleted.");
+        }
         
         [manager moveItemAtURL:location toURL:targetURL error:&err];
         
@@ -529,8 +537,12 @@ static RKObjectManager *_usedManager;
                                                                   NSString *location =[httpResponse.allHeaderFields objectForKey:@"Location"];
                                                                   self.fileID = [location intValue];
                                                                   
+                                                                  // Send notification Async
+                                                                  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                      [[KTSendNotifications sharedSendNotification]sendElementFileUploaded:self.elementKey];
+                                                                  });
                                                                   
-                                                                  [[KTSendNotifications sharedSendNotification]sendElementFileUploaded:self.elementKey];
+                                                                  
                                                                   
                                                               }
                                                               if (success) {
