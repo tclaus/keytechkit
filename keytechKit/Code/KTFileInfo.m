@@ -198,6 +198,11 @@ static RKObjectManager *_usedManager;
         
         targetURL = [NSURL fileURLWithPath:[targetURL path]];
         
+        [manager removeItemAtURL:targetURL error:&err];
+        if (err) {
+            NSLog(@"Target file can not be deleted.");
+        }
+        
         [manager moveItemAtURL:location toURL:targetURL error:&err];
         
         
