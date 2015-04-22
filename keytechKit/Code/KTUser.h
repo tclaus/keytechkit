@@ -12,12 +12,32 @@
 /**
  Represets a user object
  */
-@interface KTUser : NSObject <KTLoaderDelegate,KTIdentifiedDataSource>
+@interface KTUser : NSObject <KTIdentifiedDataSource>
 
 /**
  Provides the object Mapping for this class and given objectManager
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
+
+/**
+ Loads a new user object with the given short username. 
+ @param username The short username
+ @param success Called after the user object is loaded
+ @param failure Called when the user object could not be loaded
+ */
++(void)loadUserWithKey:(NSString*)username success:(void(^)(KTUser* user))success failure:(void(^)(NSError* error))failure;
+
+/**
+ Reloads the userobject. Waits until object is loaded.
+ */
+-(void)reload;
+
+/*
+ Reloads the current userobject. All settings will be lost
+@param success Will be called after the object is loaded
+ */
+-(void)reload:(void(^)(KTUser*))success;
+
 
 /**
  Returns YES if this user is active. (Means it's allowed to login and can use services.
@@ -79,7 +99,7 @@ The users longname.
 -(void)refreshPermissions;
 
 /**
- Returns the instance of the currently logged in user account
+ Creates and returns the instance of the currently logged in user account.
  */
 +(instancetype)currentUser;
 

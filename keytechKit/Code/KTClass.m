@@ -91,7 +91,7 @@ static NSDictionary *_classTypes;
 
 
 +(NSInteger)version{
-    return 4; //Incement with every class property change!
+    return 6; //Incement with every class property change!
 }
 
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
@@ -106,6 +106,7 @@ static NSDictionary *_classTypes;
                                                        @"Displayname":@"classDisplayname",
                                                        @"HasChangeManagement":@"classHasChangeManagement",
                                                        @"HasVersionControl":@"classHasVersionControl",
+                                                       @"HasNumberGenerator":@"classHasNumberGenerator",
                                                        @"IsActive":@"isActive"
                                                        }];
         
@@ -123,6 +124,38 @@ static NSDictionary *_classTypes;
     return _mapping;
     
 }
+
+
+-(void)loadClassList:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure
+{
+
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTClass mappingWithManager:manager];
+    
+    NSString *resourcePath = @"classes";
+    
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          if (success) {
+                              success(mappingResult.array);
+                          }
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          if (failure) {
+                              failure(error);
+                          }
+                      }];
+}
+
+-(BOOL)isEqualToString:(NSString*)aString{
+    return [[self description] isEqualToString:aString];
+    
+}
+
+-(NSString *)description{
+    return self.classDisplayname;
+}
+
 - (instancetype)init
 {
     self = [super init];
@@ -135,10 +168,6 @@ static NSDictionary *_classTypes;
 
 -(NSString *)debugDescription{
     return [NSString stringWithFormat:@"%@: %@",self.classKey, self.classDisplayname];
-}
-
--(NSString *)description{
-    return self.classDisplayname;
 }
 
 
@@ -157,7 +186,7 @@ static NSDictionary *_classTypes;
         self.classHasVersionControl = [coder decodeBoolForKey:@"classHasVersionControl"];
         self.isActive = [coder decodeBoolForKey:@"isActive"];
         self.classAttributesList =[coder decodeObjectForKey:@"classAttributesList"];
-        
+        self.classHasNumberGenerator = [coder decodeBoolForKey:@"classHasNumberGenerator"];
         
     }
     return self;
@@ -175,8 +204,16 @@ static NSDictionary *_classTypes;
     [aCoder encodeBool:self.classHasChangeManagement forKey:@"classHasChangeManagement"];
     [aCoder encodeBool:self.isActive forKey:@"isActive"];
     [aCoder encodeObject:self.classAttributesList forKey:@"classAttributesList"];
+    [aCoder encodeBool:self.classHasNumberGenerator forKey:@"classHasNumberGenerator"];
     
 }
+
+
+- (NSComparisonResult)localizedCaseInsensitiveCompare:(KTClass *)otherClass {
+    return [self.description localizedCaseInsensitiveCompare:otherClass.description];
+}
+
+
 
 -(NSString *)classApplicationName{
     if (self.classKey) {

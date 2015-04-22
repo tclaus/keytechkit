@@ -17,11 +17,11 @@
 
 
 -(NSString*)password{
-    if(!_password){
-        return @"";
-    } else {
-        return _password;
+    if(_password == nil){
+        _password = @"";
     }
+    return _password;
+
 }
 -(void)setPassword:(NSString *)password{
     _password = password;

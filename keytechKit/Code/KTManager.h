@@ -39,6 +39,11 @@
 @property (nonatomic,copy) NSString* password;
 
 /**
+ A page and size structure to identify a specific page in multi page responses
+ */
+typedef struct {int page; int size;} PageDefinition;
+
+/**
  Returns the current baseURL
  */
 -(NSURL*)baseURL;

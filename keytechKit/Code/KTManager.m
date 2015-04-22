@@ -14,7 +14,7 @@
 #import "KTServerInfo.h"
 
 
-#define keytechDefaultServerURL @"https://api.vm-kt-explorer.keytech.de/keytech"  // internal default URL )(for testing)
+#define keytechDefaultServerURL @"https://demo.keytech.de"  // internal default URL )(for testing)
 #define keytechDefaultServerUser @"jgrant"
 #define keytechDefaultServerPassword @""
 
@@ -58,26 +58,34 @@
 
 -(void)serverInfo:(void (^)(KTServerInfo* serverInfo))resultBlock failure:(void(^)(NSError* error))failureBlock{
     
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTServerInfo mappingWithManager:manager];
-    
-    
-    [manager getObject:nil path:@"serverinfo" parameters:nil
-               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                   if (resultBlock) {
-                       _sharedServerInfo = mappingResult.firstObject;
-
-                       resultBlock(_sharedServerInfo);
-                   }
-                   
-               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   NSLog(@"Error while getting the API version: %@",error.localizedDescription);
-                   if(failureBlock){
-                       failureBlock(error);
-                   }
-               }];
-    
-    
+    if (!_sharedServerInfo) { // Do not reload server info
+        
+        
+        RKObjectManager *manager = [RKObjectManager sharedManager];
+        [KTServerInfo mappingWithManager:manager];
+        
+        [manager getObject:nil path:@"serverinfo" parameters:nil
+                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                       if (resultBlock) {
+                           
+                           _sharedServerInfo = [[KTServerInfo alloc]init];
+                           [_sharedServerInfo setValue:[mappingResult array] forKey:@"keyValueList"];
+                           
+                           resultBlock(_sharedServerInfo);
+                       }
+                       
+                   } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                       NSLog(@"Error while getting the API version: %@",error.localizedDescription);
+                       if(failureBlock){
+                           failureBlock(error);
+                       }
+                   }];
+        
+    } else {
+        if (resultBlock) {
+            resultBlock(_sharedServerInfo);
+        }
+    }
     
 }
 
@@ -188,7 +196,10 @@
     if (self.username ==nil) self.username = keytechDefaultServerUser; // @"jgrant";
     if (self.password ==nil) self.password =@"";
     
+
+    
     RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.servername]]] ;// @"http://192.168.0.10:8080/keytech"];
+    
     
     [objectManager.HTTPClient setAuthorizationHeaderWithUsername:self.username password:self.password];
     [[RKValueTransformer defaultValueTransformer]addValueTransformer:[RKDotNetDateFormatter dotNetDateFormatterWithTimeZone:[NSTimeZone localTimeZone]]];
@@ -335,11 +346,6 @@
         Servername = [Servername stringByAppendingString:@"/"];
     
     
-    // Save at locale datastructure
-    KTPreferencesConnection* preferences  = [[KTPreferencesConnection alloc]init];
-    preferences.servername = Servername;
-    preferences.username = Username;
-    preferences.password = Password;
     
     bool objectsAreEqual =     [[RKObjectManager sharedManager].HTTPClient.baseURL isEqual:[NSURL URLWithString:Servername]];
     if (!objectsAreEqual){
@@ -348,10 +354,18 @@
         RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:Servername]];
         [objectManager setRequestSerializationMIMEType: RKMIMETypeJSON];
         [RKObjectManager setSharedManager:objectManager];
+        
+        // Set new authorization for new SharedObjectManager
+        [[RKObjectManager sharedManager].HTTPClient setAuthorizationHeaderWithUsername:Username password:Password];
+        
+        // If server changed, then reload serverInfo
+        [KTServerInfo mappingWithManager:objectManager];
+        [[KTServerInfo serverInfo] reloadWithCompletionBlock:nil];
+        
+    } else {
+        // Set new Authorization
+        [[RKObjectManager sharedManager].HTTPClient setAuthorizationHeaderWithUsername:Username password:Password];
     }
-    
-    // Set new Authorization
-    [[RKObjectManager sharedManager].HTTPClient setAuthorizationHeaderWithUsername:Username password:Password];
     
 }
 
