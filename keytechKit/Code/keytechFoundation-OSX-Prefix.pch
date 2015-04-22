@@ -2,14 +2,18 @@
 // Prefix header for all source files of the 'keytechFoundation' target in the 'keytechFoundation' project
 //
 
+#import <Availability.h>
+
     #ifdef __OBJC__
       #import <Cocoa/Cocoa.h>
       #import <SystemConfiguration/SystemConfiguration.h>
       #import <CoreServices/CoreServices.h>
-    #endif
+
 
 #import "NSPredicate+PredicateKTFormat.h"
 #import "NSString+ClassType.h"
 
 #import "Restkit/restkit.h"
 #import "KTBaseObject.h"
+
+ #endif

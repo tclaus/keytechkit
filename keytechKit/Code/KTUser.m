@@ -95,7 +95,7 @@ static RKObjectManager *_usedManager;
         
         
         [_usedManager addResponseDescriptor:userResponse];
-        [_usedManager addResponseDescriptor:userResponseClientError];
+       // [_usedManager addResponseDescriptor:userResponseClientError];
     }
     
     

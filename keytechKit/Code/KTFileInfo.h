@@ -77,7 +77,7 @@ typedef NS_ENUM(NSUInteger, FileStorageType) {
  @property (nonatomic,readonly) NSString* shortFileName;
 
 /**
- A text representation of the file Type : MASTER, PREVIEW, OLEREF
+ A text representation of the file Type : MASTER, PREVIEW, QuickPreview, OLEREF, 
  */
 @property (nonatomic) FileStorageType fileStorageType;
 

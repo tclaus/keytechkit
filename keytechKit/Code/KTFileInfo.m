@@ -10,6 +10,7 @@
 #import "KTFileInfo.h"
 #import "KTManager.h"
 #import "KTSendNotifications.h"
+#import "SSZipArchive.h"
 
 @implementation KTFileInfo
 {
@@ -113,7 +114,7 @@ static RKObjectManager *_usedManager;
             break;
             
         case FileTypeQuickPreview:
-            return @"QuickPreview";
+            return @"QUICKPREVIEW";
             break;
             
         default:
@@ -436,6 +437,53 @@ static RKObjectManager *_usedManager;
     return session;
 }
 
+/// Saves a preview file for the given apple iWork File
+-(void)saveiWorkPreviewFile:(NSURL*)fileURL{
+    
+    NSArray *validiWorkTypes = @[@"pages",@"numbers",@"keynote"];
+    
+    
+    if  ( [[fileURL pathExtension] compare:@"pages" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
+        [[fileURL pathExtension] compare:@"numbers" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
+        [[fileURL pathExtension] compare:@"keynote" options:NSCaseInsensitiveSearch] == NSOrderedSame)
+    {
+        NSLog(@"Add preview file for iWork file");
+    // iWork file format found
+        // unzip
+        // Is file zipped?
+        // If not, zip it
+        NSError *error;
+        
+        NSString *zipPath = [fileURL path];
+        
+        NSString *destinationPath = NSTemporaryDirectory();
+        BOOL success = [SSZipArchive unzipFileAtPath:zipPath toDestination:destinationPath];
+        if (success){
+        // If successfully unzipped, try to get the preview
+            
+            NSString *previewPath = @"Preview.jpg";
+            previewPath = [destinationPath stringByAppendingPathComponent:previewPath];
+            
+            if ([[NSFileManager defaultManager]fileExistsAtPath:previewPath]) {
+                // Preview file existiert, als Quick-Preview hochladen
+                KTFileInfo *previewFile = [[KTFileInfo alloc]init];
+                previewFile.fileName = @"preview.jpg";
+                previewFile.fileStorageType = FileTypeQuickPreview;
+                previewFile.elementKey = self.elementKey;
+                
+                [previewFile saveFile:[NSURL fileURLWithPath:previewPath]
+                              success:nil
+                              failure:nil];
+                
+            };
+            
+        }
+        
+
+        
+        
+    }
+}
 
 /// Saves the current file to API as normaul upload task
 -(void)saveFile:(NSURL *)fileURL
@@ -445,11 +493,7 @@ static RKObjectManager *_usedManager;
     // Check for Delegate
     // Check for element Key
     
-    
-    
-    
     NSString *resourcePath = [NSString stringWithFormat:@"elements/%@/files", self.elementKey];
-    
     
     NSURL *url =[[KTManager sharedManager].baseURL URLByAppendingPathComponent:resourcePath];
     
@@ -489,10 +533,7 @@ static RKObjectManager *_usedManager;
     
     // Data uploading task. We could use NSURLSessionUploadTask instead of NSURLSessionDataTask if we needed to support uploads in the background
     NSData *data = [NSData dataWithContentsOfURL:[fileURL filePathURL]];
-    
     self.fileSize = [data length];
-    
-    
     NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:postRequest fromFile:fileURL
                                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                           
@@ -537,10 +578,18 @@ static RKObjectManager *_usedManager;
                                                                   NSString *location =[httpResponse.allHeaderFields objectForKey:@"Location"];
                                                                   self.fileID = [location intValue];
                                                                   
-                                                                  // Send notification Async
-                                                                  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                                                      [[KTSendNotifications sharedSendNotification]sendElementFileUploaded:self.elementKey];
-                                                                  });
+                                                                  if (self.fileStorageType == FileTypeMaster){
+                                                                      
+                                                                      // Send notification Async
+                                                                      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                          [[KTSendNotifications sharedSendNotification]sendElementFileUploaded:self.elementKey];
+                                                                      });
+                                                                      
+                                                                      // Check for iWork preview files
+                                                                      [self saveiWorkPreviewFile:fileURL];
+                                                                      
+                                                                      
+                                                                  };
                                                                   
                                                                   
                                                                   

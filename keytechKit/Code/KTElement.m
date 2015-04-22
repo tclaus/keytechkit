@@ -886,7 +886,7 @@ static long numberOfThumbnailsLoaded;
         // Add current Object to Wait-For-Load queue
         [thumbnailLoadingQueue addObject:[thumbnailKey copy]];
         
-        NSString *resource = [NSString stringWithFormat:@"elements/%@/thumbnail", self.itemKey];
+        NSString *resource = [NSString stringWithFormat:@"elements/%@/preview", self.itemKey];
         NSMutableURLRequest *request = [[RKObjectManager sharedManager].HTTPClient requestWithMethod:@"GET" path:resource parameters:nil ];
         
         NSURLSession *defaultSession = [NSURLSession sharedSession];

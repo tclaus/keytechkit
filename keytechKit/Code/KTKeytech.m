@@ -1,4 +1,5 @@
 
+
 //
 //  SimpleSearch.m
 //  keytech search ios
@@ -138,7 +139,7 @@ static int const kMaxDefaultPageSize = 500;
     // Parentlevel wird nicht unterstützt!
     // es wird immer die vollständige Liste angefordert
     parentLevel = 0;
-    NSDictionary *parameter = @{@"WithSystemqueries":@"ALL"};
+    NSDictionary *parameter = @{@"WithSystemQueries":@"ALL"};
     if (parentLevel!= 0){
         resourcePath= [NSString stringWithFormat:@"user/%@/queries/%ld", username,(long)parentLevel ];
     }else {

@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <XCTest/XCTextCase+AsynchronousTesting.h>
+//#import <XCTest/XCTextCase+AsynchronousTesting.h>
 #import "KTElement.h"
 #import "KTSendNotifications.h"
 #import "KTManager.h"
