@@ -43,35 +43,76 @@
 // /status
 // / Status transitions
 -(void)testGetStatusList{
-    KTSystemManagement* systemManagement = [[KTSystemManagement alloc]init];
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+   
     
-    [systemManagement performGetAvailableStatusList:responseLoader ];
-    [responseLoader waitForResponse];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Status load"];
     
     
-    NSArray* results = [responseLoader objects];
+    __block NSArray *_statusList;
     
-    XCTAssert(results!=nil, @"Results should not be nil");
-    XCTAssert(results.count>0, @"Status list should have some items");
+    [KTStatusItem loadStatusListSuccess:^(NSArray *statusList) {
+        [expectation fulfill];
+        _statusList = statusList;
+        
+    } failure:^(NSError *error) {
+        [expectation fulfill];
+         XCTFail(@"Error loading statuslist: %@",error);
+    } ];
+
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+    
+        if (error){
+            NSLog(@"error: %@",error);
+        } else {
+            if (_statusList==nil) XCTFail(@"The result should not be nil");
+            if (_statusList.count==0) {
+                XCTFail(@"Statuslist should have some statusitems");
+            }
+        }
+    }];
+    
     
 }
 
+-(void)testStatus{
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Status load"];
+    
+    
+    __block NSArray *_statusList;
+    
+    [KTStatusItem loadStatusListSuccess:^(NSArray *statusList) {
+        [expectation fulfill];
+        _statusList = statusList;
+        
+    } failure:^(NSError *error) {
+        [expectation fulfill];
+        XCTFail(@"Error loading statuslist: %@",error);
+    } ];
+    
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        
+        if (error){
+            NSLog(@"error: %@",error);
+        } else {
+            if (_statusList==nil) XCTFail(@"The result should not be nil");
+            if (_statusList.count==0) {
+                XCTFail(@"Statuslist should have some statusitems");
+            }
+        }
+    }];
+    
+    
+    KTStatusItem *statusItem = _statusList[0];
 
--(void)testGetStatusChangeActions{
-    KTSystemManagement* systemManagement = [[KTSystemManagement alloc]init];
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-    
-    [systemManagement performGetStatusChangeActionList:responseLoader];
-    [responseLoader waitForResponse];
-    
-    
-    NSArray* results = [responseLoader objects];
-    
-    XCTAssert(results!=nil, @"Results should not be nil");
-    XCTAssert(results.count>0, @"StatusChangeAction list should have some items");
+    XCTAssertNotNil(statusItem.statusID,@"StatusID should not be nil");
+    XCTAssertNotNil(statusItem.statusImageName,@"statusImageNAme should not be nil");
+    XCTAssertNotNil(statusItem.statusRestriction,@"statusRestriction shoud not be nil");
     
 }
+
 
 
 @end

@@ -11,6 +11,6 @@
 @interface testCase : NSObject
 
 /// Initializes the API communication layer
-+(void)initialize;
++(void)setUp;
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "KTKeytech.h"
 #import "KTStatusHistoryItem.h"
 #import "KTKeyValue.h"
 #import "KTFileInfo.h"
@@ -18,7 +17,7 @@
 /**
  Provides the object representation for keytech element classes. Can be a document, folder or masteritem.
  */
-@interface KTElement :  NSObject <KTLoaderDelegate>
+@interface KTElement :  NSObject
 
 typedef enum {
     /// Returns the reduced list of Attributes (default)
@@ -150,6 +149,10 @@ typedef enum {
  */
 -(void)loadStatusHistoryListSuccess:(void(^)(NSArray* itemsList))success
                             failure:(void(^)(NSError *error))failure;
+
+-(void)loadNextAvailableStatusListSuccess:(void(^)(NSArray* itemsList))success
+                            failure:(void(^)(NSError *error))failure;
+
 /**
  Starts loading the notes list
  */

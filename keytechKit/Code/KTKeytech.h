@@ -171,18 +171,7 @@ __attribute__((deprecated));
  */
 -(void)performGetTasksForUser:(NSString *)userName loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;
 
-/**
- Get a list of root folder. This is the top level instance of all folders
- @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
- */
--(void)performGetRootFolder:(NSObject<KTLoaderDelegate>*) loaderDelegate;
 
-/**
- Get a list of root folder. This is the top level instance of all folders.
- Can be paginated.
- @param loaderDelegate: The object which gets the result. Must implement the <loaderDelegate> protocol.
- */
--(void)performGetRootFolderWithPage:(NSInteger)page withSize:(NSInteger)pageSize loaderDelegate:(NSObject<KTLoaderDelegate>*) loaderDelegate;
 
 #pragma mark Helper Functions
 

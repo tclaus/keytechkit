@@ -21,11 +21,17 @@
 
 /**
  Loads a new user object with the given short username. 
- @param username The short username
+ @param username The short keytech username
  @param success Called after the user object is loaded
  @param failure Called when the user object could not be loaded
  */
 +(void)loadUserWithKey:(NSString*)username success:(void(^)(KTUser* user))success failure:(void(^)(NSError* error))failure;
+
+/**
+ Loads a new user objects but waits until returns
+  @param username The short keytech username
+ */
++(KTUser*)loadUserWithKey:(NSString*)username;
 
 /**
  Reloads the userobject. Waits until object is loaded.

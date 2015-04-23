@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "KTLayout.h"
-#import "KTKeytech.h"
 
 
 @interface KTLayouts : NSObject
@@ -33,7 +32,7 @@ Loads a layout -Editor and lister- and waits until layout is loaded.
 /**
  Starts loading all layouts for the current user
  */
--(void)loadLayoutsWithCompletion:(void(^)(KTLayouts *layout))completion;
+//-(void)loadLayoutsWithCompletion:(void(^)(KTLayouts *layout))completion;
                                                         
 /**
  Returns the layoutdata for the given class.

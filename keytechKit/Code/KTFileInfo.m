@@ -440,7 +440,7 @@ static RKObjectManager *_usedManager;
 /// Saves a preview file for the given apple iWork File
 -(void)saveiWorkPreviewFile:(NSURL*)fileURL{
     
-    NSArray *validiWorkTypes = @[@"pages",@"numbers",@"keynote"];
+    // NSArray *validiWorkTypes = @[@"pages",@"numbers",@"key"];
     
     
     if  ( [[fileURL pathExtension] compare:@"pages" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
@@ -448,11 +448,12 @@ static RKObjectManager *_usedManager;
         [[fileURL pathExtension] compare:@"keynote" options:NSCaseInsensitiveSearch] == NSOrderedSame)
     {
         NSLog(@"Add preview file for iWork file");
-    // iWork file format found
+        
+        // iWork file format found
         // unzip
         // Is file zipped?
         // If not, zip it
-        NSError *error;
+
         
         NSString *zipPath = [fileURL path];
         
@@ -605,6 +606,17 @@ static RKObjectManager *_usedManager;
     
 }
 
+
+-(void)cancelDownload{
+    [[RKObjectManager sharedManager]cancelAllObjectRequestOperationsWithMethod:RKRequestMethodGET
+                                                           matchingPathPattern:@"/elements/:elementKey/files"];
+    
+}
+-(void)cancelUpload{
+    [[RKObjectManager sharedManager]cancelAllObjectRequestOperationsWithMethod:RKRequestMethodPOST
+                                                           matchingPathPattern:@"/elements/:elementKey/files"];
+    
+}
 
 /**
  Debugger helper

@@ -11,6 +11,8 @@
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 #import "testCase.h"
+#import "KTClass.h"
+
 
 @interface testClasses : XCTestCase
 
@@ -25,27 +27,24 @@
     KTManager* _webservice;
     NSString* elementKeyWithStructure;
     NSString* classKey;
-    KTKeytech* keytech;
+
 }
 
 - (void)setUp
 {
     [super setUp];
     // Put setup code here; it will be run once, before the first test case.
-    [testCase initialize];
+    [testCase setUp];
     _webservice = [KTManager sharedManager];
     elementKeyWithStructure = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API}
     classKey = @"3DMISC_SLDASM";
-    
-    keytech = [[KTKeytech alloc]init];
+  
     
 }
 
 - (void)tearDown
 {
-    
-    keytech = nil;
-    
+ 
     // Put teardown code here; it will be run once, after the last test case.
     [super tearDown];
 }
@@ -55,105 +54,50 @@
 /// Gets a full classlist
 -(void)testGetClasslist{
 
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
+    __block NSArray *_results;
     
-    [[keytech ktSystemManagement]performGetClasslist:responseLoader];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Classlist Loaded"];
     
-    [responseLoader waitForResponse];
-    XCTAssertNotNil(responseLoader.objects, @"Classlist should not be NIL");
+    [KTClass loadClassListSuccess:^(NSArray *classList) {
+        _results = classList;
+        [expectation fulfill];
+        
+    } failure:^(NSError *error) {
+        [expectation fulfill];
+        
+    }];
+    
 
-    XCTAssertTrue(responseLoader.objects.count>0, @"Classlist should have some classes");
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+    
+    XCTAssertNotNil(_results,@"Classlist should not be nil");
+    XCTAssert((_results.count>0),@"Classlist should have at least one class");
+              
 
 }
 
 -(void)testGetClass{
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
     
-    // Test get the base Document class (with %_DO notation)
-    [[keytech ktSystemManagement]performGetClass:@"%_DO" loaderDelegate:responseLoader];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Classlist Loaded"];
+    __block KTClass *_class;
     
-    [responseLoader waitForResponse];
-    XCTAssertNotNil(responseLoader.firstObject, @"Class (FirstObject) should not be NIL");
+    [KTClass loadClassByKey:@"DEFAULT_MI"
+                    success:^(KTClass *ktclass) {
+                        _class = ktclass;
+                        [expectation fulfill];
+                    } failure:^(NSError *error) {
+                        [expectation fulfill];
+                        
+                    }];
     
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
-    // Test get the base Document class (with default_DO notation)
-    [[keytech ktSystemManagement]performGetClass:@"DEFAULT_DO" loaderDelegate:responseLoader];
-    
-    [responseLoader waitForResponse];
-    XCTAssertNotNil(responseLoader.firstObject, @"Class (FirstObject) should not be NIL");
-    
-    
-    
-}
-
--(void)testClassArchiving{
-
-    NSArray *listOfClasses;
-    
-    // Get some Classes
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-    [[keytech ktSystemManagement]performGetClasslist:responseLoader];
-    [responseLoader waitForResponse];
-    XCTAssertNotNil(responseLoader.objects, @"Classlist should not be NIL");
-    XCTAssertTrue(responseLoader.objects.count>0, @"Classlist should have some classes");
-    
-    listOfClasses = responseLoader.objects;
-    
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:listOfClasses];
-    XCTAssertNotNil(data, @"Archived Data should not be nil");
-    
-    NSArray *target = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    XCTAssertNotNil(target, @"Unacrhived classlist should not be nil");
-    
-    
+    XCTAssertNotNil(_class,@"A default_MI class should have been loaded");
+    XCTAssertNotNil(_class.classKey,@"a classkey should fe filled");
     
 }
 
-/// Gets a editorlayout for the requested element.
--(void)testGetEditorLayoutForElement{
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
 
-    [keytech performGetClassEditorLayoutForClassKey:classKey loaderDelegate:responseLoader];
-    
-    [responseLoader waitForResponse];
-    
-    NSArray* array = [responseLoader objects];
-    
-    if (array==nil) XCTFail(@"The results array should not be nil");
-    if ([array count]==0) XCTFail(@"One Element was expected");
-
-    
-}
-
-/// Gets a Lister layout for the requested Element
--(void)testGetListerLayoutForElement{
-    
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-    [keytech performGetClassListerLayout:classKey loaderDelegate:responseLoader];
-    
-    [responseLoader waitForResponse];
-    
-    NSArray* array = [responseLoader objects];
-    
-    if (array==nil) XCTFail(@"The results array should not be nil");
-    if ([array count]==0) XCTFail(@"One Element was expected");
-
-    
-}
-
-/// Gets the default BOM lister layout for the element.
--(void)testGetBomListerlayout{
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-    [keytech performGetClassBOMListerLayout:responseLoader];
-    
-    [responseLoader waitForResponse];
-    
-    NSArray* array = [responseLoader objects];
-    
-    if (array==nil) XCTFail(@"The results array should not be nil");
-    if ([array count]==0) XCTFail(@"One Element was expected");
- 
-}
 
 @end
 

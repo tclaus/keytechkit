@@ -7,7 +7,6 @@
 //
 
 #import "KTGroup.h"
-#import "KTKeytech.h"
 #import "KTNotifications.h"
 #import <RestKit/RestKit.h>
 
@@ -15,7 +14,6 @@
     @private
     BOOL _isUserListLoaded;
     BOOL _isUserListLoading;
-    KTKeytech *ktManager;
     
 }
 
@@ -33,7 +31,6 @@ static RKObjectManager *_usedManager;
 {
     self = [super init];
     if (self) {
-        ktManager= [[KTKeytech alloc]init];
         _usersList = [[NSMutableArray alloc]init];
     }
     

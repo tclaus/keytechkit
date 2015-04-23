@@ -55,13 +55,7 @@
     
 }
 
-/**
- Simply allocates the base keytech class. Basic initialiation of variables.
- */
--(void)testAllocKeytechClass{
-    KTKeytech* keytech = [[KTKeytech alloc]init];
-    if (!keytech) XCTFail(@"Could not allocate keytech class");
-}
+
 
 
 /**
@@ -75,133 +69,6 @@
     XCTAssertNotNil(username,@"Username should not be nil");
     XCTAssertNotNil(password,@"Password should not be nil");
     XCTAssertNotNil(serverURL,@"ServerURL should not be nil");
-    
-}
-
-
-/**
- Performs a search for 'dampf'..
- */
--(void)testSearch{
-    
-    KTKeytech* keytech = [[KTKeytech alloc]init];
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-
-    [keytech performSearch:@"keytech" loaderDelegate:responseLoader];
-    
-    [responseLoader waitForResponse];
-    
-    NSArray* array = [responseLoader objects];
-    
-    if (array==nil) XCTFail(@"The results array should not be nil");
-    if ([array count]==0) XCTFail(@"At least one element was expected but we found %d",(int)[array count]);
-    
-}
-
--(void)testSearchByFields{
-    
-    KTKeytech* keytech = [[KTKeytech alloc]init];
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-    
-    NSArray *fields = @[@"as_do__status=in Arbeit",@"as_do__version=-"];
-    
-    
-    [keytech performSearch:nil fields:fields inClass:nil page:1 pageSize:25 loaderDelegate:responseLoader];
-    
-    [responseLoader waitForResponse];
-    
-    NSArray* array = [responseLoader objects];
-    
-    if (array==nil) XCTFail(@"The results array should not be nil");
-    if ([array count]==0) XCTFail(@"At least one element was expected but we found %d",(int)[array count]);
-    
-    // Response should only have items with this fields
-    for (KTElement* element in array) {
-        
-        if (![element.itemVersion isEqualToString:@"-"]) {
-            XCTFail(@"An invalid element (version) was returned");
-            return;
-        }
-        if (![element.itemStatus isEqualToString:@"in Arbeit"]) {
-            XCTFail(@"An invalid element (status) was returned");
-            return;
-        }
-        
-    }
-}
-
--(void)testSearchByFieldsAndFullText{
-    
-    KTKeytech* keytech = [[KTKeytech alloc]init];
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-    
-    NSArray *fields = @[@"as_do__status=in Arbeit",@"as_do__version=-"];
-    
-    
-    [keytech performSearch:@"dampf" fields:fields inClass:nil page:1 pageSize:25 loaderDelegate:responseLoader];
-    
-    [responseLoader waitForResponse];
-    
-    NSArray* array = [responseLoader objects];
-    
-    if (array==nil) XCTFail(@"The results array should not be nil");
-    if ([array count]==0) XCTFail(@"At least one element was expected but we found %d",(int)[array count]);
-    
-    // Response should only have items with this fields
-    for (KTElement* element in array) {
-        
-        if (![element.itemVersion isEqualToString:@"-"]) {
-            XCTFail(@"An invalid element (version) was returned");
-            return;
-        }
-        if (![element.itemStatus isEqualToString:@"in Arbeit"]) {
-            XCTFail(@"An invalid element (status) was returned");
-            return;
-        }
-        
-    }
-
-    
-}
-
-
--(void)testSearchByFieldsAndFullTextAndInClasses{
-    
-    KTKeytech* keytech = [[KTKeytech alloc]init];
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-    
-    NSArray *fields = @[@"as_do__status=in Arbeit",@"as_do__version=-"];
-    
-    
-    [keytech performSearch:@"dampf" fields:fields inClass:@"" page:1 pageSize:25 loaderDelegate:responseLoader];
-    
-    [responseLoader waitForResponse];
-    
-    NSArray* array = [responseLoader objects];
-    
-    if (array==nil) XCTFail(@"The results array should not be nil");
-    if ([array count]==0) XCTFail(@"At least one element was expected but we found %d",(int)[array count]);
-    
-    // Response should only have items with this fields
-    for (KTElement* element in array) {
-        
-        if (![element.itemVersion isEqualToString:@"-"]) {
-            XCTFail(@"An invalid element (version) was returned");
-            return;
-        }
-        if (![element.itemStatus isEqualToString:@"in Arbeit"]) {
-            XCTFail(@"An invalid element (status) was returned");
-            return;
-        }
-        
-        if(![element.itemClassType isEqualToString:@"DO"]){
-            XCTFail(@"An invalid element (Classtype!=DO) was returned");
-            return;
-            
-        }
-        
-    }
-    
     
 }
 

@@ -41,7 +41,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
 - (void)setUp
 {
     [super setUp];
-    [testCase initialize];
+    [testCase setUp];
     // Put setup code here; it will be run once, before the first test case.
     
     _webservice = [KTManager sharedManager];

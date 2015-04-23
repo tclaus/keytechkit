@@ -34,11 +34,4 @@
 
 
 
-/// Gets a fulllist of attribute mappings
--(void)testGetAttributeMappings{
-    KTSystemManagement* systemManagement = [[KTSystemManagement alloc]init];
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-    
-}
-
 @end

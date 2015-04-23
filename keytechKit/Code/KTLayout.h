@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "KTSimpleControl.h"
-#import "KTKeytech.h"
 
 /**
  Provides lister and editorlayout for a specific classtype.

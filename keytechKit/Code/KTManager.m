@@ -20,7 +20,6 @@
 
 @implementation KTManager{
     
-    KTKeytech *_ktKeytech;
     BOOL _connectionIsValid;
     KTPreferencesConnection* _preferences;
     NSString *_serverVersion;
@@ -211,8 +210,6 @@
     
     //RKXMLReaderSerialization, RKMIMETypeJSON
     
-    // Suchprovider angeben
-    _ktKeytech= [[KTKeytech alloc]init];
     
     // Logging für RestKit definieren
     
@@ -255,10 +252,6 @@
 }
 
 
-// Forward search provider class
--(KTKeytech*)ktKeytech{
-    return _ktKeytech;
-}
 
 /// Checks for Admin role by asking the API directly and wait for result
 -(BOOL)currentUserHasActiveAdminRole{
@@ -291,44 +284,16 @@
  Simply check if current user credentials has right to login
  Waits until keytech responds
  */
--(NSUInteger)currentUserHasLoginRight{
+-(BOOL)currentUserHasLoginRight{
     
-    KTResponseLoader *loader = [[KTResponseLoader alloc]init];
-    
+    KTUser *currentUser = [KTUser loadUserWithKey:self.username];
 
-    
-    [self.ktKeytech performGetUser:self.username loaderDelegate:loader];
-    _serverErrorDescription = nil;
-    [loader waitForResponse];
-    
-    _serverErrorDescription = @"API not found. Check Path to Server";
-    
-    if (loader.requestTimeout){
-        _serverErrorDescription = @"API Timeout";
-        return 400;
+    if (currentUser) {
+        return currentUser.isActive;
+    } else {
+        return NO;
     }
-    
-    if (loader.loaderInfo.errorCode >= 400) { // License violation, Normally send a notification ? => Multiple error messages can occur
-        _serverErrorDescription = loader.loaderInfo.errorDescription;
-        return loader.loaderInfo.errorCode;
-    }
-    
-    
-    if (loader.firstObject){
-        KTUser* user = (KTUser*)loader.firstObject;
-        
-        if ((user.isActive) ) {  // Check login.User must have an 'active' - state
-            return 200;
-        }
-    }
-    
-    if (loader.error) {
-        _serverErrorDescription = loader.error.localizedDescription;
-        return 400; // Not really known error
-    }
-    
-    
-    return 400; // Unknown error
+ 
 }
 
 /// Synchonizes changed user credentials with the api level.
@@ -350,7 +315,9 @@
     bool objectsAreEqual =     [[RKObjectManager sharedManager].HTTPClient.baseURL isEqual:[NSURL URLWithString:Servername]];
     if (!objectsAreEqual){
         // Remove all queries
-        [self.ktKeytech cancelAllQueries];
+        //TODO: Check this cancel operation
+        [[RKObjectManager sharedManager] cancelAllObjectRequestOperationsWithMethod:RKRequestMethodAny matchingPathPattern:@"" ];
+        
         RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:Servername]];
         [objectManager setRequestSerializationMIMEType: RKMIMETypeJSON];
         [RKObjectManager setSharedManager:objectManager];

@@ -13,12 +13,6 @@
 
 @interface KTClass : NSObject <NSCoding>
 
-/**
- Load a list of available classes
- */
--(void)loadClassList:(void(^)(NSArray* classList))success
-                 failure:(void(^)(NSError *error))failure;
-
 
 /**
  Provides the object Mapping for this class and given objectManager
@@ -96,6 +90,23 @@
  Returns the classtype as a string value. One of DO,MI,FD.
  */
 @property (readonly,copy) NSString *classType;
+
+
+/**
+ Load a list of available classes
+ */
++(void)loadClassListSuccess:(void(^)(NSArray* classList))success
+                    failure:(void(^)(NSError *error))failure;
+
+/**
+ Loads a specific class by its classKey
+ @param classKey: A Classkey e.g: Default_MI
+ @param success: Will be called after class definition is received
+ @param failure: A failure handler
+ */
++(void)loadClassByKey:(NSString*)classKey success:(void(^)(KTClass* ktclass))success
+                     failure:(void(^)(NSError *error))failure;
+
 @end
 
 
