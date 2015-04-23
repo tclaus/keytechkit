@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "KTLoaderDelegate.h"
 
 
-@interface testResponseLoader : NSObject <KTLoaderDelegate>
+
+@interface testResponseLoader : NSObject
 
 /**
  The collection of objects loaded from the RKObjectLoader the receiver is acting as the delegate for.
@@ -26,9 +26,6 @@
 
 -(void)waitForResponse;
 
-
--(void)requestDidProceed:(NSArray*)searchResult fromResourcePath:(NSString*)resourcePath;
--(void)requestProceedWithError:(KTLoaderInfo*)loaderInfo error:(NSError*)theError;
 
 
 

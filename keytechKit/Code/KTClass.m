@@ -82,7 +82,10 @@ static NSDictionary *_classTypes;
                        @"DSIGHT":@"DraftSight",
                        @"SWE":@"SWElectrical",
                        @"WF":@"Folder",
-                       @"MI":@"Items"
+                       @"MI":@"Items",
+                       @"PAGES":@"Pages",
+                       @"NUMBERS":@"Numbers",
+                       @"KEYNOTE":@"Keynote"
                        };
     }
     return _classTypes;
@@ -110,14 +113,27 @@ static NSDictionary *_classTypes;
                                                        @"IsActive":@"isActive"
                                                        }];
         
-        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"AttributesList" toKeyPath:@"classAttributesList" withMapping:[KTClassAttribute mappingWithManager:manager]]];
+        [_mapping addPropertyMapping:[RKRelationshipMapping
+                                      relationshipMappingFromKeyPath:@"AttributesList"
+                                      toKeyPath:@"classAttributesList"
+                                      withMapping:[KTClassAttribute mappingWithManager:manager]]];
         
         [_usedManager addResponseDescriptor:
          [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny
                                                  pathPattern:nil
                                                      keyPath:@"ClassConfigurationList"
                                                  statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+        [_usedManager addResponseDescriptor:
+         [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny
+                                                 pathPattern:@"classes/:classKey"
+                                                     keyPath:@""
+                                                 statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
         
+        
+        [manager.router.routeSet addRoute:[RKRoute
+                                           routeWithClass:[KTClass class]
+                                           pathPattern:@"classes/:classKey"
+                                           method:RKRequestMethodGET]] ;
         
     }
     
@@ -125,15 +141,37 @@ static NSDictionary *_classTypes;
     
 }
 
++(void)loadClassByKey:(NSString*)classKey success:(void (^)(KTClass *))success failure:(void (^)(NSError *))failure{
 
--(void)loadClassList:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTClass mappingWithManager:manager];
+
+    KTClass *theClass = [[KTClass alloc]init];
+    theClass.classKey = classKey;
+    
+    [manager getObject:theClass path:nil parameters:nil
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                   if (success) {
+                       success(mappingResult.firstObject);
+                   }
+                   
+               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   if (failure) {
+                       failure(error);
+                   }
+               }];
+    
+    
+}
+
++(void)loadClassListSuccess:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure
 {
 
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTClass mappingWithManager:manager];
     
     NSString *resourcePath = @"classes";
-    
+
     [manager getObjectsAtPath:resourcePath parameters:nil
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                           if (success) {

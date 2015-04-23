@@ -14,12 +14,12 @@
 
 @implementation testCase
 
-+ (void)initialize{
-    
++ (void)setUp{
+
     KTManager* webservice = [KTManager sharedManager];
                              
-    //webservice.servername = @"https://demo.keytech.de";
-    webservice.servername = @"http://claus-pc.keytech.de:8080/keytech";
+    webservice.servername = @"https://demo.keytech.de";
+    //webservice.servername = @"http://claus-pc.keytech.de:8080/keytech";
     webservice.username = @"jgrant";
     [webservice synchronizeServerCredentials];
     

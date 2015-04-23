@@ -65,7 +65,7 @@
                    }
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                  
                        if (failure) {
                            failure(error);
                        }
@@ -122,7 +122,7 @@
                    }
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+
 
                        if (failure) {
                            failure(error);
@@ -172,7 +172,7 @@
                    }
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+
                    
                    if (failure) {
                        failure(error);
@@ -212,7 +212,7 @@
                    
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+
                        if (failure) {
                            failure(error);
                        }

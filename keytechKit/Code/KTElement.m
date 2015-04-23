@@ -47,8 +47,6 @@
     /// Notifies is load is in progress
     BOOL _isItemVersionListLoading;
     
-    // Hilfsobjekt, das weitere Eigenschaften nachladen kann durchführt
-    KTKeytech* ktManager;
     
     NSMutableArray *_itemStructureList;
     NSMutableArray *_itemBomList;
@@ -330,31 +328,37 @@ int maxPagesize=500;
 
 // Returns the current list or queries a new one.
 -(NSMutableArray*)itemNextAvailableStatusList{
-    if (_isNextAvailableStatusListLoaded &!_isItemNextStatesListLoading){
-        return _itemNextAvailableStatusList;
-    }else {
-        
-        if (!_isItemNextStatesListLoading){
-            _isItemNextStatesListLoading = YES;
-            // Starts the query and returns the current (empty) list
-            //[ktManager performGetElementNextAvailableStatus:self.itemKey loaderDelegate:self];
-            
-            [ktManager performGetElementNextAvailableStatus:self.itemKey
-                                                    success:^(NSArray *result) {
-                                                        
-                                                        _isItemNextStatesListLoading = NO;
-                                                        
-                                                        [self willChangeValueForKey:@"itemNextAvailableStatusList"];
-                                                        [_itemNextAvailableStatusList addObjectsFromArray:result];
-                                                        [self didChangeValueForKey:@"itemNextAvailableStatusList"];
-                                                        
-                                                    }];
-            
-            
-        }
-        
-        return _itemNextAvailableStatusList;
-    }
+    return _itemNextAvailableStatusList;
+}
+
+/// Start loading
+-(void)loadNextAvailableStatusListSuccess:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure{
+    NSString *elementKey = [KTBaseObject normalizeElementKey:self.itemKey];
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/nextstatus",elementKey];
+    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTStatusHistoryItem mappingWithManager:manager];
+    
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          
+                          [_itemNextAvailableStatusList removeAllObjects];
+                          [_itemNextAvailableStatusList addObjectsFromArray:mappingResult.array];
+                          
+                          if (success) {
+                              success(mappingResult.array);
+                          }
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          //TODO Prepaire error Text
+                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                          NSLog(@"Status code: %ld",(long)response.statusCode);
+                          if (failure) {
+                              failure(error);
+                          }
+                          
+                      }];
+
 }
 
 -(NSArray*)itemStatusHistory{
@@ -1078,7 +1082,6 @@ static long numberOfThumbnailsLoaded;
         numberOfThumbnailsLoaded = 0;
         // Pre allocate some mutables arrays to support lazy loading
         
-        ktManager= [[KTKeytech alloc]init];
         _itemStatusHistory = [[NSMutableArray alloc]init];
         _itemStructureList = [[NSMutableArray alloc]init];
         _itemFilesList = [[[NSMutableArray alloc]init]init];

@@ -9,7 +9,6 @@
 //
 #import <Foundation/Foundation.h>
 
-#import "KTKeytech.h"
 #import "KTPreferencesConnection.h"
 #import "KTServerInfo.h"
 
@@ -87,9 +86,8 @@ typedef struct {int page; int size;} PageDefinition;
  Simply check if current user credentials has right to login.
  @Returns A value If username or password failed (402), or license violation (403) or 400 if unknown.
  */
--(NSUInteger)currentUserHasLoginRight;
+-(BOOL)currentUserHasLoginRight;
 
-@property (readonly) KTKeytech* ktKeytech;
 
 @property (readonly) KTPreferencesConnection* preferences;
 

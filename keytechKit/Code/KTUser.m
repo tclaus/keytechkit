@@ -20,7 +20,6 @@
     BOOL _isPermissionLoaded;
     BOOL _isPermissionLoading;
     
-    KTKeytech *ktManager;
 }
 
 static KTUser* _currentUser;
@@ -47,7 +46,6 @@ static RKObjectManager *_usedManager;
     self = [super init];
     if (self) {
         
-        ktManager= [[KTKeytech alloc]init];
         _groupList = [[NSMutableArray alloc]init];
         _permissionsList = [[NSMutableArray alloc]init];
         
@@ -81,11 +79,6 @@ static RKObjectManager *_usedManager;
                                                                                           method:RKRequestMethodAny
                                                                                      pathPattern:nil keyPath:@"MembersList"
                                                                                      statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-        // In case of an error an empty user is returned
-        RKResponseDescriptor *userResponseClientError = [RKResponseDescriptor responseDescriptorWithMapping:_mapping
-                                                                                                     method:RKRequestMethodAny
-                                                                                                pathPattern:nil keyPath:@"MembersList"
-                                                                                                statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)];
         
         // Path Argument
         [manager.router.routeSet addRoute:[RKRoute
@@ -107,10 +100,17 @@ static RKObjectManager *_usedManager;
     
     KTUser *user = [[KTUser alloc]init] ;
     user.userKey = username;
-    NSLog(@"Start loading user with key %@",username);
     
     [user reload:success];
     
+}
+
++(KTUser*)loadUserWithKey:(NSString *)username{
+    KTUser *user = [[KTUser alloc]init] ;
+    user.userKey = username;
+
+    [user reload];
+    return user;
 }
 
 // Starts reloading the user. The userkey is needed.
@@ -178,7 +178,7 @@ static RKObjectManager *_usedManager;
         return _permissionsList;
     } else {
         _isPermissionLoading = YES;
-        [ktManager performGetPermissionsForUser:self.identifier findPermissionName:nil findEffective:NO loaderDelegate:self];
+//TODO: Load Permisisons
         return _permissionsList;
     }
 }
@@ -195,7 +195,7 @@ static RKObjectManager *_usedManager;
         return _groupList;
     }else{
         _isGroupListLoading = YES;
-        [ktManager performGetGroupsWithUser:self.userKey loaderDelegate:self];
+       //TODO: Load Users groups
         return _groupList;
     }
 }

@@ -21,7 +21,6 @@
 @implementation testLayout
 {
     KTManager* _webservice;
-    KTKeytech* keytech;
     
 }
 
@@ -29,10 +28,9 @@
 {
     [super setUp];
     // Put setup code here; it will be run once, before the first test case.
-    [testCase initialize];
+    [testCase setUp];
     _webservice = [KTManager sharedManager];
     
-    keytech = [[KTKeytech alloc]init];
     
 }
 
@@ -73,28 +71,6 @@
     
 }
 
-- (void)testLayoutArchiving
-{
-    NSArray *listOfClasses;
-    
-    // Get some Classes
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-    [[keytech ktSystemManagement]performGetClasslist:responseLoader];
-    [responseLoader waitForResponse];
-    
-    
-    XCTAssertNotNil(responseLoader.objects, @"Layoutlist should not be NIL");
-    XCTAssertTrue(responseLoader.objects.count>0, @"Layoutlist should have some classes");
-    
-    listOfClasses = responseLoader.objects;
-    
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:listOfClasses];
-    XCTAssertNotNil(data, @"Archived Data should not be nil");
-    
-    NSArray *target = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    XCTAssertNotNil(target, @"Unacrhived classlist should not be nil");
-    
 
-}
 
 @end

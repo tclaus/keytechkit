@@ -502,35 +502,6 @@ static int const kMaxDefaultPageSize = 500;
 }
 
 
-// Queries a full list of root folder without any parents. Uses maximal pagesize
--(void)performGetRootFolder:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-    [self performGetRootFolderWithPage:1 withSize:self.maximalPageSize loaderDelegate:loaderDelegate];
-}
-
-// Queries a full list of root folder without any parents.]
--(void)performGetRootFolderWithPage:(NSInteger)page withSize:(NSInteger)pageSize loaderDelegate:(NSObject<KTLoaderDelegate> *)loaderDelegate{
-    
-    
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    
-    [KTElement mappingWithManager:[RKObjectManager sharedManager]];
-    
-    NSString* resourcePath = @"folder/rootfolder";
-    
-    [manager getObjectsAtPath:resourcePath
-                   parameters:nil
-                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                          [loaderDelegate requestDidProceed:mappingResult.array fromResourcePath:resourcePath];
-                          
-                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                          [loaderDelegate requestProceedWithError:[KTLoaderInfo loaderInfoWithResponse:response resourceString:resourcePath] error:error];
-                          
-                      }];
-    
-    
-}
-
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 

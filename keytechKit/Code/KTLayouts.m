@@ -15,7 +15,6 @@
 @end
 
 @implementation KTLayouts{
-    KTKeytech* _ktKeytech;
     
     /// A list of all layouts for all classes
     NSMutableDictionary *_layoutsList;
@@ -46,7 +45,6 @@ static KTLayouts *_sharedLayouts;
         if (self) {
             _sharedLayouts = self;
             _layoutsList = [[NSMutableDictionary alloc]initWithCapacity:50];
-            _ktKeytech= [[KTKeytech alloc]init];
             _isAllLoaded = NO;
         }
     } else {

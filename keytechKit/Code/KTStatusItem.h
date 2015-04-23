@@ -18,19 +18,27 @@
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
- The name of an image which represents this status
+ The name of an image which represents this status. The image is windows client specific
  */
-@property (nonatomic,copy) NSString* imageName;
-/**
- Gets or sets the restriction of this status. Restrictions affects the access rights of elements.
- Restrictions are any of this key words: None, Readonly, RELEASE, Archive.
- Every restriction results to different behavior in editing or changing element data.
- */
-@property (nonatomic,copy) NSString* restriction;
+@property (nonatomic,copy) NSString* statusImageName;
 
 /**
- The name of the status. Used as a localized (urg..) key in keytech API.
+ Gets or sets the restriction of this status. Restrictions affects the access rights of elements.
+ Restrictions are any of this key words: None, Readonly, Release, Archive.
+ Every restriction results to different behavior in editing or changing element data.
+ */
+@property (nonatomic,copy) NSString* statusRestriction;
+
+/**
+ The name of the status. Used as a localized (urg..) key in keytech API. These names are key in elements and should never change in a running environment.
  */
 @property (nonatomic,copy)NSString* statusID;
+
+/**
+ Loads a list of statusitems.
+ @param success: Will excecute after list is loaded
+ @param failure: In any case of an error failure will be called.
+ */
++(void)loadStatusListSuccess:(void (^)(NSArray *statusList))success failure:(void(^)(NSError *error))failure;
 
 @end
