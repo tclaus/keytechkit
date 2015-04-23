@@ -354,7 +354,7 @@ static RKObjectManager *_usedManager;
     
 }
 
-
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 -(void)saveFileInBackground:(NSURL *)fileURL{
     
     NSString *resourcePath = [NSString stringWithFormat:@"elements/%@/files", self.elementKey];
@@ -394,6 +394,7 @@ static RKObjectManager *_usedManager;
     [uploadTask resume];
     
 }
+#endif
 
 -(void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(NSError *)error{
     if (error) {
@@ -409,7 +410,7 @@ static RKObjectManager *_usedManager;
 }
 
 
-
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 - (NSURLSession *)backgroundSession
 {
     /*
@@ -436,16 +437,15 @@ static RKObjectManager *_usedManager;
     });
     return session;
 }
+#endif
 
 /// Saves a preview file for the given apple iWork File
 -(void)saveiWorkPreviewFile:(NSURL*)fileURL{
     
-    NSArray *validiWorkTypes = @[@"pages",@"numbers",@"keynote"];
-    
     
     if  ( [[fileURL pathExtension] compare:@"pages" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
         [[fileURL pathExtension] compare:@"numbers" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
-        [[fileURL pathExtension] compare:@"keynote" options:NSCaseInsensitiveSearch] == NSOrderedSame)
+        [[fileURL pathExtension] compare:@"key" options:NSCaseInsensitiveSearch] == NSOrderedSame)
     {
         NSLog(@"Add preview file for iWork file");
     // iWork file format found

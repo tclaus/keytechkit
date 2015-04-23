@@ -109,10 +109,14 @@ When file is loaded a local URL is returned. Nil otherwise
  */
 -(void)loadRemoteFile;
 
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 /**
  Saves a file in a background task
  */
 -(void)saveFileInBackground:(NSURL *)fileURL;
+#endif
+
+
 /**
  Stores this file to API. Uses the delegate to inform about progress
  */
