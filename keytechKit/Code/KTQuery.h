@@ -34,6 +34,8 @@
              block:(void(^)(NSArray* results))block
            failure:(void(^)(NSError *error))failure;
 
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
+
 /**
  Starts a powerful search by using composed search predicates
 */
@@ -41,6 +43,7 @@
                   block:(void(^)(NSArray* results))block
                 failure:(void(^)(NSError *error))failure;
 
+#endif
 
 /**
  Starts a query by a server stored query by its ID

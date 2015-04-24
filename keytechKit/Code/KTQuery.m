@@ -20,8 +20,8 @@
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 
 
--(void)queryByPredicate:(NSPredicate *)predicate inClasses:(NSArray *)inClasses paged:(KTPagedObject *)pagedObject
-                  block:(void (^)(NSArray *))block
+-(void)queryByPredicate:(NSPredicate*)predicate inClasses:(NSArray*)inClasses paged:(KTPagedObject*)pagedObject
+                  block:(void(^)(NSArray* results))block
                 failure:(void(^)(NSError *error))failure{
 
     [self cancelSearches];
@@ -74,8 +74,6 @@
     
 }
 #endif
-
-
 
 -(void)queryByText:(NSString *)queryText paged:(KTPagedObject *)pagedObject
              block:(void (^)(NSArray *))block

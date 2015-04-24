@@ -546,7 +546,7 @@ static RKObjectManager *_usedManager;
                                                           if (error) {
                                                               NSLog(@"File upload finished with error: %@",error.localizedDescription);
                                                               NSHTTPURLResponse *httpResponse =(NSHTTPURLResponse*)response;
-                                                              NSLog(@"With Status Code: %ld",httpResponse.statusCode);
+                                                              NSLog(@"With Status Code: %ld",(long)httpResponse.statusCode);
                                                               
                                                               if (failure)
                                                                   failure(error);
