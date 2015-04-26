@@ -32,16 +32,19 @@ static KTServerInfo *_sharedServerInfo;
         [KTServerInfo mappingWithManager:[RKObjectManager sharedManager]];
         _isLoaded = NO;
         _isloading = NO;
+        _keyValueList = [NSMutableArray array];
     }
     return self;
 }
 
 /// Creates a shared instance and loads Data
 +(instancetype)sharedServerInfo{
-    if (!_sharedServerInfo) {
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         _sharedServerInfo = [[KTServerInfo alloc]init];
-        [_sharedServerInfo reload];
-    }
+    });
+
     return _sharedServerInfo;
 }
 
@@ -86,6 +89,46 @@ static KTServerInfo *_sharedServerInfo;
     return _mapping;
 }
 
+-(void)loadWithSuccess:(void (^)(KTServerInfo *))success failure:(void (^)(NSError *))failure {
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTServerInfo mappingWithManager:manager];
+    
+    if (_isloading) {
+        [self waitUnitlLoad];
+        if (success) {
+            success(self);
+        }
+    }
+    
+    _isloading = YES;
+    [manager getObject:_sharedServerInfo path:@"serverinfo" parameters:nil
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                   NSLog(@"Serverinfo loaded.");
+                   
+                   [self.keyValueList removeAllObjects];
+                   [self.keyValueList addObjectsFromArray:mappingResult.array];
+                   
+                   // Key Value liste austauschen
+                   _keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
+                   _isLoaded = YES;
+                   _isloading = NO;
+                   
+                   if (success) {
+                       success(self);
+                   }
+                   
+               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   NSLog(@"Error while getting the serverinfo resource: %@",error.localizedDescription);
+                   _isLoaded = NO;
+                   _isloading = NO;
+                   
+                   if (failure) {
+                       failure(error);
+                   }
+                   
+               }];
+    
+}
 
 /// Loads the serverinfo and waits until return
 -(void)reload{
@@ -117,44 +160,6 @@ static KTServerInfo *_sharedServerInfo;
     
 }
 
--(void)reloadWithCompletionBlock:(void(^)(NSError* error))completionBlock{
-    if (!_isloading) {
-        _isLoaded = NO;
-        _isloading = YES;
-        
-        RKObjectManager *manager = [RKObjectManager sharedManager];
-        [KTServerInfo mappingWithManager:manager];
-        
-        
-        [manager getObject:nil path:@"serverinfo" parameters:nil
-                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                       NSLog(@"Serverinfo loaded.");
-                       // Key Value liste austauschen
-                       _keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
-                       _isLoaded = YES;
-                       _isloading = NO;
-                       
-                       if (completionBlock) {
-                           completionBlock(nil);
-                       }
-                       
-                   } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                       NSLog(@"Error while getting the serverinfo resource: %@",error.localizedDescription);
-                       _isLoaded = NO;
-                       _isloading = NO;
-                       
-                       if (completionBlock) {
-                           completionBlock(error);
-                       }
-
-                       
-                   }];
-        
-        
-    }
-    
-    
-}
 
 /// Wait until request comnples
 /// No async here, case the values matters
@@ -186,7 +191,7 @@ static KTServerInfo *_sharedServerInfo;
 -(id)valueForKey:(NSString *)key{
     
     for (KTKeyValue *kv in self.keyValueList) {
-        if ([kv.key compare:kv.key options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+        if ([kv.key compare:key options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             return kv.value;
         }
     }
@@ -219,10 +224,7 @@ static KTServerInfo *_sharedServerInfo;
 }
 
 +(instancetype)serverInfo{
-    if (!_serverInfo) {
-        _serverInfo = [[KTServerInfo alloc]init];
-    }
-    return _serverInfo;
+    return [KTServerInfo sharedServerInfo];
 }
 
 -(NSString*)serverID{

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <RestKit/RestKit.h>
 
 /**
  A sign is a authorization sign that allows a element-status change. 

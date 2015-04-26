@@ -7,14 +7,14 @@
 //
 
 #import "KTSignedBy.h"
-#import <RestKit/RestKit.h>
+
 
 @implementation KTSignedBy
 
 static RKObjectMapping* _mapping = nil;
 static RKObjectManager *_usedManager;
 
-/// Stets the object mapping
+/// Sets the object mapping
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
     
     if (_usedManager !=manager){

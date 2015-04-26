@@ -24,11 +24,6 @@
 		65085849189CEC7C00399949 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085848189CEC7C00399949 /* CoreServices.framework */; };
 		6508584B189CEC8500399949 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508584A189CEC8500399949 /* Security.framework */; };
 		65085857189CEDE800399949 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508583D189CEBB300399949 /* libRestKit.a */; };
-		65085859189CEE1C00399949 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085858189CEE1C00399949 /* CFNetwork.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		6508585B189CEE2200399949 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585A189CEE2200399949 /* CoreData.framework */; };
-		6508585D189CEE2900399949 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585C189CEE2900399949 /* MobileCoreServices.framework */; };
-		6508585F189CEE3100399949 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585E189CEE3100399949 /* Security.framework */; };
-		65085861189CEE3800399949 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085860189CEE3800399949 /* SystemConfiguration.framework */; };
 		650858A9189CF08E00399949 /* keytechFoundation-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65085865189CF08E00399949 /* keytechFoundation-Info.plist */; };
 		650858AD189CF08E00399949 /* KTAttributeMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085869189CF08E00399949 /* KTAttributeMapping.m */; };
 		650858AE189CF08E00399949 /* KTAttributeMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085869189CF08E00399949 /* KTAttributeMapping.m */; };
@@ -245,8 +240,6 @@
 		657E68F219922FBE000BC057 /* KTSendNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68EE19922FBE000BC057 /* KTSendNotifications.m */; };
 		657E68F419923C76000BC057 /* testSendNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68F319923C76000BC057 /* testSendNotification.m */; };
 		657E68F519923C77000BC057 /* testSendNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68F319923C76000BC057 /* testSendNotification.m */; };
-		6580CA651AE69AF600438DE3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6580CA641AE69AF600438DE3 /* libz.dylib */; };
-		6580CA671AE69B0200438DE3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6580CA661AE69B0200438DE3 /* libz.dylib */; };
 		65C86EA01A0BBB9C00AE3F2E /* KTSearchengineResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 65C86E9E1A0BBB9C00AE3F2E /* KTSearchengineResult.h */; };
 		65C86EA11A0BBB9C00AE3F2E /* KTSearchengineResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 65C86E9E1A0BBB9C00AE3F2E /* KTSearchengineResult.h */; };
 		65C86EA21A0BBB9C00AE3F2E /* KTSearchengineResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C86E9F1A0BBB9C00AE3F2E /* KTSearchengineResult.m */; };
@@ -258,6 +251,10 @@
 		65C8E31F189EE12C005705CD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585E189CEE3100399949 /* Security.framework */; };
 		65C8E320189EE13A005705CD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585C189CEE2900399949 /* MobileCoreServices.framework */; };
 		65C8E321189EE13F005705CD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085858189CEE1C00399949 /* CFNetwork.framework */; };
+		65DBD9AD1AEB96B40077A669 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DBD9AC1AEB96B40077A669 /* SystemConfiguration.framework */; };
+		65DBD9AF1AEB96C80077A669 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DBD9AE1AEB96C80077A669 /* MobileCoreServices.framework */; };
+		65DBD9B11AEB96D70077A669 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DBD9B01AEB96D70077A669 /* Security.framework */; };
+		65DBD9B31AEB96E30077A669 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DBD9B21AEB96E30077A669 /* CFNetwork.framework */; };
 		65DDFF8619D6C678002D0529 /* testQueries.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DDFF8519D6C678002D0529 /* testQueries.m */; };
 		65DDFF8719D6C678002D0529 /* testQueries.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DDFF8519D6C678002D0529 /* testQueries.m */; };
 		65F810B61952CB5700992FD1 /* KTElementLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F810B41952CB5700992FD1 /* KTElementLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -491,6 +488,10 @@
 		6580CA661AE69B0200438DE3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
 		65C86E9E1A0BBB9C00AE3F2E /* KTSearchengineResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTSearchengineResult.h; sourceTree = "<group>"; };
 		65C86E9F1A0BBB9C00AE3F2E /* KTSearchengineResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSearchengineResult.m; sourceTree = "<group>"; };
+		65DBD9AC1AEB96B40077A669 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		65DBD9AE1AEB96C80077A669 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
+		65DBD9B01AEB96D70077A669 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		65DBD9B21AEB96E30077A669 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		65DDFF8519D6C678002D0529 /* testQueries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testQueries.m; sourceTree = "<group>"; };
 		65F810B41952CB5700992FD1 /* KTElementLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTElementLink.h; sourceTree = "<group>"; };
 		65F810B51952CB5700992FD1 /* KTElementLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTElementLink.m; sourceTree = "<group>"; };
@@ -501,7 +502,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6580CA651AE69AF600438DE3 /* libz.dylib in Frameworks */,
 				6508584B189CEC8500399949 /* Security.framework in Frameworks */,
 				65085849189CEC7C00399949 /* CoreServices.framework in Frameworks */,
 				65085847189CEC7500399949 /* CoreData.framework in Frameworks */,
@@ -525,13 +525,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6580CA671AE69B0200438DE3 /* libz.dylib in Frameworks */,
+				65DBD9B31AEB96E30077A669 /* CFNetwork.framework in Frameworks */,
+				65DBD9B11AEB96D70077A669 /* Security.framework in Frameworks */,
+				65DBD9AF1AEB96C80077A669 /* MobileCoreServices.framework in Frameworks */,
+				65DBD9AD1AEB96B40077A669 /* SystemConfiguration.framework in Frameworks */,
 				65085813189CEA9B00399949 /* Foundation.framework in Frameworks */,
-				65085861189CEE3800399949 /* SystemConfiguration.framework in Frameworks */,
-				6508585F189CEE3100399949 /* Security.framework in Frameworks */,
-				6508585D189CEE2900399949 /* MobileCoreServices.framework in Frameworks */,
-				6508585B189CEE2200399949 /* CoreData.framework in Frameworks */,
-				65085859189CEE1C00399949 /* CFNetwork.framework in Frameworks */,
 				65085857189CEDE800399949 /* libRestKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -582,6 +580,10 @@
 		650857E1189CE73300399949 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				65DBD9B21AEB96E30077A669 /* CFNetwork.framework */,
+				65DBD9B01AEB96D70077A669 /* Security.framework */,
+				65DBD9AE1AEB96C80077A669 /* MobileCoreServices.framework */,
+				65DBD9AC1AEB96B40077A669 /* SystemConfiguration.framework */,
 				6580CA661AE69B0200438DE3 /* libz.dylib */,
 				6580CA641AE69AF600438DE3 /* libz.dylib */,
 				65085860189CEE3800399949 /* SystemConfiguration.framework */,

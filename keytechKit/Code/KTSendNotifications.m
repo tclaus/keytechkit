@@ -52,8 +52,12 @@ static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8s
 
 #ifndef DEBUG
  static NSString* APNApplictionID =@"A1270-D0C69"; // The Production Service
+ static NSString* AppType = @"Production";
+
 #else
+
 static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
+ static NSString* AppType = @"Development";
 #endif
 
 -(instancetype) init {
@@ -71,8 +75,10 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
                             //
                         }];
         
-        
-        _serverID = [KTServerInfo serverInfo].serverID;
+        if ([KTServerInfo sharedServerInfo].isLoaded) {
+            _serverID = [KTServerInfo sharedServerInfo].serverID;
+        }
+        _serverID = nil;
         
         
         _localDeviceLanguage = [NSLocale preferredLanguages][0]; // Set, until its overwritten by register Device
@@ -115,17 +121,21 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
 //        }
 //    }
 
+    NSLog(@"Registering push service on: %@",AppType);
+    
     // Force loading serverID from configuration setting, if currently not loaded
     if (!self.serverID) {
-        [[KTManager sharedManager] serverInfo:^(KTServerInfo *serverInfo) {
-            self.serverID = serverInfo.serverID;
+        if ([KTServerInfo sharedServerInfo].isLoaded) {
+            self.serverID =[KTServerInfo sharedServerInfo].serverID;
             
-            
-            [self registerDevice:deviceToken uniqueID:uniqueID languageID:languageID];
-        } failure:^(NSError *error) {
-            
-        }];
-        return;
+        } else {
+            [[KTServerInfo sharedServerInfo] loadWithSuccess:^(KTServerInfo *serverInfo) {
+                self.serverID = serverInfo.serverID;
+                [self registerDevice:deviceToken uniqueID:uniqueID languageID:languageID];
+            } failure:nil];
+            return;
+        }
+        
     }
     
     // locally store the Hardware ID
@@ -275,6 +285,8 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
         // If not currently initialzed, then do not send any notifications
         return;
     }
+    
+    NSLog(@"Send notification to %@",AppType);
     
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:APNURL,@"createMessage"]];
     

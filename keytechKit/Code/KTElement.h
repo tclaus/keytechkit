@@ -126,7 +126,7 @@ typedef enum {
  Array contains full elements
  */
 @property (readonly,strong) NSArray* itemStructureList;
-@property (readonly) BOOL isItemStructureListLoaded;
+@property (readonly) BOOL isStructureListLoaded;
 
 /**
  Starts loading the list of child elements
@@ -137,9 +137,30 @@ typedef enum {
                  success:(void(^)(NSArray* itemsList))success
                  failure:(void(^)(NSError *error))failure;
 
+
+/**
+ Returns the bill of material if this element is of type 'masteritem'. Returns an empty list if not loaded.
+ */
+@property (readonly,strong) NSMutableArray* itemBomList; // Only Items can have a bomlist
+
+/**
+ Retun true if Bom List ist loaded
+ */
+@property (readonly) BOOL isBomListLoaded;
+@property (readonly) BOOL isBomListLoadedComplete;
+/**
+ Starts loading the bom list in a paged based manner
+ */
 -(void)loadBomListPage:(int)page withSize:(int)size
                  success:(void(^)(NSArray* itemsList))success
                  failure:(void(^)(NSError *error))failure;
+
+/**
+ Loads the list of parent elements of structure.
+ */
+@property (readonly,strong) NSMutableArray* itemWhereUsedList;
+@property (readonly) BOOL isWhereUsedListLoaded;
+
 
 -(void)loadWhereUsedListPage:(int)page withSize:(int)size
                  success:(void(^)(NSArray* itemsList))success
@@ -175,17 +196,6 @@ typedef enum {
 -(void)removeLinkTo:(NSString*)linkToElementKey success:(void(^)(void))success failure:(void(^)(NSError* error))failure;
 
 
-// wie dann speichern? - Sofort?
-
-
-/**
- Returns the bill of material if this element is of type 'masteritem'. Returns an empty list if not loaded.
- */
-@property (readonly,strong) NSMutableArray* itemBomList; // Only Items can have a bomlist
-/**
- Retun true if Bom List ist loaded
- */
-@property (readonly) BOOL isBomListLoaded;
 
 /**
  Returns the masterfile object of applicable
@@ -197,11 +207,6 @@ typedef enum {
 @property (readonly,strong) NSMutableArray* itemFilesList; // Nur bei Dokumente!
 @property (readonly) BOOL isFilesListLoaded;
 
-/**
- Loads the list of parent elements in which this Element is used.
- */
-@property (readonly,strong) NSMutableArray* itemWhereUsedList;
-@property (readonly) BOOL isWhereUsedListLoaded;
 
 /**
  Loads a list of states to which this element can be set.

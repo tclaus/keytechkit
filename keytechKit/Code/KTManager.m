@@ -50,42 +50,6 @@
     _preferences.password = password;
 }
 
--(KTServerInfo*)serverInfo{
-    return _sharedServerInfo;
-}
-
--(void)serverInfo:(void (^)(KTServerInfo* serverInfo))resultBlock failure:(void(^)(NSError* error))failureBlock{
-    
-    if (!_sharedServerInfo) { // Do not reload server info
-        
-        
-        RKObjectManager *manager = [RKObjectManager sharedManager];
-        [KTServerInfo mappingWithManager:manager];
-        
-        [manager getObject:nil path:@"serverinfo" parameters:nil
-                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                       if (resultBlock) {
-                           
-                           _sharedServerInfo = [[KTServerInfo alloc]init];
-                           [_sharedServerInfo setValue:[mappingResult array] forKey:@"keyValueList"];
-                           
-                           resultBlock(_sharedServerInfo);
-                       }
-                       
-                   } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                       NSLog(@"Error while getting the API version: %@",error.localizedDescription);
-                       if(failureBlock){
-                           failureBlock(error);
-                       }
-                   }];
-        
-    } else {
-        if (resultBlock) {
-            resultBlock(_sharedServerInfo);
-        }
-    }
-    
-}
 
 
 /// Creates the singelton class
@@ -326,7 +290,7 @@
         
         // If server changed, then reload serverInfo
         [KTServerInfo mappingWithManager:objectManager];
-        [[KTServerInfo serverInfo] reloadWithCompletionBlock:nil];
+        [[KTServerInfo serverInfo] loadWithSuccess:nil failure:nil];
         
     } else {
         // Set new Authorization

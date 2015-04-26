@@ -68,16 +68,6 @@ typedef struct {int page; int size;} PageDefinition;
 -(NSString*) lastServerErrorText;
 
 /**
- Fetches a new API ServerInfo
- */
--(void)serverInfo:(void (^)(KTServerInfo* serverInfo))resultBlock failure:(void(^)(NSError* error))failureBlock;
-
-/**
- After @serverInfo^resultBlock is called a valid serverInfo object can be fetched here;
- */
--(KTServerInfo*)serverInfo;
-
-/**
  Returns YES if the user identified by its credentials has an active admin role
  */
 -(BOOL)currentUserHasActiveAdminRole;

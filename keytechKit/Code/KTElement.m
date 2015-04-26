@@ -95,7 +95,7 @@ int maxPagesize=500;
 @synthesize itemThumbnail = _itemThumbnail;
 //Sonderfall
 
-@synthesize isItemStructureListLoaded = _isItemStructureListLoaded;
+@synthesize isStructureListLoaded = _isStructureListLoaded;
 
 @synthesize isWhereUsedListLoaded =_isWhereUsedListLoaded;
 
@@ -326,40 +326,7 @@ int maxPagesize=500;
     return _itemWhereUsedList;
 }
 
-// Returns the current list or queries a new one.
--(NSMutableArray*)itemNextAvailableStatusList{
-    return _itemNextAvailableStatusList;
-}
 
-/// Start loading
--(void)loadNextAvailableStatusListSuccess:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure{
-    NSString *elementKey = [KTBaseObject normalizeElementKey:self.itemKey];
-    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/nextstatus",elementKey];
-    
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTStatusHistoryItem mappingWithManager:manager];
-    
-    [manager getObjectsAtPath:resourcePath parameters:nil
-                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                          
-                          [_itemNextAvailableStatusList removeAllObjects];
-                          [_itemNextAvailableStatusList addObjectsFromArray:mappingResult.array];
-                          
-                          if (success) {
-                              success(mappingResult.array);
-                          }
-                          
-                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          //TODO Prepaire error Text
-                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                          NSLog(@"Status code: %ld",(long)response.statusCode);
-                          if (failure) {
-                              failure(error);
-                          }
-                          
-                      }];
-
-}
 
 -(NSArray*)itemStatusHistory{
     return [NSArray arrayWithArray:_itemStatusHistory];
@@ -436,29 +403,6 @@ int maxPagesize=500;
     }];
     
     
-}
-
-/// Returns the current list of child elements
--(NSArray*)itemStructureList{
-    return _itemStructureList;
-}
-
-
--(void)loadWhereUsedListPage:(int)page
-                    withSize:(int)size
-                     success:(void (^)(NSArray *))success
-                     failure:(void (^)(NSError *))failure
-{
-    
-    NSString *elementKey = [KTBaseObject normalizeElementKey:self.itemKey];
-    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/whereused",elementKey];
-    
-    [self loadDataToArray:_itemWhereUsedList
-              resoucePath:resourcePath
-                 fromPage:page
-                 withSize:size
-                  success:success
-                  failure:failure];
 }
 
 
@@ -548,6 +492,57 @@ NSMutableDictionary *_lastPages;
     
 }
 
+/// Returns the current list of child elements
+-(NSArray*)itemStructureList{
+    return _itemStructureList;
+}
+
+// Returns the current list or queries a new one.
+-(NSMutableArray*)itemNextAvailableStatusList{
+    return _itemNextAvailableStatusList;
+}
+
+/// Loads next available statuslist
+-(void)loadNextAvailableStatusListSuccess:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure{
+    NSString *elementKey = [KTBaseObject normalizeElementKey:self.itemKey];
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/nextstatus",elementKey];
+    
+    [self loadDataToArray:_itemNextAvailableStatusList
+              resoucePath:resourcePath
+                 fromPage:0
+                 withSize:0
+                  success:^(NSArray *itemsList) {
+                      _isNextAvailableStatusListLoaded = YES;
+                      if (success) {
+                          success(itemsList);
+                      }
+                  }
+                  failure:failure];
+    
+}
+
+-(void)loadWhereUsedListPage:(int)page
+                    withSize:(int)size
+                     success:(void (^)(NSArray *))success
+                     failure:(void (^)(NSError *))failure
+{
+    
+    NSString *elementKey = [KTBaseObject normalizeElementKey:self.itemKey];
+    NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/whereused",elementKey];
+    
+    [self loadDataToArray:_itemWhereUsedList
+              resoucePath:resourcePath
+                 fromPage:page
+                 withSize:size
+                  success:^(NSArray *itemsList) {
+                      _isWhereUsedListLoaded = YES;
+                      if (success) {
+                          success(itemsList);
+                      }
+                  }
+                  failure:failure];
+}
+
 /**
  Loads the structure with the given page and pagesize. Every query adds the structure list to the internal array.
  */
@@ -558,29 +553,16 @@ NSMutableDictionary *_lastPages;
     NSString *elementKey = [KTBaseObject normalizeElementKey:self.itemKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/statushistory",elementKey];
     
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTStatusHistoryItem mappingWithManager:manager];
-    
-    [manager getObjectsAtPath:resourcePath parameters:nil
-                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                          
-                          [_itemStatusHistory removeAllObjects];
-                          [_itemStatusHistory addObjectsFromArray:mappingResult.array];
-                          
-                          if (success) {
-                              success(mappingResult.array);
-                          }
-                          
-                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          
-                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                          NSLog(@"Status code: %ld",(long)response.statusCode);
-                          if (failure) {
-                              failure(error);
-                          }
-                          
-                      }];
-    
+    [self loadDataToArray:_itemStatusHistory
+              resoucePath:resourcePath
+                 fromPage:0
+                 withSize:0
+                  success:^(NSArray *itemsList) {
+                      _isStatusHistoryLoaded = YES;
+                      if (success) {
+                          success(itemsList);
+                      }
+                  } failure:failure];
 }
 
 
@@ -598,7 +580,12 @@ NSMutableDictionary *_lastPages;
               resoucePath:resourcePath
                  fromPage:0
                  withSize:0
-                  success:success
+                  success:^(NSArray *itemsList) {
+                      _isNotesListLoaded = YES;
+                      if (success) {
+                          success(itemsList);
+                      }
+                  }
                   failure:failure];
     
 }
@@ -618,8 +605,12 @@ NSMutableDictionary *_lastPages;
               resoucePath:resourcePath
                  fromPage:page
                  withSize:size
-                  success:success
-                  failure:failure];
+                  success:^(NSArray *itemsList) {
+                      _isStructureListLoaded = YES;
+                      if (success) {
+                          success(itemsList);
+                      }
+                  } failure:failure];
     
 }
 
@@ -682,7 +673,12 @@ NSMutableDictionary *_lastPages;
               resoucePath:resourcePath
                  fromPage:0
                  withSize:0
-                  success:success
+                  success:^(NSArray *itemsList) {
+                      _isVersionListLoaded = YES;
+                      if (success) {
+                          success(itemsList);
+                      }
+                  }
                   failure:failure];
     
 }
@@ -712,82 +708,7 @@ NSMutableDictionary *_lastPages;
     return _itemNotesList;
 }
 
-#pragma mark Server response
 
--(void)requestProceedWithError:(KTLoaderInfo*)loaderInfo error:(NSError *)theError{
-    
-    // Clear the loading - States
-    if ([loaderInfo.resourcePath hasSuffix:@"statushistory"])
-        _isStatusHistoryLoading = NO;
-    
-    if ([loaderInfo.resourcePath hasSuffix:@"nextstatus"])
-        _isItemNextStatesListLoading = NO;
-    
-    if ([loaderInfo.resourcePath hasSuffix:@"files"])
-        _isItemFileslistLoading = NO;
-    
-    if ([loaderInfo.resourcePath hasSuffix:@"notes"])
-        _isItemNotesListLoading = NO;
-    
-    if ([loaderInfo.resourcePath hasSuffix:@"whereused"])
-        _isItemWhereUsedListLoading = NO;
-    
-    if ([loaderInfo.resourcePath hasSuffix:@"bom"])
-        _isItemBomListLoading = NO;
-    
-    
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:KTRequestDidFailWithErrorNotification
-                                                        object:self
-                                                      userInfo:nil];
-}
-
-// Invoked by a successful search
--(void)requestDidProceed:(NSArray*)searchResult fromResourcePath:(NSString*)resourcePath{
-    
-    
-    /*
-    
-    //next available status
-    if ([resourcePath hasSuffix:@"nextstatus"]){
-        
-        _isItemNextStatesListLoading = NO;
-        _isNextAvailableStatusListLoaded = YES;
-        //Set by KVC
-        if (!_itemNextAvailableStatusList){
-            _itemNextAvailableStatusList = [[NSMutableArray alloc]initWithArray:searchResult];
-        } else {
-            
-            [self willChangeValueForKey:@"itemNextAvailableStatusList"];
-            
-            [_itemNextAvailableStatusList setArray:searchResult];
-            [self didChangeValueForKey:@"itemNextAvailableStatusList"];
-            
-        }
-        return;
-    }
-    
-    */
-    
-    
-    //notes
-    if ([resourcePath hasSuffix:@"notes"]){
-        
-        _isItemNotesListLoading = NO;
-        _isNotesListLoaded = YES;
-        if (!_itemNotesList) {
-            _itemNotesList = [[NSMutableArray alloc ]initWithArray:searchResult];
-        }else {
-            //set by KVC
-            [self willChangeValueForKey:@"itemNotesList"];
-            [_itemNotesList setArray:searchResult];
-            [self didChangeValueForKey:@"itemNotesList"];
-        }
-        
-        return;
-    }
-    
-}
 
 #pragma mark Thumbnail handling
 
@@ -946,10 +867,6 @@ static long numberOfThumbnailsLoaded;
     
 }
 
-
--(void)dealloc{
-    
-}
 
 - (void)removeThumbnailKeyFromQueue:(NSObject <NSCopying> *)thumbnailKey
 {
@@ -1278,6 +1195,15 @@ static long numberOfThumbnailsLoaded;
             break;
     }
     
+    _isBomListLoaded = NO;
+    _isFilesListLoaded = NO;
+    _isItemThumnailLoaded = NO;
+    _isNextAvailableStatusListLoaded = NO;
+    _isNotesListLoaded = NO;
+    _isStatusHistoryLoaded = NO;
+    _isStructureListLoaded = NO;
+    _isVersionListLoaded = NO;
+    _isWhereUsedListLoaded = NO;
     
     
     [manager getObject:self path:nil parameters:rpcData success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {

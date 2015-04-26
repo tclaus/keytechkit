@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <RestKit/RestKit.h>
 
 /**
  The keytech serverinfo data is available withoutthe need of a valid user logged in.
@@ -28,7 +29,7 @@
 @property (readonly) BOOL isLoaded;
 
 /**
- Contains the full key-value list of all bom attribes, including all element attributes
+ Contains the full key-value list of all server properties.
  */
 @property (readonly) NSMutableArray* keyValueList;
 
@@ -66,12 +67,16 @@
 
 
 /**
- Loads the API's Serverinfo in background
+ Loads a serverinfo object.
  */
--(void)reload;
-/**
- Reloads the API in background and executed block after succeed
- */
--(void)reloadWithCompletionBlock:(void(^)(NSError* error))completionBlock;
+-(void)loadWithSuccess:(void(^)(KTServerInfo* serverInfo))success failure:(void(^)(NSError *error))failure;
+
 
 @end
+
+
+
+
+
+
+
