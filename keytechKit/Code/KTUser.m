@@ -199,46 +199,56 @@ static RKObjectManager *_usedManager;
         return _groupList;
     }
 }
--(void)requestProceedWithError:(KTLoaderInfo*)loaderInfo error:(NSError*)theError{
-#pragma mark Todo: Error handler implementieren
+
+
+-(void)loadFavoritesSuccess:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure{
+
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTTargetLink mappingWithManager:manager];
+    
+    NSString *resourcePath = [NSString stringWithFormat:@"user/%@/favorites",self.userKey];
+    
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          
+                          self.favorites = mappingResult.array;
+                          
+                          if (success) {
+                              success(self.favorites);
+                          }
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          //TODO: prepaire the error
+                          if (failure) {
+                              failure(error);
+                          }
+                      }];
 }
 
-// Perform getting the groups list
--(void)requestDidProceed:(NSArray*)searchResult fromResourcePath:(NSString*)resourcePath{
-    // Groups
-    if ([resourcePath hasSuffix:@"/groups"]){
-        // Set for KVC
-        _isGroupListLoading = NO;
-        _isGroupListLoaded = YES;
-        
-        if (!_groupList){
-            _groupList = [[NSMutableArray alloc] initWithArray:searchResult];
-        }
-        
-        // Set by KVC
-        [self willChangeValueForKey:@"groupList"];
-        [self.groupList setArray:searchResult];
-        [self didChangeValueForKey:@"groupList"];
-        
-        
-        return;
-    }
-    
-    if ([resourcePath rangeOfString:@"/permissions"].location !=NSNotFound) {
-        _isPermissionLoading = NO;
-        _isPermissionLoaded = YES;
-        
-        if(!_permissionsList){
-            _permissionsList = [NSMutableArray array];
-        }
-        [self willChangeValueForKey:@"permissionsList"];
-        [_permissionsList setArray:searchResult];
-        [self didChangeValueForKey:@"permissionsList"];
-        
-    }
-    
-}
+-(void)loadQueriesSuccess:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure{
 
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTTargetLink mappingWithManager:manager];
+    
+    
+    NSString *resourcePath = [NSString stringWithFormat:@"user/%@/queries",self.userKey];
+    
+    [manager getObjectsAtPath:resourcePath parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          
+                          self.queries = mappingResult.array;
+                          
+                          if (success) {
+                              success(self.queries);
+                          }
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          //TODO: prepaire the error
+                          if (failure) {
+                              failure(error);
+                          }
+                      }];
+}
 
 +(instancetype)currentUser{
     if (!_currentUser) {

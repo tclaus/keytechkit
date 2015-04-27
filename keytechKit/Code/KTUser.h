@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "KTLoaderDelegate.h"
 #import "KTIdentifiedDataSource.h"
+#import "KTTargetLink.h"
+
 /**
  Represets a user object
  */
@@ -26,6 +27,24 @@
  @param failure Called when the user object could not be loaded
  */
 +(void)loadUserWithKey:(NSString*)username success:(void(^)(KTUser* user))success failure:(void(^)(NSError* error))failure;
+
+/**
+ Loads a list of server side stored queries. These ware queries definied in the keytech database by a client or admin controlled
+ */
+-(void)loadQueriesSuccess:(void(^)(NSArray* targetLinks))success failure:(void(^)(NSError* error))failure;
+/**
+ Loads a structured list of favorie elemets
+ */
+-(void)loadFavoritesSuccess:(void(^)(NSArray* targetLinks))success failure:(void(^)(NSError* error))failure;
+
+/**
+ Returns a list of queries. Is NIL when never loaded.
+ */
+@property (nonatomic,weak) NSArray* queries;
+/**
+ Returns a list of favorite elements. Returns nil if never loaded
+ */
+@property (nonatomic,weak) NSArray* favorites;
 
 /**
  Loads a new user objects but waits until returns

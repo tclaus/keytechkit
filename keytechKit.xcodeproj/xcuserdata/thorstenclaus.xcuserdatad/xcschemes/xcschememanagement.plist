@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Documentation fo iOS.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
+		<key>Documentation for OS X.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
 		<key>keytechKit.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -43,6 +53,16 @@
 			<true/>
 		</dict>
 		<key>656C88D318EE94F400169681</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>657AFB471AEE83AE00C292BB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>657AFB4C1AEE845A00C292BB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

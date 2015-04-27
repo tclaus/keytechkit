@@ -10,6 +10,7 @@
 #import <RestKit/RestKit.h>
 @class KTElement;
 @interface KTElementLink : NSObject
+
 /**
  Provides the object Mapping for this class and given objectManager
  */

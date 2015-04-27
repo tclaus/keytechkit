@@ -9,13 +9,12 @@
 #import "KTServerInfo.h"
 #import "KTKeyValue.h"
 
-@implementation KTServerInfo{
-    BOOL _isloading;
-    BOOL _isLoaded;
+@implementation KTServerInfo
 
-}
-    static KTServerInfo *_serverInfo;
+static KTServerInfo *_serverInfo;
 
+@synthesize isLoaded = _isLoaded;
+@synthesize isLoading =_isLoading;
 
 @synthesize keyValueList = _keyValueList;
 
@@ -31,7 +30,7 @@ static KTServerInfo *_sharedServerInfo;
     if (self) {
         [KTServerInfo mappingWithManager:[RKObjectManager sharedManager]];
         _isLoaded = NO;
-        _isloading = NO;
+        _isLoading = NO;
         _keyValueList = [NSMutableArray array];
     }
     return self;
@@ -48,9 +47,6 @@ static KTServerInfo *_sharedServerInfo;
     return _sharedServerInfo;
 }
 
--(BOOL)isLoaded{
-    return _isLoaded;
-}
 
 // Sets the Object mapping for JSON
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
@@ -93,14 +89,15 @@ static KTServerInfo *_sharedServerInfo;
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTServerInfo mappingWithManager:manager];
     
-    if (_isloading) {
+    if (_isLoading) {
         [self waitUnitlLoad];
         if (success) {
             success(self);
         }
+        return;
     }
     
-    _isloading = YES;
+    _isLoading = YES;
     [manager getObject:_sharedServerInfo path:@"serverinfo" parameters:nil
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    NSLog(@"Serverinfo loaded.");
@@ -111,7 +108,7 @@ static KTServerInfo *_sharedServerInfo;
                    // Key Value liste austauschen
                    _keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
                    _isLoaded = YES;
-                   _isloading = NO;
+                   _isLoading = NO;
                    
                    if (success) {
                        success(self);
@@ -120,7 +117,7 @@ static KTServerInfo *_sharedServerInfo;
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                    NSLog(@"Error while getting the serverinfo resource: %@",error.localizedDescription);
                    _isLoaded = NO;
-                   _isloading = NO;
+                   _isLoading = NO;
                    
                    if (failure) {
                        failure(error);
@@ -132,9 +129,9 @@ static KTServerInfo *_sharedServerInfo;
 
 /// Loads the serverinfo and waits until return
 -(void)reload{
-    if (!_isloading) {
+    if (!_isLoading) {
         _isLoaded = NO;
-        _isloading = YES;
+        _isLoading = YES;
     
         RKObjectManager *manager = [RKObjectManager sharedManager];
         [KTServerInfo mappingWithManager:manager];
@@ -146,11 +143,11 @@ static KTServerInfo *_sharedServerInfo;
                        // Key Value liste austauschen
                     _keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
                        _isLoaded = YES;
-                       _isloading = NO;
+                       _isLoading = NO;
                    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                        NSLog(@"Error while getting the serverinfo resource: %@",error.localizedDescription);
                        _isLoaded = NO;
-                       _isloading = NO;
+                       _isLoading = NO;
                    }];
 
         
@@ -169,13 +166,13 @@ static KTServerInfo *_sharedServerInfo;
 #define N_SEC_TO_POLL 30.0 // poll for 30s
 #define MAX_POLL_COUNT N_SEC_TO_POLL / POLL_INTERVAL
     
-    if (!_isloading && !_isLoaded) {
+    if (!_isLoading && !_isLoaded) {
         // Load was not triggered
         return;
     }
     
     NSUInteger pollCount = 0;
-    while (_isloading && (pollCount < MAX_POLL_COUNT)) {
+    while (_isLoading && (pollCount < MAX_POLL_COUNT)) {
         NSDate* untilDate = [NSDate dateWithTimeIntervalSinceNow:POLL_INTERVAL];
         [[NSRunLoop currentRunLoop] runUntilDate:untilDate];
         pollCount++;

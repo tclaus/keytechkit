@@ -109,6 +109,52 @@ static KTLayouts *_sharedLayouts;
     
 }
 
+
+-(void)loadListerLayoutForBOM:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure{
+  
+    NSString *classKey = @"BOM";
+    
+    if ([self isLayoutLoaded:classKey]) {
+        if (success) {
+            success([self layoutForClassKey:classKey].listerLayout);
+            return;
+        }
+    }
+    
+    // In layouts einsortieren
+    if (![_layoutsList valueForKey:classKey]){
+        KTLayout *layout =[[KTLayout alloc]init];
+        layout.classKey =classKey;
+        [_layoutsList setValue:layout forKey:classKey];
+        
+    }
+    
+    NSString* listerResourcePath = [NSString stringWithFormat:@"classes/%@/listerlayout",classKey];
+    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTSimpleControl mappingWithManager:manager];
+    
+    [manager getObjectsAtPath:listerResourcePath
+                   parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          
+                          [self layoutDidLoadForClassKey:classKey];
+                          KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:classKey];
+                          layout.listerLayout = mappingResult.array;
+                          
+                          if (layout.isLoaded) {
+                              if (success) {
+                                  success(layout.listerLayout);
+                              }
+                          }
+                          
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          //TODO: Error
+                          
+                      }];
+    
+}
+
 /// Starts loading layout for the given classkey
 -(void)loadLayoutForClassKey:(NSString *)classKey
                      success:(void (^)(KTLayout *))success
@@ -137,7 +183,18 @@ static KTLayouts *_sharedLayouts;
         
     }
    
-    
+    // Dont query again, if already loaded
+    // Maybe implement a reload later
+    if ([_layoutsList valueForKey:classKey]) {
+        KTLayout *layout = (KTLayout*)[_layoutsList valueForKey:classKey];
+        if (layout.isLoaded) {
+            if (success) {
+                success(layout);
+                return;
+            }
+        }
+        
+    }
     
     [manager getObjectsAtPath:editorResourcePath
                    parameters:nil

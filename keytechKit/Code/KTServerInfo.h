@@ -27,6 +27,7 @@
  returns TRUE if serverinfo was fetched
  */
 @property (readonly) BOOL isLoaded;
+@property (readonly) BOOL isLoading;
 
 /**
  Contains the full key-value list of all server properties.
@@ -59,12 +60,12 @@
 @property (readonly) NSString* licencedCompany;
 
 
+
 /**
  Loads the current Serverinfo with globally set ServerURL. 
  Waits until server responds.
  */
 +(instancetype)serverInfo;
-
 
 /**
  Loads a serverinfo object.

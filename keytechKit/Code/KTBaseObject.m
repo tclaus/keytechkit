@@ -13,9 +13,7 @@
 
 
 #pragma mark Helper Functions
-/**
- In Case a ElementKey starts with a (forbiden) % sign - replace with 'default'
- */
+
 +(NSString*)normalizeElementKey:(NSString*)elementKey{
     if ([elementKey rangeOfString:@"%_"].location !=NSNotFound) {
         return [elementKey stringByReplacingOccurrencesOfString:@"%_" withString:@"DEFAULT_"];

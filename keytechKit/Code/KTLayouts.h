@@ -30,6 +30,12 @@ Loads a layout -Editor and lister- and waits until layout is loaded.
 -(void)loadLayoutForClassKey:(NSString*)classKey success:(void(^)(KTLayout *layout))success failure:(void(^)(NSError* error))failure;
 
 /**
+ Loads the layout for BOM (Bill Of Material). Remember taht BOM has only a lister layout. Not an editor layout. 
+ */
+-(void)loadListerLayoutForBOM:(void(^)(NSArray* controls))success failure:(void(^)(NSError* error))failure;
+                               
+
+/**
  Starts loading all layouts for the current user
  */
 //-(void)loadLayoutsWithCompletion:(void(^)(KTLayouts *layout))completion;

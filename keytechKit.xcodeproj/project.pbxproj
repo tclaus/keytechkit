@@ -6,6 +6,31 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		657AFB471AEE83AE00C292BB /* Documentation for iOS */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 657AFB481AEE83AF00C292BB /* Build configuration list for PBXAggregateTarget "Documentation for iOS" */;
+			buildPhases = (
+				657AFB4B1AEE83C700C292BB /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Documentation for iOS";
+			productName = "Documentation fo iOS";
+		};
+		657AFB4C1AEE845A00C292BB /* Documentation for OS X */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 657AFB4E1AEE845A00C292BB /* Build configuration list for PBXAggregateTarget "Documentation for OS X" */;
+			buildPhases = (
+				657AFB4D1AEE845A00C292BB /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Documentation for OS X";
+			productName = "Documentation fo iOS";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		6507ACC419224525008CCB94 /* KTServerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6507ACC219224525008CCB94 /* KTServerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6507ACC519224525008CCB94 /* KTServerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6507ACC219224525008CCB94 /* KTServerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -230,6 +255,7 @@
 		6567B6C4191F641D0039D7C0 /* NSPredicate+PredicateKTFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 65423E1618D5F4550020B294 /* NSPredicate+PredicateKTFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		657298B71993856F00552FE5 /* testServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 657298B61993856F00552FE5 /* testServerInfo.m */; };
 		657298B81993856F00552FE5 /* testServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 657298B61993856F00552FE5 /* testServerInfo.m */; };
+		657AFB441AEE623A00C292BB /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6580CA641AE69AF600438DE3 /* libz.dylib */; };
 		657E50EE189E6FE600CB7859 /* keytechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857DF189CE73300399949 /* keytechKit.framework */; };
 		657E50F1189E76F800CB7859 /* testResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E50F0189E76F800CB7859 /* testResponseLoader.m */; };
 		657E50F2189E76F800CB7859 /* testResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E50F0189E76F800CB7859 /* testResponseLoader.m */; };
@@ -502,6 +528,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				657AFB441AEE623A00C292BB /* libz.dylib in Frameworks */,
 				6508584B189CEC8500399949 /* Security.framework in Frameworks */,
 				65085849189CEC7C00399949 /* CoreServices.framework in Frameworks */,
 				65085847189CEC7500399949 /* CoreData.framework in Frameworks */,
@@ -636,9 +663,9 @@
 			isa = PBXGroup;
 			children = (
 				6508583D189CEBB300399949 /* libRestKit.a */,
-				6508583F189CEBB300399949 /* RestKitTests.octest */,
+				6508583F189CEBB300399949 /* RestKitTests.xctest */,
 				65085841189CEBB300399949 /* RestKit.framework */,
-				65085843189CEBB300399949 /* RestKitFrameworkTests.octest */,
+				65085843189CEBB300399949 /* RestKitFrameworkTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1037,6 +1064,9 @@
 					6508581E189CEA9B00399949 = {
 						TestTargetID = 650857DE189CE73300399949;
 					};
+					657AFB471AEE83AE00C292BB = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
 				};
 			};
 			buildConfigurationList = 650857D9189CE73300399949 /* Build configuration list for PBXProject "keytechKit" */;
@@ -1061,6 +1091,8 @@
 				650857F5189CE73300399949 /* keytechKitFrameworkTests */,
 				65085810189CEA9B00399949 /* keytechKit */,
 				6508581E189CEA9B00399949 /* keytechKitTests */,
+				657AFB471AEE83AE00C292BB /* Documentation for iOS */,
+				657AFB4C1AEE845A00C292BB /* Documentation for OS X */,
 			);
 		};
 /* End PBXProject section */
@@ -1073,10 +1105,10 @@
 			remoteRef = 6508583C189CEBB300399949 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6508583F189CEBB300399949 /* RestKitTests.octest */ = {
+		6508583F189CEBB300399949 /* RestKitTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = RestKitTests.octest;
+			path = RestKitTests.xctest;
 			remoteRef = 6508583E189CEBB300399949 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1087,10 +1119,10 @@
 			remoteRef = 65085840189CEBB300399949 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		65085843189CEBB300399949 /* RestKitFrameworkTests.octest */ = {
+		65085843189CEBB300399949 /* RestKitFrameworkTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = RestKitFrameworkTests.octest;
+			path = RestKitFrameworkTests.xctest;
 			remoteRef = 65085842189CEBB300399949 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1123,6 +1155,35 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		657AFB4B1AEE83C700C292BB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Claus Software\";\ncompanyID=\"de.claus-software\";\ncompanyURL=\"http://claus-software.de\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"~/help\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--ignore /RestKit \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+		};
+		657AFB4D1AEE845A00C292BB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Claus Software\";\ncompanyID=\"de.claus-software\";\ncompanyURL=\"http://claus-software.de\";\n#target=\"iphoneos\";\ntarget=\"macosx\";\noutputPath=\"~/help\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--ignore \"RestKit\" \\\n--ignore \"Tests\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--no-create-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		650857DA189CE73300399949 /* Sources */ = {
@@ -1630,6 +1691,34 @@
 			};
 			name = Release;
 		};
+		657AFB491AEE83AF00C292BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		657AFB4A1AEE83AF00C292BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		657AFB4F1AEE845A00C292BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Documentation fo iOS copy";
+			};
+			name = Debug;
+		};
+		657AFB501AEE845A00C292BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Documentation fo iOS copy";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1674,6 +1763,23 @@
 			buildConfigurations = (
 				65085833189CEA9B00399949 /* Debug */,
 				65085834189CEA9B00399949 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		657AFB481AEE83AF00C292BB /* Build configuration list for PBXAggregateTarget "Documentation for iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				657AFB491AEE83AF00C292BB /* Debug */,
+				657AFB4A1AEE83AF00C292BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		657AFB4E1AEE845A00C292BB /* Build configuration list for PBXAggregateTarget "Documentation for OS X" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				657AFB4F1AEE845A00C292BB /* Debug */,
+				657AFB501AEE845A00C292BB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
