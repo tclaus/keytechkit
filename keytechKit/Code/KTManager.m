@@ -300,4 +300,14 @@
 }
 
 
++(NSError*)translateErrorFromResponse:(NSHTTPURLResponse*)response{
+
+    NSString *ErrorDescription = [[response allHeaderFields] objectForKey:@"X-ErrorDescription"];
+    NSError *transcodedError = [NSError errorWithDomain:@"keytech"
+                                                   code:response.statusCode
+                                               userInfo:@{NSLocalizedDescriptionKey:ErrorDescription}];
+    return transcodedError;
+}
+
+
 @end

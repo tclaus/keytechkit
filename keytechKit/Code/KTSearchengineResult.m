@@ -8,6 +8,7 @@
 
 #import "KTSearchengineResult.h"
 #import <RestKit/RestKit.h>
+#import "KTManager.h"
 
 static RKObjectManager *_usedManager;
 static RKObjectMapping *_mapping;
@@ -43,11 +44,21 @@ static RKObjectMapping *_mapping;
 }
 
 -(void)getSolrData{
-    [[RKObjectManager sharedManager] getObjectsAtPath:@"/searchengine" parameters:@{@"q": @"keytech"} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+    [[RKObjectManager sharedManager]
+     getObjectsAtPath:@"/searchengine"
+     parameters:@{@"q": @"keytech"}
+     success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         NSLog(@"OK");
+         
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        NSLog(@"Failure");
+        
     }];
 }
 
 @end
+
+
+
+
+
+

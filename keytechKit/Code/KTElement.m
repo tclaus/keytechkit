@@ -482,10 +482,10 @@ NSMutableDictionary *_lastPages;
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                           
-                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                          NSLog(@"Status code: %ld",(long)response.statusCode);
+                          NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                          
                           if (failure) {
-                              failure(error);
+                              failure(transcodedError);
                           }
                           
                       }];
@@ -1050,9 +1050,13 @@ static long numberOfThumbnailsLoaded;
                       }
                       
                   } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                      if (failure){
-                          failure(self,nil);
+                     
+                      NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                      
+                      if (failure) {
+                          failure(self,transcodedError);
                       }
+                      
                   }];
     
     // TODO: BLOCKS:
@@ -1090,18 +1094,10 @@ static long numberOfThumbnailsLoaded;
                         }
                         
                     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                        NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                        NSError *outError;
-                        if (response) {
-                            
-                            NSDictionary *userInfo = @{NSLocalizedDescriptionKey:[[response allHeaderFields]objectForKey:@"X-ErrorDescription"]};
-                            outError = [NSError errorWithDomain:@"" code:0 userInfo:userInfo];
-                        } else {
-                            outError = error;
-                        }
+                        NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
                         
                         if (failure) {
-                            failure(self,outError);
+                            failure(self,transcodedError);
                         }
                     }];
         
@@ -1119,11 +1115,10 @@ static long numberOfThumbnailsLoaded;
                            success(self);
                        }
                    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                       NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                       NSDictionary *userInfo = @{NSLocalizedDescriptionKey:[[response allHeaderFields]objectForKey:@"X-ErrorDescription"]};
-                       NSError *outError = [NSError errorWithDomain:@"" code:0 userInfo:userInfo];
+                       NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                       
                        if (failure) {
-                           failure(self,outError);
+                           failure(self,transcodedError);
                        }
                    }];
     }
@@ -1223,8 +1218,10 @@ static long numberOfThumbnailsLoaded;
         }
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         
+        NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+        
         if (failure) {
-            failure(error);
+            failure(transcodedError);
         }
     }];
     

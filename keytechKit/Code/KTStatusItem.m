@@ -7,6 +7,8 @@
 //
 
 #import "KTStatusItem.h"
+#import "KTManager.h"
+
 #import <RestKit/RestKit.h>
 
 @implementation KTStatusItem
@@ -74,8 +76,10 @@ static RKObjectManager *_usedManager;
                               success(mappingResult.array);
                           }
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                          
                           if (failure) {
-                              failure(error);
+                              failure(transcodedError);
                           }
                       }];
     

@@ -7,6 +7,7 @@
 //
 
 #import "KTClass.h"
+#import "KTManager.h"
 
 #import <RestKit/RestKit.h>
 
@@ -156,8 +157,10 @@ static NSDictionary *_classTypes;
                    }
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                   
                    if (failure) {
-                       failure(error);
+                       failure(transcodedError);
                    }
                }];
     
@@ -179,8 +182,10 @@ static NSDictionary *_classTypes;
                           }
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                          
                           if (failure) {
-                              failure(error);
+                              failure(transcodedError);
                           }
                       }];
 }

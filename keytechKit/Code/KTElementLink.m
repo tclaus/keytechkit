@@ -8,6 +8,7 @@
 
 #import "KTElementLink.h"
 #import "KTElement.h"
+#import "KTManager.h"
 
 @implementation KTElementLink
 
@@ -123,8 +124,10 @@ static RKObjectManager *_usedManager;
                                success();
                            }
                        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                           NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                           
                            if (failure) {
-                               failure(error);
+                               failure(transcodedError);
                            }
                        }];
 }

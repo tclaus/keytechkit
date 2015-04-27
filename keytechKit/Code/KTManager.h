@@ -89,6 +89,10 @@ typedef struct {int page; int size;} PageDefinition;
 /// Synchonizes changed user credentials with the api level.
 -(void)synchronizeServerCredentials;
 
+/**
+ Translates a error respnse to a error object and extracts the API Respone error header description message
+ */
++(NSError*)translateErrorFromResponse:(NSHTTPURLResponse*)response;
 
 
 @end

@@ -8,6 +8,7 @@
 
 #import "KTQuery.h"
 #import "KTSearchengineResult.h"
+#import "KTManager.h"
 
 @implementation KTQuery
 
@@ -66,9 +67,11 @@
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                   
-                       if (failure) {
-                           failure(error);
-                       }
+                   NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                   
+                   if (failure) {
+                       failure(transcodedError);
+                   }
 
                }];
     
@@ -120,11 +123,12 @@
                    }
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-
-
-                       if (failure) {
-                           failure(error);
-                       }
+                   
+                   NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                   
+                   if (failure) {
+                       failure(transcodedError);
+                   }
 
                }];
     
@@ -171,9 +175,10 @@
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
 
+                   NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
                    
                    if (failure) {
-                       failure(error);
+                       failure(transcodedError);
                    }
                    
                }];
@@ -210,9 +215,13 @@
                    
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+// Important: Error handler
 
+                   
+                    NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                   
                        if (failure) {
-                           failure(error);
+                           failure(transcodedError);
                        }
 
                }];

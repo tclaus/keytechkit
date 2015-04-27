@@ -7,6 +7,7 @@
 //
 
 #import "KTLayouts.h"
+#import "KTManager.h"
 
 @interface KTLayouts() {}
     typedef void(^successfulLadedLayout)(KTLayout *layout);
@@ -147,8 +148,10 @@ static KTLayouts *_sharedLayouts;
                           }
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                          
                           if (failure) {
-                              failure(error);
+                              failure(transcodedError);
                           }
                           
                       }];
@@ -234,7 +237,11 @@ static KTLayouts *_sharedLayouts;
                           }
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
                           
+                          if (failure) {
+                              failure(transcodedError);
+                          }
                           
                       }];
     

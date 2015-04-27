@@ -211,27 +211,11 @@ static RKObjectManager *_usedManager;
                                              }
                                          } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                              
-                                             NSInteger statuscode = operation.HTTPRequestOperation.response.statusCode;
-                                             if (statuscode>0) {
-                                                 // 403 indicates insufficient rights
-                                                 // This can be a Error template
-                                                 if (statuscode>=400) {
-                                                     NSError* APIError = [NSError
-                                                                          errorWithDomain:@"keytech PLM"
-                                                                          code:statuscode
-                                                                          userInfo:@{NSLocalizedDescriptionKey:@"You can not delete this file" ,
-                                                                                     NSLocalizedFailureReasonErrorKey:@"Insufficient right to delete file"}];
-                                                     
-                                                     if (failure) {
-                                                         failure(APIError);
-                                                         return;
-                                                     }
-                                                 }
-                                             }
+                                             NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
                                              
-                                             if (failure)
-                                                 // Error- request
-                                                 failure(error);
+                                             if (failure) {
+                                                 failure(transcodedError);
+                                             }
                                          }];
     
 }
