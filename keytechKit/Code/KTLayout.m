@@ -51,7 +51,14 @@
 
 
 -(BOOL)isLoaded{
-    return (_listerLayout !=nil && _editorLayout !=nil);
+    
+    if ([self.classKey isEqualToString:@"BOM"]) {
+        return _listerLayout !=nil;
+    } else {
+        
+        return (_listerLayout !=nil && _editorLayout !=nil);
+    }
+    
 }
 
 - (id)init

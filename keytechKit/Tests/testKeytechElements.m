@@ -409,11 +409,12 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Status history Loaded"];
     
     [element loadStatusHistoryListSuccess:^(NSArray *itemsList) {
-        [documentOpenExpectation fulfill];
         
         XCTAssertNotNil(itemsList);
         XCTAssertTrue(itemsList.count>0);
         XCTAssertTrue(element.itemStatusHistory.count>0,@"Element property should not be empty");
+        
+        [documentOpenExpectation fulfill];
         
     } failure:^(NSError *error) {
         [documentOpenExpectation fulfill];

@@ -71,6 +71,57 @@
     
 }
 
+/// Loads bom layout
+-(void)testLoadBomListerLayout{
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Layout loaded" ];
+    
+    
+    [[KTLayouts sharedLayouts] loadListerLayoutForBOM:^(NSArray *controls) {
+        XCTAssertNotNil(controls,@"Bom Lister controls should not be empty");
+        [expectation fulfill];
+        
+    } failure:^(NSError *error) {
+        XCTFail(@"An error occured loading layouts: %@",error);
+        [expectation fulfill];
 
+    }];
+    
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Error while fetching data: %@",error);
+
+        }
+    }];
+    
+}
+
+
+/// Loads globl lister layout
+-(void)testLoadGlobalListerLayout{
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Layout loaded" ];
+    
+    
+    [[KTLayouts sharedLayouts] loadLayoutForClassKey:@"DEFAULT_DEFAULT"
+                                             success:^(KTLayout *layout) {
+                                                 XCTAssertNotNil(layout.listerLayout,@"Global lister layout should not be empty");
+                                                 [expectation fulfill];
+                                                 
+                                             } failure:^(NSError *error) {
+                                                 XCTFail(@"An error occured loading flobal layout: %@",error);
+                                                 [expectation fulfill];
+                                                 //
+                                             }];
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Error while fetching data: %@",error);
+            
+        }
+    }];
+    
+}
 
 @end

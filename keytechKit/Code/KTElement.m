@@ -552,6 +552,9 @@ NSMutableDictionary *_lastPages;
     
     NSString *elementKey = [KTBaseObject normalizeElementKey:self.itemKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/statushistory",elementKey];
+
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    [KTStatusHistoryItem mappingWithManager:manager];
     
     [self loadDataToArray:_itemStatusHistory
               resoucePath:resourcePath

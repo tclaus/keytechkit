@@ -141,15 +141,15 @@ static KTLayouts *_sharedLayouts;
                           [self layoutDidLoadForClassKey:classKey];
                           KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:classKey];
                           layout.listerLayout = mappingResult.array;
-                          
-                          if (layout.isLoaded) {
+
                               if (success) {
                                   success(layout.listerLayout);
-                              }
                           }
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          //TODO: Error
+                          if (failure) {
+                              failure(error);
+                          }
                           
                       }];
     

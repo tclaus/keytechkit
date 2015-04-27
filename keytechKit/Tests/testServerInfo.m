@@ -39,16 +39,13 @@
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"Serverinfo reloaded"];
     
-    [[KTServerInfo serverInfo] reloadWithCompletionBlock:^(NSError *error) {
-        [expectation fulfill];
-        if (!error) {
-            KTServerInfo *serverInfo = [KTServerInfo serverInfo];
-            XCTAssertNotNil(serverInfo.serverID,@"ServerID should not be nil");
-            
-        } else {
-            XCTFail(@"Error reloading ServerInfo: %@",error);
-        }
+    [[KTServerInfo sharedServerInfo] loadWithSuccess:^(KTServerInfo *serverInfo) {
         
+        [expectation fulfill];
+    } failure:^(NSError *error) {
+        
+        XCTFail(@"Failed loading serverinfo");
+        [expectation fulfill];
     }];
     
     
@@ -67,8 +64,22 @@
 
     XCTAssertNil(serverInfo.serverID,@"ServerID Info should be nil when not loaded");
     
-    [serverInfo reload];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Serverinfo reloaded"];
     
+    [serverInfo loadWithSuccess:^(KTServerInfo *serverInfo) {
+        [expectation fulfill];
+    } failure:^(NSError *error) {
+        XCTFail(@"Failed loading serverinfo");
+        [expectation fulfill];
+    }];
+    
+     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Failed fetching a file: %@",error);
+        }
+        
+    }];
+     
     XCTAssertNotNil(serverInfo.serverID,@"ServerID should not be nil");
     XCTAssertNotNil(serverInfo.databaseVersion,@"Databaseversion should not be nil");
     XCTAssertNotNil(serverInfo.APIVersion,@"Version should not be nil");
