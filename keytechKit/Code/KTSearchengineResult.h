@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "KTElement.h"
 
+/**
+ Represents a manager object to retrive search results within files
+ */
 @interface KTSearchengineResult : NSObject
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 

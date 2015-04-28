@@ -16,6 +16,7 @@
 
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
@@ -94,15 +95,17 @@
 
 /**
  Load a list of available classes
+ @param success Called after the object is successfully loaded
+ @param failure Called when the object could not be loaded. The error object will have a localized error message
  */
 +(void)loadClassListSuccess:(void(^)(NSArray* classList))success
                     failure:(void(^)(NSError *error))failure;
 
 /**
  Loads a specific class by its classKey
- @param classKey: A Classkey e.g: Default_MI
- @param success: Will be called after class definition is received
- @param failure: A failure handler
+ @param classKey A Classkey e.g: Default_MI
+ @param success Will be called after class definition is received
+ @param failure A failure handler
  */
 +(void)loadClassByKey:(NSString*)classKey success:(void(^)(KTClass* ktclass))success
                      failure:(void(^)(NSError *error))failure;

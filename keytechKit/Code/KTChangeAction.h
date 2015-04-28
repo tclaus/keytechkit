@@ -12,6 +12,7 @@
 
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 

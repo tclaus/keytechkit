@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+/// Adds string functions for getting classkeys from strings
 @interface NSString (ClassType)
 
 

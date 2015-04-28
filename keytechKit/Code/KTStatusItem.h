@@ -9,11 +9,15 @@
 //
 #import <Foundation/Foundation.h>
 
-
+/**
+ Represents a single statusitem. every keytech element miust have a status even no 'statusmanagement' is definied for the element Class. In this Case a element has a staus of value '------' (6 x minus sign).
+  The statusID property may not be localized on server side.
+ */
 @interface KTStatusItem : NSObject <NSCoding>
 
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
@@ -35,10 +39,13 @@
 @property (nonatomic,copy)NSString* statusID;
 
 /**
- Loads a list of statusitems.
- @param success: Will excecute after list is loaded
- @param failure: In any case of an error failure will be called.
+ Loads the full list of available status from this API installation
+ @param success Will excecute after list is loaded
+ @param failure In any case of an error failure will be called.
  */
 +(void)loadStatusListSuccess:(void (^)(NSArray *statusList))success failure:(void(^)(NSError *error))failure;
 
 @end
+
+
+

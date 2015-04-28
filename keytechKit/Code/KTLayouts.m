@@ -10,7 +10,9 @@
 #import "KTManager.h"
 
 @interface KTLayouts() {}
-    typedef void(^successfulLadedLayout)(KTLayout *layout);
+
+/// A block definition to call a fully loaded layout
+typedef void(^successfulLadedLayout)(KTLayout *layout);
     
 
 @end

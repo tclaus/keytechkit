@@ -10,6 +10,10 @@
 #import "KTPagedObject.h"
 #import "KTElement.h"
 
+/**
+ Starts a Query to the API by using the search ressouces.
+ A simple search can only have a text value or a complex assembled search query on a predicates base.
+ */
 @interface KTQuery : NSObject
 
 /**
@@ -20,6 +24,9 @@
 /**
  Starts a query with th given text
  @param queryText One or more word to search for.
+ @param pagedObject The requested page and its size
+ @param block A block that will execute after search is completed
+ @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
 */
 -(void)queryByText:(NSString*)queryText paged:(KTPagedObject*)pagedObject
              block:(void(^)(NSArray* results))block
@@ -29,6 +36,9 @@
  Starts a query with th given text
  @param queryText One or more word to search for.
  @param inClasses A string list of classkeys. Result is only returned for the speified classes. If this parameter is nil all classes are searched
+ @param pagedObject The requested page and its size
+ @param block A block that will execute after search is completed
+ @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
  */
 -(void)queryByText:(NSString*)queryText inClasses:(NSArray*)inClasses paged:(KTPagedObject*)pagedObject
              block:(void(^)(NSArray* results))block
@@ -38,6 +48,11 @@
 
 /**
  Starts a powerful search by using composed search predicates
+ @param predicate A complex predicate to execute the query.
+ @param inClasses A string list of classkeys. Result is only returned for the speified classes. If this parameter is nil all classes are searched
+ @param pagedObject The requested page and its size
+ @param block A block that will execute after search is completed
+ @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
 */
 -(void)queryByPredicate:(NSPredicate*)predicate inClasses:(NSArray*)inClasses paged:(KTPagedObject*)pagedObject
                   block:(void(^)(NSArray* results))block
@@ -47,17 +62,26 @@
 
 /**
  Starts a query by a server stored query by its ID
+ @param storedQueryID The nummeric ID of a server side stored query
+ @param pagedObject The requested page and its size
+ @param block A block that will execute after search is completed
+ @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
  */
 -(void)queryByStoredSearch:(NSInteger)storedQueryID paged:(KTPagedObject*)pagedObject
                      block:(void(^)(NSArray* results))block
                    failure:(void(^)(NSError *error))failure;
 
 /**
- Starts a query in vaults (Solr search in Vaults)
- @param fileContentText: A text fragment to be searched in files
+ Starts a query in vaults (Solr search in Vaults) when enabled on server side.
+ @param fileContentText A text fragment to be searched in files
+ @param pagedObject The requested page and its size
+ @param block A block that will execute after search is completed
+ @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
  */
 -(void)queryInVaultsByText:(NSString *)fileContentText paged:(KTPagedObject*)pagedObject
                      block:(void(^)(NSArray* results))block
                    failure:(void(^)(NSError *error))failure;
 
 @end
+
+

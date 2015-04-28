@@ -9,10 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 
+/**
+ A typedef for valid filetypes to send and receive
+ */
 typedef NS_ENUM(NSUInteger, FileStorageType) {
+    /// The main type of file. Any element can only have one file of this type.
     FileTypeMaster,
+    /// A Preview file. May be visible in clients. Represents an image to represent the file.
     FileTypePreview,
+    /// A smaller version of a preview of the masterfile. Quickpreview files are noramlly not visible as files in clients but its contents in preview panes
     FileTypeQuickPreview,
+    /// A unknown filetype. Ask the AIP Team.
     FileTypeOleRef,
 };
 
@@ -44,11 +51,13 @@ typedef NS_ENUM(NSUInteger, FileStorageType) {
 
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
  Creates and returns a file object attached to the element in the argument
+ @param element The elementcontainer to which the file object will be attached to.
  */
 +(instancetype)fileInfoWithElement:(KTElement*)element;
 

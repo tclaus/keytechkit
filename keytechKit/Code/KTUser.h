@@ -17,28 +17,33 @@
 
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
  Loads a new user object with the given short username. 
  @param username The short keytech username
- @param success Called after the user object is loaded
- @param failure Called when the user object could not be loaded
+ @param success Called after the user object is successfully loaded
+ @param failure Called when the user object could not be loaded. The error object will have a localized error message
  */
 +(void)loadUserWithKey:(NSString*)username success:(void(^)(KTUser* user))success failure:(void(^)(NSError* error))failure;
 
 /**
  Loads a list of server side stored queries. These ware queries definied in the keytech database by a client or admin controlled
+ @param success Called after the user object is successfully loaded
+ @param failure Called when the user object could not be loaded. The error object will have a localized error message
  */
 -(void)loadQueriesSuccess:(void(^)(NSArray* targetLinks))success failure:(void(^)(NSError* error))failure;
 /**
  Loads a structured list of favorie elemets
+ @param success Called after the user object is successfully loaded
+ @param failure Called when the user object could not be loaded. The error object will have a localized error message
  */
 -(void)loadFavoritesSuccess:(void(^)(NSArray* targetLinks))success failure:(void(^)(NSError* error))failure;
 
 /**
- Returns a list of queries. Is NIL when never loaded.
+ Returns a list of queries. Is nil when never loaded.
  */
 @property (nonatomic,weak) NSArray* queries;
 /**
@@ -48,7 +53,7 @@
 
 /**
  Loads a new user objects but waits until returns
-  @param username The short keytech username
+@param username The short keytech username
  */
 +(KTUser*)loadUserWithKey:(NSString*)username;
 

@@ -8,18 +8,29 @@
 
 #import <Foundation/Foundation.h>
 
+
+/**
+ Simple Font description for a control in editor or lister
+ Describes a fonttype- and style
+ */
 @interface KTFont : NSObject <NSCoding>
 
 
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 -(id)initWithCoder:(NSCoder *)aDecoder;
 -(void)encodeWithCoder:(NSCoder *)aCoder;
-
+/**
+ Name of a font. (Arial, Heletica, Sans Srif)
+ */
 @property (nonatomic,copy) NSString* fontName;
+/**
+ Name of a font style (Bold,Italic, underlne)
+ */
 @property (nonatomic,copy) NSString* fontStyle;
 @property (nonatomic,copy) NSNumber* fontSize;
 

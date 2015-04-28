@@ -31,19 +31,20 @@ typedef enum {
 
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
  Creates and returns a new element with the elementkey in the argument. To receive element data run the refresh selector
- @elementKey A full qualified element key or a classkey. (ElementKey without the nummeric identifier) to create a new element
+ @param elementKey A full qualified element key or a classkey. (ElementKey without the nummeric identifier) to create a new element
  */
 +(instancetype)elementWithElementKey:(NSString*)elementKey;
 
 /**
  Initializes a new element with the type of elementKey.
  You can also set a classkey as parameter.
- @param elementkey A element or classkey. If a classKey was submitted the element can be stored as a new element to the keytech API.
+ @param elementKey A elementkey of a existing element (e.g.: Office_File:1234). Or a classkey, in case you will create a new element from a given class. (e.g.: office_file)
  */
 -(instancetype)initWithElementKey:(NSString*)elementKey;
 
@@ -86,7 +87,8 @@ typedef enum {
 @property (readonly,copy) NSString* itemClassKey; // Nur der Classkey - Anteil, ohne ElementID
 
 /**
- Sets the item Classkey. Only for newly created element. A classkey is a part of an elementkey. Only valid for elements to be created.
+ Sets the item Classkey. Only for newly created elements. A classkey is a part of an elementkey. Only valid for elements to be created.
+ @param itemClassKey Sets a classkey. Only valid if this class is still empty. Use this to create a new element
  */
 -(void)setItemClassKey:(NSString *)itemClassKey;
 
@@ -114,10 +116,18 @@ typedef enum {
 @property (nonatomic,strong) NSString* itemVersion;
 @property (nonatomic,strong) NSMutableArray* keyValueList;
 
-/// Returns an attribute value from the keyValue list. Element must have a full attributelist.
+/**
+ Returns an attribute value from the keyValue list. Element must have a full attributelist.
+ @param attribute A named attribute (as_do__status). Its value will be returned.
+ @return The underlying value of the given elememnt. Nil if attribute is unknown or not loaded.
+ */
 -(id)valueForAttribute:(NSString*)attribute;
 
-/// Sets a attribute with its value to the keyvalue list. Does not update the common properties.
+/**
+ Sets a attribute with its value to the keyvalue list. Does not update the common properties.
+ @param value the value to be set on the attribut
+ @param attribute The unique attribute name to set its value (as_do__status)
+ '*/
 -(void)setValueForAttribute:(id <NSCopying>)value attribute:(NSString*)attribute;
 
 
@@ -132,6 +142,8 @@ typedef enum {
  Starts loading the list of child elements
  @param page The page with a given size. 
  @param size The count of elements wothin a page
+ @param success Will be called when request responds successfully
+ @param failure Will be called in case of any error
  */
 -(void)loadStructureListPage:(int)page withSize:(int)size
                  success:(void(^)(NSArray* itemsList))success
@@ -147,9 +159,14 @@ typedef enum {
  Retun true if Bom List ist loaded
  */
 @property (readonly) BOOL isBomListLoaded;
-@property (readonly) BOOL isBomListLoadedComplete;
+
+
 /**
  Starts loading the bom list in a paged based manner
+ @param page The page with a given size.
+ @param size The count of elements wothin a page
+ @param success Will be called when request responds successfully
+ @param failure Will be called in case of any error
  */
 -(void)loadBomListPage:(int)page withSize:(int)size
                  success:(void(^)(NSArray* itemsList))success
@@ -161,38 +178,73 @@ typedef enum {
 @property (readonly,strong) NSMutableArray* itemWhereUsedList;
 @property (readonly) BOOL isWhereUsedListLoaded;
 
+@param page The page with a given size.
+@param size The count of elements wothin a page
 
+/**
+ Starts loading the where used list. If this element is a child in any structure. This method will return with a list of oarent elements.
+ @param page The page with a given size.
+ @param size The count of elements wothin a page
+ @param success Will be called when request responds successfully
+ @param failure Will be called in case of any error
+ */
 -(void)loadWhereUsedListPage:(int)page withSize:(int)size
                  success:(void(^)(NSArray* itemsList))success
                  failure:(void(^)(NSError *error))failure;
 /**
  Starts loading the status history.
+@param success Will be called when request responds successfully
+ @param failure Will be called in case of any error
  */
 -(void)loadStatusHistoryListSuccess:(void(^)(NSArray* itemsList))success
                             failure:(void(^)(NSError *error))failure;
 
+/**
+ Starts loading of a list of status that can be set on this element
+ @param success Will be called when request responds successfully
+ @param failure Will be called in case of any error
+ */
 -(void)loadNextAvailableStatusListSuccess:(void(^)(NSArray* itemsList))success
                             failure:(void(^)(NSError *error))failure;
 
 /**
- Starts loading the notes list
+ Starts loading the list of notes attached to this element.
+  @param success Will be called when request responds successfully
+ @param failure Will be called in case of any error
  */
 -(void)loadNotesListSuccess:(void(^)(NSArray* itemsList))success
                     failure:(void(^)(NSError *error))failure;
 /**
  Starts loading the filelist
+ @param success Will be called when request responds successfully
+ @param failure Will be called in case of any error
  */
 -(void)loadFileListSuccess:(void(^)(NSArray* itemsList))success
                    failure:(void(^)(NSError *error))failure;
 
 /**
  Starts loading the list of recent versions
+  @param success Will be called when request responds successfully
+ @param failure Will be called in case of any error
  */
 -(void)loadVersionListSuccess:(void(^)(NSArray* itemsList))success
                    failure:(void(^)(NSError *error))failure;
 
--(void)addLinkTo:(NSString*)linkToElementKey success:(void(^)(KTElement *elementLink))success failure:(void(^)(NSError* error))failure;
+/**
+ Adds a link for this element and makes it a chil of the linked element
+@param linkToElementKey Adds this element to the element with this key. Keep in mind that the API will make checks if you are allowed to link this element to this type of parent.
+@param success Will be called when request responds successfully
+@param failure Will be called in case of any error
+ */
+-(void)addLinkTo:(NSString*)linkToElementKey success:(void(^)(KTElement *elementLink))success
+         failure:(void(^)(NSError* error))failure;
 
+/**
+ Removes a link to the parent element
+ @param linkToElementkey The elementKey of the parent element to remove this element from.
+ @param success Will be called when request responds successfully
+ @param failure Will be called in case of any error
+ *//
 -(void)removeLinkTo:(NSString*)linkToElementKey success:(void(^)(void))success failure:(void(^)(NSError* error))failure;
 
 
@@ -240,7 +292,11 @@ typedef enum {
 -(void)resetThumbnail;
 
 /**
- returns the API URL of the file with the given ID
+ Returns the API URL of the file with the given ID
+ If a clinet wants to load the file directly - here is the URL to start loading. 
+ You must create a request header by your own. 
+ @param fileID The nummeric fileID for a file attached to this element
+
  */
 -(NSString*)fileURLOfFileID:(int)fileID;
 
@@ -272,14 +328,17 @@ typedef enum {
 
 /**
  Loads the element with the given Key from the API
+ @param elementKey Loads a element with this elementkey. eg: "Misc_file:1234"
  @param success Is excecuted after a element is fetched
  @param failure Is excecuded in any case of an error
  */
-+(void)loadElementWithKey:(NSString *)elementKey success:(void (^)(KTElement *theElement))success failure:(void(^)(NSError *error))failure;
++(void)loadElementWithKey:(NSString *)elementKey success:(void (^)(KTElement *theElement))success
+                  failure:(void(^)(NSError *error))failure;
 
 /**
  Loads the element with the key and metadata
- @param withMetaData: Can be one of ALL, Editor,Lister or None. In addition to the default attributes more attributes can be loaded. If 'ALL' is set, every attribute is loaded with the element. The attribute count can be high. Consider only fetching Editor attributes. Defaults to none.
+ @param elementKey Loads a element with this elementkey. eg: "Misc_file:1234"
+ @param metadata: Can be one of ALL, Editor,Lister or None. In addition to the default attributes more attributes can be loaded. If 'ALL' is set, every attribute is loaded with the element. The attribute count can be high. Consider only fetching Editor attributes. Defaults to none.
  @param success Is excecuted after a element is fetched
  @param failure Is excecuded in any case of an error
  */
@@ -289,12 +348,16 @@ typedef enum {
                                                                                                                                                        
 /**
  Deletes this element from keytech API
+  @param success Will be called when request responds successfully
+ @param failure Will be called in case of any error
  */
 -(void)deleteItem:(void (^)(KTElement *element))success
           failure:(void (^)(KTElement *element, NSError *error))failure;
 
 /**
  Saves this element to API. If this is a new element a new one will be created
+  @param success Will be called when request responds successfully
+ @param failure Will be called in case of any error
  */
 -(void)saveItem:(void (^)(KTElement *element))success
                  failure:(void (^)(KTElement *element,NSError *error))failure;
@@ -309,12 +372,19 @@ typedef enum {
 
 /**
  Refreshes this instance immediatley by loading from API
- @param success will be performed when completed.
+ @param metadata A set of attributes that will be returned
+  @param success Will be called when request responds successfully
+ @param failure Will be called in case of any error
+
  */
--(void)reload:(KTResponseAttributes)metadata success:(void(^)(KTElement *element))success failure:(void (^)(NSError *))failure;
+-(void)reload:(KTResponseAttributes)metadata success:(void(^)(KTElement *element))success
+      failure:(void (^)(NSError *))failure;
 
 /**
  Moves the element to a new target class
+ @param targetClassKey The target Class to that the element will be moved.
+  @param success Will be called when request responds successfully
+ @param failure Will be called in case of any error
  */
 -(void)moveToClass:(NSString*)targetClassKey success:(void(^)(NSString *newElementkey))success failure:(void(^)(NSError *error))failure;
 

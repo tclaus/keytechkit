@@ -9,10 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "KTElement.h"
 
+/**
+ A favorite representation of a KTElement
+ */
 @interface KTSimpleFavorite : NSObject
 
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 

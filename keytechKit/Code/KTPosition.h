@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-/*
- Stellt eine Position eines grafischen Objektes dar
+/**
+ On KTSimpleControl this will represent a position on editor views
  */
 @interface KTPosition : NSObject <NSCoding>
 
@@ -18,6 +18,7 @@
 
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 

@@ -10,12 +10,13 @@
 
 
 /**
- A note of a element
+ A note can be interpreted as a informative text with a subject line and a body. Will describe an element, a status change or any othe object in the keytech API.
  */
 @interface KTNoteItem : NSObject
 
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 

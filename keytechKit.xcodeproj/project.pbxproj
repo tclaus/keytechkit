@@ -83,9 +83,6 @@
 		650858CF189CF08E00399949 /* KTLayouts.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085880189CF08E00399949 /* KTLayouts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858D0189CF08E00399949 /* KTLayouts.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085881189CF08E00399949 /* KTLayouts.m */; };
 		650858D1189CF08E00399949 /* KTLayouts.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085881189CF08E00399949 /* KTLayouts.m */; };
-		650858D2189CF08E00399949 /* KTLoaderInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085882189CF08E00399949 /* KTLoaderInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		650858D3189CF08E00399949 /* KTLoaderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085883189CF08E00399949 /* KTLoaderInfo.m */; };
-		650858D4189CF08E00399949 /* KTLoaderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085883189CF08E00399949 /* KTLoaderInfo.m */; };
 		650858D5189CF08E00399949 /* KTNoteItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085884189CF08E00399949 /* KTNoteItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858D6189CF08E00399949 /* KTNoteItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085885189CF08E00399949 /* KTNoteItem.m */; };
 		650858D7189CF08E00399949 /* KTNoteItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085885189CF08E00399949 /* KTNoteItem.m */; };
@@ -230,7 +227,6 @@
 		6567B6AA191F63AC0039D7C0 /* KTKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587C189CF08E00399949 /* KTKeyValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6567B6AB191F63B00039D7C0 /* KTLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587E189CF08E00399949 /* KTLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6567B6AC191F63B40039D7C0 /* KTLayouts.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085880189CF08E00399949 /* KTLayouts.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6AD191F63B80039D7C0 /* KTLoaderInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085882189CF08E00399949 /* KTLoaderInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6567B6AE191F63C00039D7C0 /* KTNoteItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085884189CF08E00399949 /* KTNoteItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6567B6AF191F63C40039D7C0 /* KTNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085886189CF08E00399949 /* KTNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6567B6B0191F63C80039D7C0 /* KTPermission.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085888189CF08E00399949 /* KTPermission.h */; };
@@ -422,8 +418,6 @@
 		6508587F189CF08E00399949 /* KTLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTLayout.m; sourceTree = "<group>"; };
 		65085880189CF08E00399949 /* KTLayouts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTLayouts.h; sourceTree = "<group>"; };
 		65085881189CF08E00399949 /* KTLayouts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTLayouts.m; sourceTree = "<group>"; };
-		65085882189CF08E00399949 /* KTLoaderInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTLoaderInfo.h; sourceTree = "<group>"; };
-		65085883189CF08E00399949 /* KTLoaderInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTLoaderInfo.m; sourceTree = "<group>"; };
 		65085884189CF08E00399949 /* KTNoteItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTNoteItem.h; sourceTree = "<group>"; };
 		65085885189CF08E00399949 /* KTNoteItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTNoteItem.m; sourceTree = "<group>"; };
 		65085886189CF08E00399949 /* KTNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTNotifications.h; sourceTree = "<group>"; };
@@ -699,8 +693,6 @@
 				6508587F189CF08E00399949 /* KTLayout.m */,
 				65085880189CF08E00399949 /* KTLayouts.h */,
 				65085881189CF08E00399949 /* KTLayouts.m */,
-				65085882189CF08E00399949 /* KTLoaderInfo.h */,
-				65085883189CF08E00399949 /* KTLoaderInfo.m */,
 				65085884189CF08E00399949 /* KTNoteItem.h */,
 				65085885189CF08E00399949 /* KTNoteItem.m */,
 				65085886189CF08E00399949 /* KTNotifications.h */,
@@ -875,7 +867,6 @@
 				650858ED189CF08E00399949 /* KTSimpleFavorite.h in Headers */,
 				650858D8189CF08E00399949 /* KTNotifications.h in Headers */,
 				6567B69C191F62A50039D7C0 /* KTAttributeMapping.h in Headers */,
-				650858D2189CF08E00399949 /* KTLoaderInfo.h in Headers */,
 				657E68EF19922FBE000BC057 /* KTSendNotifications.h in Headers */,
 				650858CF189CF08E00399949 /* KTLayouts.h in Headers */,
 				65085905189CF08E00399949 /* KTSimpleKeyValuePair.h in Headers */,
@@ -924,7 +915,6 @@
 				6567B6B8191F63EB0039D7C0 /* KTSimpleFavorite.h in Headers */,
 				6567B6AB191F63B00039D7C0 /* KTLayout.h in Headers */,
 				6551FDCC1AE69C5400C0D2BE /* zip.h in Headers */,
-				6567B6AD191F63B80039D7C0 /* KTLoaderInfo.h in Headers */,
 				6567B6BC191F63FC0039D7C0 /* KTSystemManagement.h in Headers */,
 				6567B6BA191F63F30039D7C0 /* KTStatusHistoryItem.h in Headers */,
 				6567B6B6191F63E20039D7C0 /* KTSignedBy.h in Headers */,
@@ -1181,7 +1171,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Claus Software\";\ncompanyID=\"de.claus-software\";\ncompanyURL=\"http://claus-software.de\";\n#target=\"iphoneos\";\ntarget=\"macosx\";\noutputPath=\"~/help/keytechKit/osx\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--ignore \"RestKit\" \\\n--ignore \"Tests\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--no-create-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Claus Software\";\ncompanyID=\"de.claus-software\";\ncompanyURL=\"http://claus-software.de\";\n#target=\"iphoneos\";\ntarget=\"macosx\";\noutputPath=\"~/help/keytechKit/osx\"\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--ignore \"RestKit\" \\\n--ignore \"Tests\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--no-create-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1203,7 +1193,6 @@
 				650858D9189CF08E00399949 /* KTNotifications.m in Sources */,
 				650858BC189CF08E00399949 /* KTFont.m in Sources */,
 				650858E2189CF08E00399949 /* KTPreferencesConnection.m in Sources */,
-				650858D3189CF08E00399949 /* KTLoaderInfo.m in Sources */,
 				650858F7189CF08E00399949 /* KTStatusItem.m in Sources */,
 				650858DF189CF08E00399949 /* KTPosition.m in Sources */,
 				650858D0189CF08E00399949 /* KTLayouts.m in Sources */,
@@ -1283,7 +1272,6 @@
 				650858DA189CF08E00399949 /* KTNotifications.m in Sources */,
 				650858BD189CF08E00399949 /* KTFont.m in Sources */,
 				650858E3189CF08E00399949 /* KTPreferencesConnection.m in Sources */,
-				650858D4189CF08E00399949 /* KTLoaderInfo.m in Sources */,
 				650858F8189CF08E00399949 /* KTStatusItem.m in Sources */,
 				650858E0189CF08E00399949 /* KTPosition.m in Sources */,
 				65C86EA41A0BBB9C00AE3F2E /* KTSearchengineResult.m in Sources */,

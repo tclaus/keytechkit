@@ -9,10 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 @class KTElement;
+
+/**
+ Represents a simple Parent-Child relationship between elements in its structure
+ */
 @interface KTElementLink : NSObject
 
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 

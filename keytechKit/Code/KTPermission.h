@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-
+/**
+ A class that has a single permission information
+ */
 @interface KTPermission : NSObject
 
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 

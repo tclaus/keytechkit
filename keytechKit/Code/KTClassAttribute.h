@@ -8,16 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ Represents a single detailed attribute of a class
+ */
 @interface KTClassAttribute : NSObject <NSCoding>
 
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
-/**
- Unachives the classAttribute
- */
+
 - (id)initWithCoder:(NSCoder *)coder;
 -(void)encodeWithCoder:(NSCoder *)aCoder;
 
@@ -27,8 +29,17 @@
  A text representation of the attribute type: TEXT, CHECK, DATE, INTEGER, DOUBLE.
  */
 @property (nonatomic,copy) NSString *attributeType;
+
+/**
+ A descriptive text for this attribute. May not be localized on server side.
+ */
 @property (nonatomic,copy) NSString *attributeDescription; // mostly this is represented by a NSL key
+
+/**
+ A localized short name for this attribute
+ */
 @property (nonatomic,copy) NSString *attributeDisplayname; //localized displayname
+
 /**
  This is the pure name of the attribute in a sepcific class
  */

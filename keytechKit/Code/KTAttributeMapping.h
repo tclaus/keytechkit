@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ Represents a single mapping of attributes
+ */
 @interface KTAttributeMapping : NSObject
 
 /**

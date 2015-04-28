@@ -278,7 +278,12 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
     [self sendDataToService:urlRequest jsonPayload:payload];
 }
 
-/// Sends a pushwoosh notification, to the Owner of the element
+/**
+ Sends a pushwoosh notification, to the Owner of the element
+ @param messageDictionary A Dictionary of form LanguageCode:Message that contains a List of localized messages to send
+ @param elementKey The key for a specifix element
+ @param elementOwner The short key as the element owner to send the push message to
+ */
 -(void)sendNotification:(NSDictionary*)messageDictionary elementKey:(NSString*)elementKey elementCreatedBy:(NSString*)elementOwner{
     
     if (!self.serverID) {
@@ -296,7 +301,7 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
     [urlRequest setHTTPMethod:@"POST"];
     
     NSArray *Tag_ConditionServerID = @[@"serverid",@"EQ",self.serverID];   // Array: <tagname>,<operator>,<value> ["SERVERID","EQ","<ID>"]
-    NSArray *Tag_ConditionUsername =@[@"username",@"EQ",elementOwner]; //["SERVERID","EQ","<ID>"]
+    NSArray *Tag_ConditionUsername =@[@"username",@"EQ",elementOwner]; //["UserID","EQ","<ID>"]
     
     NSDictionary *payload = @{@"request":@{
                                       @"application":APNApplictionID,
@@ -354,6 +359,8 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
 
 /** 
  Send data to service
+ @param urlRequest The prepaired request to send
+ @param payload The JSON payload to send to notification service
  */
 -(void)sendDataToService:(NSMutableURLRequest*)urlRequest jsonPayload:(NSDictionary*)payload{
     NSError *error;
@@ -400,9 +407,9 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
 
 
 /**
- 
- @param elememtName: The Elememt which has changes
- @param userNAme: The own username
+ Returns a localized text when an element has been changed
+ @param elementName: The element which has changed
+ @param userName: The own username
  */
 -(NSDictionary*)localizedTextElementChanged:(NSString*)elementName userName:(NSString*)userName{
     NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Das Element %@ wurde von %@ geändert." ,elementName,userName],
@@ -410,32 +417,55 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
     return dict;
 }
 
+/**
+ Returns a localized text when an element has been deleted
+ @param elementName: The element which has changed
+ @param userName: The own username
+ */
 -(NSDictionary*)localizedTextElementDeleted:(NSString*)elementName userName:(NSString*)userName{
     NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Das Element %@ wurde von %@ gelöscht.",elementName,userName],
                            @"en":[NSString stringWithFormat:@"The element %@ has been deleted by %@.",elementName,userName]};
     return dict;
 }
 
-
+/**
+ Returns a localized text when an element has been removed from a structure
+ @param elementName: The element which has changed
+ @param userName: The own username
+ */
 -(NSDictionary*)localizedTextElementRemovedFromLink:(NSString*)elementName userName:(NSString*)userName folderName:(NSString*)folderName{
     NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Das Element %@ wurde von %@ aus der Mappe %@ entfernt.",elementName,userName,folderName],
                            @"en":[NSString stringWithFormat:@"The element %@ has been removed from %@.",elementName,folderName]};
     return dict;
 }
 
-
+/**
+ Returns a localized text when a element has been added to a structure
+ @param elementName: The element which has changed
+ @param userName: The own username
+ */
 -(NSDictionary*)localizedTextElementAddedToLink:(NSString*)elementName userName:(NSString*)userName folderName:(NSString*)folderName{
     NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Das Element %@ wurde in die Mappe %@ eingefügt.",elementName,folderName],
                            @"en":[NSString stringWithFormat:@"The element %@ has been added to %@.",elementName,folderName]};
     return dict;
 }
 
+/**
+ Returns a localized text when a element got a new file
+ @param elementName: The element which has changed
+ @param userName: The own username
+ */
 -(NSDictionary*)localizedTextElementFileAdded:(NSString*)elementName{
     NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Eine Datei wurde dem Element %@ hinzugefügt.",elementName],
                            @"en":[NSString stringWithFormat:@"A file was added to element %@",elementName]};
     return dict;
 }
 
+/**
+ Returns a localized text when a elements file has been removed
+ @param elementName: The element which has changed
+ @param userName: The own username
+ */
 -(NSDictionary*)localizedTextElementFileRemoved:(NSString*)elementName{
     NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Eine Datei wurde vom Element %@ entfernt.",elementName],
                            @"en":[NSString stringWithFormat:@"A file was removed from element %@",elementName]};

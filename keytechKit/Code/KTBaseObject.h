@@ -15,7 +15,8 @@
 
 
 /**
- Normalized elementKeys, Replaces a % in a classkey with the URL-friendly "DEFAULT"
+ Normalized elementKeys, Replaces a % in a classkey with the URL-friendly "DEFAULT". Changes "%_MI" to "DEFAULT_MI" 
+ @param elementKey A elementKey to normalize
  */
 +(NSString*)normalizeElementKey:(NSString*)elementKey;
 

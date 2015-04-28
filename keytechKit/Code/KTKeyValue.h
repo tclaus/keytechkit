@@ -8,10 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ A key value pair. Value can be of any type but will be represented as a string value
+ */
 @interface KTKeyValue : NSObject
 
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
@@ -40,6 +44,7 @@
 
 /**
  Tests for Date occurence in JSON value. Returns nil if not convertible.
+ @param dateString If value is of type Date (in EPOCH format) then a NSDate will be generated.
  */
 + (NSDate*) dateFromJSONString:(NSString *)dateString;
 

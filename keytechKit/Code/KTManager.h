@@ -48,12 +48,15 @@ typedef struct {int page; int size;} PageDefinition;
 -(NSURL*)baseURL;
 
 /**
- Sets a default header with the given settings
+ Sets a default header with the given settings.
+ @param headerName The nbame of a header
+ @param value the headers value to transmit.
  */
 -(void)setDefaultHeader:(NSString*)headerName withValue:(NSString*)value;
 
 /**
  Adds default headers to mutable request
+ @param request This request will get a set of default headers before proceeding.
  */
 -(void)setDefaultHeadersToRequest:(NSMutableURLRequest*)request;
 
@@ -91,6 +94,8 @@ typedef struct {int page; int size;} PageDefinition;
 
 /**
  Translates a error respnse to a error object and extracts the API Respone error header description message
+ @param response The response will be parsed by its X-Errordescription Header.
+ @returns A error object with the http error code and a text extracted from the API's response header
  */
 +(NSError*)translateErrorFromResponse:(NSHTTPURLResponse*)response;
 

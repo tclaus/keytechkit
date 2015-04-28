@@ -8,6 +8,7 @@
 
 #import "NSString+ClassType.h"
 
+/// Adds string functions for getting classkeys from strings
 @implementation NSString (KTElementType)
 
 /// If string represents a ElementKey this method returns a classkey. (Converts a full ElementKey to a classKey, without the nummeric ID)

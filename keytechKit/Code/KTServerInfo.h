@@ -11,16 +11,19 @@
 
 /**
  The keytech serverinfo data is available withoutthe need of a valid user logged in.
- It provides information about the server and keytech version, a unique servce ID and statistical data
+ It provides information about the server and keytech version, a unique servce ID and statistical data.
+ This class must be used as a singelton class
  */
 @interface KTServerInfo : NSObject
-
-
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
+/**
+ Returns a shared instace of the server info object.
+ */
 +(instancetype)sharedServerInfo;
 
 /**
@@ -59,8 +62,6 @@
  */
 @property (readonly) NSString* licencedCompany;
 
-
-
 /**
  Loads the current Serverinfo with globally set ServerURL. 
  Waits until server responds.
@@ -69,6 +70,8 @@
 
 /**
  Loads a serverinfo object.
+ @param success Will be called after a successful load of server information
+ @param failure Will be called when request returns with an error.
  */
 -(void)loadWithSuccess:(void(^)(KTServerInfo* serverInfo))success failure:(void(^)(NSError *error))failure;
 

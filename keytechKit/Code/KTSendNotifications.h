@@ -10,6 +10,12 @@
 #import "KTElement.h"
 @class KTUser;
 
+/**
+ Push notification manager
+ Dont use this directly
+ 
+ Sends push notifications when element changes occure. EG sends a 'Element XY has been changed by user Z' to user who own (created) the element
+ */
 @interface KTSendNotifications : NSObject <NSURLConnectionDataDelegate>
 
 /**

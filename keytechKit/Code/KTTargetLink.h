@@ -12,14 +12,19 @@
 #import <Foundation/Foundation.h>
 #import "KTElement.h"
 
+/**
+ Represents a hierachically link to a object. 
+ Object can be an element a query or any other object type. Target Links are represented by its linkID
+ */
 @interface KTTargetLink : NSObject
 
 /**
  Provides the object Mapping for this class and given objectManager
+ @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
-/*
+/**
 Gets the unique link ID
  */
 @property (nonatomic) NSInteger parentID;
@@ -35,7 +40,7 @@ Gets the unique link ID
 @property (nonatomic,copy ) NSString* targetElementKey;
 
 /*
- Die ID des Folders(Bin) in dem dieses Element existiert
+ The own ID of this link. (Self ID )
  */
 @property (nonatomic) NSString* linkID;
 @property (readonly) NSString* itemClassKey; //* Classkey of target element

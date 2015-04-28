@@ -187,7 +187,10 @@ static KTServerInfo *_sharedServerInfo;
     
 }
 
-/// Extract the values from the key value list
+/**
+ Extract the values from the key value list
+ @param key The key to retrive it's value
+ */
 -(id)valueForKey:(NSString *)key{
     
     for (KTKeyValue *kv in self.keyValueList) {
@@ -197,7 +200,10 @@ static KTServerInfo *_sharedServerInfo;
     }
     return nil;
 }
-/// Returns a Boolean value
+/**
+ Returns a Boolean value
+  @param key The key to retrive it's boolean value
+ */
 -(BOOL)boolValueForKey:(NSString *)key{
     
     for (KTKeyValue *kv in self.keyValueList) {
