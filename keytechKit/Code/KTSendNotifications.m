@@ -66,10 +66,12 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
 
         __block KTSendNotifications *notification = self;
         
+        self.shortUserName = [KTManager sharedManager].username;
+        
         [KTUser loadUserWithKey:[KTManager sharedManager].username
                         success:^(KTUser *user) {
-                            [notification setLongUserName:user.userKey];
-                            [notification setShortUserName:user.userLongName];
+                            [notification setLongUserName:user.userLongName];
+                            [notification setShortUserName:user.userKey];
                             
                         } failure:^(NSError *error) {
                             //

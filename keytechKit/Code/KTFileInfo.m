@@ -202,9 +202,9 @@ static RKObjectManager *_usedManager;
                                              // Delete has no mapping result
                                              
                                              // Send notification Async
-                                             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                            // dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                  [[KTSendNotifications sharedSendNotification]sendElementFileHasBeenRemoved:self.elementKey];
-                                             });
+                                            // });
                                              
                                              if (success) {
                                                  success();
@@ -570,9 +570,9 @@ static RKObjectManager *_usedManager;
                                                                   if (self.fileStorageType == FileTypeMaster){
                                                                       
                                                                       // Send notification Async
-                                                                      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                    //  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                                           [[KTSendNotifications sharedSendNotification]sendElementFileUploaded:self.elementKey];
-                                                                      });
+                                                                    //  });
                                                                       
                                                                       // Check for iWork preview files
                                                                       [self saveiWorkPreviewFile:fileURL];
