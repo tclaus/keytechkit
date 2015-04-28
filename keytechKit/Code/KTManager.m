@@ -302,12 +302,26 @@
 
 +(NSError*)translateErrorFromResponse:(NSHTTPURLResponse*)response{
 
+    if (response) {
     NSString *ErrorDescription = [[response allHeaderFields] objectForKey:@"X-ErrorDescription"];
     NSError *transcodedError = [NSError errorWithDomain:@"keytech"
                                                    code:response.statusCode
                                                userInfo:@{NSLocalizedDescriptionKey:ErrorDescription}];
-    return transcodedError;
+return transcodedError;
+    } else {
+        // An unknown error occured
+        return [NSError errorWithDomain:@"keytech" code:1000 userInfo:@{NSLocalizedDescriptionKey:@"An unknwon error occured"}];
+    }
+    
 }
 
 
++(void)setLicenceKey:(NSString *)licenseKey{
+    // Do nothing
+}
 @end
+
+
+
+
+

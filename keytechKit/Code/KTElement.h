@@ -178,8 +178,6 @@ typedef enum {
 @property (readonly,strong) NSMutableArray* itemWhereUsedList;
 @property (readonly) BOOL isWhereUsedListLoaded;
 
-@param page The page with a given size.
-@param size The count of elements wothin a page
 
 /**
  Starts loading the where used list. If this element is a child in any structure. This method will return with a list of oarent elements.
@@ -244,7 +242,7 @@ typedef enum {
  @param linkToElementkey The elementKey of the parent element to remove this element from.
  @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
- *//
+ */
 -(void)removeLinkTo:(NSString*)linkToElementKey success:(void(^)(void))success failure:(void(^)(NSError* error))failure;
 
 

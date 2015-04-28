@@ -9,7 +9,6 @@
 
 #import "KTManager.h"
 #import "KTNotifications.h"
-#import "KTLoaderInfo.h"
 #import "KTElement.h"
 #import "KTClass.h"
 #import "KTSendNotifications.h"

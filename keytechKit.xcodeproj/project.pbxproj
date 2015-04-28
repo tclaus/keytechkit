@@ -116,9 +116,6 @@
 		650858F6189CF08E00399949 /* KTStatusItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589A189CF08E00399949 /* KTStatusItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858F7189CF08E00399949 /* KTStatusItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589B189CF08E00399949 /* KTStatusItem.m */; };
 		650858F8189CF08E00399949 /* KTStatusItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589B189CF08E00399949 /* KTStatusItem.m */; };
-		650858F9189CF08E00399949 /* KTSystemManagement.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589C189CF08E00399949 /* KTSystemManagement.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		650858FA189CF08E00399949 /* KTSystemManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589D189CF08E00399949 /* KTSystemManagement.m */; };
-		650858FB189CF08E00399949 /* KTSystemManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589D189CF08E00399949 /* KTSystemManagement.m */; };
 		650858FC189CF08E00399949 /* KTTargetLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589E189CF08E00399949 /* KTTargetLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858FD189CF08E00399949 /* KTTargetLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589F189CF08E00399949 /* KTTargetLink.m */; };
 		650858FE189CF08E00399949 /* KTTargetLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589F189CF08E00399949 /* KTTargetLink.m */; };
@@ -240,7 +237,6 @@
 		6567B6B9191F63EE0039D7C0 /* KTSize.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085896189CF08E00399949 /* KTSize.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6567B6BA191F63F30039D7C0 /* KTStatusHistoryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085898189CF08E00399949 /* KTStatusHistoryItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6567B6BB191F63F70039D7C0 /* KTStatusItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589A189CF08E00399949 /* KTStatusItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6BC191F63FC0039D7C0 /* KTSystemManagement.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589C189CF08E00399949 /* KTSystemManagement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6567B6BD191F64000039D7C0 /* KTTargetLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589E189CF08E00399949 /* KTTargetLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6567B6BE191F64040039D7C0 /* KTTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A0189CF08E00399949 /* KTTask.h */; };
 		6567B6BF191F64090039D7C0 /* KTUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A2189CF08E00399949 /* KTUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -440,8 +436,6 @@
 		65085899189CF08E00399949 /* KTStatusHistoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTStatusHistoryItem.m; sourceTree = "<group>"; };
 		6508589A189CF08E00399949 /* KTStatusItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTStatusItem.h; sourceTree = "<group>"; };
 		6508589B189CF08E00399949 /* KTStatusItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTStatusItem.m; sourceTree = "<group>"; };
-		6508589C189CF08E00399949 /* KTSystemManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTSystemManagement.h; sourceTree = "<group>"; };
-		6508589D189CF08E00399949 /* KTSystemManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSystemManagement.m; sourceTree = "<group>"; };
 		6508589E189CF08E00399949 /* KTTargetLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTTargetLink.h; sourceTree = "<group>"; };
 		6508589F189CF08E00399949 /* KTTargetLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTTargetLink.m; sourceTree = "<group>"; };
 		650858A0189CF08E00399949 /* KTTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTTask.h; sourceTree = "<group>"; };
@@ -719,8 +713,6 @@
 				65085899189CF08E00399949 /* KTStatusHistoryItem.m */,
 				6508589A189CF08E00399949 /* KTStatusItem.h */,
 				6508589B189CF08E00399949 /* KTStatusItem.m */,
-				6508589C189CF08E00399949 /* KTSystemManagement.h */,
-				6508589D189CF08E00399949 /* KTSystemManagement.m */,
 				6508589E189CF08E00399949 /* KTTargetLink.h */,
 				6508589F189CF08E00399949 /* KTTargetLink.m */,
 				65F810B41952CB5700992FD1 /* KTElementLink.h */,
@@ -898,7 +890,6 @@
 				65481DE019D06E9C00AAB0E1 /* KTQuery.h in Headers */,
 				6551FDC71AE69C5400C0D2BE /* unzip.h in Headers */,
 				650858CC189CF08E00399949 /* KTLayout.h in Headers */,
-				650858F9189CF08E00399949 /* KTSystemManagement.h in Headers */,
 				650858B5189CF08E00399949 /* KTElement.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -915,7 +906,6 @@
 				6567B6B8191F63EB0039D7C0 /* KTSimpleFavorite.h in Headers */,
 				6567B6AB191F63B00039D7C0 /* KTLayout.h in Headers */,
 				6551FDCC1AE69C5400C0D2BE /* zip.h in Headers */,
-				6567B6BC191F63FC0039D7C0 /* KTSystemManagement.h in Headers */,
 				6567B6BA191F63F30039D7C0 /* KTStatusHistoryItem.h in Headers */,
 				6567B6B6191F63E20039D7C0 /* KTSignedBy.h in Headers */,
 				6567B6AA191F63AC0039D7C0 /* KTKeyValue.h in Headers */,
@@ -1216,7 +1206,6 @@
 				65494E0018A227E100EF9FA4 /* KTGlobalSettingContext.m in Sources */,
 				650858B9189CF08E00399949 /* KTFileInfo.m in Sources */,
 				65423E1918D5F4550020B294 /* NSPredicate+PredicateKTFormat.m in Sources */,
-				650858FA189CF08E00399949 /* KTSystemManagement.m in Sources */,
 				650858F4189CF08E00399949 /* KTStatusHistoryItem.m in Sources */,
 				6556944218C25A5800A0BBD1 /* KTClassAttribute.m in Sources */,
 				65085906189CF08E00399949 /* KTSimpleKeyValuePair.m in Sources */,
@@ -1293,7 +1282,6 @@
 				65494E0118A227E100EF9FA4 /* KTGlobalSettingContext.m in Sources */,
 				650858BA189CF08E00399949 /* KTFileInfo.m in Sources */,
 				6551FDC61AE69C5400C0D2BE /* unzip.c in Sources */,
-				650858FB189CF08E00399949 /* KTSystemManagement.m in Sources */,
 				650858F5189CF08E00399949 /* KTStatusHistoryItem.m in Sources */,
 				6551FDC21AE69C5400C0D2BE /* mztools.c in Sources */,
 				6556944318C25A5800A0BBD1 /* KTClassAttribute.m in Sources */,

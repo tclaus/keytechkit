@@ -49,5 +49,10 @@
  */
 @property (nonatomic,copy) NSString* settingValue;
 
++(void)loadSettingWithName:(NSString*)settingName success:(void(^)(KTGlobalSetting* setting))success failure:(void(^)(NSError* error))failure;
++(void)loadSettingWithContext:(NSString*)contextName success:(void(^)(NSArray* settings))success failure:(void(^)(NSError* error))failure;
+
 
 @end
+
+

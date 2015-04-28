@@ -55,4 +55,14 @@ static RKObjectManager* _usedManager;
     return accountsList;
 }
 
++(void)loadSettingWithContext:(NSString *)contextName success:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure{
+    // TBD
+}
+
++(void)loadSettingWithName:(NSString *)settingName success:(void (^)(KTGlobalSetting *))success failure:(void (^)(NSError *))failure{
+    // TBD
+}
+
 @end
+
+

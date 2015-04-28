@@ -67,24 +67,6 @@ static RKObjectManager *_usedManager;
         return _usersList;
     }
 }
--(void)requestProceedWithError:(KTLoaderInfo*)loaderInfo error:(NSError*)theError{
-#pragma mark TODO Error-Handler implementieren
-}
-
--(void)requestDidProceed:(NSArray *)searchResult fromResourcePath:(NSString *)resourcePath{
-    if ([resourcePath hasSuffix:@"users"]) {
-        _isUserListLoading = NO;
-        _isUserListLoaded = YES;
-        if (!_usersList){
-            _usersList = [[NSMutableArray alloc]init];
-            
-        }
-        [self willChangeValueForKey:@"usersList"];
-        [self.usersList setArray:searchResult];
-        [self didChangeValueForKey:@"usersList"];
-        
-    }
-}
 
 /// Returns the uniue Group name. (included the grp_ prefixx)
 -(NSString*)identifier{

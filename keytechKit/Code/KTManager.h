@@ -99,5 +99,17 @@ typedef struct {int page; int size;} PageDefinition;
  */
 +(NSError*)translateErrorFromResponse:(NSHTTPURLResponse*)response;
 
+#pragma mark License Management
+
+/**
+ Sets the license key value. Must be set at first before any other actions.
+ @param licenceKey The licence code provided by vendor
+ */
++(void)setLicenceKey:(NSString*)licenseKey;
+
 
 @end
+
+
+
+
