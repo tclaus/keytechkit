@@ -7,12 +7,12 @@
 		<key>Documentation fo iOS.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>14</integer>
+			<integer>4</integer>
 		</dict>
 		<key>Documentation for OS X.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>16</integer>
+			<integer>5</integer>
 		</dict>
 		<key>keytechKit.xcscheme_^#shared#^_</key>
 		<dict>
@@ -63,6 +63,16 @@
 			<true/>
 		</dict>
 		<key>657AFB4C1AEE845A00C292BB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>65D2BE151AEFC2CA00615A66</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>65D2BE1F1AEFC2CA00615A66</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -502,6 +502,10 @@
 		6580CA661AE69B0200438DE3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
 		65C86E9E1A0BBB9C00AE3F2E /* KTSearchengineResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTSearchengineResult.h; sourceTree = "<group>"; };
 		65C86E9F1A0BBB9C00AE3F2E /* KTSearchengineResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSearchengineResult.m; sourceTree = "<group>"; };
+		65D2BE191AEFC2CA00615A66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		65D2BE1A1AEFC2CA00615A66 /* keytechKit_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = keytechKit_iOS.h; sourceTree = "<group>"; };
+		65D2BE261AEFC2CA00615A66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		65D2BE271AEFC2CA00615A66 /* keytechKit_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = keytechKit_iOSTests.m; sourceTree = "<group>"; };
 		65DBD9AC1AEB96B40077A669 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		65DBD9AE1AEB96C80077A669 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		65DBD9B01AEB96D70077A669 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
@@ -576,6 +580,8 @@
 				65085863189CEF9D00399949 /* Tests */,
 				65085862189CEF5A00399949 /* Code */,
 				650857E8189CE73300399949 /* keytechKit */,
+				65D2BE171AEFC2CA00615A66 /* keytechKit_iOS */,
+				65D2BE241AEFC2CA00615A66 /* keytechKit_iOSTests */,
 				650857E1189CE73300399949 /* Frameworks */,
 				650857E0189CE73300399949 /* Products */,
 			);
@@ -814,6 +820,40 @@
 				65602F451A28C5C300D1527E /* Aerial04.jpg */,
 			);
 			name = Uploads;
+			sourceTree = "<group>";
+		};
+		65D2BE171AEFC2CA00615A66 /* keytechKit_iOS */ = {
+			isa = PBXGroup;
+			children = (
+				65D2BE1A1AEFC2CA00615A66 /* keytechKit_iOS.h */,
+				65D2BE181AEFC2CA00615A66 /* Supporting Files */,
+			);
+			path = keytechKit_iOS;
+			sourceTree = "<group>";
+		};
+		65D2BE181AEFC2CA00615A66 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				65D2BE191AEFC2CA00615A66 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		65D2BE241AEFC2CA00615A66 /* keytechKit_iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				65D2BE271AEFC2CA00615A66 /* keytechKit_iOSTests.m */,
+				65D2BE251AEFC2CA00615A66 /* Supporting Files */,
+			);
+			path = keytechKit_iOSTests;
+			sourceTree = "<group>";
+		};
+		65D2BE251AEFC2CA00615A66 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				65D2BE261AEFC2CA00615A66 /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		65D320C2199F3E1500946121 /* GlobalSettings */ = {
@@ -1574,6 +1614,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				DEAD_CODE_STRIPPING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "keytechKit/Code/keytechFoundation-IOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1593,6 +1634,7 @@
 				PUBLIC_HEADERS_FOLDER_PATH = ../../Headers/keytechKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
 				SWIFT_OBJC_BRIDGING_HEADER = "keytechKit/Code/keytechKit-Bridging-Header.h";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s i386";
