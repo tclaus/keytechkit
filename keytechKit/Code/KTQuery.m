@@ -13,10 +13,6 @@
 @implementation KTQuery
 
 
--(void)cancelSearches{
-    [[RKObjectManager sharedManager] cancelAllObjectRequestOperationsWithMethod:RKRequestMethodGET
-                                                            matchingPathPattern:@"Search"];
-}
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 
@@ -25,7 +21,7 @@
                   block:(void(^)(NSArray* results))block
                 failure:(void(^)(NSError *error))failure{
 
-    [self cancelSearches];
+   // [self cancelSearches];
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
@@ -89,8 +85,6 @@
              block:(void (^)(NSArray *))block
            failure:(void(^)(NSError *error))failure{
     
-    [self cancelSearches];
-    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     [KTElement mappingWithManager:manager];
@@ -142,7 +136,6 @@
                      block:(void (^)(NSArray *))block
                    failure:(void (^)(NSError *))failure
 {
-    [self cancelSearches];
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     

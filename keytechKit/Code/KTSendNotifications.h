@@ -66,13 +66,19 @@
 -(void)sendElementFileUploaded:(NSString *)elementKey;
 
 /**
- Sends a message with informs the receiver about an element that has a deleted file. (Primary or secondary file).
+ Sends a message that informs the receiver that a masterfile has been removed
+ @description A masterfile is the main file of a document
+ */
+-(void)sendElementMasterFileHasBeenRemoved:(NSString *)elementKey;
+
+/**
+ Sends a message that informs the receiver about an element that has a deleted file. (A non master file).
  @param elementKey The elementKey of the element that has a deleted file.
  */
 -(void)sendElementFileHasBeenRemoved:(NSString *)elementKey;
 
 /**
- Sends a message with informs the receiver that an element has been linked to a folder.
+ Sends a message that informs the receiver that an element has been linked to a folder.
  @param elementKey The elementKey that has been linked to a folder
  @param folderName The name of the parent folder
  */

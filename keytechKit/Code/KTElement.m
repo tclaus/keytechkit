@@ -1105,6 +1105,7 @@ static long numberOfThumbnailsLoaded;
         [manager putObject:self
                       path:nil parameters:nil
                    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                       
                        [[KTSendNotifications sharedSendNotification]sendElementHasBeenChanged:self];
 
                        // Who should get the notification?

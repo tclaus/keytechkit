@@ -16,10 +16,6 @@
  */
 @interface KTQuery : NSObject
 
-/**
- Cancels any searches that are currently running
- */
--(void)cancelSearches;
 
 /**
  Starts a query with th given text

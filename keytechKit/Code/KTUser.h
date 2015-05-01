@@ -99,6 +99,11 @@
 @property (nonatomic,copy) NSString* userLanguage;
 
 /**
+ Represents the server side user language preference as two character language ID
+ */
+@property (nonatomic,copy) NSString* userLanguageID;
+
+/**
 The users longname. 
 */
 @property (nonatomic,copy) NSString* userLongName;

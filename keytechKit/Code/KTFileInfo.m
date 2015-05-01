@@ -202,10 +202,14 @@ static RKObjectManager *_usedManager;
                                              // Delete has no mapping result
                                              
                                              // Send notification Async
-                                            // dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                             if (self.fileStorageType == FileTypeMaster) {
+                                                 [[KTSendNotifications sharedSendNotification]sendElementMasterFileHasBeenRemoved:self.elementKey];
+                                                 
+                                             } else {
                                                  [[KTSendNotifications sharedSendNotification]sendElementFileHasBeenRemoved:self.elementKey];
-                                            // });
+                                             }
                                              
+
                                              if (success) {
                                                  success();
                                              }

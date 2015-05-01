@@ -72,6 +72,7 @@ static RKObjectManager *_usedManager;
                                                        @"IsSuperuser":@"isSuperuser",
                                                        @"KeyName":@"userKey",
                                                        @"Language":@"userLanguage",
+                                                       @"LanguageID":@"userLanguageID",
                                                        @"LongName":@"userLongName",
                                                        @"eMail":@"userMail"
                                                        }];
@@ -140,7 +141,7 @@ static RKObjectManager *_usedManager;
                    
                    _isLoaded = YES;
                    _isLoading = NO;
-                   
+
                    self.userEmail =user.userEmail;
                    self.userLanguage = user.userLanguage;
                    self.userLongName = user.userLongName;
@@ -251,11 +252,14 @@ static RKObjectManager *_usedManager;
 }
 
 +(instancetype)currentUser{
-    if (!_currentUser) {
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         _currentUser = [[KTUser alloc]init];
         _currentUser.userKey = [KTManager sharedManager].username;
         [_currentUser reload];
-    }
+    });
+    
     return _currentUser;
 }
 

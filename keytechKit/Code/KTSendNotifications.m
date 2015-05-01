@@ -60,18 +60,20 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
  static NSString* AppType = @"Development";
 #endif
 
+BOOL _userIsLoaded;
+BOOL _serverIsLoaded;
+
 -(instancetype) init {
     if (self = [super init])
     {
 
-        __block KTSendNotifications *notification = self;
-        
         self.shortUserName = [KTManager sharedManager].username;
+        
         
         [KTUser loadUserWithKey:[KTManager sharedManager].username
                         success:^(KTUser *user) {
-                            [notification setLongUserName:user.userLongName];
-                            [notification setShortUserName:user.userKey];
+                            [self setLongUserName:user.userLongName];
+                            [self setShortUserName:user.userKey];
                             
                         } failure:^(NSError *error) {
                             //
@@ -79,8 +81,15 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
         
         if ([KTServerInfo sharedServerInfo].isLoaded) {
             _serverID = [KTServerInfo sharedServerInfo].serverID;
+        } else {
+            
+            [[KTServerInfo sharedServerInfo] loadWithSuccess:^(KTServerInfo *serverInfo) {
+                _serverID = [KTServerInfo sharedServerInfo].serverID;
+            } failure:^(NSError *error) {
+                // Feler
+            }];
         }
-        _serverID = nil;
+
         
         
         _localDeviceLanguage = [NSLocale preferredLanguages][0]; // Set, until its overwritten by register Device
@@ -92,11 +101,13 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
 }
 
 +(instancetype)sharedSendNotification{
-    if (!_sharedSendNotification) {
-        _sharedSendNotification = [[KTSendNotifications alloc]init];
-
-    }
+    
+    static dispatch_once_t onceToken;
+dispatch_once(&onceToken, ^{
+    _sharedSendNotification = [[KTSendNotifications alloc]init];
+});
     return _sharedSendNotification;
+    
 }
 
 
@@ -288,8 +299,10 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
  */
 -(void)sendNotification:(NSDictionary*)messageDictionary elementKey:(NSString*)elementKey elementCreatedBy:(NSString*)elementOwner{
     
+    
     if (!self.serverID) {
         // If not currently initialzed, then do not send any notifications
+        NSLog(@"No ServerInfo ID can not send notification");
         return;
     }
     
@@ -464,13 +477,26 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
 }
 
 /**
+ Returns a localized text when a element master file has been removed
+ @description A Masterfile is the most imporant file of a documenbt
+ @param elementName: The element which has changed
+ @param userName: The own username
+ */
+-(NSDictionary*)localizedTextElementMasterFileRemoved:(NSString*)elementName{
+    NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Die Masterdatei wurde vom Element %@ entfernt.",elementName],
+                           @"en":[NSString stringWithFormat:@"The masterfile was removed from element %@.",elementName]};
+    return dict;
+
+}
+
+/**
  Returns a localized text when a elements file has been removed
  @param elementName: The element which has changed
  @param userName: The own username
  */
 -(NSDictionary*)localizedTextElementFileRemoved:(NSString*)elementName{
     NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Eine Datei wurde vom Element %@ entfernt.",elementName],
-                           @"en":[NSString stringWithFormat:@"A file was removed from element %@",elementName]};
+                           @"en":[NSString stringWithFormat:@"A file was removed from element %@.",elementName]};
     return dict;
 }
 
@@ -499,6 +525,20 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
     
 }
 
+-(void)sendElementMasterFileHasBeenRemoved:(NSString *)elementKey{
+    
+    
+    [KTElement loadElementWithKey:elementKey success:^(KTElement *element) {
+        [self sendNotification:[self localizedTextElementFileRemoved:element.itemName]
+                    elementKey:elementKey
+              elementCreatedBy:element.itemCreatedBy];
+        
+    }
+                          failure:nil];
+    
+    return;
+    
+}
 
 -(void)sendElementFileHasBeenRemoved:(NSString *)elementKey{
     
@@ -512,8 +552,6 @@ static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
      failure:nil];
     
     return;
-    
-    
 
 }
 

@@ -29,6 +29,18 @@
 			name = "Documentation for OS X";
 			productName = "Documentation fo iOS";
 		};
+		65D2BEA91AF2606D00615A66 /* Aggregate keytech_ios SDK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 65D2BEAA1AF2606E00615A66 /* Build configuration list for PBXAggregateTarget "Aggregate keytech_ios SDK" */;
+			buildPhases = (
+				65D2BEAD1AF260B800615A66 /* Run Script (Clean) */,
+				65D2BEAE1AF2610800615A66 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Aggregate keytech_ios SDK";
+			productName = "keytech_ios SDK";
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -269,6 +281,44 @@
 		65C8E31F189EE12C005705CD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585E189CEE3100399949 /* Security.framework */; };
 		65C8E320189EE13A005705CD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585C189CEE2900399949 /* MobileCoreServices.framework */; };
 		65C8E321189EE13F005705CD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085858189CEE1C00399949 /* CFNetwork.framework */; };
+		65D2BE831AF25F7C00615A66 /* KTGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085876189CF08E00399949 /* KTGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE841AF25F7C00615A66 /* KTUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A2189CF08E00399949 /* KTUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE851AF25F8700615A66 /* KTAttributeMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085868189CF08E00399949 /* KTAttributeMapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE861AF25F8700615A66 /* KTServerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6507ACC219224525008CCB94 /* KTServerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE871AF25F8700615A66 /* KTBomItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586A189CF08E00399949 /* KTBomItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE881AF25F8700615A66 /* KTChangeAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586C189CF08E00399949 /* KTChangeAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE891AF25F8700615A66 /* KTElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586E189CF08E00399949 /* KTElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE8A1AF25F8700615A66 /* KTFileInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085870189CF08E00399949 /* KTFileInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE8B1AF25F8700615A66 /* KTFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085872189CF08E00399949 /* KTFont.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE8C1AF25F8700615A66 /* KTIdentifiedDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085878189CF08E00399949 /* KTIdentifiedDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE8D1AF25F8700615A66 /* KTKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587C189CF08E00399949 /* KTKeyValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE8E1AF25F8700615A66 /* KTLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587E189CF08E00399949 /* KTLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE8F1AF25F8700615A66 /* KTLayouts.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085880189CF08E00399949 /* KTLayouts.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE901AF25F8700615A66 /* KTNoteItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085884189CF08E00399949 /* KTNoteItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE911AF25F8700615A66 /* KTNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085886189CF08E00399949 /* KTNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE921AF25F8700615A66 /* KTPermission.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085888189CF08E00399949 /* KTPermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE931AF25F8700615A66 /* KTPosition.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508588A189CF08E00399949 /* KTPosition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE941AF25F8700615A66 /* KTClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556943818C2513700A0BBD1 /* KTClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE951AF25F8700615A66 /* KTClassAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556943F18C25A5800A0BBD1 /* KTClassAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE961AF25F8800615A66 /* KTPreferencesConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508588C189CF08E00399949 /* KTPreferencesConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE971AF25F8800615A66 /* KTSignedBy.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085890189CF08E00399949 /* KTSignedBy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE981AF25F8800615A66 /* KTSimpleControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085892189CF08E00399949 /* KTSimpleControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE991AF25F8800615A66 /* KTSimpleFavorite.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085894189CF08E00399949 /* KTSimpleFavorite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE9A1AF25F8800615A66 /* KTSize.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085896189CF08E00399949 /* KTSize.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE9B1AF25F8800615A66 /* KTStatusHistoryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085898189CF08E00399949 /* KTStatusHistoryItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE9C1AF25F8800615A66 /* KTStatusItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589A189CF08E00399949 /* KTStatusItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE9D1AF25F8800615A66 /* KTTargetLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589E189CF08E00399949 /* KTTargetLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE9E1AF25F8800615A66 /* KTElementLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F810B41952CB5700992FD1 /* KTElementLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BE9F1AF25F8800615A66 /* KTTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A0189CF08E00399949 /* KTTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BEA01AF25F8800615A66 /* KTSimpleKeyValuePair.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A4189CF08E00399949 /* KTSimpleKeyValuePair.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BEA11AF25F8800615A66 /* KTManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A6189CF08E00399949 /* KTManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BEA21AF25F8800615A66 /* KTBaseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556944418C330A200A0BBD1 /* KTBaseObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BEA31AF25F8800615A66 /* NSPredicate+PredicateKTFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 65423E1618D5F4550020B294 /* NSPredicate+PredicateKTFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BEA41AF25F8800615A66 /* NSString+ClassType.h in Headers */ = {isa = PBXBuildFile; fileRef = 6527EA8019477EC800A37BDA /* NSString+ClassType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BEA51AF25F8800615A66 /* KTSendNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 657E68ED19922FBE000BC057 /* KTSendNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BEA61AF25F8800615A66 /* KTQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 65481DDE19D06E9C00AAB0E1 /* KTQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BEA71AF25F8800615A66 /* KTPagedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 65481DE419D070EC00AAB0E1 /* KTPagedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65D2BEA81AF25F8800615A66 /* KTSearchengineResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 65C86E9E1A0BBB9C00AE3F2E /* KTSearchengineResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65DBD9AD1AEB96B40077A669 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DBD9AC1AEB96B40077A669 /* SystemConfiguration.framework */; };
 		65DBD9AF1AEB96C80077A669 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DBD9AE1AEB96C80077A669 /* MobileCoreServices.framework */; };
 		65DBD9B11AEB96D70077A669 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DBD9B01AEB96D70077A669 /* Security.framework */; };
@@ -506,6 +556,8 @@
 		65D2BE1A1AEFC2CA00615A66 /* keytechKit_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = keytechKit_iOS.h; sourceTree = "<group>"; };
 		65D2BE261AEFC2CA00615A66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65D2BE271AEFC2CA00615A66 /* keytechKit_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = keytechKit_iOSTests.m; sourceTree = "<group>"; };
+		65D2BE791AF25DDC00615A66 /* keytechKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = keytechKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65D2BE7C1AF25DDC00615A66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65DBD9AC1AEB96B40077A669 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		65DBD9AE1AEB96C80077A669 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		65DBD9B01AEB96D70077A669 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
@@ -570,6 +622,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		65D2BE761AF25DDC00615A66 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -582,6 +641,7 @@
 				650857E8189CE73300399949 /* keytechKit */,
 				65D2BE171AEFC2CA00615A66 /* keytechKit_iOS */,
 				65D2BE241AEFC2CA00615A66 /* keytechKit_iOSTests */,
+				65D2BE7A1AF25DDC00615A66 /* keytechKit_iOS */,
 				650857E1189CE73300399949 /* Frameworks */,
 				650857E0189CE73300399949 /* Products */,
 			);
@@ -594,6 +654,7 @@
 				650857F6189CE73300399949 /* keytechKitFrameworkTests.xctest */,
 				65085811189CEA9B00399949 /* libkeytechKit.a */,
 				6508581F189CEA9B00399949 /* keytechKitTests.xctest */,
+				65D2BE791AF25DDC00615A66 /* keytechKit_iOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -856,6 +917,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		65D2BE7A1AF25DDC00615A66 /* keytechKit_iOS */ = {
+			isa = PBXGroup;
+			children = (
+				65D2BE7B1AF25DDC00615A66 /* Supporting Files */,
+			);
+			path = keytechKit_iOS;
+			sourceTree = "<group>";
+		};
+		65D2BE7B1AF25DDC00615A66 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				65D2BE7C1AF25DDC00615A66 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		65D320C2199F3E1500946121 /* GlobalSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -987,6 +1064,51 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		65D2BE821AF25F5200615A66 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65D2BE831AF25F7C00615A66 /* KTGroup.h in Headers */,
+				65D2BE841AF25F7C00615A66 /* KTUser.h in Headers */,
+				65D2BE851AF25F8700615A66 /* KTAttributeMapping.h in Headers */,
+				65D2BE861AF25F8700615A66 /* KTServerInfo.h in Headers */,
+				65D2BE871AF25F8700615A66 /* KTBomItem.h in Headers */,
+				65D2BE881AF25F8700615A66 /* KTChangeAction.h in Headers */,
+				65D2BE891AF25F8700615A66 /* KTElement.h in Headers */,
+				65D2BE8A1AF25F8700615A66 /* KTFileInfo.h in Headers */,
+				65D2BE8B1AF25F8700615A66 /* KTFont.h in Headers */,
+				65D2BE8C1AF25F8700615A66 /* KTIdentifiedDataSource.h in Headers */,
+				65D2BE8D1AF25F8700615A66 /* KTKeyValue.h in Headers */,
+				65D2BE8E1AF25F8700615A66 /* KTLayout.h in Headers */,
+				65D2BE8F1AF25F8700615A66 /* KTLayouts.h in Headers */,
+				65D2BE901AF25F8700615A66 /* KTNoteItem.h in Headers */,
+				65D2BE911AF25F8700615A66 /* KTNotifications.h in Headers */,
+				65D2BE921AF25F8700615A66 /* KTPermission.h in Headers */,
+				65D2BE931AF25F8700615A66 /* KTPosition.h in Headers */,
+				65D2BE941AF25F8700615A66 /* KTClass.h in Headers */,
+				65D2BE951AF25F8700615A66 /* KTClassAttribute.h in Headers */,
+				65D2BE961AF25F8800615A66 /* KTPreferencesConnection.h in Headers */,
+				65D2BE971AF25F8800615A66 /* KTSignedBy.h in Headers */,
+				65D2BE981AF25F8800615A66 /* KTSimpleControl.h in Headers */,
+				65D2BE991AF25F8800615A66 /* KTSimpleFavorite.h in Headers */,
+				65D2BE9A1AF25F8800615A66 /* KTSize.h in Headers */,
+				65D2BE9B1AF25F8800615A66 /* KTStatusHistoryItem.h in Headers */,
+				65D2BE9C1AF25F8800615A66 /* KTStatusItem.h in Headers */,
+				65D2BE9D1AF25F8800615A66 /* KTTargetLink.h in Headers */,
+				65D2BE9E1AF25F8800615A66 /* KTElementLink.h in Headers */,
+				65D2BE9F1AF25F8800615A66 /* KTTask.h in Headers */,
+				65D2BEA01AF25F8800615A66 /* KTSimpleKeyValuePair.h in Headers */,
+				65D2BEA11AF25F8800615A66 /* KTManager.h in Headers */,
+				65D2BEA21AF25F8800615A66 /* KTBaseObject.h in Headers */,
+				65D2BEA31AF25F8800615A66 /* NSPredicate+PredicateKTFormat.h in Headers */,
+				65D2BEA41AF25F8800615A66 /* NSString+ClassType.h in Headers */,
+				65D2BEA51AF25F8800615A66 /* KTSendNotifications.h in Headers */,
+				65D2BEA61AF25F8800615A66 /* KTQuery.h in Headers */,
+				65D2BEA71AF25F8800615A66 /* KTPagedObject.h in Headers */,
+				65D2BEA81AF25F8800615A66 /* KTSearchengineResult.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -1065,6 +1187,24 @@
 			productReference = 6508581F189CEA9B00399949 /* keytechKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		65D2BE781AF25DDC00615A66 /* keytechKit_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65D2BE811AF25DDC00615A66 /* Build configuration list for PBXNativeTarget "keytechKit_iOS" */;
+			buildPhases = (
+				65D2BE751AF25DDC00615A66 /* Sources */,
+				65D2BE761AF25DDC00615A66 /* Frameworks */,
+				65D2BE771AF25DDC00615A66 /* Resources */,
+				65D2BE821AF25F5200615A66 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = keytechKit_iOS;
+			productName = keytechKit_iOS;
+			productReference = 65D2BE791AF25DDC00615A66 /* keytechKit_iOS.framework */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1085,6 +1225,12 @@
 						TestTargetID = 650857DE189CE73300399949;
 					};
 					657AFB471AEE83AE00C292BB = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					65D2BE781AF25DDC00615A66 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					65D2BEA91AF2606D00615A66 = {
 						CreatedOnToolsVersion = 6.3.1;
 					};
 				};
@@ -1113,6 +1259,8 @@
 				6508581E189CEA9B00399949 /* keytechKitTests */,
 				657AFB471AEE83AE00C292BB /* Documentation for iOS */,
 				657AFB4C1AEE845A00C292BB /* Documentation for OS X */,
+				65D2BE781AF25DDC00615A66 /* keytechKit_iOS */,
+				65D2BEA91AF2606D00615A66 /* Aggregate keytech_ios SDK */,
 			);
 		};
 /* End PBXProject section */
@@ -1174,6 +1322,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		65D2BE771AF25DDC00615A66 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1202,6 +1357,33 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Claus Software\";\ncompanyID=\"de.claus-software\";\ncompanyURL=\"http://claus-software.de\";\n#target=\"iphoneos\";\ntarget=\"macosx\";\noutputPath=\"~/help/keytechKit/osx\"\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--ignore \"RestKit\" \\\n--ignore \"Tests\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--no-create-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+		};
+		65D2BEAD1AF260B800615A66 /* Run Script (Clean) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script (Clean)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "xcodebuild clean -target 'keytechKit_iOS' -sdk iphoneos\nxcodebuild clean -target 'keytechKit_iOS' -sdk iphonesimulator";
+		};
+		65D2BEAE1AF2610800615A66 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "xcodebuild -configuration ${CONFIGURATION} -target keytechKit_iOS -sdk iphoneos -SYMROOT=${SYMROOT} -OBJROOT=${OBJROOT}\n\nxcodebuild -configuration ${CONFIGURATION} -target keytechKit_iOS -sdk iphonesimulator -SYMROOT=${SYMROOT} -OBJROOT=${OBJROOT}\n\nINSTALL_DIR=${SRCROOT}/${TARGET_NAME}\nBUILD_DIR=${SRCROOT}/build\n\n\nDEVICE_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos/${TARGET_NAME}\nSIMULATOR_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${TARGET_NAME}\n\n# Create and renews the final product folder.\n\nrm -rf \"${INSTALL_DIR}\"\n\nmkdir -p \"${INSTALL_DIR}\"\n\nmkdir -p \"${INSTALL_DIR}/Versions/A/Headers\"\n\nxcrun -sdk iphoneos lipo -create ${SIMULATOR_DIR}/keytechKit_iOS ${DEVICE_DIR}/keytechKit_iOS -o ${INSTALL_DIR}/Versions/A/keytechKit_iOS\n\n# Copy the header files to the final product folder.\ncp -r \"${SIMULATOR_DIR}/Headers/\" \"${INSTALL_DIR}/Versions/A/Headers/\"\n\nmkdir -p \"${INSTALL_DIR}/Versions/A/Resources\"\n\ncp -r \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/Versions/A/Resources/\"\n\n#create relative symbolic link.\ncd ${INSTALL_DIR}\n\n#link\nln -s A Versions/Current\nln -s Versions/A/keytechKit_iOS keytechKit_iOS\nln -s Versions/A/Resources Resources\nln -s Versions/A/Headers Headers";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1356,6 +1538,13 @@
 				657E68F519923C77000BC057 /* testSendNotification.m in Sources */,
 				657298B81993856F00552FE5 /* testServerInfo.m in Sources */,
 				65085938189CF0F400399949 /* testAttributeMappings.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65D2BE751AF25DDC00615A66 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1737,6 +1926,79 @@
 			};
 			name = Release;
 		};
+		65D2BE7D1AF25DDC00615A66 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = keytechKit_iOS/Info.plist;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LINK_WITH_STANDARD_LIBRARIES = NO;
+				MACH_O_TYPE = mh_object;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		65D2BE7E1AF25DDC00615A66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = keytechKit_iOS/Info.plist;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LINK_WITH_STANDARD_LIBRARIES = NO;
+				MACH_O_TYPE = mh_object;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		65D2BEAB1AF2606E00615A66 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos8.3;
+			};
+			name = Debug;
+		};
+		65D2BEAC1AF2606E00615A66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos8.3;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1802,6 +2064,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		65D2BE811AF25DDC00615A66 /* Build configuration list for PBXNativeTarget "keytechKit_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65D2BE7D1AF25DDC00615A66 /* Debug */,
+				65D2BE7E1AF25DDC00615A66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		65D2BEAA1AF2606E00615A66 /* Build configuration list for PBXAggregateTarget "Aggregate keytech_ios SDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65D2BEAB1AF2606E00615A66 /* Debug */,
+				65D2BEAC1AF2606E00615A66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
