@@ -138,13 +138,14 @@ static RKObjectManager *_usedManager;
                        NSLog(@"Successful reloaded user with key %@",self.userKey);
                    KTUser *user = mappingResult.firstObject;
                    
-                   _isLoaded = YES;
-                   _isLoading = NO;
+                   
 
                    self.userEmail =user.userEmail;
                    self.userLanguage = user.userLanguage;
                    self.userLongName = user.userLongName;
-                   
+
+                   _isLoaded = YES;
+                   _isLoading = NO;
                    if (success) {
                        success(self);
                    }

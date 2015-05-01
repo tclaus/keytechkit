@@ -13,6 +13,9 @@
 
 
 @interface KTSendNotifications ()
+#define POLL_INTERVAL 0.2 // 200ms
+#define N_SEC_TO_POLL 30.0 // poll for 30s
+#define MAX_POLL_COUNT N_SEC_TO_POLL / POLL_INTERVAL
 
 @property (readonly,copy) NSString *shortUserName;
 @property (readonly,copy) NSString *longUserName;
@@ -27,16 +30,37 @@
     NSString *_longUserName;
     
 }
-@synthesize shortUserName = _shortUserName;
-@synthesize longUserName = _longUserName;
+
 @synthesize serverID = _serverID;
 
--(void)setShortUserName:(NSString *)shortUserName{
-    _shortUserName = shortUserName;
+-(NSString*)shortUserName{
+    return _shortUserName;
 }
 
--(void)setLongUserName:(NSString *)longUserName{
-    _longUserName = longUserName;
+-(NSString*)longUserName{
+
+    [self waitAndReloadUser];
+    return _longUserName;
+    
+}
+
+/**
+ Waits and loads current suer name
+ */
+-(void)waitAndReloadUser{
+   
+    if (!_longUserName) {
+        
+        while ([KTUser currentUser].isLoading) {
+            NSLog(@"Warte...");
+            NSDate* untilDate = [NSDate dateWithTimeIntervalSinceNow:POLL_INTERVAL];
+            [[NSRunLoop currentRunLoop] runUntilDate:untilDate];
+        }
+        
+        _shortUserName =  [KTUser currentUser].userKey;
+        _longUserName =  [KTUser currentUser].userLongName;
+        
+    }
 }
 
 static KTSendNotifications *_sharedSendNotification;
@@ -67,17 +91,8 @@ BOOL _serverIsLoaded;
     if (self = [super init])
     {
 
-        self.shortUserName = [KTManager sharedManager].username;
+        _shortUserName = [KTManager sharedManager].username;
         
-        
-        [KTUser loadUserWithKey:[KTManager sharedManager].username
-                        success:^(KTUser *user) {
-                            [self setLongUserName:user.userLongName];
-                            [self setShortUserName:user.userKey];
-                            
-                        } failure:^(NSError *error) {
-                            //
-                        }];
         
         if ([KTServerInfo sharedServerInfo].isLoaded) {
             _serverID = [KTServerInfo sharedServerInfo].serverID;
@@ -306,11 +321,6 @@ dispatch_once(&onceToken, ^{
         return;
     }
     
-    if (!self.longUserName) {
-        self.shortUserName =  [KTUser currentUser].userKey;
-        self.longUserName =  [KTUser currentUser].userLongName;
-    }
-    
     NSLog(@"Send notification to %@",AppType);
     
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:APNURL,@"createMessage"]];
@@ -512,7 +522,7 @@ dispatch_once(&onceToken, ^{
 -(void)sendElementHasBeenChanged:(KTElement *)element{
 
     
-    [self sendNotification:[self localizedTextElementChanged:element.itemName userName:_longUserName]
+    [self sendNotification:[self localizedTextElementChanged:element.itemName userName:self.longUserName]
                 elementKey:element.itemKey
         elementCreatedBy:element.itemCreatedBy];
     
@@ -522,7 +532,7 @@ dispatch_once(&onceToken, ^{
 
 -(void)sendElementHasBeenDeleted:(KTElement *)element{
     
-    [self sendNotification:[self localizedTextElementDeleted:element.itemName userName:_longUserName]
+    [self sendNotification:[self localizedTextElementDeleted:element.itemName userName:self.longUserName]
                 elementKey:element.itemKey
         elementCreatedBy:element.itemCreatedBy];
     
