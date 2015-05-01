@@ -935,6 +935,11 @@ static long numberOfThumbnailsLoaded;
 -(id)valueForAttribute:(NSString*)attribute{
     for (KTKeyValue *kvPair in self.keyValueList) {
         if ([kvPair.key isEqualToString:attribute]) {
+            
+            // If string - and only 1 space then the string is empty
+            // If date type and date is 1.1.1970 then there is no date really
+            
+            
             return kvPair.value;
         }
     }
