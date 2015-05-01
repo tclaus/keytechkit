@@ -306,6 +306,11 @@ dispatch_once(&onceToken, ^{
         return;
     }
     
+    if (!self.longUserName) {
+        self.shortUserName =  [KTUser currentUser].userKey;
+        self.longUserName =  [KTUser currentUser].userLongName;
+    }
+    
     NSLog(@"Send notification to %@",AppType);
     
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:APNURL,@"createMessage"]];
@@ -529,7 +534,7 @@ dispatch_once(&onceToken, ^{
     
     
     [KTElement loadElementWithKey:elementKey success:^(KTElement *element) {
-        [self sendNotification:[self localizedTextElementFileRemoved:element.itemName]
+        [self sendNotification:[self localizedTextElementMasterFileRemoved:element.itemName]
                     elementKey:elementKey
               elementCreatedBy:element.itemCreatedBy];
         

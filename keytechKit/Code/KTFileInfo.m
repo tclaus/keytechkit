@@ -205,7 +205,7 @@ static RKObjectManager *_usedManager;
                                              if (self.fileStorageType == FileTypeMaster) {
                                                  [[KTSendNotifications sharedSendNotification]sendElementMasterFileHasBeenRemoved:self.elementKey];
                                                  
-                                             } else {
+                                             } else if (self.fileStorageType != FileTypeQuickPreview) {
                                                  [[KTSendNotifications sharedSendNotification]sendElementFileHasBeenRemoved:self.elementKey];
                                              }
                                              

@@ -88,7 +88,7 @@ static KTLayouts *_sharedLayouts;
     
     
     __block BOOL awaitingResponse;
-    awaitingResponse = NO;
+    awaitingResponse = YES;
     [self loadLayoutForClassKey:classKey
                             success:^(KTLayout *layout) {
                                 awaitingResponse = NO;
@@ -209,7 +209,6 @@ static KTLayouts *_sharedLayouts;
                           // Editor layout was loaded
                           KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:classKey];
                           layout.editorLayout = mappingResult.array;
-                          
                           
                           if (layout.isLoaded) {
                               if (success) {
