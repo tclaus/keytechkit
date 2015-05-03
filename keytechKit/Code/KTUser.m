@@ -51,7 +51,7 @@ static RKObjectManager *_usedManager;
         
         _userLanguage = @"";
         _userEmail = @"";
-        _isActive = YES;
+        _isActive = NO;
         _isAdmin = NO;
         _isSuperuser = NO;
         _userLanguage = @"";
@@ -111,14 +111,13 @@ static RKObjectManager *_usedManager;
     user.userKey = username;
 
     [user reload];
+
     return user;
 }
 
 // Starts reloading the user. The userkey is needed.
 -(void)reload{
     if (!_isLoading) {
-        _isLoaded = NO;
-        _isLoading = YES;
         
         [self reload:nil];
         [self waitForData];
@@ -133,17 +132,22 @@ static RKObjectManager *_usedManager;
     
     __weak KTUser *userObject = self;
     
+    _isLoaded = NO;
+    _isLoading = YES;
+
+    
     [manager getObject:userObject path:nil parameters:nil
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                        NSLog(@"Successful reloaded user with key %@",self.userKey);
                    KTUser *user = mappingResult.firstObject;
                    
+
+                   userObject.userEmail =user.userEmail;
+                   userObject.userLanguage = user.userLanguage;
+                   userObject.userLongName = user.userLongName;
+                   userObject.userLanguageID = user.userLanguageID;
+                   userObject.isActive = user.isActive;
                    
-
-                   self.userEmail =user.userEmail;
-                   self.userLanguage = user.userLanguage;
-                   self.userLongName = user.userLongName;
-
                    _isLoaded = YES;
                    _isLoading = NO;
                    if (success) {
@@ -151,7 +155,13 @@ static RKObjectManager *_usedManager;
                    }
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                  
+                   NSLog(@"Error API response:: %@",transcodedError.localizedDescription);
                    NSLog(@"Error while getting the user-object: %@",error.localizedDescription);
+                   
+                   _latestLocalizedServerMessage = transcodedError.localizedDescription;
+                   
                    _isLoaded = NO;
                    _isLoading = NO;
                }];
@@ -277,19 +287,22 @@ static RKObjectManager *_usedManager;
     }
     
     NSUInteger pollCount = 0;
-    while (!_isLoaded && (pollCount < MAX_POLL_COUNT)) {
+    while (_isLoading && (pollCount < MAX_POLL_COUNT)) {
         NSDate* untilDate = [NSDate dateWithTimeIntervalSinceNow:POLL_INTERVAL];
         [[NSRunLoop currentRunLoop] runUntilDate:untilDate];
         pollCount++;
     }
     
     if (pollCount== MAX_POLL_COUNT) {
-        NSLog(@"Loading Error in KTUSer!");
+        NSLog(@"Loading Error in KTUser!");
     }
     
 }
 
 
+-(NSString *)debugDescription{
+    return self.userKey;
+}
 
 @end
 

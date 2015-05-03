@@ -251,9 +251,13 @@
     
     KTUser *currentUser = [KTUser loadUserWithKey:self.username];
 
-    if (currentUser) {
+    if (currentUser.isLoaded) {
+        _serverErrorDescription = nil;
         return currentUser.isActive;
     } else {
+        // username not found?
+        // Server not found?
+        _serverErrorDescription = currentUser.latestLocalizedServerMessage;
         return NO;
     }
  

@@ -92,6 +92,10 @@
 @property (readonly,copy)NSString* identifier;
 @property (nonatomic,copy)NSString* userKey;
 
+/**
+ If a user can not be load, a sever error message can be fetched here
+ */
+@property (readonly,copy) NSString *latestLocalizedServerMessage;
 
 /**
  Represents the name of the used language. Is an internal used name and my be not a ISO language identifier.
