@@ -2072,6 +2072,7 @@
 				65D2BE7E1AF25DDC00615A66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		65D2BEAA1AF2606E00615A66 /* Build configuration list for PBXAggregateTarget "Aggregate keytech_ios SDK" */ = {
 			isa = XCConfigurationList;
@@ -2080,6 +2081,7 @@
 				65D2BEAC1AF2606E00615A66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
