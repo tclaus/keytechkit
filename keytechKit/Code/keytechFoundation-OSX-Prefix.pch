@@ -15,5 +15,6 @@
 
 #import "Restkit/restkit.h"
 #import "KTBaseObject.h"
+#import "KTLicenseData.h"
 
  #endif

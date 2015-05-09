@@ -173,6 +173,12 @@
 		65403C0C18A2778F006D3BE6 /* testCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65403C0A18A2778F006D3BE6 /* testCase.m */; };
 		65423E1818D5F4550020B294 /* NSPredicate+PredicateKTFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 65423E1618D5F4550020B294 /* NSPredicate+PredicateKTFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65423E1918D5F4550020B294 /* NSPredicate+PredicateKTFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 65423E1718D5F4550020B294 /* NSPredicate+PredicateKTFormat.m */; };
+		6543578F1AFCAAD900A71B43 /* KTLicenseData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6543578E1AFCAAD900A71B43 /* KTLicenseData.m */; };
+		654357901AFCAAD900A71B43 /* KTLicenseData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6543578E1AFCAAD900A71B43 /* KTLicenseData.m */; };
+		654357911AFCAAD900A71B43 /* KTLicenseData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6543578E1AFCAAD900A71B43 /* KTLicenseData.m */; };
+		654357921AFCAAD900A71B43 /* KTLicenseData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6543578E1AFCAAD900A71B43 /* KTLicenseData.m */; };
+		654357961AFCAB1C00A71B43 /* KTLicenseData.h in Headers */ = {isa = PBXBuildFile; fileRef = 654357951AFCAB1C00A71B43 /* KTLicenseData.h */; };
+		654357971AFCAB1C00A71B43 /* KTLicenseData.h in Headers */ = {isa = PBXBuildFile; fileRef = 654357951AFCAB1C00A71B43 /* KTLicenseData.h */; };
 		65481DD819CEF59C00AAB0E1 /* testUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 65481DD719CEF59C00AAB0E1 /* testUser.m */; };
 		65481DD919CEF59C00AAB0E1 /* testUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 65481DD719CEF59C00AAB0E1 /* testUser.m */; };
 		65481DE019D06E9C00AAB0E1 /* KTQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 65481DDE19D06E9C00AAB0E1 /* KTQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -516,6 +522,8 @@
 		65403C0A18A2778F006D3BE6 /* testCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testCase.m; sourceTree = "<group>"; };
 		65423E1618D5F4550020B294 /* NSPredicate+PredicateKTFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSPredicate+PredicateKTFormat.h"; path = "Categories/NSPredicate+PredicateKTFormat.h"; sourceTree = "<group>"; };
 		65423E1718D5F4550020B294 /* NSPredicate+PredicateKTFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSPredicate+PredicateKTFormat.m"; path = "Categories/NSPredicate+PredicateKTFormat.m"; sourceTree = "<group>"; };
+		6543578E1AFCAAD900A71B43 /* KTLicenseData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTLicenseData.m; sourceTree = "<group>"; };
+		654357951AFCAB1C00A71B43 /* KTLicenseData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTLicenseData.h; sourceTree = "<group>"; };
 		65481DD719CEF59C00AAB0E1 /* testUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testUser.m; sourceTree = "<group>"; };
 		65481DDE19D06E9C00AAB0E1 /* KTQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTQuery.h; sourceTree = "<group>"; };
 		65481DDF19D06E9C00AAB0E1 /* KTQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTQuery.m; sourceTree = "<group>"; };
@@ -718,9 +726,9 @@
 			isa = PBXGroup;
 			children = (
 				6508583D189CEBB300399949 /* libRestKit.a */,
-				6508583F189CEBB300399949 /* RestKitTests.xctest */,
+				6508583F189CEBB300399949 /* RestKitTests.octest */,
 				65085841189CEBB300399949 /* RestKit.framework */,
-				65085843189CEBB300399949 /* RestKitFrameworkTests.xctest */,
+				65085843189CEBB300399949 /* RestKitFrameworkTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -798,6 +806,8 @@
 				6527EA8119477EC800A37BDA /* NSString+ClassType.m */,
 				657E68ED19922FBE000BC057 /* KTSendNotifications.h */,
 				657E68EE19922FBE000BC057 /* KTSendNotifications.m */,
+				6543578E1AFCAAD900A71B43 /* KTLicenseData.m */,
+				654357951AFCAB1C00A71B43 /* KTLicenseData.h */,
 				65481DDE19D06E9C00AAB0E1 /* KTQuery.h */,
 				65481DDF19D06E9C00AAB0E1 /* KTQuery.m */,
 				65481DE419D070EC00AAB0E1 /* KTPagedObject.h */,
@@ -1000,6 +1010,7 @@
 				65F810B61952CB5700992FD1 /* KTElementLink.h in Headers */,
 				650858DE189CF08E00399949 /* KTPosition.h in Headers */,
 				6556944618C330A200A0BBD1 /* KTBaseObject.h in Headers */,
+				654357961AFCAB1C00A71B43 /* KTLicenseData.h in Headers */,
 				650858BB189CF08E00399949 /* KTFont.h in Headers */,
 				65085908189CF08E00399949 /* KTManager.h in Headers */,
 				650858FF189CF08E00399949 /* KTTask.h in Headers */,
@@ -1053,6 +1064,7 @@
 				6567B6A5191F63990039D7C0 /* KTGlobalSetting.h in Headers */,
 				6567B6C3191F641A0039D7C0 /* KTBaseObject.h in Headers */,
 				6567B6BB191F63F70039D7C0 /* KTStatusItem.h in Headers */,
+				654357971AFCAB1C00A71B43 /* KTLicenseData.h in Headers */,
 				6567B6C2191F64150039D7C0 /* KTGlobalSettingContext.h in Headers */,
 				6567B6B1191F63CC0039D7C0 /* KTPosition.h in Headers */,
 				65481DE119D06E9C00AAB0E1 /* KTQuery.h in Headers */,
@@ -1273,10 +1285,10 @@
 			remoteRef = 6508583C189CEBB300399949 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6508583F189CEBB300399949 /* RestKitTests.xctest */ = {
+		6508583F189CEBB300399949 /* RestKitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = RestKitTests.xctest;
+			path = RestKitTests.octest;
 			remoteRef = 6508583E189CEBB300399949 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1287,10 +1299,10 @@
 			remoteRef = 65085840189CEBB300399949 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		65085843189CEBB300399949 /* RestKitFrameworkTests.xctest */ = {
+		65085843189CEBB300399949 /* RestKitFrameworkTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = RestKitFrameworkTests.xctest;
+			path = RestKitFrameworkTests.octest;
 			remoteRef = 65085842189CEBB300399949 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1343,7 +1355,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Claus Software\";\ncompanyID=\"de.claus-software\";\ncompanyURL=\"http://claus-software.de\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"~/help/keytechKit/iOS\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--ignore /RestKit \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Claus Software\";\ncompanyID=\"de.claus-software\";\ncompanyURL=\"http://claus-software.de\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"~/help/keytechKit/iOS\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--ignore /RestKit \\\n--ignore \"*.m\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
 		};
 		657AFB4D1AEE845A00C292BB /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1356,7 +1368,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Claus Software\";\ncompanyID=\"de.claus-software\";\ncompanyURL=\"http://claus-software.de\";\n#target=\"iphoneos\";\ntarget=\"macosx\";\noutputPath=\"~/help/keytechKit/osx\"\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--ignore \"RestKit\" \\\n--ignore \"Tests\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--no-create-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Claus Software\";\ncompanyID=\"de.claus-software\";\ncompanyURL=\"http://claus-software.de\";\n#target=\"iphoneos\";\ntarget=\"macosx\";\noutputPath=\"~/help/keytechKit/osx\"\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--ignore \"RestKit\" \\\n--ignore \"Tests\" \\\n--ignore \"*.m\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--no-create-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
 		};
 		65D2BEAD1AF260B800615A66 /* Run Script (Clean) */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1409,6 +1421,7 @@
 				650858DF189CF08E00399949 /* KTPosition.m in Sources */,
 				650858D0189CF08E00399949 /* KTLayouts.m in Sources */,
 				650858BF189CF08E00399949 /* KTGlobalSetting.m in Sources */,
+				6543578F1AFCAAD900A71B43 /* KTLicenseData.m in Sources */,
 				650858B0189CF08E00399949 /* KTBomItem.m in Sources */,
 				6507ACC619224525008CCB94 /* KTServerInfo.m in Sources */,
 				6551FDCF1AE69C5400C0D2BE /* SSZipArchive.m in Sources */,
@@ -1445,6 +1458,7 @@
 			files = (
 				6508594D189CF0F500399949 /* testStatus.m in Sources */,
 				657E50F1189E76F800CB7859 /* testResponseLoader.m in Sources */,
+				654357901AFCAAD900A71B43 /* KTLicenseData.m in Sources */,
 				65DDFF8619D6C678002D0529 /* testQueries.m in Sources */,
 				65085949189CF0F500399949 /* testFolderManagement.m in Sources */,
 				6556944A18C3EA0F00A0BBD1 /* testLayout.m in Sources */,
@@ -1487,6 +1501,7 @@
 				650858E0189CF08E00399949 /* KTPosition.m in Sources */,
 				65C86EA41A0BBB9C00AE3F2E /* KTSearchengineResult.m in Sources */,
 				6507ACC719224525008CCB94 /* KTServerInfo.m in Sources */,
+				654357911AFCAAD900A71B43 /* KTLicenseData.m in Sources */,
 				650858D1189CF08E00399949 /* KTLayouts.m in Sources */,
 				650858C0189CF08E00399949 /* KTGlobalSetting.m in Sources */,
 				657E68F219922FBE000BC057 /* KTSendNotifications.m in Sources */,
@@ -1521,6 +1536,7 @@
 			files = (
 				65085941189CF0F400399949 /* testStatus.m in Sources */,
 				657E50F2189E76F800CB7859 /* testResponseLoader.m in Sources */,
+				654357921AFCAAD900A71B43 /* KTLicenseData.m in Sources */,
 				65DDFF8719D6C678002D0529 /* testQueries.m in Sources */,
 				6508593D189CF0F400399949 /* testFolderManagement.m in Sources */,
 				6556944B18C3EA0F00A0BBD1 /* testLayout.m in Sources */,
@@ -2072,6 +2088,7 @@
 				65D2BE7E1AF25DDC00615A66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		65D2BEAA1AF2606E00615A66 /* Build configuration list for PBXAggregateTarget "Aggregate keytech_ios SDK" */ = {
 			isa = XCConfigurationList;
@@ -2080,6 +2097,7 @@
 				65D2BEAC1AF2606E00615A66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

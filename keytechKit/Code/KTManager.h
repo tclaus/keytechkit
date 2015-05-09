@@ -15,7 +15,7 @@
 /**
  Provides basic initialization
  */
-@interface KTManager : NSObject
+@interface KTManager : NSObject <NSURLConnectionDelegate,NSURLConnectionDataDelegate>
 // Formaly known as "Webservice"
 
 
@@ -103,9 +103,9 @@ typedef struct {int page; int size;} PageDefinition;
 
 /**
  Sets the license key value. Must be set at first before any other actions.
- @param licenceKey The licence code provided by vendor
+ @param licenceKey The licence code for the keytech SDK
  */
-+(void)setLicenceKey:(NSString*)licenseKey;
+-(void)setLicenceKey:(NSString*)clientKey;
 
 
 @end

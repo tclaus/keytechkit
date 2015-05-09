@@ -11,7 +11,7 @@
 #import "KTNotifications.h"
 #import "KTUser.h"
 #import "KTServerInfo.h"
-
+#import "KTLicenseData.h"
 
 #define keytechDefaultServerURL @"https://demo.keytech.de"  // internal default URL )(for testing)
 #define keytechDefaultServerUser @"jgrant"
@@ -319,9 +319,12 @@ return transcodedError;
     
 }
 
+-(void)setLicenceKey:(NSString *)clientKey{
 
-+(void)setLicenceKey:(NSString *)licenseKey{
-    // Do nothing
+    [[KTLicenseData sharedLicenseData] setAPIURL:self.servername];
+    [[KTLicenseData sharedLicenseData] setAPILicenseKey:clientKey];
+    [[KTLicenseData sharedLicenseData] initReading];
+    
 }
 @end
 
