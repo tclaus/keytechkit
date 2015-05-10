@@ -67,13 +67,14 @@
 
 /**
  Sends a message that informs the receiver that a masterfile has been removed
+ @param elementKey The elementKey of the element
  @description A masterfile is the main file of a document
  */
 -(void)sendElementMasterFileHasBeenRemoved:(NSString *)elementKey;
 
 /**
  Sends a message that informs the receiver about an element that has a deleted file. (A non master file).
- @param elementKey The elementKey of the element that has a deleted file.
+ @param elementKey The elementKey of the element.
  */
 -(void)sendElementFileHasBeenRemoved:(NSString *)elementKey;
 
