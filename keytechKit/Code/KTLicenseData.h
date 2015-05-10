@@ -12,6 +12,11 @@
 
 
 /**
+ Returns the shared singelton licenseData class
+ */
++(KTLicenseData*)sharedLicenseData;
+
+/**
  In case of  invalid license this error contains a error text with more specific information
  */
 -(NSError*)licenseError;
@@ -24,11 +29,10 @@
 -(BOOL)isValidLicense;
 
 /**
- Inits a periodic timer
+ Force treading of license data. Call this first after set API Key and API URL
  */
--(void)initReading;
+-(void)readLicenceData;
 
-+(KTLicenseData*)sharedLicenseData;
 
 /**
  Sets the API URL to check the License

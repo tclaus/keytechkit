@@ -20,8 +20,14 @@
 -(void)queryByPredicate:(NSPredicate*)predicate inClasses:(NSArray*)inClasses paged:(KTPagedObject*)pagedObject
                   block:(void(^)(NSArray* results))block
                 failure:(void(^)(NSError *error))failure{
-
-   // [self cancelSearches];
+    
+    if (![KTLicenseData sharedLicenseData].isValidLicense) {
+        NSError *error = [KTLicenseData sharedLicenseData].licenseError;
+        if (failure) {
+            failure(error);
+        }
+        return;
+    }
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
@@ -51,7 +57,7 @@
         rpcData[@"page"] = @((int)pagedObject.page);
         rpcData[@"size"] = @((int)pagedObject.size);
     }
-
+    
     
     [manager getObject:nil path:resourcePath parameters:rpcData
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
@@ -62,13 +68,13 @@
                    }
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                  
+                   
                    NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
                    
                    if (failure) {
                        failure(transcodedError);
                    }
-
+                   
                }];
     
 }
@@ -84,6 +90,14 @@
 -(void)queryByText:(NSString *)queryText inClasses:(NSArray *)inClasses paged:(KTPagedObject *)pagedObject
              block:(void (^)(NSArray *))block
            failure:(void(^)(NSError *error))failure{
+    
+    if (![KTLicenseData sharedLicenseData].isValidLicense) {
+        NSError *error = [KTLicenseData sharedLicenseData].licenseError;
+        if (failure) {
+            failure(error);
+        }
+        return;
+    }
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
@@ -123,10 +137,10 @@
                    if (failure) {
                        failure(transcodedError);
                    }
-
+                   
                }];
     
-
+    
     
 }
 
@@ -137,11 +151,19 @@
                    failure:(void (^)(NSError *))failure
 {
     
+    if (![KTLicenseData sharedLicenseData].isValidLicense) {
+        NSError *error = [KTLicenseData sharedLicenseData].licenseError;
+        if (failure) {
+            failure(error);
+        }
+        return;
+    }
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     [KTElement mappingWithManager:manager];
     [KTSearchengineResult mappingWithManager:[RKObjectManager sharedManager]];
-
+    
     NSString *resourcePath = @"Searchengine";
     
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
@@ -151,7 +173,7 @@
     if (fileContentText) { // server will search this text in more than one attribute at once. Look at the server configuration
         rpcData[@"q"] = fileContentText;
     }
-   
+    
     
     if (pagedObject) {
         rpcData[@"page"] = @((int)pagedObject.page);
@@ -167,7 +189,7 @@
                    }
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-
+                   
                    NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
                    
                    if (failure) {
@@ -185,7 +207,17 @@
 -(void)queryByStoredSearch:(NSInteger)storedQueryID paged:(KTPagedObject *)pagedObject
                      block:(void (^)(NSArray *))block
                    failure:(void(^)(NSError *error))failure{
-/// Stats a Search by its queryID
+    
+    /// Stats a Search by its queryID
+    
+    
+    if (![KTLicenseData sharedLicenseData].isValidLicense) {
+        NSError *error = [KTLicenseData sharedLicenseData].licenseError;
+        if (failure) {
+            failure(error);
+        }
+        return;
+    }
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTElement mappingWithManager:[RKObjectManager sharedManager]];
@@ -208,15 +240,15 @@
                    
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-// Important: Error handler
-
+                   // Important: Error handler
                    
-                    NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
                    
-                       if (failure) {
-                           failure(transcodedError);
-                       }
-
+                   NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                   
+                   if (failure) {
+                       failure(transcodedError);
+                   }
+                   
                }];
     
 }
@@ -225,3 +257,9 @@
 
 
 @end
+
+
+
+
+
+

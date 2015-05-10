@@ -323,7 +323,7 @@ return transcodedError;
 
     [[KTLicenseData sharedLicenseData] setAPIURL:self.servername];
     [[KTLicenseData sharedLicenseData] setAPILicenseKey:clientKey];
-    [[KTLicenseData sharedLicenseData] initReading];
+    [[KTLicenseData sharedLicenseData] readLicenceData];
     
 }
 @end

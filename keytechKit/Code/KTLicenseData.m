@@ -24,7 +24,7 @@ static NSString * const kSDFParseAPIKey = @"fdB5jQ8x1gOF2ruzjzfMJdqVrWYYZkJuN2fp
     
     /// Latest datetime when the license was checked
     NSDate* _lastLicenceCheck;
-
+    
     NSError* _failureError;
     dispatch_source_t timer;
     
@@ -90,84 +90,35 @@ static KTLicenseData* _sharedLicense;
     // Wenn bereits eingelesen, UND gültig => reload hat eine niedrige Priorität (1x pro stunde)
     // Wenn Server nicht erreichbar oder negative Antwort, dann höherer Priorität (1-2 Minuten)
     
-    [self initializeTimer];
     
     if (!self.isLoaded) {
         [self readLicenceData];
         return _lastEvaluatedValue;
     }
     
-
+    
+    // Re-read License data
     if (_lastLicenceCheck) {
         
-    
-    NSDateComponents *lastCheck =
-    [[self calendar] components:NSMinuteCalendarUnit fromDate:_lastLicenceCheck];
-    
-    NSDateComponents *current =
-    [[self calendar] components:NSMinuteCalendarUnit fromDate:[NSDate date]];
-    
-    
-    if (lastCheck.minute - current.minute >2 || lastCheck.minute - current.minute <-2 ) {
-        [self readLicenceData];
-    }
+        
+        NSDateComponents *lastCheck =
+        [[self calendar] components:NSMinuteCalendarUnit fromDate:_lastLicenceCheck];
+        
+        NSDateComponents *current =
+        [[self calendar] components:NSMinuteCalendarUnit fromDate:[NSDate date]];
+        
+        
+        if (lastCheck.minute - current.minute >2 || lastCheck.minute - current.minute <-2 || _lastEvaluatedValue == NO) {
+            [self readLicenceData];
+        }
     }
     
     return _lastEvaluatedValue;
 }
 
--(void)initReading{
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        
-        [self initializeTimer];
-    });
-    
-}
 
--(void)initializeTimer{
-    static bool latestValue;
-    static bool timerDidStart = NO;
-    
-    int timeValue = 60;
-    
-    if (!timer) {
-             timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, nil);
-    }
-    
-    if (_lastEvaluatedValue  ) {
-        // Check 1x per hour
-        timeValue = 120;
 
-    } else {
-        // Check 1x per minute
-        timeValue = 60;
-    }
-    
-    
-    if (_lastEvaluatedValue != latestValue) {
-        dispatch_source_set_timer(timer, DISPATCH_TIME_NOW,  timeValue * NSEC_PER_SEC, timeValue * NSEC_PER_SEC);
-        latestValue = _lastEvaluatedValue;
-    }
 
-    if (!timerDidStart) {
-        [self startTimer];
-        timerDidStart = YES;
-    }
-    
-}
--(void)startTimer{
-    
-    dispatch_source_set_event_handler(timer, ^{
-        // Check for Code
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self readLicenceData];
-        });
-        
-    });
-    dispatch_resume(timer);
-}
 
 /// Makes the needed Checks
 -(bool)checkLicenseData{
@@ -187,18 +138,18 @@ static KTLicenseData* _sharedLicense;
         
         if ([self.targetURL containsString:@"*"]) {
             // Check for a star
-        
-        NSString *checkURL;
-        checkURL= [self.targetURL stringByReplacingOccurrencesOfString:@"http://" withString:@""
-                                                                options:NSCaseInsensitiveSearch
-                                                                  range:NSMakeRange(0,self.targetURL.length)];
-        
-        checkURL= [checkURL stringByReplacingOccurrencesOfString:@"https://"
-                                                             withString:@""
-                                                                options:NSCaseInsensitiveSearch
-                                                                  range:NSMakeRange(0,checkURL.length)];
-        
-        checkURL = [checkURL stringByReplacingOccurrencesOfString:@"*." withString:@""];
+            
+            NSString *checkURL;
+            checkURL= [self.targetURL stringByReplacingOccurrencesOfString:@"http://" withString:@""
+                                                                   options:NSCaseInsensitiveSearch
+                                                                     range:NSMakeRange(0,self.targetURL.length)];
+            
+            checkURL= [checkURL stringByReplacingOccurrencesOfString:@"https://"
+                                                          withString:@""
+                                                             options:NSCaseInsensitiveSearch
+                                                               range:NSMakeRange(0,checkURL.length)];
+            
+            checkURL = [checkURL stringByReplacingOccurrencesOfString:@"*." withString:@""];
             
             // Finaly compare last Suffix
             if (![_APIURL.uppercaseString  hasSuffix:checkURL.uppercaseString]) {
@@ -275,7 +226,7 @@ static KTLicenseData* _sharedLicense;
         _failureError = [NSError errorWithDomain:@"License" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Your license is expired."}];
         return NO;
     }
-   
+    
     return YES;
     
 }
@@ -292,7 +243,7 @@ static KTLicenseData* _sharedLicense;
     }
     
     NSURL *URL = [NSURL URLWithString:[kSDFParseAPIBaseURLString stringByAppendingString:@"classes/LicenseKeys/"]];
-
+    
     // Add LicenseKey
     URL = [URL URLByAppendingPathComponent:_APILicenseKey];
     
@@ -345,7 +296,7 @@ static KTLicenseData* _sharedLicense;
     // Ende - Datum: Leer (nil) oder ein Datum zb 1.1.2022
     
     _isLoaded = YES;
-
+    
     if ([licenceData[@"isActive"] isEqual:[NSNumber numberWithBool:YES]]){
         _isActive = YES;
     } else {
@@ -367,7 +318,7 @@ static KTLicenseData* _sharedLicense;
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     _endDate = [dateFormatter dateFromString:dateString];
     
-    // remember last read
+    // remember last read date
     _lastLicenceCheck = [NSDate date];
     
     // Check read data
