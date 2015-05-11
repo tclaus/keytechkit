@@ -10,6 +10,9 @@
 #import "KTPagedObject.h"
 #import "KTElement.h"
 
+
+
+
 /**
  Starts a Query to the API by using the search ressouces.
  A simple search can only have a text value or a complex assembled search query on a predicates base.
@@ -78,6 +81,14 @@
                      block:(void(^)(NSArray* results))block
                    failure:(void(^)(NSError *error))failure;
 
+/**
+ Cancels all pending queries and invalides the result
+ */
+-(void)cancelSearches;
+
 @end
+
+
+
 
 

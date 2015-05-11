@@ -254,7 +254,9 @@
 }
 
 
-
+-(void)cancelSearches{
+    // TODO: Cancel queries
+}
 
 @end
 

@@ -10,7 +10,6 @@
 #import "KTManager.h"
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
-#import "keytechKit/KTSystemManagement.h"
 #import "KTGlobalSettingContext.h"
 
 @interface testGlobalSettings : XCTestCase

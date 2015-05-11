@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Claus-Software. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 #import "KTUser.h"
 #import "KTManager.h"

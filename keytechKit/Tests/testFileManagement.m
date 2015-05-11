@@ -115,7 +115,7 @@ NSTimeInterval _timeOut = 12;
         newFile.fileStorageType = FileTypeMaster;
         
         NSURL *fileURL = [self urlForFixture:@"Aerial04.jpg"];
-        [newFile saveFileInBackground:fileURL];
+        [newFile saveFile:fileURL success:nil failure:nil];
         
         //
     } failure:^(KTElement *element, NSError *error) {

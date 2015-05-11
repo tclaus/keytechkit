@@ -7,7 +7,6 @@
 //  Copyright (c) 2014 Claus-Software. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 #import "KTManager.h"
 #import "KTQuery.h"
@@ -141,7 +140,7 @@
     XCTAssert(YES, @"Pass");
 }
 
-
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 
 - (void)testQueryByPredicateLesserThanDate{
     
@@ -152,6 +151,7 @@
     // Date field lesser than
     
     NSPredicate *predicateDateLesserThan = [NSPredicate predicateWithFormat:@"created_at < %@",@"/Date(1411828338000)/"];
+    
     
     [query queryByPredicate:predicateDateLesserThan inClasses:nil paged:_pagedObject block:^(NSArray *results) {  // 'keytech' exist in most databases
         [queryExpectation fulfill];
@@ -176,7 +176,9 @@
     }];
     
 }
+#endif
 
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 - (void)testQueryByPredicateGreaterThanDate{
     // Date field greater than
     
@@ -206,8 +208,9 @@
         }
     }];
 }
+#endif
 
-
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 - (void)testQueryByPredicateItemNameEquals{
     
     XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
@@ -240,7 +243,8 @@
     }];
     
 }
-
+#endif
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 - (void)testQueryByPredicateBeginsWith{
     XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
@@ -273,7 +277,8 @@
     
     
 }
-
+#endif
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 - (void)testQueryByPredicateEndsWith{
     XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
@@ -306,7 +311,8 @@
     
     
 }
-
+#endif
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 - (void)testQueryByPredicateContains{
     XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
@@ -339,6 +345,7 @@
     
     
 }
+#endif
 
 - (void)testQueryWithPagedObject {
     

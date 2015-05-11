@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "KTLicenseData.h"
-#import <KTServerInfo.h>
+#import "KTServerInfo.h"
 
 static NSString * const kSDFParseAPIBaseURLString = @"https://api.parse.com/1/";
 

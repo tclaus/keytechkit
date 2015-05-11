@@ -8,7 +8,6 @@
 
 #import <XCTest/XCTest.h>
 #import "KTManager.h"
-#import "KTSystemManagement.h"
 
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
