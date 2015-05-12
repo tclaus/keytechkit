@@ -38,10 +38,12 @@
  Sets the API URL to check the License
  */
 -(void)setAPIURL:(NSString*)APIURL;
+
+
 /**
  Sets the APi license key. Needs to be set before any other methos is called
  */
--(void)setAPILicenseKey:(NSString*)APILicenseKey;
+@property (copy,nonatomic) NSString* APILicenseKey;
 
 
 @property (readonly) BOOL isLoaded;

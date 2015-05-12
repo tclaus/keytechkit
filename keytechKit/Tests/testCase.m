@@ -12,6 +12,10 @@
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 
+
+static NSString * const kTESTAPIKey = @"0Bai9DsRDQ";
+
+
 @implementation testCase
 
 + (void)setUp{
@@ -22,6 +26,9 @@
     //webservice.servername = @"http://claus-pc.keytech.de:8080/keytech";
     webservice.username = @"jgrant";
     [webservice synchronizeServerCredentials];
+    [[KTServerInfo sharedServerInfo] waitUnitlLoad];
+    
+    [webservice setLicenceKey:kTESTAPIKey];
     
 }
 

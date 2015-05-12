@@ -51,6 +51,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     elementKeyItem = @"DEFAULT_MI:2088";  //* Represents an item with bom structure
     elementKeyWithStateWork = @"3DMISC_SLDPRT:2133";
     elementKeyWithBOM = @"DEFAULT_MI:2007";
+    
 }
 
 - (void)tearDown
@@ -61,28 +62,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
 
 
 #pragma mark Getting data collections
-/**
- Observes for  KVO value changing
- */
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
-    awaitingResponse = NO;
-}
-/**
- Waits until KVO signals datareceive
- */
-- (void)waitForResponse {
-    awaitingResponse = YES;
-    NSDate *startDate = [NSDate date];
-    
-    NSLog(@"%@ Awaiting response loaded from for %f seconds...", self, _timeout);
-    while (awaitingResponse) {
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        if ([[NSDate date] timeIntervalSinceDate:startDate] > _timeout) {
-            NSLog(@"*** Operation timed out after %f seconds...",_timeout);
-            awaitingResponse = NO;
-        }
-    }
-}
+
 
 #pragma mark Simple tests
 
@@ -196,14 +176,15 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     [KTElement loadElementWithKey:elementKeyWithStructure withMetaData:KTResponseFullAttributes
                           success:^(KTElement *theElement) {
+                              
                               _theElement =theElement;
                               if (_theElement.keyValueList.count==0){
                                   XCTFail(@"Element key value list was empty. A full keyvalue list was expcted");
                               }
-                              
                               [expectation fulfill];
                           } failure:^(NSError *error) {
-                              
+                              XCTFail(@"Element key value list was empty. A full keyvalue list was expcted");
+                              [expectation fulfill];
                           }] ;
     
     
@@ -388,15 +369,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     NSMutableArray* structure =  item.itemNextAvailableStatusList;
     
-    [item addObserver:self forKeyPath:@"itemNextAvailableStatusList" options:NSKeyValueObservingOptionNew context:nil];
-    
-    [self waitForResponse];
-    [item removeObserver:self forKeyPath:@"itemNextAvailableStatusList" context:nil];
-    
-    XCTAssertNotNil(structure, @"itemNextAvailableStatusList should not be nil");
-    
-    // Maybe the user dont have the right to make a status change
-    // XCTAssertTrue(structure.count>0, @"itemNextAvailableStatusList should have some items");
+
     
 }
 
@@ -417,8 +390,8 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         [documentOpenExpectation fulfill];
         
     } failure:^(NSError *error) {
-        [documentOpenExpectation fulfill];
         XCTFail(@"Failed with: %@",error);
+        [documentOpenExpectation fulfill];
     }];
     
     [self waitForExpectationsWithTimeout:8 handler:^(NSError *error) {
@@ -445,14 +418,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     image=nil;
     
-    [item addObserver:self forKeyPath:@"itemThumbnail" options:NSKeyValueObservingOptionNew context:nil];
-    
-    [self waitForResponse];
-    
-    [item removeObserver:self forKeyPath:@"itemThumbnail" context:nil];
-    
-    XCTAssertNotNil(item.itemThumbnail, @" Image should return a meaningful image in any case");
-    
+ 
 }
 
 
@@ -513,8 +479,8 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         
     } failure:^(KTElement *element, NSError *error) {
         NSLog(@"Creation failed");
-        [elementSavedExpectation fulfill];
         XCTFail(@"Could not store a new element");
+        [elementSavedExpectation fulfill];
     }];
     
         [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {

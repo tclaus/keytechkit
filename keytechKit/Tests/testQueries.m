@@ -68,6 +68,7 @@
     } failure:^(NSError *error) {
         [queryExpectation fulfill];
         XCTFail(@"Error while waiting for data: %@",error);
+        
     }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {

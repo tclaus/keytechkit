@@ -26,11 +26,11 @@ static NSString * const kSDFParseAPIKey = @"fdB5jQ8x1gOF2ruzjzfMJdqVrWYYZkJuN2fp
     NSDate* _lastLicenceCheck;
     
     NSError* _failureError;
-    dispatch_source_t timer;
     
-    NSMutableData *parseLicenseData;
+    NSMutableData *licenseData;
 }
 
+@dynamic APILicenseKey;
 
 static KTLicenseData* _sharedLicense;
 
@@ -39,7 +39,7 @@ static KTLicenseData* _sharedLicense;
     self = [super init];
     if (self) {
         _isLoaded = NO;
-        parseLicenseData = [[NSMutableData alloc]init];
+        licenseData = [[NSMutableData alloc]init];
     }
     return self;
 }
@@ -55,11 +55,17 @@ static KTLicenseData* _sharedLicense;
 
 //TODO: Send notification every X minutes, if no licence code
 -(void)setAPIURL:(NSString *)APIURL{
-    _APIURL = [APIURL copy];
+    _APIURL = APIURL;
 }
 
+-(NSString *)APILicenseKey{
+    return _APILicenseKey;
+}
+
+
 -(void)setAPILicenseKey:(NSString *)APILicenseKey{
-    _APILicenseKey =[APILicenseKey copy];
+    _APILicenseKey =APILicenseKey;
+    _isLoaded = NO;
 }
 
 -(NSError*)licenseError{
@@ -93,7 +99,22 @@ static KTLicenseData* _sharedLicense;
     
     if (!self.isLoaded) {
         [self readLicenceData];
+        // warte ein paar sekunden..
+#define POLL_INTERVAL 0.2 // 200ms
+#define N_SEC_TO_POLL 10.0 // poll for 3s
+#define MAX_POLL_COUNT N_SEC_TO_POLL / POLL_INTERVAL
+        
+        NSUInteger pollCount = 0;
+        while (!self.isLoaded && (pollCount < MAX_POLL_COUNT)) {
+            NSDate* untilDate = [NSDate dateWithTimeIntervalSinceNow:POLL_INTERVAL];
+            [[NSRunLoop currentRunLoop] runUntilDate:untilDate];
+            pollCount++;
+        }
+        
+        
         return _lastEvaluatedValue;
+        
+        
     }
     
     
@@ -123,9 +144,11 @@ static KTLicenseData* _sharedLicense;
 /// Makes the needed Checks
 -(bool)checkLicenseData{
     
+    _failureError = nil;
+    
     // Check for general availability
     if (!self.isActive) {
-        _failureError = [NSError errorWithDomain:@"License" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Your license was deactivated."}];
+        _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Your license was deactivated."}];
         return NO;
     }
     
@@ -154,7 +177,7 @@ static KTLicenseData* _sharedLicense;
             // Finaly compare last Suffix
             if (![_APIURL.uppercaseString  hasSuffix:checkURL.uppercaseString]) {
                 // Matches part of API
-                _failureError = [NSError errorWithDomain:@"License" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Your license does not match to the server URL."}];
+                _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Your keytech-SDK URL does not match to the server URL."}];
                 return NO;
             }
             
@@ -162,7 +185,7 @@ static KTLicenseData* _sharedLicense;
         } else {
             // Check for exact match
             if ([self.targetURL compare:_APIURL options:NSCaseInsensitiveSearch] != NSOrderedSame) {
-                _failureError = [NSError errorWithDomain:@"License" code:0 userInfo:@{NSLocalizedDescriptionKey:@"our license does not match to the server URL."}];
+                _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"our license does not match to the server URL."}];
                 return NO;
             }
         }
@@ -187,7 +210,7 @@ static KTLicenseData* _sharedLicense;
             
             // License: >13.1.2, API: 13.1.2, 13.2.2, 14.xx but not lower than 13.1.2
             if (result == NSOrderedDescending) {
-                _failureError = [NSError errorWithDomain:@"License" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Your license needs a higher API version. "}];
+                _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Your license needs a higher API version. "}];
                 return NO;
             }
             
@@ -199,7 +222,7 @@ static KTLicenseData* _sharedLicense;
             
             // License: >13.1.2, API: 13.1.2, 13.2.2, 14.xx but not lower than 13.1.2
             if (result == NSOrderedDescending) {
-                _failureError = [NSError errorWithDomain:@"License" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Your license needs a higher API version."}];
+                _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Your license needs a higher API version."}];
                 return NO;
             }
             // Get Main Version Number
@@ -207,7 +230,7 @@ static KTLicenseData* _sharedLicense;
             NSString *licenceVersion =[strippedAPIVersion componentsSeparatedByString:@"."][0];
             
             if ([mainVersionNumberOfAPI compare:licenceVersion] == NSOrderedDescending) {
-                _failureError = [NSError errorWithDomain:@"License" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Your license is invalid for this major version number. Need a lower major version number."}];
+                _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Your license is invalid for this major version number. Need a lower major version number."}];
                 return NO;
             }
             
@@ -223,7 +246,7 @@ static KTLicenseData* _sharedLicense;
     
     // Check for termination Date
     if ([self.endDate compare:[NSDate date]]== NSOrderedAscending) {
-        _failureError = [NSError errorWithDomain:@"License" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Your license is expired."}];
+        _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Your license is expired."}];
         return NO;
     }
     
@@ -235,10 +258,10 @@ static KTLicenseData* _sharedLicense;
 -(void)readLicenceData{
     
     if (!_APILicenseKey) {
-        NSLog(@"Need to set a API Licence Key first");
+        NSLog(@"Need to set an API Licence Key first");
         _isLoaded = YES;
-        NSException *invalidParameter = [NSException exceptionWithName:@"API key was empty" reason:@"API to set APILicenceKey first. Use [KTmanager sharedManager]setLicenceKey:licenceKey " userInfo:nil];
-        [invalidParameter raise];
+         _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"To use the SDK you need an API Key"}];
+        
         return;
     }
     
@@ -251,13 +274,14 @@ static KTLicenseData* _sharedLicense;
     [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [urlRequest addValue:kSDFParseAPIApplicationId forHTTPHeaderField:@"X-Parse-Application-Id"];
     [urlRequest addValue:kSDFParseAPIKey forHTTPHeaderField:@"X-Parse-REST-API-Key"];
-    
     [urlRequest setHTTPMethod:@"GET"];
+    
+    urlRequest.timeoutInterval = 10;
     
     
     // KTSendNotifications *connectionDelegate = [[KTSendNotifications alloc]init];
     _isLoaded = NO;
-    [parseLicenseData setData:nil];
+    [licenseData setData:nil];
     [NSURLConnection connectionWithRequest:urlRequest delegate:self];
     
 }
@@ -268,24 +292,24 @@ static KTLicenseData* _sharedLicense;
 
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
-    if (!parseLicenseData) {
-        parseLicenseData = [[NSMutableData alloc]initWithData:data];
+    if (!licenseData) {
+        licenseData = [[NSMutableData alloc]initWithData:data];
     } else {
-        [parseLicenseData appendData:data];
+        [licenseData appendData:data];
     }
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
     
     NSError* error;
-    NSDictionary* licenceData = [NSJSONSerialization JSONObjectWithData:parseLicenseData
+    NSDictionary* licenceData = [NSJSONSerialization JSONObjectWithData:licenseData
                                                                 options:kNilOptions
                                                                   error:&error];
     
     
     if (!licenceData) {
         _lastEvaluatedValue = NO;
-        _failureError = [NSError errorWithDomain:@"License" code:100 userInfo:@{NSLocalizedDescriptionKey:@"Invalid license key."}];
+        _failureError = [NSError errorWithDomain:@"keytech SDK" code:100 userInfo:@{NSLocalizedDescriptionKey:@"Invalid license key."}];
     }
     
     // Elaubt, wenn :

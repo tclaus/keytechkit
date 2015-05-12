@@ -76,6 +76,8 @@
 -(void)loadWithSuccess:(void(^)(KTServerInfo* serverInfo))success failure:(void(^)(NSError *error))failure;
 
 
+-(void)waitUnitlLoad;
+
 @end
 
 
