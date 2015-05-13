@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface testCase : NSObject
+@interface TestDefaults : NSObject
 
 /// Initializes the API communication layer
-+(void)setUp;
+-(void)setUp;
 
 @end

@@ -18,9 +18,16 @@ static NSString * const kSDFParseAPIKey = @"fdB5jQ8x1gOF2ruzjzfMJdqVrWYYZkJuN2fp
 @implementation KTLicenseData{
     
 @private
+    
+    BOOL _isloading;
+    BOOL _forceReload;
+    
     BOOL _lastEvaluatedValue;
     NSString* _APIURL;
     NSString* _APILicenseKey;
+    
+    NSURLConnection *URLconnection;
+    
     
     /// Latest datetime when the license was checked
     NSDate* _lastLicenceCheck;
@@ -28,27 +35,30 @@ static NSString * const kSDFParseAPIKey = @"fdB5jQ8x1gOF2ruzjzfMJdqVrWYYZkJuN2fp
     NSError* _failureError;
     
     NSMutableData *licenseData;
+
 }
 
 @dynamic APILicenseKey;
 
-static KTLicenseData* _sharedLicense;
+
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        _isLoaded = NO;
         licenseData = [[NSMutableData alloc]init];
     }
     return self;
 }
 
 +(KTLicenseData *)sharedLicenseData{
+     static KTLicenseData* _sharedLicense = nil;
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedLicense = [[KTLicenseData alloc]init];
+        _sharedLicense = [[self alloc]init];
     });
+    NSLog(@"license: %@",_sharedLicense);
     return _sharedLicense;
     
 }
@@ -65,7 +75,8 @@ static KTLicenseData* _sharedLicense;
 
 -(void)setAPILicenseKey:(NSString *)APILicenseKey{
     _APILicenseKey =APILicenseKey;
-    _isLoaded = NO;
+    _forceReload = YES;
+    [self readLicenceData];
 }
 
 -(NSError*)licenseError{
@@ -97,20 +108,26 @@ static KTLicenseData* _sharedLicense;
     // Wenn Server nicht erreichbar oder negative Antwort, dann höherer Priorität (1-2 Minuten)
     
     
-    if (!self.isLoaded) {
-        [self readLicenceData];
-        // warte ein paar sekunden..
+    if (_isloading) {
+        
+        @synchronized(self){
+            if (_isloading) {
+                
+                
+                [self readLicenceData];
+                // warte ein paar sekunden..
 #define POLL_INTERVAL 0.2 // 200ms
 #define N_SEC_TO_POLL 10.0 // poll for 3s
 #define MAX_POLL_COUNT N_SEC_TO_POLL / POLL_INTERVAL
-        
-        NSUInteger pollCount = 0;
-        while (!self.isLoaded && (pollCount < MAX_POLL_COUNT)) {
-            NSDate* untilDate = [NSDate dateWithTimeIntervalSinceNow:POLL_INTERVAL];
-            [[NSRunLoop currentRunLoop] runUntilDate:untilDate];
-            pollCount++;
+                
+                NSUInteger pollCount = 0;
+                while (_isloading && (pollCount < MAX_POLL_COUNT)) {
+                    NSDate* untilDate = [NSDate dateWithTimeIntervalSinceNow:POLL_INTERVAL];
+                    [[NSRunLoop currentRunLoop] runUntilDate:untilDate];
+                    pollCount++;
+                }
+            }
         }
-        
         
         return _lastEvaluatedValue;
         
@@ -159,34 +176,49 @@ static KTLicenseData* _sharedLicense;
         // compare: http://*.keytech.de with http://demo.keytech.de
         // *.keytech.de
         
-        if ([self.targetURL containsString:@"*"]) {
-            // Check for a star
+        NSArray *urlList = [self.targetURL componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]];
+        
+        for (NSString* aURL in urlList) {
             
-            NSString *checkURL;
-            checkURL= [self.targetURL stringByReplacingOccurrencesOfString:@"http://" withString:@""
-                                                                   options:NSCaseInsensitiveSearch
-                                                                     range:NSMakeRange(0,self.targetURL.length)];
-            
-            checkURL= [checkURL stringByReplacingOccurrencesOfString:@"https://"
-                                                          withString:@""
-                                                             options:NSCaseInsensitiveSearch
-                                                               range:NSMakeRange(0,checkURL.length)];
-            
-            checkURL = [checkURL stringByReplacingOccurrencesOfString:@"*." withString:@""];
-            
-            // Finaly compare last Suffix
-            if (![_APIURL.uppercaseString  hasSuffix:checkURL.uppercaseString]) {
-                // Matches part of API
-                _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Your keytech-SDK URL does not match to the server URL."}];
-                return NO;
+            if ([aURL hasPrefix:@"!"]) {
+                // Ausschluss
+                if ([aURL hasSuffix:_APIURL]) {
+                    // Nicht für diesen Server!
+                    _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"your license is invalid."}];
+                    return NO;
+                }
+
             }
             
-            
-        } else {
-            // Check for exact match
-            if ([self.targetURL compare:_APIURL options:NSCaseInsensitiveSearch] != NSOrderedSame) {
-                _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"our license does not match to the server URL."}];
-                return NO;
+            if ([aURL containsString:@"*"]) {
+                // Check for a star
+                
+                NSString *checkURL;
+                checkURL= [aURL stringByReplacingOccurrencesOfString:@"http://" withString:@""
+                                                             options:NSCaseInsensitiveSearch
+                                                               range:NSMakeRange(0,aURL.length)];
+                
+                checkURL= [checkURL stringByReplacingOccurrencesOfString:@"https://"
+                                                              withString:@""
+                                                                 options:NSCaseInsensitiveSearch
+                                                                   range:NSMakeRange(0,checkURL.length)];
+                
+                checkURL = [checkURL stringByReplacingOccurrencesOfString:@"*." withString:@""];
+                
+                // Finaly compare last Suffix
+                if (![_APIURL.uppercaseString  hasSuffix:checkURL.uppercaseString]) {
+                    // Matches part of API
+                    _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Your keytech-SDK URL does not match to the server URL."}];
+                    return NO;
+                }
+                
+                
+            } else {
+                // Check for exact match
+                if ([aURL compare:_APIURL options:NSCaseInsensitiveSearch] != NSOrderedSame) {
+                    _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"our license does not match to the server URL."}];
+                    return NO;
+                }
             }
         }
         
@@ -259,12 +291,38 @@ static KTLicenseData* _sharedLicense;
     
     if (!_APILicenseKey) {
         NSLog(@"Need to set an API Licence Key first");
-        _isLoaded = YES;
-         _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"To use the SDK you need an API Key"}];
+        _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"To use the SDK you need an API Key"}];
         
         return;
     }
+    if (!_forceReload) {
+        
+        
+        if (!_isloading) {
+            
+            if (_lastLicenceCheck) {
+                
+                
+                NSDateComponents *lastCheck =
+                [[self calendar] components:NSMinuteCalendarUnit fromDate:_lastLicenceCheck];
+                
+                NSDateComponents *current =
+                [[self calendar] components:NSMinuteCalendarUnit fromDate:[NSDate date]];
+                
+                
+                if (lastCheck.minute - current.minute <=2 && lastCheck.minute - current.minute >=-2) {
+                    return;
+                }
+            }
+        }
+        
+        } else {
+            _forceReload = NO;
+        }
+        
+    _isloading =YES;
     
+
     NSURL *URL = [NSURL URLWithString:[kSDFParseAPIBaseURLString stringByAppendingString:@"classes/LicenseKeys/"]];
     
     // Add LicenseKey
@@ -277,16 +335,22 @@ static KTLicenseData* _sharedLicense;
     [urlRequest setHTTPMethod:@"GET"];
     
     urlRequest.timeoutInterval = 10;
-    
-    
-    // KTSendNotifications *connectionDelegate = [[KTSendNotifications alloc]init];
-    _isLoaded = NO;
+
     [licenseData setData:nil];
-    [NSURLConnection connectionWithRequest:urlRequest delegate:self];
+    
+    if (!URLconnection) {
+        URLconnection = [NSURLConnection connectionWithRequest:urlRequest delegate:self];
+    } else {
+        [URLconnection cancel];
+        
+        URLconnection = [NSURLConnection connectionWithRequest:urlRequest delegate:self];
+    }
     
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    _isloading=NO;
+
     NSLog(@"Failed reading licencedata with error: %@",error.localizedDescription);
 }
 
@@ -300,6 +364,8 @@ static KTLicenseData* _sharedLicense;
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
+    
+ 
     
     NSError* error;
     NSDictionary* licenceData = [NSJSONSerialization JSONObjectWithData:licenseData
@@ -319,15 +385,13 @@ static KTLicenseData* _sharedLicense;
     //          GEM: Most of the version specifiers, like >= 1.0, are self-explanatory. The specifier ~> has a special meaning, best shown by example. ~> 2.0.3 is identical to >= 2.0.3 and < 2.1. ~> 2.1 is identical to >= 2.1 and < 3.0. ~> 2.2.beta will match prerelease versions like 2.2.beta.12.
     // Ende - Datum: Leer (nil) oder ein Datum zb 1.1.2022
     
-    _isLoaded = YES;
+    
     
     if ([licenceData[@"isActive"] isEqual:[NSNumber numberWithBool:YES]]){
         _isActive = YES;
     } else {
         _isActive = NO;
     }
-    
-    
     
     
     _targetURL = licenceData[@"targetURL"]; // * oder "ALL", ein * ersetzt Platzhalter, nil = Nichts erlaubt.
@@ -347,6 +411,9 @@ static KTLicenseData* _sharedLicense;
     
     // Check read data
     _lastEvaluatedValue =  [self checkLicenseData];
+    
+    _isloading = NO;
+ 
     
 }
 

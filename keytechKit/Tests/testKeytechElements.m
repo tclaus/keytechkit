@@ -10,7 +10,7 @@
 #import "KTManager.h"
 #import "KTElement.h"
 #import "testResponseLoader.h"
-#import "testCase.h"
+#import "TestDefaults.h"
 
 @interface testKeytechElements : XCTestCase
 
@@ -25,11 +25,9 @@
     NSString* elementKeyWithStatusHistory;// = @"3dmisc_sldprt:2156"; //* Element with some status changed´s in the past. Will provide a status history
     NSString* elementKeyWithStateWork; // = 3DMISC_SLDPRT:2133 // Sollte "In Arbeit" sein.
     NSString* elementKeyItem; //* DEFAULT_MI:2088  // Item with BOM List
-    
+    TestDefaults *_testdefaults;
     
 }
-
-KTManager* _webservice;
 
 /**
  supports lazy loading
@@ -41,10 +39,13 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
 - (void)setUp
 {
     [super setUp];
-    [testCase setUp];
+    
+    _testdefaults =[[TestDefaults alloc]init];
+     [_testdefaults setUp];
+     
     // Put setup code here; it will be run once, before the first test case.
     
-    _webservice = [KTManager sharedManager];
+    
     elementKeyWithStructure = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API
     elementKeyWithNotes = @"2DMISC_SLDDRW:2221"; //* Element with notes on Test API
     elementKeyWithStatusHistory = @"3dmisc_sldprt:2156"; //* Element with some status changed´s in the past. Will provide a status history
@@ -122,7 +123,11 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     XCTestExpectation *expectation =[self expectationWithDescription:@"Load invalid element"];
     
     
-    [KTElement loadElementWithKey:@"DummyItem" success:nil failure:^(NSError *error) {
+    [KTElement loadElementWithKey:@"DummyItem" success:^(KTElement* element){
+        XCTFail(@"Shuld not return an element");
+        [expectation fulfill];
+    }
+     failure:^(NSError *error) {
         NSLog(@"Error: %@",error);
         [expectation fulfill];
     }];
@@ -153,8 +158,9 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
                               _theElement =theElement;
                               [expectation fulfill];
                           } failure:^(NSError *error) {
-                              [expectation fulfill];
+                              
                               XCTFail(@"Error loading element: %@",error);
+                              [expectation fulfill];
                           }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
@@ -183,7 +189,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
                               }
                               [expectation fulfill];
                           } failure:^(NSError *error) {
-                              XCTFail(@"Element key value list was empty. A full keyvalue list was expcted");
+                              XCTFail(@"Element key value list was empty. A full keyvalue list was expcted. Error: %@",error);
                               [expectation fulfill];
                           }] ;
     

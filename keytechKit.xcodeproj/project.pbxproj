@@ -169,8 +169,8 @@
 		6527EA8319477EC800A37BDA /* NSString+ClassType.h in Headers */ = {isa = PBXBuildFile; fileRef = 6527EA8019477EC800A37BDA /* NSString+ClassType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6527EA8419477EC800A37BDA /* NSString+ClassType.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527EA8119477EC800A37BDA /* NSString+ClassType.m */; };
 		6527EA8519477EC800A37BDA /* NSString+ClassType.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527EA8119477EC800A37BDA /* NSString+ClassType.m */; };
-		65403C0B18A2778F006D3BE6 /* testCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65403C0A18A2778F006D3BE6 /* testCase.m */; };
-		65403C0C18A2778F006D3BE6 /* testCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65403C0A18A2778F006D3BE6 /* testCase.m */; };
+		65403C0B18A2778F006D3BE6 /* TestDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 65403C0A18A2778F006D3BE6 /* TestDefaults.m */; };
+		65403C0C18A2778F006D3BE6 /* TestDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 65403C0A18A2778F006D3BE6 /* TestDefaults.m */; };
 		65423E1818D5F4550020B294 /* NSPredicate+PredicateKTFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 65423E1618D5F4550020B294 /* NSPredicate+PredicateKTFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65423E1918D5F4550020B294 /* NSPredicate+PredicateKTFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 65423E1718D5F4550020B294 /* NSPredicate+PredicateKTFormat.m */; };
 		6543578F1AFCAAD900A71B43 /* KTLicenseData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6543578E1AFCAAD900A71B43 /* KTLicenseData.m */; };
@@ -520,8 +520,8 @@
 		6508591A189CF0B100399949 /* testUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testUserSettings.m; sourceTree = "<group>"; };
 		6527EA8019477EC800A37BDA /* NSString+ClassType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+ClassType.h"; path = "Categories/NSString+ClassType.h"; sourceTree = "<group>"; };
 		6527EA8119477EC800A37BDA /* NSString+ClassType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+ClassType.m"; path = "Categories/NSString+ClassType.m"; sourceTree = "<group>"; };
-		65403C0918A2778F006D3BE6 /* testCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testCase.h; sourceTree = "<group>"; };
-		65403C0A18A2778F006D3BE6 /* testCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testCase.m; sourceTree = "<group>"; };
+		65403C0918A2778F006D3BE6 /* TestDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestDefaults.h; sourceTree = "<group>"; };
+		65403C0A18A2778F006D3BE6 /* TestDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestDefaults.m; sourceTree = "<group>"; };
 		65423E1618D5F4550020B294 /* NSPredicate+PredicateKTFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSPredicate+PredicateKTFormat.h"; path = "Categories/NSPredicate+PredicateKTFormat.h"; sourceTree = "<group>"; };
 		65423E1718D5F4550020B294 /* NSPredicate+PredicateKTFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSPredicate+PredicateKTFormat.m"; path = "Categories/NSPredicate+PredicateKTFormat.m"; sourceTree = "<group>"; };
 		6543578E1AFCAAD900A71B43 /* KTLicenseData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTLicenseData.m; sourceTree = "<group>"; };
@@ -850,8 +850,8 @@
 				6508591A189CF0B100399949 /* testUserSettings.m */,
 				657E50EF189E76F800CB7859 /* testResponseLoader.h */,
 				657E50F0189E76F800CB7859 /* testResponseLoader.m */,
-				65403C0918A2778F006D3BE6 /* testCase.h */,
-				65403C0A18A2778F006D3BE6 /* testCase.m */,
+				65403C0918A2778F006D3BE6 /* TestDefaults.h */,
+				65403C0A18A2778F006D3BE6 /* TestDefaults.m */,
 				6566467A1B00AEF90007EA7F /* keytechKitFrameworkTests-Bridging-Header.h */,
 				6566467B1B00AEF90007EA7F /* keytechKitTests-Bridging-Header.h */,
 			);
@@ -1479,7 +1479,7 @@
 				6508594B189CF0F500399949 /* testKeytechElements.m in Sources */,
 				65085946189CF0F500399949 /* testClasses.m in Sources */,
 				6508594E189CF0F500399949 /* testUserSettings.m in Sources */,
-				65403C0B18A2778F006D3BE6 /* testCase.m in Sources */,
+				65403C0B18A2778F006D3BE6 /* TestDefaults.m in Sources */,
 				65C86EA31A0BBB9C00AE3F2E /* KTSearchengineResult.m in Sources */,
 				65085948189CF0F500399949 /* testFileManagement.m in Sources */,
 				657E68F419923C76000BC057 /* testSendNotification.m in Sources */,
@@ -1558,7 +1558,7 @@
 				6508593F189CF0F400399949 /* testKeytechElements.m in Sources */,
 				6508593A189CF0F400399949 /* testClasses.m in Sources */,
 				65085942189CF0F400399949 /* testUserSettings.m in Sources */,
-				65403C0C18A2778F006D3BE6 /* testCase.m in Sources */,
+				65403C0C18A2778F006D3BE6 /* TestDefaults.m in Sources */,
 				65C86EA51A0BBB9C00AE3F2E /* KTSearchengineResult.m in Sources */,
 				6508593C189CF0F400399949 /* testFileManagement.m in Sources */,
 				657E68F519923C77000BC057 /* testSendNotification.m in Sources */,

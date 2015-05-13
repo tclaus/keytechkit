@@ -10,10 +10,12 @@
 #import <XCTest/XCTest.h>
 #import "KTManager.h"
 #import "KTQuery.h"
-#import "testCase.h"
+#import "TestDefaults.h"
 #import "KTSearchengineResult.h"
 
-@interface testQueries : XCTestCase
+@interface testQueries : XCTestCase{
+    TestDefaults *_testdefaults;
+}
 
 @end
 
@@ -24,8 +26,13 @@
 
 - (void)setUp {
     [super setUp];
+    
+    _testdefaults =[[TestDefaults alloc]init];
+    [_testdefaults setUp];
+    
+    
     if (!_webservice) {
-        [testCase initialize];
+        [TestDefaults initialize];
         _webservice = [KTManager sharedManager];
     }
     

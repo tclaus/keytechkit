@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Claus-Software. All rights reserved.
 //
 
-#import "testCase.h"
+#import "TestDefaults.h"
 #import <XCTest/XCTest.h>
 #import "KTManager.h"
 #import "Restkit/Restkit.h"
@@ -16,19 +16,18 @@
 static NSString * const kTESTAPIKey = @"0Bai9DsRDQ";
 
 
-@implementation testCase
+@implementation TestDefaults
+-(void)setUp{
 
-+ (void)setUp{
-
-    KTManager* webservice = [KTManager sharedManager];
+  
                              
-    webservice.servername = @"https://demo.keytech.de";
+    [KTManager sharedManager].servername = @"https://demo.keytech.de";
     //webservice.servername = @"http://claus-pc.keytech.de:8080/keytech";
-    webservice.username = @"jgrant";
-    [webservice synchronizeServerCredentials];
+    [KTManager sharedManager].username = @"jgrant";
+    [[KTManager sharedManager]  synchronizeServerCredentials];
     [[KTServerInfo sharedServerInfo] waitUnitlLoad];
     
-    [webservice setLicenceKey:kTESTAPIKey];
+    [[KTManager sharedManager] setLicenceKey:kTESTAPIKey];
     
 }
 

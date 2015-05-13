@@ -46,8 +46,6 @@
 @property (copy,nonatomic) NSString* APILicenseKey;
 
 
-@property (readonly) BOOL isLoaded;
-
 @property (readonly) BOOL isActive;
 @property (readonly,copy) NSString* targetURL;
 @property (readonly,copy) NSString* note;

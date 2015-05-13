@@ -320,7 +320,8 @@ return transcodedError;
 }
 
 -(void)setLicenceKey:(NSString *)clientKey{
-
+    static KTLicenseData* licenseData = nil;
+    licenseData = [KTLicenseData sharedLicenseData];
     [[KTLicenseData sharedLicenseData] setAPIURL:self.servername];
     [[KTLicenseData sharedLicenseData] setAPILicenseKey:clientKey];
     [[KTLicenseData sharedLicenseData] readLicenceData];

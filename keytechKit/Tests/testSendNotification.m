@@ -11,7 +11,7 @@
 #import "KTElement.h"
 #import "KTSendNotifications.h"
 #import "KTManager.h"
-#import "testCase.h"
+#import "TestDefaults.h"
 
 @interface testSendNotification : XCTestCase
 
@@ -25,7 +25,7 @@ static KTElement *testElement;
 
 - (void)setUp {
     [super setUp];
-    [testCase initialize];
+    [TestDefaults initialize];
     
      _webService = [KTManager sharedManager];
     

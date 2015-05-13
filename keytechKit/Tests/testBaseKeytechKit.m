@@ -11,7 +11,7 @@
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 #import  "KTElement.h"
-#import  "testCase.h"
+#import  "TestDefaults.h"
 
 /**
  Basic keytech framework tests.
@@ -30,7 +30,7 @@
     [super setUp];
     
     // Set-up code here.
-    [testCase initialize];
+    [TestDefaults initialize];
     
     // Webservice startet initiale Verbindung zum Dienst
     _webservice = [KTManager sharedManager];

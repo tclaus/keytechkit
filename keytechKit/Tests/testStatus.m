@@ -12,7 +12,7 @@
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 #import "KTStatusItem.h"
-#import "testCase.h"
+#import "TestDefaults.h"
 
 
 @interface testStatus : XCTestCase
@@ -26,7 +26,7 @@
 - (void)setUp
 {
     [super setUp];
-    [testCase initialize];
+    [TestDefaults initialize];
     
     webservice  = [KTManager sharedManager];
     

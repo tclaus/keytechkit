@@ -11,7 +11,7 @@
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 #import "KTLayouts.h"
-#import "testCase.h"
+#import "TestDefaults.h"
 #import "KTLayouts.h"
 
 @interface testLayout : XCTestCase
@@ -21,14 +21,16 @@
 @implementation testLayout
 {
     KTManager* _webservice;
-    
+    TestDefaults* _testcase;
 }
 
 - (void)setUp
 {
     [super setUp];
     // Put setup code here; it will be run once, before the first test case.
-    [testCase setUp];
+    _testcase = [[TestDefaults alloc]init];
+    [_testcase setUp];
+    
     _webservice = [KTManager sharedManager];
     
     

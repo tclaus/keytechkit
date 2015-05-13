@@ -9,7 +9,7 @@
 
 #import <XCTest/XCTest.h>
 #import "KTManager.h"
-#import "testCase.h"
+#import "TestDefaults.h"
 #import "KTLicenseData.h"
 
 @interface testSDKLicenses : XCTestCase
@@ -22,16 +22,21 @@ static NSString * const kSDKTestNotActiveKey = @"RumjV4fgte";
 static NSString * const kSDKTestExpiredKey = @"g5Y1VNKSZn";
 static NSString * const kSDKTestLowVersionKey = @"Ben8FjNs0m";
 static NSString * const kSDKTestHighVersionKey = @"mzv2Gx9mEQ";
-//static NSString * const kSDKTestInvalidURLKey = @"mzv2Gx9mEQ";
+static NSString * const kSDKTestDisabledURLKey = @"1YkADZKQZw"; // URL Disabled by leading !
 
-@implementation testSDKLicenses
+
+@implementation testSDKLicenses{
+    TestDefaults *_testdefaults;
+}
 
 
 - (void)setUp
 {
     [super setUp];
     // Put setup code here; it will be run once, before the first test case.
-    [testCase setUp];
+    _testdefaults =[[TestDefaults alloc]init];
+    [_testdefaults setUp];
+    
     [[KTServerInfo sharedServerInfo]waitUnitlLoad];
 }
 
@@ -44,14 +49,14 @@ static NSString * const kSDKTestHighVersionKey = @"mzv2Gx9mEQ";
 /// Valid API KEy
 -(void)testCheckProductionAPIKey{
     [[KTLicenseData sharedLicenseData] setAPILicenseKey:kSDKProductionKey];
-    XCTAssertTrue([KTLicenseData sharedLicenseData].isValidLicense,@"Production SDK key should be valid: %@",[KTLicenseData sharedLicenseData].licenseError);
+    XCTAssertTrue([KTLicenseData sharedLicenseData].isValidLicense,@"Production SDK key should be valid. Error was: %@",[KTLicenseData sharedLicenseData].licenseError);
     XCTAssertNil([KTLicenseData sharedLicenseData].licenseError,@"Error Object should be nil");
 }
 
 /// Valiud API Key
 -(void)testCheckDevelopAPIKey{
     [[KTLicenseData sharedLicenseData] setAPILicenseKey:kSDKDevelopKey];
-    XCTAssertTrue([KTLicenseData sharedLicenseData].isValidLicense,@"Develop SDK key should be valid: %@",[KTLicenseData sharedLicenseData].licenseError);
+    XCTAssertTrue([KTLicenseData sharedLicenseData].isValidLicense,@"Develop SDK key should be valid.Error was: %@",[KTLicenseData sharedLicenseData].licenseError);
     XCTAssertNil([KTLicenseData sharedLicenseData].licenseError,@"Error Object should be nil");
     NSLog(@"Errortext: %@",[KTLicenseData sharedLicenseData].licenseError);
 }
@@ -59,7 +64,7 @@ static NSString * const kSDKTestHighVersionKey = @"mzv2Gx9mEQ";
 /// Invalid API Key (Expired)
 -(void)testCheckExpiredAPIKey{
     [[KTLicenseData sharedLicenseData] setAPILicenseKey:kSDKTestExpiredKey];
-    XCTAssertFalse([KTLicenseData sharedLicenseData].isValidLicense,@"Expired SDK key should be invalid: %@",[KTLicenseData sharedLicenseData].licenseError);
+    XCTAssertFalse([KTLicenseData sharedLicenseData].isValidLicense,@"Expired SDK key should be invalid");
     XCTAssertNotNil([KTLicenseData sharedLicenseData].licenseError,@"Error Object should not be nil");
     NSLog(@"Errortext: %@",[KTLicenseData sharedLicenseData].licenseError);
 }
@@ -67,7 +72,7 @@ static NSString * const kSDKTestHighVersionKey = @"mzv2Gx9mEQ";
 /// Invalid APi Key (High Version)
 -(void)testCheckHighAPIKey{
     [[KTLicenseData sharedLicenseData] setAPILicenseKey:kSDKTestHighVersionKey];
-    XCTAssertFalse([KTLicenseData sharedLicenseData].isValidLicense,@"High SDK key should be invalid: %@",[KTLicenseData sharedLicenseData].licenseError);
+    XCTAssertFalse([KTLicenseData sharedLicenseData].isValidLicense,@"High SDK key should be invalid");
     XCTAssertNotNil([KTLicenseData sharedLicenseData].licenseError,@"Error Object should not be nil");
     NSLog(@"Errortext: %@",[KTLicenseData sharedLicenseData].licenseError);
     
@@ -76,14 +81,23 @@ static NSString * const kSDKTestHighVersionKey = @"mzv2Gx9mEQ";
 /// Invalid API Key (Low Version)
 -(void)testCheckLowAPIKey{
     [[KTLicenseData sharedLicenseData] setAPILicenseKey:kSDKTestLowVersionKey];
-    XCTAssertFalse([KTLicenseData sharedLicenseData].isValidLicense,@"Low SDK key should be invalid: %@",[KTLicenseData sharedLicenseData].licenseError);
+    XCTAssertFalse([KTLicenseData sharedLicenseData].isValidLicense,@"Low SDK key should be invalid");
+    XCTAssertNotNil([KTLicenseData sharedLicenseData].licenseError,@"Error Object should not be nil");
+    NSLog(@"Errortext: %@",[KTLicenseData sharedLicenseData].licenseError);
+}
+
+-(void)testCheckInvalidURL{
+    [[KTLicenseData sharedLicenseData] setAPILicenseKey:kSDKTestDisabledURLKey];
+    [[KTLicenseData sharedLicenseData] setAPIURL:@"https://demo.keytech.de"];
+    
+    XCTAssertFalse([KTLicenseData sharedLicenseData].isValidLicense,@"URL should be rejected");
     XCTAssertNotNil([KTLicenseData sharedLicenseData].licenseError,@"Error Object should not be nil");
     NSLog(@"Errortext: %@",[KTLicenseData sharedLicenseData].licenseError);
 }
 
 -(void)testCheckInactiveAPIKey{
     [[KTLicenseData sharedLicenseData] setAPILicenseKey:kSDKTestNotActiveKey];
-    XCTAssertFalse([KTLicenseData sharedLicenseData].isValidLicense,@"Inactive SDK key should be invalid: %@",[KTLicenseData sharedLicenseData].licenseError);
+    XCTAssertFalse([KTLicenseData sharedLicenseData].isValidLicense,@"Inactive SDK key should be invalid");
     XCTAssertNotNil([KTLicenseData sharedLicenseData].licenseError,@"Error Object should not be nil");
     NSLog(@"Errortext: %@",[KTLicenseData sharedLicenseData].licenseError);
 }
