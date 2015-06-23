@@ -8,6 +8,7 @@
 
 #import "KTLayouts.h"
 #import "KTManager.h"
+#import "KTBaseObject.h"
 
 @interface KTLayouts() {}
 

@@ -13,6 +13,8 @@
 #import "KTClass.h"
 #import "KTSendNotifications.h"
 #import "KTBomItem.h"
+#import "KTBaseObject.h"
+#import "KTLicenseData.h"
 
 @interface KTElement()
 

@@ -13,7 +13,6 @@
 
 #import "NSPredicate+PredicateKTFormat.h"
 #import "NSString+ClassType.h"
-
 #import "Restkit/restkit.h"
 #import "KTBaseObject.h"
 #import "KTLicenseData.h"

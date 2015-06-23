@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
+/**
+ Checks for a valid keytechKit SDK License.
+ */
 @interface KTLicenseData : NSObject <NSURLConnectionDelegate,NSURLConnectionDataDelegate>
 
 
@@ -36,6 +38,7 @@
 
 /**
  Sets the API URL to check the License
+ @param APIURL The target URL for the API. License may be linked to a specific API URL target.
  */
 -(void)setAPIURL:(NSString*)APIURL;
 

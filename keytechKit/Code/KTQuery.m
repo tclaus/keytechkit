@@ -9,6 +9,9 @@
 #import "KTQuery.h"
 #import "KTSearchengineResult.h"
 #import "KTManager.h"
+#import "KTLicenseData.h"
+
+#import "NSPredicate+PredicateKTFormat.h"
 
 @implementation KTQuery
 

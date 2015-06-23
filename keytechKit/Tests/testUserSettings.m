@@ -79,14 +79,6 @@
  */
 -(void)testGetUsersInGroupList{
    
-    testResponseLoader* responseLoader = [testResponseLoader responseLoader];
-    
- 
-    [responseLoader waitForResponse];
-    
-    NSArray* result = [responseLoader objects];
-    XCTAssert(result!=nil, @"User list should not be nil");
-    XCTAssert(result.count>0, @"There should be any users.");
     
 }
 
