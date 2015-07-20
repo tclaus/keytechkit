@@ -421,7 +421,6 @@ dispatch_once(&onceToken, ^{
     
    #ifdef DEBUG
 #define POLL_INTERVAL 0.2 // 200ms
-#define N_SEC_TO_POLL 3.0 // poll for 3s
 #define MAX_POLL_COUNT N_SEC_TO_POLL / POLL_INTERVAL
     
     NSUInteger pollCount = 0;

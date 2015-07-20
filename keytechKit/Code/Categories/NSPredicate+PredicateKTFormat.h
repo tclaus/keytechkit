@@ -13,6 +13,7 @@
  */
 @interface NSPredicate (PredicateKTFormat)
 
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 /// Returns a list of keytech attributes with its value operators
 -(NSString*)predicateKTFormat;
 
@@ -24,6 +25,8 @@
 
 /// Some predicates are Special. This is YES if any not directly to  use predicates are found
 -(BOOL)isSpecialPredicate;
+
+#endif
 
 @end
 

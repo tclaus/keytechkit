@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -29,120 +29,88 @@
 			name = "Documentation for OS X";
 			productName = "Documentation fo iOS";
 		};
-		65D2BEA91AF2606D00615A66 /* Aggregate keytech_ios SDK */ = {
+		65D2BEA91AF2606D00615A66 /* keytechKit_ios_SDK */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 65D2BEAA1AF2606E00615A66 /* Build configuration list for PBXAggregateTarget "Aggregate keytech_ios SDK" */;
+			buildConfigurationList = 65D2BEAA1AF2606E00615A66 /* Build configuration list for PBXAggregateTarget "keytechKit_ios_SDK" */;
 			buildPhases = (
 				65D2BEAD1AF260B800615A66 /* Run Script (Clean) */,
-				65D2BEAE1AF2610800615A66 /* ShellScript */,
+				65D2BEAE1AF2610800615A66 /* Run Script (Build) */,
 			);
 			dependencies = (
 			);
-			name = "Aggregate keytech_ios SDK";
+			name = keytechKit_ios_SDK;
 			productName = "keytech_ios SDK";
 		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
 		6507ACC419224525008CCB94 /* KTServerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6507ACC219224525008CCB94 /* KTServerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6507ACC519224525008CCB94 /* KTServerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6507ACC219224525008CCB94 /* KTServerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6507ACC619224525008CCB94 /* KTServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6507ACC319224525008CCB94 /* KTServerInfo.m */; };
-		6507ACC719224525008CCB94 /* KTServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6507ACC319224525008CCB94 /* KTServerInfo.m */; };
 		650857E3189CE73300399949 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857E2189CE73300399949 /* Cocoa.framework */; };
 		650857ED189CE73300399949 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 650857EB189CE73300399949 /* InfoPlist.strings */; };
 		650857F8189CE73300399949 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857F7189CE73300399949 /* XCTest.framework */; };
 		650857F9189CE73300399949 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857E2189CE73300399949 /* Cocoa.framework */; };
-		65085813189CEA9B00399949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085812189CEA9B00399949 /* Foundation.framework */; };
 		65085820189CEA9B00399949 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857F7189CE73300399949 /* XCTest.framework */; };
 		65085821189CEA9B00399949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085812189CEA9B00399949 /* Foundation.framework */; };
 		65085823189CEA9B00399949 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085822189CEA9B00399949 /* UIKit.framework */; };
-		65085846189CEC6800399949 /* RestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085841189CEBB300399949 /* RestKit.framework */; };
 		65085847189CEC7500399949 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857E6189CE73300399949 /* CoreData.framework */; };
 		65085849189CEC7C00399949 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085848189CEC7C00399949 /* CoreServices.framework */; };
 		6508584B189CEC8500399949 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508584A189CEC8500399949 /* Security.framework */; };
-		65085857189CEDE800399949 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508583D189CEBB300399949 /* libRestKit.a */; };
 		650858A9189CF08E00399949 /* keytechFoundation-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65085865189CF08E00399949 /* keytechFoundation-Info.plist */; };
 		650858AD189CF08E00399949 /* KTAttributeMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085869189CF08E00399949 /* KTAttributeMapping.m */; };
-		650858AE189CF08E00399949 /* KTAttributeMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085869189CF08E00399949 /* KTAttributeMapping.m */; };
 		650858AF189CF08E00399949 /* KTBomItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586A189CF08E00399949 /* KTBomItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858B0189CF08E00399949 /* KTBomItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508586B189CF08E00399949 /* KTBomItem.m */; };
-		650858B1189CF08E00399949 /* KTBomItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508586B189CF08E00399949 /* KTBomItem.m */; };
 		650858B2189CF08E00399949 /* KTChangeAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586C189CF08E00399949 /* KTChangeAction.h */; };
 		650858B3189CF08E00399949 /* KTChangeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508586D189CF08E00399949 /* KTChangeAction.m */; };
-		650858B4189CF08E00399949 /* KTChangeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508586D189CF08E00399949 /* KTChangeAction.m */; };
 		650858B5189CF08E00399949 /* KTElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586E189CF08E00399949 /* KTElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858B6189CF08E00399949 /* KTElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508586F189CF08E00399949 /* KTElement.m */; };
-		650858B7189CF08E00399949 /* KTElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508586F189CF08E00399949 /* KTElement.m */; };
 		650858B8189CF08E00399949 /* KTFileInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085870189CF08E00399949 /* KTFileInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858B9189CF08E00399949 /* KTFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085871189CF08E00399949 /* KTFileInfo.m */; };
-		650858BA189CF08E00399949 /* KTFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085871189CF08E00399949 /* KTFileInfo.m */; };
 		650858BB189CF08E00399949 /* KTFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085872189CF08E00399949 /* KTFont.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858BC189CF08E00399949 /* KTFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085873189CF08E00399949 /* KTFont.m */; };
-		650858BD189CF08E00399949 /* KTFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085873189CF08E00399949 /* KTFont.m */; };
 		650858BE189CF08E00399949 /* KTGlobalSetting.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085874189CF08E00399949 /* KTGlobalSetting.h */; };
 		650858BF189CF08E00399949 /* KTGlobalSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085875189CF08E00399949 /* KTGlobalSetting.m */; };
-		650858C0189CF08E00399949 /* KTGlobalSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085875189CF08E00399949 /* KTGlobalSetting.m */; };
 		650858C1189CF08E00399949 /* KTGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085876189CF08E00399949 /* KTGroup.h */; };
 		650858C2189CF08E00399949 /* KTGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085877189CF08E00399949 /* KTGroup.m */; };
-		650858C3189CF08E00399949 /* KTGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085877189CF08E00399949 /* KTGroup.m */; };
 		650858C4189CF08E00399949 /* KTIdentifiedDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085878189CF08E00399949 /* KTIdentifiedDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858C9189CF08E00399949 /* KTKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587C189CF08E00399949 /* KTKeyValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858CA189CF08E00399949 /* KTKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587D189CF08E00399949 /* KTKeyValue.m */; };
-		650858CB189CF08E00399949 /* KTKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587D189CF08E00399949 /* KTKeyValue.m */; };
 		650858CC189CF08E00399949 /* KTLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587E189CF08E00399949 /* KTLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858CD189CF08E00399949 /* KTLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587F189CF08E00399949 /* KTLayout.m */; };
-		650858CE189CF08E00399949 /* KTLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587F189CF08E00399949 /* KTLayout.m */; };
 		650858CF189CF08E00399949 /* KTLayouts.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085880189CF08E00399949 /* KTLayouts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858D0189CF08E00399949 /* KTLayouts.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085881189CF08E00399949 /* KTLayouts.m */; };
-		650858D1189CF08E00399949 /* KTLayouts.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085881189CF08E00399949 /* KTLayouts.m */; };
 		650858D5189CF08E00399949 /* KTNoteItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085884189CF08E00399949 /* KTNoteItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858D6189CF08E00399949 /* KTNoteItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085885189CF08E00399949 /* KTNoteItem.m */; };
-		650858D7189CF08E00399949 /* KTNoteItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085885189CF08E00399949 /* KTNoteItem.m */; };
 		650858D8189CF08E00399949 /* KTNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085886189CF08E00399949 /* KTNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858D9189CF08E00399949 /* KTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085887189CF08E00399949 /* KTNotifications.m */; };
-		650858DA189CF08E00399949 /* KTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085887189CF08E00399949 /* KTNotifications.m */; };
 		650858DB189CF08E00399949 /* KTPermission.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085888189CF08E00399949 /* KTPermission.h */; };
 		650858DC189CF08E00399949 /* KTPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085889189CF08E00399949 /* KTPermission.m */; };
-		650858DD189CF08E00399949 /* KTPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085889189CF08E00399949 /* KTPermission.m */; };
 		650858DE189CF08E00399949 /* KTPosition.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508588A189CF08E00399949 /* KTPosition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858DF189CF08E00399949 /* KTPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508588B189CF08E00399949 /* KTPosition.m */; };
-		650858E0189CF08E00399949 /* KTPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508588B189CF08E00399949 /* KTPosition.m */; };
 		650858E1189CF08E00399949 /* KTPreferencesConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508588C189CF08E00399949 /* KTPreferencesConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858E2189CF08E00399949 /* KTPreferencesConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508588D189CF08E00399949 /* KTPreferencesConnection.m */; };
-		650858E3189CF08E00399949 /* KTPreferencesConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508588D189CF08E00399949 /* KTPreferencesConnection.m */; };
 		650858E7189CF08E00399949 /* KTSignedBy.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085890189CF08E00399949 /* KTSignedBy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858E8189CF08E00399949 /* KTSignedBy.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085891189CF08E00399949 /* KTSignedBy.m */; };
-		650858E9189CF08E00399949 /* KTSignedBy.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085891189CF08E00399949 /* KTSignedBy.m */; };
 		650858EA189CF08E00399949 /* KTSimpleControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085892189CF08E00399949 /* KTSimpleControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858EB189CF08E00399949 /* KTSimpleControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085893189CF08E00399949 /* KTSimpleControl.m */; };
-		650858EC189CF08E00399949 /* KTSimpleControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085893189CF08E00399949 /* KTSimpleControl.m */; };
 		650858ED189CF08E00399949 /* KTSimpleFavorite.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085894189CF08E00399949 /* KTSimpleFavorite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858EE189CF08E00399949 /* KTSimpleFavorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085895189CF08E00399949 /* KTSimpleFavorite.m */; };
-		650858EF189CF08E00399949 /* KTSimpleFavorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085895189CF08E00399949 /* KTSimpleFavorite.m */; };
 		650858F0189CF08E00399949 /* KTSize.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085896189CF08E00399949 /* KTSize.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858F1189CF08E00399949 /* KTSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085897189CF08E00399949 /* KTSize.m */; };
-		650858F2189CF08E00399949 /* KTSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085897189CF08E00399949 /* KTSize.m */; };
 		650858F3189CF08E00399949 /* KTStatusHistoryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085898189CF08E00399949 /* KTStatusHistoryItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858F4189CF08E00399949 /* KTStatusHistoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085899189CF08E00399949 /* KTStatusHistoryItem.m */; };
-		650858F5189CF08E00399949 /* KTStatusHistoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085899189CF08E00399949 /* KTStatusHistoryItem.m */; };
 		650858F6189CF08E00399949 /* KTStatusItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589A189CF08E00399949 /* KTStatusItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858F7189CF08E00399949 /* KTStatusItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589B189CF08E00399949 /* KTStatusItem.m */; };
-		650858F8189CF08E00399949 /* KTStatusItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589B189CF08E00399949 /* KTStatusItem.m */; };
 		650858FC189CF08E00399949 /* KTTargetLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589E189CF08E00399949 /* KTTargetLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		650858FD189CF08E00399949 /* KTTargetLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589F189CF08E00399949 /* KTTargetLink.m */; };
-		650858FE189CF08E00399949 /* KTTargetLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589F189CF08E00399949 /* KTTargetLink.m */; };
 		650858FF189CF08E00399949 /* KTTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A0189CF08E00399949 /* KTTask.h */; };
 		65085900189CF08E00399949 /* KTTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A1189CF08E00399949 /* KTTask.m */; };
-		65085901189CF08E00399949 /* KTTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A1189CF08E00399949 /* KTTask.m */; };
 		65085902189CF08E00399949 /* KTUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A2189CF08E00399949 /* KTUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65085903189CF08E00399949 /* KTUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A3189CF08E00399949 /* KTUser.m */; };
-		65085904189CF08E00399949 /* KTUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A3189CF08E00399949 /* KTUser.m */; };
 		65085905189CF08E00399949 /* KTSimpleKeyValuePair.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A4189CF08E00399949 /* KTSimpleKeyValuePair.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65085906189CF08E00399949 /* KTSimpleKeyValuePair.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A5189CF08E00399949 /* KTSimpleKeyValuePair.m */; };
-		65085907189CF08E00399949 /* KTSimpleKeyValuePair.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A5189CF08E00399949 /* KTSimpleKeyValuePair.m */; };
 		65085908189CF08E00399949 /* KTManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A6189CF08E00399949 /* KTManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65085909189CF08E00399949 /* KTManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A7189CF08E00399949 /* KTManager.m */; };
-		6508590A189CF08E00399949 /* KTManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A7189CF08E00399949 /* KTManager.m */; };
 		65085938189CF0F400399949 /* testAttributeMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085910189CF0B100399949 /* testAttributeMappings.m */; };
 		65085939189CF0F400399949 /* testBaseKeytechKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085911189CF0B100399949 /* testBaseKeytechKit.m */; };
 		6508593A189CF0F400399949 /* testClasses.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085912189CF0B100399949 /* testClasses.m */; };
@@ -166,65 +134,74 @@
 		6508594D189CF0F500399949 /* testStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085919189CF0B100399949 /* testStatus.m */; };
 		6508594E189CF0F500399949 /* testUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508591A189CF0B100399949 /* testUserSettings.m */; };
 		6527EA8219477EC800A37BDA /* NSString+ClassType.h in Headers */ = {isa = PBXBuildFile; fileRef = 6527EA8019477EC800A37BDA /* NSString+ClassType.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6527EA8319477EC800A37BDA /* NSString+ClassType.h in Headers */ = {isa = PBXBuildFile; fileRef = 6527EA8019477EC800A37BDA /* NSString+ClassType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6527EA8419477EC800A37BDA /* NSString+ClassType.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527EA8119477EC800A37BDA /* NSString+ClassType.m */; };
-		6527EA8519477EC800A37BDA /* NSString+ClassType.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527EA8119477EC800A37BDA /* NSString+ClassType.m */; };
+		653C018D1B0E67AE00B2D79F /* KTGlobalSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085875189CF08E00399949 /* KTGlobalSetting.m */; };
+		653C018E1B0E67AE00B2D79F /* KTGlobalSettingContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 65494DFE18A227E100EF9FA4 /* KTGlobalSettingContext.m */; };
+		653C018F1B0E67AE00B2D79F /* KTGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085877189CF08E00399949 /* KTGroup.m */; };
+		653C01901B0E67AE00B2D79F /* KTUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A3189CF08E00399949 /* KTUser.m */; };
+		653C01911B0E67AE00B2D79F /* KTAttributeMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085869189CF08E00399949 /* KTAttributeMapping.m */; };
+		653C01921B0E67AE00B2D79F /* KTServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6507ACC319224525008CCB94 /* KTServerInfo.m */; };
+		653C01931B0E67AE00B2D79F /* KTBomItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508586B189CF08E00399949 /* KTBomItem.m */; };
+		653C01941B0E67AE00B2D79F /* KTChangeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508586D189CF08E00399949 /* KTChangeAction.m */; };
+		653C01951B0E67AE00B2D79F /* KTElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508586F189CF08E00399949 /* KTElement.m */; };
+		653C01961B0E67AE00B2D79F /* KTFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085871189CF08E00399949 /* KTFileInfo.m */; };
+		653C01971B0E67AE00B2D79F /* KTFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085873189CF08E00399949 /* KTFont.m */; };
+		653C01981B0E67AE00B2D79F /* KTKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587D189CF08E00399949 /* KTKeyValue.m */; };
+		653C01991B0E67AE00B2D79F /* KTLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508587F189CF08E00399949 /* KTLayout.m */; };
+		653C019A1B0E67AE00B2D79F /* KTLayouts.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085881189CF08E00399949 /* KTLayouts.m */; };
+		653C019B1B0E67AE00B2D79F /* KTNoteItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085885189CF08E00399949 /* KTNoteItem.m */; };
+		653C019C1B0E67AE00B2D79F /* KTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085887189CF08E00399949 /* KTNotifications.m */; };
+		653C019D1B0E67AE00B2D79F /* KTPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085889189CF08E00399949 /* KTPermission.m */; };
+		653C019E1B0E67AE00B2D79F /* KTPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508588B189CF08E00399949 /* KTPosition.m */; };
+		653C019F1B0E67AE00B2D79F /* KTClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556943918C2513700A0BBD1 /* KTClass.m */; };
+		653C01A01B0E67AE00B2D79F /* KTClassAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944018C25A5800A0BBD1 /* KTClassAttribute.m */; };
+		653C01A11B0E67AE00B2D79F /* KTPreferencesConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508588D189CF08E00399949 /* KTPreferencesConnection.m */; };
+		653C01A21B0E67AE00B2D79F /* KTSignedBy.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085891189CF08E00399949 /* KTSignedBy.m */; };
+		653C01A31B0E67AE00B2D79F /* KTSimpleControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085893189CF08E00399949 /* KTSimpleControl.m */; };
+		653C01A41B0E67AE00B2D79F /* KTSimpleFavorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085895189CF08E00399949 /* KTSimpleFavorite.m */; };
+		653C01A51B0E67AE00B2D79F /* KTSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085897189CF08E00399949 /* KTSize.m */; };
+		653C01A61B0E67AE00B2D79F /* KTStatusHistoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65085899189CF08E00399949 /* KTStatusHistoryItem.m */; };
+		653C01A71B0E67AE00B2D79F /* KTStatusItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589B189CF08E00399949 /* KTStatusItem.m */; };
+		653C01A81B0E67AE00B2D79F /* KTTargetLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508589F189CF08E00399949 /* KTTargetLink.m */; };
+		653C01A91B0E67AE00B2D79F /* KTElementLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F810B51952CB5700992FD1 /* KTElementLink.m */; };
+		653C01AA1B0E67AE00B2D79F /* KTTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A1189CF08E00399949 /* KTTask.m */; };
+		653C01AB1B0E67AE00B2D79F /* KTSimpleKeyValuePair.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A5189CF08E00399949 /* KTSimpleKeyValuePair.m */; };
+		653C01AC1B0E67AE00B2D79F /* KTManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 650858A7189CF08E00399949 /* KTManager.m */; };
+		653C01AD1B0E67AE00B2D79F /* KTBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944518C330A200A0BBD1 /* KTBaseObject.m */; };
+		653C01AF1B0E67AE00B2D79F /* NSString+ClassType.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527EA8119477EC800A37BDA /* NSString+ClassType.m */; };
+		653C01B01B0E67AE00B2D79F /* KTSendNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68EE19922FBE000BC057 /* KTSendNotifications.m */; };
+		653C01B11B0E67AE00B2D79F /* KTLicenseData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6543578E1AFCAAD900A71B43 /* KTLicenseData.m */; };
+		653C01B21B0E67AE00B2D79F /* KTQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 65481DDF19D06E9C00AAB0E1 /* KTQuery.m */; };
+		653C01B31B0E67AE00B2D79F /* KTPagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 65481DE519D070EC00AAB0E1 /* KTPagedObject.m */; };
+		653C01B41B0E67AE00B2D79F /* KTSearchengineResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C86E9F1A0BBB9C00AE3F2E /* KTSearchengineResult.m */; };
+		653C01B51B0E693F00B2D79F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DBD9B21AEB96E30077A669 /* CFNetwork.framework */; };
+		653C01B71B0E694700B2D79F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 653C01B61B0E694700B2D79F /* CoreData.framework */; };
+		653C01B81B0E695000B2D79F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DBD9AE1AEB96C80077A669 /* MobileCoreServices.framework */; };
+		653C01B91B0E695700B2D79F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DBD9B01AEB96D70077A669 /* Security.framework */; };
+		653C01BA1B0E696000B2D79F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DBD9AC1AEB96B40077A669 /* SystemConfiguration.framework */; };
+		653C01BC1B0E6D9100B2D79F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 653C01BB1B0E6D9100B2D79F /* libz.dylib */; };
 		65403C0B18A2778F006D3BE6 /* TestDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 65403C0A18A2778F006D3BE6 /* TestDefaults.m */; };
 		65403C0C18A2778F006D3BE6 /* TestDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 65403C0A18A2778F006D3BE6 /* TestDefaults.m */; };
 		65423E1818D5F4550020B294 /* NSPredicate+PredicateKTFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 65423E1618D5F4550020B294 /* NSPredicate+PredicateKTFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65423E1918D5F4550020B294 /* NSPredicate+PredicateKTFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 65423E1718D5F4550020B294 /* NSPredicate+PredicateKTFormat.m */; };
 		6543578F1AFCAAD900A71B43 /* KTLicenseData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6543578E1AFCAAD900A71B43 /* KTLicenseData.m */; };
 		654357901AFCAAD900A71B43 /* KTLicenseData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6543578E1AFCAAD900A71B43 /* KTLicenseData.m */; };
-		654357911AFCAAD900A71B43 /* KTLicenseData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6543578E1AFCAAD900A71B43 /* KTLicenseData.m */; };
 		654357921AFCAAD900A71B43 /* KTLicenseData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6543578E1AFCAAD900A71B43 /* KTLicenseData.m */; };
 		654357961AFCAB1C00A71B43 /* KTLicenseData.h in Headers */ = {isa = PBXBuildFile; fileRef = 654357951AFCAB1C00A71B43 /* KTLicenseData.h */; };
-		654357971AFCAB1C00A71B43 /* KTLicenseData.h in Headers */ = {isa = PBXBuildFile; fileRef = 654357951AFCAB1C00A71B43 /* KTLicenseData.h */; };
 		65481DD819CEF59C00AAB0E1 /* testUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 65481DD719CEF59C00AAB0E1 /* testUser.m */; };
 		65481DD919CEF59C00AAB0E1 /* testUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 65481DD719CEF59C00AAB0E1 /* testUser.m */; };
 		65481DE019D06E9C00AAB0E1 /* KTQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 65481DDE19D06E9C00AAB0E1 /* KTQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65481DE119D06E9C00AAB0E1 /* KTQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 65481DDE19D06E9C00AAB0E1 /* KTQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65481DE219D06E9C00AAB0E1 /* KTQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 65481DDF19D06E9C00AAB0E1 /* KTQuery.m */; };
-		65481DE319D06E9C00AAB0E1 /* KTQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 65481DDF19D06E9C00AAB0E1 /* KTQuery.m */; };
 		65481DE619D070EC00AAB0E1 /* KTPagedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 65481DE419D070EC00AAB0E1 /* KTPagedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65481DE719D070EC00AAB0E1 /* KTPagedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 65481DE419D070EC00AAB0E1 /* KTPagedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65481DE819D070EC00AAB0E1 /* KTPagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 65481DE519D070EC00AAB0E1 /* KTPagedObject.m */; };
-		65481DE919D070EC00AAB0E1 /* KTPagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 65481DE519D070EC00AAB0E1 /* KTPagedObject.m */; };
 		65494DFF18A227E100EF9FA4 /* KTGlobalSettingContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 65494DFD18A227E100EF9FA4 /* KTGlobalSettingContext.h */; };
 		65494E0018A227E100EF9FA4 /* KTGlobalSettingContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 65494DFE18A227E100EF9FA4 /* KTGlobalSettingContext.m */; };
-		65494E0118A227E100EF9FA4 /* KTGlobalSettingContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 65494DFE18A227E100EF9FA4 /* KTGlobalSettingContext.m */; };
-		65494E0418A24FE800EF9FA4 /* RestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085841189CEBB300399949 /* RestKit.framework */; };
-		65494E0518A24FF200EF9FA4 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508583D189CEBB300399949 /* libRestKit.a */; };
-		6551FDBB1AE69C5400C0D2BE /* crypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 6551FDB01AE69C5400C0D2BE /* crypt.h */; };
-		6551FDBC1AE69C5400C0D2BE /* crypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 6551FDB01AE69C5400C0D2BE /* crypt.h */; };
-		6551FDBD1AE69C5400C0D2BE /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6551FDB11AE69C5400C0D2BE /* ioapi.c */; };
-		6551FDBE1AE69C5400C0D2BE /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6551FDB11AE69C5400C0D2BE /* ioapi.c */; };
-		6551FDBF1AE69C5400C0D2BE /* ioapi.h in Headers */ = {isa = PBXBuildFile; fileRef = 6551FDB21AE69C5400C0D2BE /* ioapi.h */; };
-		6551FDC01AE69C5400C0D2BE /* ioapi.h in Headers */ = {isa = PBXBuildFile; fileRef = 6551FDB21AE69C5400C0D2BE /* ioapi.h */; };
-		6551FDC11AE69C5400C0D2BE /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 6551FDB31AE69C5400C0D2BE /* mztools.c */; };
-		6551FDC21AE69C5400C0D2BE /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 6551FDB31AE69C5400C0D2BE /* mztools.c */; };
-		6551FDC31AE69C5400C0D2BE /* mztools.h in Headers */ = {isa = PBXBuildFile; fileRef = 6551FDB41AE69C5400C0D2BE /* mztools.h */; };
-		6551FDC41AE69C5400C0D2BE /* mztools.h in Headers */ = {isa = PBXBuildFile; fileRef = 6551FDB41AE69C5400C0D2BE /* mztools.h */; };
-		6551FDC51AE69C5400C0D2BE /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 6551FDB51AE69C5400C0D2BE /* unzip.c */; };
-		6551FDC61AE69C5400C0D2BE /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 6551FDB51AE69C5400C0D2BE /* unzip.c */; };
-		6551FDC71AE69C5400C0D2BE /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 6551FDB61AE69C5400C0D2BE /* unzip.h */; };
-		6551FDC81AE69C5400C0D2BE /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 6551FDB61AE69C5400C0D2BE /* unzip.h */; };
-		6551FDC91AE69C5400C0D2BE /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 6551FDB71AE69C5400C0D2BE /* zip.c */; };
-		6551FDCA1AE69C5400C0D2BE /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 6551FDB71AE69C5400C0D2BE /* zip.c */; };
-		6551FDCB1AE69C5400C0D2BE /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = 6551FDB81AE69C5400C0D2BE /* zip.h */; };
-		6551FDCC1AE69C5400C0D2BE /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = 6551FDB81AE69C5400C0D2BE /* zip.h */; };
-		6551FDCD1AE69C5400C0D2BE /* SSZipArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = 6551FDB91AE69C5400C0D2BE /* SSZipArchive.h */; };
-		6551FDCE1AE69C5400C0D2BE /* SSZipArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = 6551FDB91AE69C5400C0D2BE /* SSZipArchive.h */; };
-		6551FDCF1AE69C5400C0D2BE /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551FDBA1AE69C5400C0D2BE /* SSZipArchive.m */; };
-		6551FDD01AE69C5400C0D2BE /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551FDBA1AE69C5400C0D2BE /* SSZipArchive.m */; };
 		6556943A18C2513700A0BBD1 /* KTClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556943818C2513700A0BBD1 /* KTClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6556943B18C2513700A0BBD1 /* KTClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556943918C2513700A0BBD1 /* KTClass.m */; };
-		6556943C18C2513700A0BBD1 /* KTClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556943918C2513700A0BBD1 /* KTClass.m */; };
 		6556944118C25A5800A0BBD1 /* KTClassAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556943F18C25A5800A0BBD1 /* KTClassAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6556944218C25A5800A0BBD1 /* KTClassAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944018C25A5800A0BBD1 /* KTClassAttribute.m */; };
-		6556944318C25A5800A0BBD1 /* KTClassAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944018C25A5800A0BBD1 /* KTClassAttribute.m */; };
 		6556944618C330A200A0BBD1 /* KTBaseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556944418C330A200A0BBD1 /* KTBaseObject.h */; };
 		6556944718C330A200A0BBD1 /* KTBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944518C330A200A0BBD1 /* KTBaseObject.m */; };
-		6556944818C330A200A0BBD1 /* KTBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944518C330A200A0BBD1 /* KTBaseObject.m */; };
 		6556944A18C3EA0F00A0BBD1 /* testLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944918C3EA0F00A0BBD1 /* testLayout.m */; };
 		6556944B18C3EA0F00A0BBD1 /* testLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6556944918C3EA0F00A0BBD1 /* testLayout.m */; };
 		65602F461A28C5C300D1527E /* Aerial04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65602F451A28C5C300D1527E /* Aerial04.jpg */; };
@@ -232,158 +209,34 @@
 		656646831B00AFA80007EA7F /* testSDKLicenses.m in Sources */ = {isa = PBXBuildFile; fileRef = 656646821B00AFA80007EA7F /* testSDKLicenses.m */; };
 		656646841B00AFA80007EA7F /* testSDKLicenses.m in Sources */ = {isa = PBXBuildFile; fileRef = 656646821B00AFA80007EA7F /* testSDKLicenses.m */; };
 		6567B69C191F62A50039D7C0 /* KTAttributeMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085868189CF08E00399949 /* KTAttributeMapping.h */; };
-		6567B69F191F63750039D7C0 /* KTAttributeMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085868189CF08E00399949 /* KTAttributeMapping.h */; };
-		6567B6A0191F63770039D7C0 /* KTBomItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586A189CF08E00399949 /* KTBomItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6A1191F63840039D7C0 /* KTChangeAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586C189CF08E00399949 /* KTChangeAction.h */; };
-		6567B6A2191F63880039D7C0 /* KTElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586E189CF08E00399949 /* KTElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6A3191F63910039D7C0 /* KTFileInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085870189CF08E00399949 /* KTFileInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6A4191F63950039D7C0 /* KTFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085872189CF08E00399949 /* KTFont.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6A5191F63990039D7C0 /* KTGlobalSetting.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085874189CF08E00399949 /* KTGlobalSetting.h */; };
-		6567B6A6191F639C0039D7C0 /* KTGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085876189CF08E00399949 /* KTGroup.h */; };
-		6567B6A7191F63A00039D7C0 /* KTIdentifiedDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085878189CF08E00399949 /* KTIdentifiedDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6AA191F63AC0039D7C0 /* KTKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587C189CF08E00399949 /* KTKeyValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6AB191F63B00039D7C0 /* KTLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587E189CF08E00399949 /* KTLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6AC191F63B40039D7C0 /* KTLayouts.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085880189CF08E00399949 /* KTLayouts.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6AE191F63C00039D7C0 /* KTNoteItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085884189CF08E00399949 /* KTNoteItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6AF191F63C40039D7C0 /* KTNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085886189CF08E00399949 /* KTNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6B0191F63C80039D7C0 /* KTPermission.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085888189CF08E00399949 /* KTPermission.h */; };
-		6567B6B1191F63CC0039D7C0 /* KTPosition.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508588A189CF08E00399949 /* KTPosition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6B2191F63D00039D7C0 /* KTClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556943818C2513700A0BBD1 /* KTClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6B3191F63D50039D7C0 /* KTClassAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556943F18C25A5800A0BBD1 /* KTClassAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6B4191F63D90039D7C0 /* KTPreferencesConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508588C189CF08E00399949 /* KTPreferencesConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6B6191F63E20039D7C0 /* KTSignedBy.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085890189CF08E00399949 /* KTSignedBy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6B7191F63E70039D7C0 /* KTSimpleControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085892189CF08E00399949 /* KTSimpleControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6B8191F63EB0039D7C0 /* KTSimpleFavorite.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085894189CF08E00399949 /* KTSimpleFavorite.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6B9191F63EE0039D7C0 /* KTSize.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085896189CF08E00399949 /* KTSize.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6BA191F63F30039D7C0 /* KTStatusHistoryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085898189CF08E00399949 /* KTStatusHistoryItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6BB191F63F70039D7C0 /* KTStatusItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589A189CF08E00399949 /* KTStatusItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6BD191F64000039D7C0 /* KTTargetLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589E189CF08E00399949 /* KTTargetLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6BE191F64040039D7C0 /* KTTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A0189CF08E00399949 /* KTTask.h */; };
-		6567B6BF191F64090039D7C0 /* KTUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A2189CF08E00399949 /* KTUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6C0191F640D0039D7C0 /* KTSimpleKeyValuePair.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A4189CF08E00399949 /* KTSimpleKeyValuePair.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6C1191F64120039D7C0 /* KTManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A6189CF08E00399949 /* KTManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6C2191F64150039D7C0 /* KTGlobalSettingContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 65494DFD18A227E100EF9FA4 /* KTGlobalSettingContext.h */; };
-		6567B6C3191F641A0039D7C0 /* KTBaseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556944418C330A200A0BBD1 /* KTBaseObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6567B6C4191F641D0039D7C0 /* NSPredicate+PredicateKTFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 65423E1618D5F4550020B294 /* NSPredicate+PredicateKTFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		657298B71993856F00552FE5 /* testServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 657298B61993856F00552FE5 /* testServerInfo.m */; };
 		657298B81993856F00552FE5 /* testServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 657298B61993856F00552FE5 /* testServerInfo.m */; };
 		657AFB441AEE623A00C292BB /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6580CA641AE69AF600438DE3 /* libz.dylib */; };
-		657E50EE189E6FE600CB7859 /* keytechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650857DF189CE73300399949 /* keytechKit.framework */; };
 		657E50F1189E76F800CB7859 /* testResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E50F0189E76F800CB7859 /* testResponseLoader.m */; };
 		657E50F2189E76F800CB7859 /* testResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E50F0189E76F800CB7859 /* testResponseLoader.m */; };
-		657E512D189EC3A600CB7859 /* libkeytechKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085811189CEA9B00399949 /* libkeytechKit.a */; };
 		657E68EF19922FBE000BC057 /* KTSendNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 657E68ED19922FBE000BC057 /* KTSendNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		657E68F019922FBE000BC057 /* KTSendNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 657E68ED19922FBE000BC057 /* KTSendNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		657E68F119922FBE000BC057 /* KTSendNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68EE19922FBE000BC057 /* KTSendNotifications.m */; };
-		657E68F219922FBE000BC057 /* KTSendNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68EE19922FBE000BC057 /* KTSendNotifications.m */; };
 		657E68F419923C76000BC057 /* testSendNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68F319923C76000BC057 /* testSendNotification.m */; };
 		657E68F519923C77000BC057 /* testSendNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68F319923C76000BC057 /* testSendNotification.m */; };
 		659450A91B5D2D4200DAF817 /* testNotes.m in Sources */ = {isa = PBXBuildFile; fileRef = 659450A81B5D2D4200DAF817 /* testNotes.m */; };
 		659450AA1B5D2D4200DAF817 /* testNotes.m in Sources */ = {isa = PBXBuildFile; fileRef = 659450A81B5D2D4200DAF817 /* testNotes.m */; };
 		65C86EA01A0BBB9C00AE3F2E /* KTSearchengineResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 65C86E9E1A0BBB9C00AE3F2E /* KTSearchengineResult.h */; };
-		65C86EA11A0BBB9C00AE3F2E /* KTSearchengineResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 65C86E9E1A0BBB9C00AE3F2E /* KTSearchengineResult.h */; };
 		65C86EA21A0BBB9C00AE3F2E /* KTSearchengineResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C86E9F1A0BBB9C00AE3F2E /* KTSearchengineResult.m */; };
 		65C86EA31A0BBB9C00AE3F2E /* KTSearchengineResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C86E9F1A0BBB9C00AE3F2E /* KTSearchengineResult.m */; };
-		65C86EA41A0BBB9C00AE3F2E /* KTSearchengineResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C86E9F1A0BBB9C00AE3F2E /* KTSearchengineResult.m */; };
 		65C86EA51A0BBB9C00AE3F2E /* KTSearchengineResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C86E9F1A0BBB9C00AE3F2E /* KTSearchengineResult.m */; };
 		65C8E31D189EE097005705CD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585A189CEE2200399949 /* CoreData.framework */; };
 		65C8E31E189EE0FE005705CD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085860189CEE3800399949 /* SystemConfiguration.framework */; };
 		65C8E31F189EE12C005705CD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585E189CEE3100399949 /* Security.framework */; };
 		65C8E320189EE13A005705CD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508585C189CEE2900399949 /* MobileCoreServices.framework */; };
 		65C8E321189EE13F005705CD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65085858189CEE1C00399949 /* CFNetwork.framework */; };
-		65D2BE831AF25F7C00615A66 /* KTGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085876189CF08E00399949 /* KTGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE841AF25F7C00615A66 /* KTUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A2189CF08E00399949 /* KTUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE851AF25F8700615A66 /* KTAttributeMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085868189CF08E00399949 /* KTAttributeMapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE861AF25F8700615A66 /* KTServerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6507ACC219224525008CCB94 /* KTServerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE871AF25F8700615A66 /* KTBomItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586A189CF08E00399949 /* KTBomItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE881AF25F8700615A66 /* KTChangeAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586C189CF08E00399949 /* KTChangeAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE891AF25F8700615A66 /* KTElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508586E189CF08E00399949 /* KTElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE8A1AF25F8700615A66 /* KTFileInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085870189CF08E00399949 /* KTFileInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE8B1AF25F8700615A66 /* KTFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085872189CF08E00399949 /* KTFont.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE8C1AF25F8700615A66 /* KTIdentifiedDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085878189CF08E00399949 /* KTIdentifiedDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE8D1AF25F8700615A66 /* KTKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587C189CF08E00399949 /* KTKeyValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE8E1AF25F8700615A66 /* KTLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508587E189CF08E00399949 /* KTLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE8F1AF25F8700615A66 /* KTLayouts.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085880189CF08E00399949 /* KTLayouts.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE901AF25F8700615A66 /* KTNoteItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085884189CF08E00399949 /* KTNoteItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE911AF25F8700615A66 /* KTNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085886189CF08E00399949 /* KTNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE921AF25F8700615A66 /* KTPermission.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085888189CF08E00399949 /* KTPermission.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE931AF25F8700615A66 /* KTPosition.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508588A189CF08E00399949 /* KTPosition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE941AF25F8700615A66 /* KTClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556943818C2513700A0BBD1 /* KTClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE951AF25F8700615A66 /* KTClassAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556943F18C25A5800A0BBD1 /* KTClassAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE961AF25F8800615A66 /* KTPreferencesConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508588C189CF08E00399949 /* KTPreferencesConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE971AF25F8800615A66 /* KTSignedBy.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085890189CF08E00399949 /* KTSignedBy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE981AF25F8800615A66 /* KTSimpleControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085892189CF08E00399949 /* KTSimpleControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE991AF25F8800615A66 /* KTSimpleFavorite.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085894189CF08E00399949 /* KTSimpleFavorite.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE9A1AF25F8800615A66 /* KTSize.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085896189CF08E00399949 /* KTSize.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE9B1AF25F8800615A66 /* KTStatusHistoryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65085898189CF08E00399949 /* KTStatusHistoryItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE9C1AF25F8800615A66 /* KTStatusItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589A189CF08E00399949 /* KTStatusItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE9D1AF25F8800615A66 /* KTTargetLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 6508589E189CF08E00399949 /* KTTargetLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE9E1AF25F8800615A66 /* KTElementLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F810B41952CB5700992FD1 /* KTElementLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BE9F1AF25F8800615A66 /* KTTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A0189CF08E00399949 /* KTTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BEA01AF25F8800615A66 /* KTSimpleKeyValuePair.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A4189CF08E00399949 /* KTSimpleKeyValuePair.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BEA11AF25F8800615A66 /* KTManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 650858A6189CF08E00399949 /* KTManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BEA21AF25F8800615A66 /* KTBaseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 6556944418C330A200A0BBD1 /* KTBaseObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BEA31AF25F8800615A66 /* NSPredicate+PredicateKTFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 65423E1618D5F4550020B294 /* NSPredicate+PredicateKTFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BEA41AF25F8800615A66 /* NSString+ClassType.h in Headers */ = {isa = PBXBuildFile; fileRef = 6527EA8019477EC800A37BDA /* NSString+ClassType.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BEA51AF25F8800615A66 /* KTSendNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 657E68ED19922FBE000BC057 /* KTSendNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BEA61AF25F8800615A66 /* KTQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 65481DDE19D06E9C00AAB0E1 /* KTQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BEA71AF25F8800615A66 /* KTPagedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 65481DE419D070EC00AAB0E1 /* KTPagedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D2BEA81AF25F8800615A66 /* KTSearchengineResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 65C86E9E1A0BBB9C00AE3F2E /* KTSearchengineResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65DBD9AD1AEB96B40077A669 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DBD9AC1AEB96B40077A669 /* SystemConfiguration.framework */; };
-		65DBD9AF1AEB96C80077A669 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DBD9AE1AEB96C80077A669 /* MobileCoreServices.framework */; };
-		65DBD9B11AEB96D70077A669 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DBD9B01AEB96D70077A669 /* Security.framework */; };
-		65DBD9B31AEB96E30077A669 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DBD9B21AEB96E30077A669 /* CFNetwork.framework */; };
 		65DDFF8619D6C678002D0529 /* testQueries.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DDFF8519D6C678002D0529 /* testQueries.m */; };
 		65DDFF8719D6C678002D0529 /* testQueries.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DDFF8519D6C678002D0529 /* testQueries.m */; };
 		65F810B61952CB5700992FD1 /* KTElementLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F810B41952CB5700992FD1 /* KTElementLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65F810B71952CB5700992FD1 /* KTElementLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F810B41952CB5700992FD1 /* KTElementLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65F810B81952CB5700992FD1 /* KTElementLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F810B51952CB5700992FD1 /* KTElementLink.m */; };
-		65F810B91952CB5700992FD1 /* KTElementLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F810B51952CB5700992FD1 /* KTElementLink.m */; };
+		65FDCBC51B10687300D2BD63 /* keytechKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6547138D1B0E302300E6F8E2 /* keytechKit_iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6508583C189CEBB300399949 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 65085835189CEBB300399949 /* RestKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 25160D1614564E810060A5C5;
-			remoteInfo = RestKit;
-		};
-		6508583E189CEBB300399949 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 65085835189CEBB300399949 /* RestKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 25160D2614564E820060A5C5;
-			remoteInfo = RestKitTests;
-		};
-		65085840189CEBB300399949 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 65085835189CEBB300399949 /* RestKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 25160E62145651060060A5C5;
-			remoteInfo = RestKitFramework;
-		};
-		65085842189CEBB300399949 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 65085835189CEBB300399949 /* RestKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 25160E78145651060060A5C5;
-			remoteInfo = RestKitFrameworkTests;
-		};
-		65085844189CEC2D00399949 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 65085835189CEBB300399949 /* RestKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 25160E61145651060060A5C5;
-			remoteInfo = RestKitFramework;
-		};
-		65085855189CEDDF00399949 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 65085835189CEBB300399949 /* RestKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 25160D1514564E810060A5C5;
-			remoteInfo = RestKit;
-		};
 		657E50EC189E6FDE00CB7859 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 650857D6189CE73300399949 /* Project object */;
@@ -391,25 +244,16 @@
 			remoteGlobalIDString = 650857DE189CE73300399949;
 			remoteInfo = keytechKitFramework;
 		};
-		657E512B189EC39E00CB7859 /* PBXContainerItemProxy */ = {
+		65FDCB901B0F01D400D2BD63 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 650857D6189CE73300399949 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 65085810189CEA9B00399949;
-			remoteInfo = keytechKit;
+			remoteGlobalIDString = 6547138C1B0E302300E6F8E2;
+			remoteInfo = keytechKit_iOS;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		6508580F189CEA9B00399949 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6508584E189CEC9F00399949 /* Copy RestKit */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
@@ -434,11 +278,9 @@
 		650857EC189CE73300399949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		650857F6189CE73300399949 /* keytechKitFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = keytechKitFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		650857F7189CE73300399949 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		65085811189CEA9B00399949 /* libkeytechKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libkeytechKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		65085812189CEA9B00399949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6508581F189CEA9B00399949 /* keytechKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = keytechKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65085822189CEA9B00399949 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		65085835189CEBB300399949 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		65085848189CEC7C00399949 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		6508584A189CEC8500399949 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		6508584C189CEC8E00399949 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -522,12 +364,15 @@
 		6508591A189CF0B100399949 /* testUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testUserSettings.m; sourceTree = "<group>"; };
 		6527EA8019477EC800A37BDA /* NSString+ClassType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+ClassType.h"; path = "Categories/NSString+ClassType.h"; sourceTree = "<group>"; };
 		6527EA8119477EC800A37BDA /* NSString+ClassType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+ClassType.m"; path = "Categories/NSString+ClassType.m"; sourceTree = "<group>"; };
+		653C01B61B0E694700B2D79F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		653C01BB1B0E6D9100B2D79F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
 		65403C0918A2778F006D3BE6 /* TestDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestDefaults.h; sourceTree = "<group>"; };
 		65403C0A18A2778F006D3BE6 /* TestDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestDefaults.m; sourceTree = "<group>"; };
 		65423E1618D5F4550020B294 /* NSPredicate+PredicateKTFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSPredicate+PredicateKTFormat.h"; path = "Categories/NSPredicate+PredicateKTFormat.h"; sourceTree = "<group>"; };
 		65423E1718D5F4550020B294 /* NSPredicate+PredicateKTFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSPredicate+PredicateKTFormat.m"; path = "Categories/NSPredicate+PredicateKTFormat.m"; sourceTree = "<group>"; };
 		6543578E1AFCAAD900A71B43 /* KTLicenseData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTLicenseData.m; sourceTree = "<group>"; };
 		654357951AFCAB1C00A71B43 /* KTLicenseData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTLicenseData.h; sourceTree = "<group>"; };
+		6547138D1B0E302300E6F8E2 /* keytechKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = keytechKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65481DD719CEF59C00AAB0E1 /* testUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testUser.m; sourceTree = "<group>"; };
 		65481DDE19D06E9C00AAB0E1 /* KTQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTQuery.h; sourceTree = "<group>"; };
 		65481DDF19D06E9C00AAB0E1 /* KTQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTQuery.m; sourceTree = "<group>"; };
@@ -535,17 +380,6 @@
 		65481DE519D070EC00AAB0E1 /* KTPagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPagedObject.m; sourceTree = "<group>"; };
 		65494DFD18A227E100EF9FA4 /* KTGlobalSettingContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTGlobalSettingContext.h; sourceTree = "<group>"; };
 		65494DFE18A227E100EF9FA4 /* KTGlobalSettingContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTGlobalSettingContext.m; sourceTree = "<group>"; };
-		6551FDB01AE69C5400C0D2BE /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
-		6551FDB11AE69C5400C0D2BE /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
-		6551FDB21AE69C5400C0D2BE /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
-		6551FDB31AE69C5400C0D2BE /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
-		6551FDB41AE69C5400C0D2BE /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
-		6551FDB51AE69C5400C0D2BE /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
-		6551FDB61AE69C5400C0D2BE /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
-		6551FDB71AE69C5400C0D2BE /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
-		6551FDB81AE69C5400C0D2BE /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
-		6551FDB91AE69C5400C0D2BE /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
-		6551FDBA1AE69C5400C0D2BE /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		6556943818C2513700A0BBD1 /* KTClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTClass.h; sourceTree = "<group>"; };
 		6556943918C2513700A0BBD1 /* KTClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTClass.m; sourceTree = "<group>"; };
 		6556943F18C25A5800A0BBD1 /* KTClassAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTClassAttribute.h; sourceTree = "<group>"; };
@@ -568,12 +402,6 @@
 		659450A81B5D2D4200DAF817 /* testNotes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testNotes.m; sourceTree = "<group>"; };
 		65C86E9E1A0BBB9C00AE3F2E /* KTSearchengineResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTSearchengineResult.h; sourceTree = "<group>"; };
 		65C86E9F1A0BBB9C00AE3F2E /* KTSearchengineResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSearchengineResult.m; sourceTree = "<group>"; };
-		65D2BE191AEFC2CA00615A66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65D2BE1A1AEFC2CA00615A66 /* keytechKit_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = keytechKit_iOS.h; sourceTree = "<group>"; };
-		65D2BE261AEFC2CA00615A66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65D2BE271AEFC2CA00615A66 /* keytechKit_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = keytechKit_iOSTests.m; sourceTree = "<group>"; };
-		65D2BE791AF25DDC00615A66 /* keytechKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = keytechKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		65D2BE7C1AF25DDC00615A66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65DBD9AC1AEB96B40077A669 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		65DBD9AE1AEB96C80077A669 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		65DBD9B01AEB96D70077A669 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
@@ -593,7 +421,6 @@
 				65085849189CEC7C00399949 /* CoreServices.framework in Frameworks */,
 				65085847189CEC7500399949 /* CoreData.framework in Frameworks */,
 				650857E3189CE73300399949 /* Cocoa.framework in Frameworks */,
-				65085846189CEC6800399949 /* RestKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,23 +428,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65494E0418A24FE800EF9FA4 /* RestKit.framework in Frameworks */,
-				657E50EE189E6FE600CB7859 /* keytechKit.framework in Frameworks */,
 				650857F9189CE73300399949 /* Cocoa.framework in Frameworks */,
 				650857F8189CE73300399949 /* XCTest.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6508580E189CEA9B00399949 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65DBD9B31AEB96E30077A669 /* CFNetwork.framework in Frameworks */,
-				65DBD9B11AEB96D70077A669 /* Security.framework in Frameworks */,
-				65DBD9AF1AEB96C80077A669 /* MobileCoreServices.framework in Frameworks */,
-				65DBD9AD1AEB96B40077A669 /* SystemConfiguration.framework in Frameworks */,
-				65085813189CEA9B00399949 /* Foundation.framework in Frameworks */,
-				65085857189CEDE800399949 /* libRestKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,23 +437,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65494E0518A24FF200EF9FA4 /* libRestKit.a in Frameworks */,
+				65FDCBC51B10687300D2BD63 /* keytechKit_iOS.framework in Frameworks */,
 				65C8E321189EE13F005705CD /* CFNetwork.framework in Frameworks */,
 				65C8E320189EE13A005705CD /* MobileCoreServices.framework in Frameworks */,
 				65C8E31F189EE12C005705CD /* Security.framework in Frameworks */,
 				65C8E31E189EE0FE005705CD /* SystemConfiguration.framework in Frameworks */,
 				65C8E31D189EE097005705CD /* CoreData.framework in Frameworks */,
 				65085821189CEA9B00399949 /* Foundation.framework in Frameworks */,
-				657E512D189EC3A600CB7859 /* libkeytechKit.a in Frameworks */,
 				65085820189CEA9B00399949 /* XCTest.framework in Frameworks */,
 				65085823189CEA9B00399949 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		65D2BE761AF25DDC00615A66 /* Frameworks */ = {
+		654713891B0E302300E6F8E2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				653C01BC1B0E6D9100B2D79F /* libz.dylib in Frameworks */,
+				653C01BA1B0E696000B2D79F /* SystemConfiguration.framework in Frameworks */,
+				653C01B91B0E695700B2D79F /* Security.framework in Frameworks */,
+				653C01B81B0E695000B2D79F /* MobileCoreServices.framework in Frameworks */,
+				653C01B71B0E694700B2D79F /* CoreData.framework in Frameworks */,
+				653C01B51B0E693F00B2D79F /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,13 +468,9 @@
 		650857D5189CE73300399949 = {
 			isa = PBXGroup;
 			children = (
-				65085835189CEBB300399949 /* RestKit.xcodeproj */,
 				65085863189CEF9D00399949 /* Tests */,
 				65085862189CEF5A00399949 /* Code */,
 				650857E8189CE73300399949 /* keytechKit */,
-				65D2BE171AEFC2CA00615A66 /* keytechKit_iOS */,
-				65D2BE241AEFC2CA00615A66 /* keytechKit_iOSTests */,
-				65D2BE7A1AF25DDC00615A66 /* keytechKit_iOS */,
 				650857E1189CE73300399949 /* Frameworks */,
 				650857E0189CE73300399949 /* Products */,
 			);
@@ -668,9 +481,8 @@
 			children = (
 				650857DF189CE73300399949 /* keytechKit.framework */,
 				650857F6189CE73300399949 /* keytechKitFrameworkTests.xctest */,
-				65085811189CEA9B00399949 /* libkeytechKit.a */,
 				6508581F189CEA9B00399949 /* keytechKitTests.xctest */,
-				65D2BE791AF25DDC00615A66 /* keytechKit_iOS.framework */,
+				6547138D1B0E302300E6F8E2 /* keytechKit_iOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -678,11 +490,12 @@
 		650857E1189CE73300399949 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				653C01BB1B0E6D9100B2D79F /* libz.dylib */,
+				653C01B61B0E694700B2D79F /* CoreData.framework */,
 				65DBD9B21AEB96E30077A669 /* CFNetwork.framework */,
 				65DBD9B01AEB96D70077A669 /* Security.framework */,
 				65DBD9AE1AEB96C80077A669 /* MobileCoreServices.framework */,
 				65DBD9AC1AEB96B40077A669 /* SystemConfiguration.framework */,
-				6580CA661AE69B0200438DE3 /* libz.dylib */,
 				6580CA641AE69AF600438DE3 /* libz.dylib */,
 				65085860189CEE3800399949 /* SystemConfiguration.framework */,
 				6508585E189CEE3100399949 /* Security.framework */,
@@ -730,21 +543,9 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		65085836189CEBB300399949 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				6508583D189CEBB300399949 /* libRestKit.a */,
-				6508583F189CEBB300399949 /* RestKitTests.xctest */,
-				65085841189CEBB300399949 /* RestKit.framework */,
-				65085843189CEBB300399949 /* RestKitFrameworkTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		65085862189CEF5A00399949 /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				6551FDAE1AE69C5400C0D2BE /* SSZipArchive */,
 				65085864189CF08E00399949 /* en.lproj */,
 				65085865189CF08E00399949 /* keytechFoundation-Info.plist */,
 				65D320C2199F3E1500946121 /* GlobalSettings */,
@@ -863,32 +664,6 @@
 			path = keytechKit/Tests;
 			sourceTree = "<group>";
 		};
-		6551FDAE1AE69C5400C0D2BE /* SSZipArchive */ = {
-			isa = PBXGroup;
-			children = (
-				6551FDAF1AE69C5400C0D2BE /* minizip */,
-				6551FDB91AE69C5400C0D2BE /* SSZipArchive.h */,
-				6551FDBA1AE69C5400C0D2BE /* SSZipArchive.m */,
-			);
-			path = SSZipArchive;
-			sourceTree = "<group>";
-		};
-		6551FDAF1AE69C5400C0D2BE /* minizip */ = {
-			isa = PBXGroup;
-			children = (
-				6551FDB01AE69C5400C0D2BE /* crypt.h */,
-				6551FDB11AE69C5400C0D2BE /* ioapi.c */,
-				6551FDB21AE69C5400C0D2BE /* ioapi.h */,
-				6551FDB31AE69C5400C0D2BE /* mztools.c */,
-				6551FDB41AE69C5400C0D2BE /* mztools.h */,
-				6551FDB51AE69C5400C0D2BE /* unzip.c */,
-				6551FDB61AE69C5400C0D2BE /* unzip.h */,
-				6551FDB71AE69C5400C0D2BE /* zip.c */,
-				6551FDB81AE69C5400C0D2BE /* zip.h */,
-			);
-			path = minizip;
-			sourceTree = "<group>";
-		};
 		65602F411A28C3ED00D1527E /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
@@ -903,56 +678,6 @@
 				65602F451A28C5C300D1527E /* Aerial04.jpg */,
 			);
 			name = Uploads;
-			sourceTree = "<group>";
-		};
-		65D2BE171AEFC2CA00615A66 /* keytechKit_iOS */ = {
-			isa = PBXGroup;
-			children = (
-				65D2BE1A1AEFC2CA00615A66 /* keytechKit_iOS.h */,
-				65D2BE181AEFC2CA00615A66 /* Supporting Files */,
-			);
-			path = keytechKit_iOS;
-			sourceTree = "<group>";
-		};
-		65D2BE181AEFC2CA00615A66 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				65D2BE191AEFC2CA00615A66 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		65D2BE241AEFC2CA00615A66 /* keytechKit_iOSTests */ = {
-			isa = PBXGroup;
-			children = (
-				65D2BE271AEFC2CA00615A66 /* keytechKit_iOSTests.m */,
-				65D2BE251AEFC2CA00615A66 /* Supporting Files */,
-			);
-			path = keytechKit_iOSTests;
-			sourceTree = "<group>";
-		};
-		65D2BE251AEFC2CA00615A66 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				65D2BE261AEFC2CA00615A66 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		65D2BE7A1AF25DDC00615A66 /* keytechKit_iOS */ = {
-			isa = PBXGroup;
-			children = (
-				65D2BE7B1AF25DDC00615A66 /* Supporting Files */,
-			);
-			path = keytechKit_iOS;
-			sourceTree = "<group>";
-		};
-		65D2BE7B1AF25DDC00615A66 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				65D2BE7C1AF25DDC00615A66 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		65D320C2199F3E1500946121 /* GlobalSettings */ = {
@@ -985,7 +710,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				650858F6189CF08E00399949 /* KTStatusItem.h in Headers */,
-				6551FDCD1AE69C5400C0D2BE /* SSZipArchive.h in Headers */,
 				650858F3189CF08E00399949 /* KTStatusHistoryItem.h in Headers */,
 				6507ACC419224525008CCB94 /* KTServerInfo.h in Headers */,
 				650858C1189CF08E00399949 /* KTGroup.h in Headers */,
@@ -993,7 +717,6 @@
 				65494DFF18A227E100EF9FA4 /* KTGlobalSettingContext.h in Headers */,
 				6556943A18C2513700A0BBD1 /* KTClass.h in Headers */,
 				650858EA189CF08E00399949 /* KTSimpleControl.h in Headers */,
-				6551FDCB1AE69C5400C0D2BE /* zip.h in Headers */,
 				650858D5189CF08E00399949 /* KTNoteItem.h in Headers */,
 				650858ED189CF08E00399949 /* KTSimpleFavorite.h in Headers */,
 				650858D8189CF08E00399949 /* KTNotifications.h in Headers */,
@@ -1006,12 +729,9 @@
 				650858AF189CF08E00399949 /* KTBomItem.h in Headers */,
 				650858B8189CF08E00399949 /* KTFileInfo.h in Headers */,
 				650858BE189CF08E00399949 /* KTGlobalSetting.h in Headers */,
-				6551FDC31AE69C5400C0D2BE /* mztools.h in Headers */,
 				6527EA8219477EC800A37BDA /* NSString+ClassType.h in Headers */,
 				65085902189CF08E00399949 /* KTUser.h in Headers */,
-				6551FDBB1AE69C5400C0D2BE /* crypt.h in Headers */,
 				650858E7189CF08E00399949 /* KTSignedBy.h in Headers */,
-				6551FDBF1AE69C5400C0D2BE /* ioapi.h in Headers */,
 				650858E1189CF08E00399949 /* KTPreferencesConnection.h in Headers */,
 				650858F0189CF08E00399949 /* KTSize.h in Headers */,
 				650858C4189CF08E00399949 /* KTIdentifiedDataSource.h in Headers */,
@@ -1028,108 +748,15 @@
 				650858FF189CF08E00399949 /* KTTask.h in Headers */,
 				650858C9189CF08E00399949 /* KTKeyValue.h in Headers */,
 				65481DE019D06E9C00AAB0E1 /* KTQuery.h in Headers */,
-				6551FDC71AE69C5400C0D2BE /* unzip.h in Headers */,
 				650858CC189CF08E00399949 /* KTLayout.h in Headers */,
 				650858B5189CF08E00399949 /* KTElement.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6567B69D191F63650039D7C0 /* Headers */ = {
+		6547138A1B0E302300E6F8E2 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6567B6B2191F63D00039D7C0 /* KTClass.h in Headers */,
-				6551FDCE1AE69C5400C0D2BE /* SSZipArchive.h in Headers */,
-				6567B6A1191F63840039D7C0 /* KTChangeAction.h in Headers */,
-				6507ACC519224525008CCB94 /* KTServerInfo.h in Headers */,
-				65481DE719D070EC00AAB0E1 /* KTPagedObject.h in Headers */,
-				6567B6B8191F63EB0039D7C0 /* KTSimpleFavorite.h in Headers */,
-				6567B6AB191F63B00039D7C0 /* KTLayout.h in Headers */,
-				6551FDCC1AE69C5400C0D2BE /* zip.h in Headers */,
-				6567B6BA191F63F30039D7C0 /* KTStatusHistoryItem.h in Headers */,
-				6567B6B6191F63E20039D7C0 /* KTSignedBy.h in Headers */,
-				6567B6AA191F63AC0039D7C0 /* KTKeyValue.h in Headers */,
-				657E68F019922FBE000BC057 /* KTSendNotifications.h in Headers */,
-				6567B6AE191F63C00039D7C0 /* KTNoteItem.h in Headers */,
-				6567B69F191F63750039D7C0 /* KTAttributeMapping.h in Headers */,
-				6567B6C0191F640D0039D7C0 /* KTSimpleKeyValuePair.h in Headers */,
-				6567B6AF191F63C40039D7C0 /* KTNotifications.h in Headers */,
-				6567B6B4191F63D90039D7C0 /* KTPreferencesConnection.h in Headers */,
-				6567B6C1191F64120039D7C0 /* KTManager.h in Headers */,
-				6567B6C4191F641D0039D7C0 /* NSPredicate+PredicateKTFormat.h in Headers */,
-				6567B6BF191F64090039D7C0 /* KTUser.h in Headers */,
-				6567B6B7191F63E70039D7C0 /* KTSimpleControl.h in Headers */,
-				6551FDC41AE69C5400C0D2BE /* mztools.h in Headers */,
-				6527EA8319477EC800A37BDA /* NSString+ClassType.h in Headers */,
-				6567B6BE191F64040039D7C0 /* KTTask.h in Headers */,
-				6551FDBC1AE69C5400C0D2BE /* crypt.h in Headers */,
-				6567B6A3191F63910039D7C0 /* KTFileInfo.h in Headers */,
-				6551FDC01AE69C5400C0D2BE /* ioapi.h in Headers */,
-				6567B6A6191F639C0039D7C0 /* KTGroup.h in Headers */,
-				6567B6A2191F63880039D7C0 /* KTElement.h in Headers */,
-				6567B6AC191F63B40039D7C0 /* KTLayouts.h in Headers */,
-				65C86EA11A0BBB9C00AE3F2E /* KTSearchengineResult.h in Headers */,
-				6567B6BD191F64000039D7C0 /* KTTargetLink.h in Headers */,
-				6567B6A4191F63950039D7C0 /* KTFont.h in Headers */,
-				6567B6A7191F63A00039D7C0 /* KTIdentifiedDataSource.h in Headers */,
-				65F810B71952CB5700992FD1 /* KTElementLink.h in Headers */,
-				6567B6A5191F63990039D7C0 /* KTGlobalSetting.h in Headers */,
-				6567B6C3191F641A0039D7C0 /* KTBaseObject.h in Headers */,
-				6567B6BB191F63F70039D7C0 /* KTStatusItem.h in Headers */,
-				654357971AFCAB1C00A71B43 /* KTLicenseData.h in Headers */,
-				6567B6C2191F64150039D7C0 /* KTGlobalSettingContext.h in Headers */,
-				6567B6B1191F63CC0039D7C0 /* KTPosition.h in Headers */,
-				65481DE119D06E9C00AAB0E1 /* KTQuery.h in Headers */,
-				6551FDC81AE69C5400C0D2BE /* unzip.h in Headers */,
-				6567B6B0191F63C80039D7C0 /* KTPermission.h in Headers */,
-				6567B6B3191F63D50039D7C0 /* KTClassAttribute.h in Headers */,
-				6567B6B9191F63EE0039D7C0 /* KTSize.h in Headers */,
-				6567B6A0191F63770039D7C0 /* KTBomItem.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		65D2BE821AF25F5200615A66 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65D2BE831AF25F7C00615A66 /* KTGroup.h in Headers */,
-				65D2BE841AF25F7C00615A66 /* KTUser.h in Headers */,
-				65D2BE851AF25F8700615A66 /* KTAttributeMapping.h in Headers */,
-				65D2BE861AF25F8700615A66 /* KTServerInfo.h in Headers */,
-				65D2BE871AF25F8700615A66 /* KTBomItem.h in Headers */,
-				65D2BE881AF25F8700615A66 /* KTChangeAction.h in Headers */,
-				65D2BE891AF25F8700615A66 /* KTElement.h in Headers */,
-				65D2BE8A1AF25F8700615A66 /* KTFileInfo.h in Headers */,
-				65D2BE8B1AF25F8700615A66 /* KTFont.h in Headers */,
-				65D2BE8C1AF25F8700615A66 /* KTIdentifiedDataSource.h in Headers */,
-				65D2BE8D1AF25F8700615A66 /* KTKeyValue.h in Headers */,
-				65D2BE8E1AF25F8700615A66 /* KTLayout.h in Headers */,
-				65D2BE8F1AF25F8700615A66 /* KTLayouts.h in Headers */,
-				65D2BE901AF25F8700615A66 /* KTNoteItem.h in Headers */,
-				65D2BE911AF25F8700615A66 /* KTNotifications.h in Headers */,
-				65D2BE921AF25F8700615A66 /* KTPermission.h in Headers */,
-				65D2BE931AF25F8700615A66 /* KTPosition.h in Headers */,
-				65D2BE941AF25F8700615A66 /* KTClass.h in Headers */,
-				65D2BE951AF25F8700615A66 /* KTClassAttribute.h in Headers */,
-				65D2BE961AF25F8800615A66 /* KTPreferencesConnection.h in Headers */,
-				65D2BE971AF25F8800615A66 /* KTSignedBy.h in Headers */,
-				65D2BE981AF25F8800615A66 /* KTSimpleControl.h in Headers */,
-				65D2BE991AF25F8800615A66 /* KTSimpleFavorite.h in Headers */,
-				65D2BE9A1AF25F8800615A66 /* KTSize.h in Headers */,
-				65D2BE9B1AF25F8800615A66 /* KTStatusHistoryItem.h in Headers */,
-				65D2BE9C1AF25F8800615A66 /* KTStatusItem.h in Headers */,
-				65D2BE9D1AF25F8800615A66 /* KTTargetLink.h in Headers */,
-				65D2BE9E1AF25F8800615A66 /* KTElementLink.h in Headers */,
-				65D2BE9F1AF25F8800615A66 /* KTTask.h in Headers */,
-				65D2BEA01AF25F8800615A66 /* KTSimpleKeyValuePair.h in Headers */,
-				65D2BEA11AF25F8800615A66 /* KTManager.h in Headers */,
-				65D2BEA21AF25F8800615A66 /* KTBaseObject.h in Headers */,
-				65D2BEA31AF25F8800615A66 /* NSPredicate+PredicateKTFormat.h in Headers */,
-				65D2BEA41AF25F8800615A66 /* NSString+ClassType.h in Headers */,
-				65D2BEA51AF25F8800615A66 /* KTSendNotifications.h in Headers */,
-				65D2BEA61AF25F8800615A66 /* KTQuery.h in Headers */,
-				65D2BEA71AF25F8800615A66 /* KTPagedObject.h in Headers */,
-				65D2BEA81AF25F8800615A66 /* KTSearchengineResult.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1149,7 +776,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				65085845189CEC2D00399949 /* PBXTargetDependency */,
 			);
 			name = keytechKitFramework;
 			productName = keytechKit;
@@ -1174,25 +800,6 @@
 			productReference = 650857F6189CE73300399949 /* keytechKitFrameworkTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		65085810189CEA9B00399949 /* keytechKit */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6508582F189CEA9B00399949 /* Build configuration list for PBXNativeTarget "keytechKit" */;
-			buildPhases = (
-				6508580D189CEA9B00399949 /* Sources */,
-				6508580E189CEA9B00399949 /* Frameworks */,
-				6508580F189CEA9B00399949 /* CopyFiles */,
-				6567B69D191F63650039D7C0 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				65085856189CEDDF00399949 /* PBXTargetDependency */,
-			);
-			name = keytechKit;
-			productName = keytechKit;
-			productReference = 65085811189CEA9B00399949 /* libkeytechKit.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		6508581E189CEA9B00399949 /* keytechKitTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65085832189CEA9B00399949 /* Build configuration list for PBXNativeTarget "keytechKitTests" */;
@@ -1204,30 +811,30 @@
 			buildRules = (
 			);
 			dependencies = (
-				657E512C189EC39E00CB7859 /* PBXTargetDependency */,
+				65FDCB911B0F01D400D2BD63 /* PBXTargetDependency */,
 			);
 			name = keytechKitTests;
 			productName = keytechKitTests;
 			productReference = 6508581F189CEA9B00399949 /* keytechKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		65D2BE781AF25DDC00615A66 /* keytechKit_iOS */ = {
+		6547138C1B0E302300E6F8E2 /* keytechKit_iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 65D2BE811AF25DDC00615A66 /* Build configuration list for PBXNativeTarget "keytechKit_iOS" */;
+			buildConfigurationList = 654713A01B0E302400E6F8E2 /* Build configuration list for PBXNativeTarget "keytechKit_iOS" */;
 			buildPhases = (
-				65D2BE751AF25DDC00615A66 /* Sources */,
-				65D2BE761AF25DDC00615A66 /* Frameworks */,
-				65D2BE771AF25DDC00615A66 /* Resources */,
-				65D2BE821AF25F5200615A66 /* Headers */,
+				654713881B0E302300E6F8E2 /* Sources */,
+				654713891B0E302300E6F8E2 /* Frameworks */,
+				6547138A1B0E302300E6F8E2 /* Headers */,
+				6547138B1B0E302300E6F8E2 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = keytechKit_iOS;
-			productName = keytechKit_iOS;
-			productReference = 65D2BE791AF25DDC00615A66 /* keytechKit_iOS.framework */;
-			productType = "com.apple.product-type.bundle";
+			productName = keytechKit;
+			productReference = 6547138D1B0E302300E6F8E2 /* keytechKit_iOS.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -1248,10 +855,10 @@
 					6508581E189CEA9B00399949 = {
 						TestTargetID = 650857DE189CE73300399949;
 					};
-					657AFB471AEE83AE00C292BB = {
-						CreatedOnToolsVersion = 6.3.1;
+					6547138C1B0E302300E6F8E2 = {
+						CreatedOnToolsVersion = 6.3.2;
 					};
-					65D2BE781AF25DDC00615A66 = {
+					657AFB471AEE83AE00C292BB = {
 						CreatedOnToolsVersion = 6.3.1;
 					};
 					65D2BEA91AF2606D00615A66 = {
@@ -1260,7 +867,7 @@
 				};
 			};
 			buildConfigurationList = 650857D9189CE73300399949 /* Build configuration list for PBXProject "keytechKit" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1269,56 +876,18 @@
 			mainGroup = 650857D5189CE73300399949;
 			productRefGroup = 650857E0189CE73300399949 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 65085836189CEBB300399949 /* Products */;
-					ProjectRef = 65085835189CEBB300399949 /* RestKit.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				650857DE189CE73300399949 /* keytechKitFramework */,
 				650857F5189CE73300399949 /* keytechKitFrameworkTests */,
-				65085810189CEA9B00399949 /* keytechKit */,
 				6508581E189CEA9B00399949 /* keytechKitTests */,
 				657AFB471AEE83AE00C292BB /* Documentation for iOS */,
 				657AFB4C1AEE845A00C292BB /* Documentation for OS X */,
-				65D2BE781AF25DDC00615A66 /* keytechKit_iOS */,
-				65D2BEA91AF2606D00615A66 /* Aggregate keytech_ios SDK */,
+				65D2BEA91AF2606D00615A66 /* keytechKit_ios_SDK */,
+				6547138C1B0E302300E6F8E2 /* keytechKit_iOS */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		6508583D189CEBB300399949 /* libRestKit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRestKit.a;
-			remoteRef = 6508583C189CEBB300399949 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		6508583F189CEBB300399949 /* RestKitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RestKitTests.xctest;
-			remoteRef = 6508583E189CEBB300399949 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		65085841189CEBB300399949 /* RestKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = RestKit.framework;
-			remoteRef = 65085840189CEBB300399949 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		65085843189CEBB300399949 /* RestKitFrameworkTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RestKitFrameworkTests.xctest;
-			remoteRef = 65085842189CEBB300399949 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		650857DD189CE73300399949 /* Resources */ = {
@@ -1346,7 +915,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		65D2BE771AF25DDC00615A66 /* Resources */ = {
+		6547138B1B0E302300E6F8E2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1367,7 +936,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Claus Software\";\ncompanyID=\"de.claus-software\";\ncompanyURL=\"http://claus-software.de\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"~/help/keytechKit/iOS\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--ignore /RestKit \\\n--ignore \"*.m\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Claus Software\";\ncompanyID=\"de.claus-software\";\ncompanyURL=\"http://claus-software.de\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"~/help/keytechKit/iOS\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--ignore /RestKit \\\n--ignore \"Tests\" \\\n--ignore \"*.m\" \\\n--ignore \"KTLicenseData.h\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
 		};
 		657AFB4D1AEE845A00C292BB /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1380,7 +949,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Claus Software\";\ncompanyID=\"de.claus-software\";\ncompanyURL=\"http://claus-software.de\";\n#target=\"iphoneos\";\ntarget=\"macosx\";\noutputPath=\"~/help/keytechKit/osx\"\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--ignore \"RestKit\" \\\n--ignore \"Tests\" \\\n--ignore \"*.m\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--no-create-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"Claus Software\";\ncompanyID=\"de.claus-software\";\ncompanyURL=\"http://claus-software.de\";\n#target=\"iphoneos\";\ntarget=\"macosx\";\noutputPath=\"~/help/keytechKit/osx\"\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--ignore \"RestKit\" \\\n--ignore \"Tests\" \\\n--ignore \"*.m\" \\\n--ignore \"KTLicenseData.h\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--no-create-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
 		};
 		65D2BEAD1AF260B800615A66 /* Run Script (Clean) */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1395,19 +964,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "xcodebuild clean -target 'keytechKit_iOS' -sdk iphoneos\nxcodebuild clean -target 'keytechKit_iOS' -sdk iphonesimulator";
+			showEnvVarsInLog = 0;
 		};
-		65D2BEAE1AF2610800615A66 /* ShellScript */ = {
+		65D2BEAE1AF2610800615A66 /* Run Script (Build) */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script (Build)";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "xcodebuild -configuration ${CONFIGURATION} -target keytechKit_iOS -sdk iphoneos -SYMROOT=${SYMROOT} -OBJROOT=${OBJROOT}\n\nxcodebuild -configuration ${CONFIGURATION} -target keytechKit_iOS -sdk iphonesimulator -SYMROOT=${SYMROOT} -OBJROOT=${OBJROOT}\n\nINSTALL_DIR=${SRCROOT}/${TARGET_NAME}\nBUILD_DIR=${SRCROOT}/build\n\n\nDEVICE_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos/${TARGET_NAME}\nSIMULATOR_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${TARGET_NAME}\n\n# Create and renews the final product folder.\n\nrm -rf \"${INSTALL_DIR}\"\n\nmkdir -p \"${INSTALL_DIR}\"\n\nmkdir -p \"${INSTALL_DIR}/Versions/A/Headers\"\n\nxcrun -sdk iphoneos lipo -create ${SIMULATOR_DIR}/keytechKit_iOS ${DEVICE_DIR}/keytechKit_iOS -o ${INSTALL_DIR}/Versions/A/keytechKit_iOS\n\n# Copy the header files to the final product folder.\ncp -r \"${SIMULATOR_DIR}/Headers/\" \"${INSTALL_DIR}/Versions/A/Headers/\"\n\nmkdir -p \"${INSTALL_DIR}/Versions/A/Resources\"\n\ncp -r \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/Versions/A/Resources/\"\n\n#create relative symbolic link.\ncd ${INSTALL_DIR}\n\n#link\nln -s A Versions/Current\nln -s Versions/A/keytechKit_iOS keytechKit_iOS\nln -s Versions/A/Resources Resources\nln -s Versions/A/Headers Headers";
+			shellScript = "xcodebuild -configuration ${CONFIGURATION} -target keytechKit_iOS -sdk iphoneos -SYMROOT=${SYMROOT} -OBJROOT=${OBJROOT}\n\nxcodebuild -configuration ${CONFIGURATION} -target keytechKit_iOS -sdk iphonesimulator -SYMROOT=${SYMROOT} -OBJROOT=${OBJROOT}\n\nPRODUCTNAME=keytechKit_ios\nINSTALL_DIR=${SRCROOT}/${PRODUCTNAME}.framework\nBUILD_DIR=${SRCROOT}/build\n\n\nDEVICE_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos\nSIMULATOR_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator\n\n# Create and renews the final product folder.\n\nrm -rf \"${INSTALL_DIR}\"\n\nmkdir -p \"${INSTALL_DIR}\"\n\nmkdir -p \"${INSTALL_DIR}/Versions/A/Headers\"\n\nxcrun -sdk iphoneos lipo -create \"${SIMULATOR_DIR}/keytechKit_iOS.framework/keytechKit_iOS\" \"${DEVICE_DIR}/keytechKit_iOS.framework/keytechKit_iOS\" -o ${INSTALL_DIR}/Versions/A/${PRODUCTNAME}\n\n# Copy the header files to the final product folder.\ncp -r \"Headers/keytechKit/\" \"${INSTALL_DIR}/Versions/A/Headers/\"\necho \"Create file\"\nmkdir -p \"${INSTALL_DIR}/Versions/A/Resources\"\n\ncp -r \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/Versions/A/Resources/\"\n\n#create relative symbolic link.\ncd ${INSTALL_DIR}\n\n#link\nln -s A Versions/Current\nln -s Versions/A/${PRODUCTNAME} ${PRODUCTNAME}\nln -s Versions/A/Resources Resources\nln -s Versions/A/Headers Headers";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1422,7 +994,6 @@
 				650858C2189CF08E00399949 /* KTGroup.m in Sources */,
 				650858CD189CF08E00399949 /* KTLayout.m in Sources */,
 				65085900189CF08E00399949 /* KTTask.m in Sources */,
-				6551FDC91AE69C5400C0D2BE /* zip.c in Sources */,
 				6556943B18C2513700A0BBD1 /* KTClass.m in Sources */,
 				650858F1189CF08E00399949 /* KTSize.m in Sources */,
 				650858B6189CF08E00399949 /* KTElement.m in Sources */,
@@ -1436,7 +1007,6 @@
 				6543578F1AFCAAD900A71B43 /* KTLicenseData.m in Sources */,
 				650858B0189CF08E00399949 /* KTBomItem.m in Sources */,
 				6507ACC619224525008CCB94 /* KTServerInfo.m in Sources */,
-				6551FDCF1AE69C5400C0D2BE /* SSZipArchive.m in Sources */,
 				650858EB189CF08E00399949 /* KTSimpleControl.m in Sources */,
 				65085903189CF08E00399949 /* KTUser.m in Sources */,
 				650858AD189CF08E00399949 /* KTAttributeMapping.m in Sources */,
@@ -1445,9 +1015,7 @@
 				65C86EA21A0BBB9C00AE3F2E /* KTSearchengineResult.m in Sources */,
 				65F810B81952CB5700992FD1 /* KTElementLink.m in Sources */,
 				65481DE219D06E9C00AAB0E1 /* KTQuery.m in Sources */,
-				6551FDC11AE69C5400C0D2BE /* mztools.c in Sources */,
 				657E68F119922FBE000BC057 /* KTSendNotifications.m in Sources */,
-				6551FDBD1AE69C5400C0D2BE /* ioapi.c in Sources */,
 				650858B3189CF08E00399949 /* KTChangeAction.m in Sources */,
 				650858EE189CF08E00399949 /* KTSimpleFavorite.m in Sources */,
 				65494E0018A227E100EF9FA4 /* KTGlobalSettingContext.m in Sources */,
@@ -1459,7 +1027,6 @@
 				650858FD189CF08E00399949 /* KTTargetLink.m in Sources */,
 				6527EA8419477EC800A37BDA /* NSString+ClassType.m in Sources */,
 				650858E8189CF08E00399949 /* KTSignedBy.m in Sources */,
-				6551FDC51AE69C5400C0D2BE /* unzip.c in Sources */,
 				65481DE819D070EC00AAB0E1 /* KTPagedObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1493,57 +1060,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6508580D189CEA9B00399949 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6551FDBE1AE69C5400C0D2BE /* ioapi.c in Sources */,
-				650858CB189CF08E00399949 /* KTKeyValue.m in Sources */,
-				650858D7189CF08E00399949 /* KTNoteItem.m in Sources */,
-				650858DD189CF08E00399949 /* KTPermission.m in Sources */,
-				650858C3189CF08E00399949 /* KTGroup.m in Sources */,
-				650858CE189CF08E00399949 /* KTLayout.m in Sources */,
-				65085901189CF08E00399949 /* KTTask.m in Sources */,
-				6556943C18C2513700A0BBD1 /* KTClass.m in Sources */,
-				650858F2189CF08E00399949 /* KTSize.m in Sources */,
-				6551FDD01AE69C5400C0D2BE /* SSZipArchive.m in Sources */,
-				650858B7189CF08E00399949 /* KTElement.m in Sources */,
-				650858DA189CF08E00399949 /* KTNotifications.m in Sources */,
-				650858BD189CF08E00399949 /* KTFont.m in Sources */,
-				650858E3189CF08E00399949 /* KTPreferencesConnection.m in Sources */,
-				650858F8189CF08E00399949 /* KTStatusItem.m in Sources */,
-				650858E0189CF08E00399949 /* KTPosition.m in Sources */,
-				65C86EA41A0BBB9C00AE3F2E /* KTSearchengineResult.m in Sources */,
-				6507ACC719224525008CCB94 /* KTServerInfo.m in Sources */,
-				654357911AFCAAD900A71B43 /* KTLicenseData.m in Sources */,
-				650858D1189CF08E00399949 /* KTLayouts.m in Sources */,
-				650858C0189CF08E00399949 /* KTGlobalSetting.m in Sources */,
-				657E68F219922FBE000BC057 /* KTSendNotifications.m in Sources */,
-				650858B1189CF08E00399949 /* KTBomItem.m in Sources */,
-				650858EC189CF08E00399949 /* KTSimpleControl.m in Sources */,
-				6527EA8519477EC800A37BDA /* NSString+ClassType.m in Sources */,
-				65481DE919D070EC00AAB0E1 /* KTPagedObject.m in Sources */,
-				65085904189CF08E00399949 /* KTUser.m in Sources */,
-				650858AE189CF08E00399949 /* KTAttributeMapping.m in Sources */,
-				65481DE319D06E9C00AAB0E1 /* KTQuery.m in Sources */,
-				6556944818C330A200A0BBD1 /* KTBaseObject.m in Sources */,
-				6508590A189CF08E00399949 /* KTManager.m in Sources */,
-				650858B4189CF08E00399949 /* KTChangeAction.m in Sources */,
-				650858EF189CF08E00399949 /* KTSimpleFavorite.m in Sources */,
-				65494E0118A227E100EF9FA4 /* KTGlobalSettingContext.m in Sources */,
-				650858BA189CF08E00399949 /* KTFileInfo.m in Sources */,
-				6551FDC61AE69C5400C0D2BE /* unzip.c in Sources */,
-				650858F5189CF08E00399949 /* KTStatusHistoryItem.m in Sources */,
-				6551FDC21AE69C5400C0D2BE /* mztools.c in Sources */,
-				6556944318C25A5800A0BBD1 /* KTClassAttribute.m in Sources */,
-				6551FDCA1AE69C5400C0D2BE /* zip.c in Sources */,
-				65085907189CF08E00399949 /* KTSimpleKeyValuePair.m in Sources */,
-				65F810B91952CB5700992FD1 /* KTElementLink.m in Sources */,
-				650858FE189CF08E00399949 /* KTTargetLink.m in Sources */,
-				650858E9189CF08E00399949 /* KTSignedBy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6508581B189CEA9B00399949 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1573,35 +1089,64 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		65D2BE751AF25DDC00615A66 /* Sources */ = {
+		654713881B0E302300E6F8E2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				653C018D1B0E67AE00B2D79F /* KTGlobalSetting.m in Sources */,
+				653C018E1B0E67AE00B2D79F /* KTGlobalSettingContext.m in Sources */,
+				653C018F1B0E67AE00B2D79F /* KTGroup.m in Sources */,
+				653C01901B0E67AE00B2D79F /* KTUser.m in Sources */,
+				653C01911B0E67AE00B2D79F /* KTAttributeMapping.m in Sources */,
+				653C01921B0E67AE00B2D79F /* KTServerInfo.m in Sources */,
+				653C01931B0E67AE00B2D79F /* KTBomItem.m in Sources */,
+				653C01941B0E67AE00B2D79F /* KTChangeAction.m in Sources */,
+				653C01951B0E67AE00B2D79F /* KTElement.m in Sources */,
+				653C01961B0E67AE00B2D79F /* KTFileInfo.m in Sources */,
+				653C01971B0E67AE00B2D79F /* KTFont.m in Sources */,
+				653C01981B0E67AE00B2D79F /* KTKeyValue.m in Sources */,
+				653C01991B0E67AE00B2D79F /* KTLayout.m in Sources */,
+				653C019A1B0E67AE00B2D79F /* KTLayouts.m in Sources */,
+				653C019B1B0E67AE00B2D79F /* KTNoteItem.m in Sources */,
+				653C019C1B0E67AE00B2D79F /* KTNotifications.m in Sources */,
+				653C019D1B0E67AE00B2D79F /* KTPermission.m in Sources */,
+				653C019E1B0E67AE00B2D79F /* KTPosition.m in Sources */,
+				653C019F1B0E67AE00B2D79F /* KTClass.m in Sources */,
+				653C01A01B0E67AE00B2D79F /* KTClassAttribute.m in Sources */,
+				653C01A11B0E67AE00B2D79F /* KTPreferencesConnection.m in Sources */,
+				653C01A21B0E67AE00B2D79F /* KTSignedBy.m in Sources */,
+				653C01A31B0E67AE00B2D79F /* KTSimpleControl.m in Sources */,
+				653C01A41B0E67AE00B2D79F /* KTSimpleFavorite.m in Sources */,
+				653C01A51B0E67AE00B2D79F /* KTSize.m in Sources */,
+				653C01A61B0E67AE00B2D79F /* KTStatusHistoryItem.m in Sources */,
+				653C01A71B0E67AE00B2D79F /* KTStatusItem.m in Sources */,
+				653C01A81B0E67AE00B2D79F /* KTTargetLink.m in Sources */,
+				653C01A91B0E67AE00B2D79F /* KTElementLink.m in Sources */,
+				653C01AA1B0E67AE00B2D79F /* KTTask.m in Sources */,
+				653C01AB1B0E67AE00B2D79F /* KTSimpleKeyValuePair.m in Sources */,
+				653C01AC1B0E67AE00B2D79F /* KTManager.m in Sources */,
+				653C01AD1B0E67AE00B2D79F /* KTBaseObject.m in Sources */,
+				653C01AF1B0E67AE00B2D79F /* NSString+ClassType.m in Sources */,
+				653C01B01B0E67AE00B2D79F /* KTSendNotifications.m in Sources */,
+				653C01B11B0E67AE00B2D79F /* KTLicenseData.m in Sources */,
+				653C01B21B0E67AE00B2D79F /* KTQuery.m in Sources */,
+				653C01B31B0E67AE00B2D79F /* KTPagedObject.m in Sources */,
+				653C01B41B0E67AE00B2D79F /* KTSearchengineResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		65085845189CEC2D00399949 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RestKitFramework;
-			targetProxy = 65085844189CEC2D00399949 /* PBXContainerItemProxy */;
-		};
-		65085856189CEDDF00399949 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RestKit;
-			targetProxy = 65085855189CEDDF00399949 /* PBXContainerItemProxy */;
-		};
 		657E50ED189E6FDE00CB7859 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 650857DE189CE73300399949 /* keytechKitFramework */;
 			targetProxy = 657E50EC189E6FDE00CB7859 /* PBXContainerItemProxy */;
 		};
-		657E512C189EC39E00CB7859 /* PBXTargetDependency */ = {
+		65FDCB911B0F01D400D2BD63 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 65085810189CEA9B00399949 /* keytechKit */;
-			targetProxy = 657E512B189EC39E00CB7859 /* PBXContainerItemProxy */;
+			target = 6547138C1B0E302300E6F8E2 /* keytechKit_iOS */;
+			targetProxy = 65FDCB901B0F01D400D2BD63 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1703,6 +1248,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+					"\"$(BUILT_PRODUCTS_DIR)/../../RestKit/Build/Headers\"",
 				);
 				INFOPLIST_FILE = "keytechKit/keytechKit-Info.plist";
 				INSTALL_PATH = "@rpath";
@@ -1737,6 +1283,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+					"\"$(BUILT_PRODUCTS_DIR)/../../RestKit/Build/Headers\"",
 				);
 				INFOPLIST_FILE = "keytechKit/keytechKit-Info.plist";
 				INSTALL_PATH = "@rpath";
@@ -1770,7 +1317,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "keytechKit/Tests/keytechKitTests-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "keytechKit/Tests/keytechKitFrameworkTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1792,7 +1339,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "keytechKit/Code/keytechFoundation-OSX-Prefix.pch";
 				INFOPLIST_FILE = "keytechKit/Tests/keytechKitTests-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "keytechKit/Tests/keytechKitFrameworkTests-Bridging-Header.h";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -1800,75 +1347,9 @@
 			};
 			name = Release;
 		};
-		65085830189CEA9B00399949 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "keytechKit/Code/keytechFoundation-IOS-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
-				);
-				INSTALL_PATH = "@rpath";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-					"$(inherited)",
-				);
-				PRODUCT_NAME = keytechKit;
-				PUBLIC_HEADERS_FOLDER_PATH = ../../Headers/keytechKit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "keytechKit/Code/keytechKit-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				VALID_ARCHS = "arm64 armv7 armv7s i386";
-			};
-			name = Debug;
-		};
-		65085831189CEA9B00399949 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				DEAD_CODE_STRIPPING = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "keytechKit/Code/keytechFoundation-IOS-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
-				);
-				INSTALL_PATH = "@rpath";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-					"$(inherited)",
-				);
-				PRODUCT_NAME = keytechKit;
-				PUBLIC_HEADERS_FOLDER_PATH = ../../Headers/keytechKit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				STRIP_STYLE = "non-global";
-				SWIFT_OBJC_BRIDGING_HEADER = "keytechKit/Code/keytechKit-Bridging-Header.h";
-				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "arm64 armv7 armv7s i386";
-			};
-			name = Release;
-		};
 		65085833189CEA9B00399949 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/keytechKit.framework/Versions/A/keytechKit";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1883,9 +1364,9 @@
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
 				);
 				INFOPLIST_FILE = "keytechKit/Tests/keytechKitTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				ONLY_ACTIVE_ARCH = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -1896,7 +1377,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "keytechKit/Tests/keytechKitTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				VALID_ARCHS = "arm64 armv7 armv7s i386";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -1904,7 +1385,6 @@
 		65085834189CEA9B00399949 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/keytechKit.framework/Versions/A/keytechKit";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1919,8 +1399,9 @@
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
 				);
 				INFOPLIST_FILE = "keytechKit/Tests/keytechKitTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -1931,8 +1412,98 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "keytechKit/Tests/keytechKitTests-Bridging-Header.h";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "arm64 armv7 armv7s i386";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		654713A11B0E302400E6F8E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "keytechKit/Code/keytechFoundation-IOS-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+					"\"${SRCROOT}/RestKit/Build/Headers\"",
+				);
+				INFOPLIST_FILE = "keytechKit/keytechKit-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		654713A21B0E302400E6F8E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "keytechKit/Code/keytechFoundation-IOS-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+					"\"${SRCROOT}/RestKit/Build/Headers\"",
+				);
+				INFOPLIST_FILE = "keytechKit/keytechKit-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -1964,66 +1535,14 @@
 			};
 			name = Release;
 		};
-		65D2BE7D1AF25DDC00615A66 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = YES;
-				DEAD_CODE_STRIPPING = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = keytechKit_iOS/Info.plist;
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LINK_WITH_STANDARD_LIBRARIES = NO;
-				MACH_O_TYPE = mh_object;
-				MACOSX_DEPLOYMENT_TARGET = "";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Debug;
-		};
-		65D2BE7E1AF25DDC00615A66 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = YES;
-				DEAD_CODE_STRIPPING = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = keytechKit_iOS/Info.plist;
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LINK_WITH_STANDARD_LIBRARIES = NO;
-				MACH_O_TYPE = mh_object;
-				MACOSX_DEPLOYMENT_TARGET = "";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Release;
-		};
 		65D2BEAB1AF2606E00615A66 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos8.3;
 			};
@@ -2032,6 +1551,11 @@
 		65D2BEAC1AF2606E00615A66 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos8.3;
 			};
@@ -2067,20 +1591,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6508582F189CEA9B00399949 /* Build configuration list for PBXNativeTarget "keytechKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				65085830189CEA9B00399949 /* Debug */,
-				65085831189CEA9B00399949 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		65085832189CEA9B00399949 /* Build configuration list for PBXNativeTarget "keytechKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				65085833189CEA9B00399949 /* Debug */,
 				65085834189CEA9B00399949 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		654713A01B0E302400E6F8E2 /* Build configuration list for PBXNativeTarget "keytechKit_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				654713A11B0E302400E6F8E2 /* Debug */,
+				654713A21B0E302400E6F8E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2103,16 +1627,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		65D2BE811AF25DDC00615A66 /* Build configuration list for PBXNativeTarget "keytechKit_iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				65D2BE7D1AF25DDC00615A66 /* Debug */,
-				65D2BE7E1AF25DDC00615A66 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		65D2BEAA1AF2606E00615A66 /* Build configuration list for PBXAggregateTarget "Aggregate keytech_ios SDK" */ = {
+		65D2BEAA1AF2606E00615A66 /* Build configuration list for PBXAggregateTarget "keytechKit_ios_SDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				65D2BEAB1AF2606E00615A66 /* Debug */,

@@ -7,6 +7,7 @@
 //
 
 #import "KTLayout.h"
+#import "NSString+ClassType.h"
 
 @implementation KTLayout{
     

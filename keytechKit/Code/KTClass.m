@@ -8,7 +8,7 @@
 
 #import "KTClass.h"
 #import "KTManager.h"
-
+#import "NSString+ClassType.h"
 #import <RestKit/RestKit.h>
 
 @implementation KTClass{

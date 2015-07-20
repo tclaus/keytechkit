@@ -121,7 +121,9 @@
     
     // NSLog(@"Expression Type: %@",[[cp.rightExpression  constantValue] className]);
     
-    if ([[[cp.rightExpression constantValue] className] isEqualToString:@"__NSDate"]) {
+    // Check: KindOf Class?
+    
+    if ([[cp.rightExpression constantValue] isKindOfClass:[NSDate class]]) {
         // Date to JSON Convert
         NSDate *date = [cp.rightExpression constantValue];
         
