@@ -1,0 +1,15 @@
+# Uncomment this line to define a global platform for your project
+platform :ios, '7.0'
+
+source 'https://bitbucket.org/tclaus/podspec'
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'Example' do
+ pod 'keytechkit', :path =>'../'
+end
+
+target 'ExampleTests' do
+ pod 'keytechkit', :path =>'../'
+end 
+
+

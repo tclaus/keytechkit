@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
+
 /**
  A note can be interpreted as a informative text with a subject line and a body. Will describe an element, a status change or any othe object in the keytech API.
  */
@@ -19,6 +20,13 @@
  @param manager A shared RKObjectmanager that contains the connection data to the API
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
+
+/**
+ Creates a new note item to be attached under this element 
+ */
++(instancetype)noteItemForElementKey:(NSString*)elementkey;
+
+@property (nonatomic) NSString *targetElementKey;
 
 /**
  Unique nummeric noteID
@@ -60,6 +68,12 @@
  Long name of creator
  */
 @property (nonatomic,copy) NSString* noteCreatedByLong;
+
+/** 
+ Saves the current note
+ */
+-(void)saveNote:(void (^)(KTNoteItem *noteItem))success failure:(void (^)(KTNoteItem *noteItem, NSError *error))failure;
+
 @end
 
 

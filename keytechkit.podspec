@@ -4,7 +4,7 @@ Pod::Spec.new do |spec|
   spec.license      = { :type => 'BSD' }
   spec.homepage     = 'https://bitbucket.org/tclaus/keytechkit.git'
   spec.authors      = { 'Thorsten Claus' => 'thorstenclaus@web.de' }
-  spec.summary      = 'keytech kit'
+  spec.summary      = 'keytech lib to access the keytech software Web-API.'
   spec.source       = { :git => 'https://bitbucket.org/tclaus/keytechkit.git', :tag => spec.version.to_s }
   spec.source_files = 'keytechKit/Code/**/*.{h,m}'
   spec.requires_arc = true
