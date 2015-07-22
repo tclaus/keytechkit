@@ -37,18 +37,29 @@ static RKObjectManager *_usedManager;
         _usedManager = manager;
         
         _mapping = [RKObjectMapping mappingForClass:[KTNoteItem class]];
+        NSDictionary *noteRequestAttributes = @{@"noteID":@"ID",
+                                          @"noteType":@"NoteType",
+                                          @"noteText":@"Text",
+                                          @"noteIndex":@"Index",
+                                          @"noteSubject":@"Subject",
+                                          };
+
+        NSDictionary *noteResponseAttributes = @{@"ID":@"noteID",
+                                                 @"NoteType":@"noteType",
+                                                 @"Text":@"noteText",
+                                                 @"Index":@"noteIndex",
+                                                 @"Subject":@"noteSubject",
+                                                 @"ChangedAt":@"noteChangedAt",
+                                                 @"ChangedBy":@"noteChangedBy",
+                                                 @"ChangedByLong":@"noteChangedByLong",
+                                                 @"CreatedAt":@"noteCreatedAt",
+                                                 @"CreatedBy":@"noteCreatedBy",
+                                                 @"CreatedByLong":@"noteCreatedByLong"
+                                                 };
+
         
-        [_mapping addAttributeMappingsFromDictionary:@{@"ID":@"noteID",
-                                                       @"NoteType":@"noteType",
-                                                       @"Text":@"noteText",
-                                                       @"Subject":@"noteSubject",
-                                                       @"ChangedAt":@"noteChangedAt",
-                                                       @"ChangedBy":@"noteChangedBy",
-                                                       @"ChangedByLong":@"noteChangedByLong",
-                                                       @"CreatedAt":@"noteCreatedAt",
-                                                       @"CreatedBy":@"noteCreatedBy",
-                                                       @"CreatedByLong":@"noteCreatedByLong"
-                                                       }];
+        
+        [_mapping addAttributeMappingsFromDictionary:noteResponseAttributes];
         
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
         RKResponseDescriptor *notesResponseDescriptor = [RKResponseDescriptor
@@ -56,25 +67,31 @@ static RKObjectManager *_usedManager;
                                                          method:RKRequestMethodGET
                                                          pathPattern:nil keyPath:@"NotesList" statusCodes:statusCodes];
         
+        
+        RKObjectMapping *requestMapping = [RKObjectMapping requestMapping];
+        [requestMapping addAttributeMappingsFromDictionary:noteRequestAttributes];
+        
         RKRequestDescriptor *notesRequestDescriptor =[RKRequestDescriptor
-                                                      requestDescriptorWithMapping:_mapping
+                                                      requestDescriptorWithMapping: requestMapping
                                                       objectClass:[KTNoteItem class]
-                                                      rootKeyPath:nil method:RKRequestMethodPOST| RKRequestMethodPUT];
+                                                      rootKeyPath:nil
+                                                      method:RKRequestMethodPOST| RKRequestMethodPUT];
+        
         
         
         [manager.router.routeSet addRoute:[RKRoute
                                            routeWithClass:[KTNoteItem class]
-                                           pathPattern:@"elements/:elementkey/notes"
+                                           pathPattern:@"elements/:targetElementKey/notes"
                                            method:RKRequestMethodPOST]] ;
         
         [manager.router.routeSet addRoute:[RKRoute
                                            routeWithClass:[KTNoteItem class]
-                                           pathPattern:@"elements/:elementkey/notes/:noteID"
+                                           pathPattern:@"elements/:targetElementKey/notes/:noteID"
                                            method:RKRequestMethodPUT]] ;
         
         [manager.router.routeSet addRoute:[RKRoute
                                            routeWithClass:[KTNoteItem class]
-                                           pathPattern:@"elements/:elementkey/notes/:noteID"
+                                           pathPattern:@"elements/:targetElementKey/notes/:noteID"
                                            method:RKRequestMethodDELETE]] ;
         
         [_usedManager addResponseDescriptor:notesResponseDescriptor];
@@ -91,11 +108,14 @@ static RKObjectManager *_usedManager;
     return newItem;
 }
 
--(void)deleteNote{
+-(void)deleteNote:(void (^)())success failure:(void (^)(KTNoteItem *, NSError *))failure {
     if (![KTLicenseData sharedLicenseData].isValidLicense) {
         NSError *error = [KTLicenseData sharedLicenseData].licenseError;
-       
+        if (failure) {
+            failure(self,error);
+        }
         return;
+
     }
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
@@ -104,12 +124,17 @@ static RKObjectManager *_usedManager;
     [KTNoteItem mappingWithManager:manager];
     
     [manager deleteObject:self
-     path:nil parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-         //
-         NSLog(@"Note soccessfully deleted");
+                     path:nil
+               parameters:nil
+                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                      if (success) {
+                          success();
+                      }
+
      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-         //
-         NSLog(@"Delete of a note failed");
+         if (failure) {
+             failure(self,error);
+         }
      }];
     
 }
@@ -136,7 +161,8 @@ static RKObjectManager *_usedManager;
              parameters:nil
                 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                     NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                    self.noteID = (int)[response.allHeaderFields objectForKey:@"Location"];
+                    NSString *locationString = (NSString*)[response.allHeaderFields objectForKey:@"Location"];
+                    self.noteID = [locationString integerValue];
                     if (success) {
                         success(self);
                     }
@@ -157,7 +183,7 @@ static RKObjectManager *_usedManager;
                  parameters:nil
                     success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                         NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                        self.noteID = (int)[response.allHeaderFields objectForKey:@"Location"];
+                        
                         if (success) {
                             success(self);
                         }

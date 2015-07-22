@@ -218,6 +218,12 @@
 		657E68F119922FBE000BC057 /* KTSendNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68EE19922FBE000BC057 /* KTSendNotifications.m */; };
 		657E68F419923C76000BC057 /* testSendNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68F319923C76000BC057 /* testSendNotification.m */; };
 		657E68F519923C77000BC057 /* testSendNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E68F319923C76000BC057 /* testSendNotification.m */; };
+		65B1B62E1B5FA90D00B3E605 /* KTNoteType.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B1B62C1B5FA90D00B3E605 /* KTNoteType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65B1B62F1B5FA90D00B3E605 /* KTNoteType.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B1B62C1B5FA90D00B3E605 /* KTNoteType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65B1B6301B5FA90D00B3E605 /* KTNoteType.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B1B62D1B5FA90D00B3E605 /* KTNoteType.m */; };
+		65B1B6311B5FA90D00B3E605 /* KTNoteType.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B1B62D1B5FA90D00B3E605 /* KTNoteType.m */; };
+		65B1B6321B5FA90D00B3E605 /* KTNoteType.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B1B62D1B5FA90D00B3E605 /* KTNoteType.m */; };
+		65B1B6331B5FA90D00B3E605 /* KTNoteType.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B1B62D1B5FA90D00B3E605 /* KTNoteType.m */; };
 		65C86EA01A0BBB9C00AE3F2E /* KTSearchengineResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 65C86E9E1A0BBB9C00AE3F2E /* KTSearchengineResult.h */; };
 		65C86EA21A0BBB9C00AE3F2E /* KTSearchengineResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C86E9F1A0BBB9C00AE3F2E /* KTSearchengineResult.m */; };
 		65C86EA31A0BBB9C00AE3F2E /* KTSearchengineResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C86E9F1A0BBB9C00AE3F2E /* KTSearchengineResult.m */; };
@@ -396,6 +402,8 @@
 		657E68EE19922FBE000BC057 /* KTSendNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSendNotifications.m; sourceTree = "<group>"; };
 		657E68F319923C76000BC057 /* testSendNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testSendNotification.m; sourceTree = "<group>"; };
 		6580CA641AE69AF600438DE3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		65B1B62C1B5FA90D00B3E605 /* KTNoteType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTNoteType.h; sourceTree = "<group>"; };
+		65B1B62D1B5FA90D00B3E605 /* KTNoteType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTNoteType.m; sourceTree = "<group>"; };
 		65C86E9E1A0BBB9C00AE3F2E /* KTSearchengineResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTSearchengineResult.h; sourceTree = "<group>"; };
 		65C86E9F1A0BBB9C00AE3F2E /* KTSearchengineResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSearchengineResult.m; sourceTree = "<group>"; };
 		65DBD9AC1AEB96B40077A669 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
@@ -569,6 +577,8 @@
 				65085881189CF08E00399949 /* KTLayouts.m */,
 				65085884189CF08E00399949 /* KTNoteItem.h */,
 				65085885189CF08E00399949 /* KTNoteItem.m */,
+				65B1B62C1B5FA90D00B3E605 /* KTNoteType.h */,
+				65B1B62D1B5FA90D00B3E605 /* KTNoteType.m */,
 				65085886189CF08E00399949 /* KTNotifications.h */,
 				65085887189CF08E00399949 /* KTNotifications.m */,
 				65085888189CF08E00399949 /* KTPermission.h */,
@@ -711,6 +721,7 @@
 				65481DE619D070EC00AAB0E1 /* KTPagedObject.h in Headers */,
 				65494DFF18A227E100EF9FA4 /* KTGlobalSettingContext.h in Headers */,
 				6556943A18C2513700A0BBD1 /* KTClass.h in Headers */,
+				65B1B62E1B5FA90D00B3E605 /* KTNoteType.h in Headers */,
 				650858EA189CF08E00399949 /* KTSimpleControl.h in Headers */,
 				650858D5189CF08E00399949 /* KTNoteItem.h in Headers */,
 				650858ED189CF08E00399949 /* KTSimpleFavorite.h in Headers */,
@@ -752,6 +763,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65B1B62F1B5FA90D00B3E605 /* KTNoteType.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -997,6 +1009,7 @@
 				650858E2189CF08E00399949 /* KTPreferencesConnection.m in Sources */,
 				650858F7189CF08E00399949 /* KTStatusItem.m in Sources */,
 				650858DF189CF08E00399949 /* KTPosition.m in Sources */,
+				65B1B6301B5FA90D00B3E605 /* KTNoteType.m in Sources */,
 				650858D0189CF08E00399949 /* KTLayouts.m in Sources */,
 				650858BF189CF08E00399949 /* KTGlobalSetting.m in Sources */,
 				6543578F1AFCAAD900A71B43 /* KTLicenseData.m in Sources */,
@@ -1030,6 +1043,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65B1B6311B5FA90D00B3E605 /* KTNoteType.m in Sources */,
 				6508594D189CF0F500399949 /* testStatus.m in Sources */,
 				656646831B00AFA80007EA7F /* testSDKLicenses.m in Sources */,
 				657E50F1189E76F800CB7859 /* testResponseLoader.m in Sources */,
@@ -1058,6 +1072,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65B1B6321B5FA90D00B3E605 /* KTNoteType.m in Sources */,
 				65085941189CF0F400399949 /* testStatus.m in Sources */,
 				656646841B00AFA80007EA7F /* testSDKLicenses.m in Sources */,
 				657E50F2189E76F800CB7859 /* testResponseLoader.m in Sources */,
@@ -1124,6 +1139,7 @@
 				653C01B11B0E67AE00B2D79F /* KTLicenseData.m in Sources */,
 				653C01B21B0E67AE00B2D79F /* KTQuery.m in Sources */,
 				653C01B31B0E67AE00B2D79F /* KTPagedObject.m in Sources */,
+				65B1B6331B5FA90D00B3E605 /* KTNoteType.m in Sources */,
 				653C01B41B0E67AE00B2D79F /* KTSearchengineResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

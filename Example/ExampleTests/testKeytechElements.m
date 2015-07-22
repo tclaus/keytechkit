@@ -306,6 +306,8 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         XCTAssertTrue(itemsList.count>0, @"Noteslist list should have some items");
         XCTAssertTrue(element.itemNotesList.count>0,@"Element property should not be empty");
         
+        NSLog(@"Loaded %lu notes",(unsigned long)itemsList.count);
+        
         [documentOpenExpectation fulfill];
         
     } failure:^(NSError *error) {
@@ -314,6 +316,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        
     }];
     
 }

@@ -250,7 +250,7 @@ static NSString * const kSDFParseAPIKey = @"fdB5jQ8x1gOF2ruzjzfMJdqVrWYYZkJuN2fp
             NSString *strippedAPIVersion = [self.APIVersion stringByReplacingOccurrencesOfString:@"~>" withString:@""];
             
             NSComparisonResult result= [strippedAPIVersion
-                                        compare:CheckAPIVersion options:NSCaseInsensitiveSearch];
+                                        compare:CheckAPIVersion options:NSNumericSearch];
             
             // License: >13.1.2, API: 13.1.2, 13.2.2, 14.xx but not lower than 13.1.2
             if (result == NSOrderedDescending) {

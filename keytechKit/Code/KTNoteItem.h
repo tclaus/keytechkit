@@ -33,7 +33,7 @@
  */
 @property (nonatomic) NSInteger noteID;
 /**
- keyvalue of this notetype.
+ keyvalue of this notetype.      
  */
 @property (nonatomic,copy) NSString* noteType;
 /**
@@ -44,6 +44,12 @@
  Subjectline of the note
  */
 @property (nonatomic,copy) NSString* noteSubject;
+
+/**
+ An index line of a note. Mosty the version of the attached element
+ */
+@property (nonatomic,copy) NSString* noteIndex;
+
 /**
  Date of last change
  */
@@ -73,7 +79,10 @@
  Saves the current note
  */
 -(void)saveNote:(void (^)(KTNoteItem *noteItem))success failure:(void (^)(KTNoteItem *noteItem, NSError *error))failure;
-
+/**
+ Deletes the current note
+ */
+-(void)deleteNote:(void (^)())success failure:(void (^)(KTNoteItem *noteItem, NSError *error))failure;
 @end
 
 
