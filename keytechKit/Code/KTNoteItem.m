@@ -60,6 +60,7 @@ static RKObjectManager *_usedManager;
         
         
         [_mapping addAttributeMappingsFromDictionary:noteResponseAttributes];
+
         
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
         RKResponseDescriptor *notesResponseDescriptor = [RKResponseDescriptor
@@ -81,7 +82,7 @@ static RKObjectManager *_usedManager;
         
         [manager.router.routeSet addRoute:[RKRoute
                                            routeWithClass:[KTNoteItem class]
-                                           pathPattern:@"elements/:targetElementKey/notes"
+                                           pathPattern:@"elements/:targetElementkey/notes"
                                            method:RKRequestMethodPOST]] ;
         
         [manager.router.routeSet addRoute:[RKRoute
@@ -108,6 +109,7 @@ static RKObjectManager *_usedManager;
     return newItem;
 }
 
+
 -(void)deleteNote:(void (^)())success failure:(void (^)(KTNoteItem *, NSError *))failure {
     if (![KTLicenseData sharedLicenseData].isValidLicense) {
         NSError *error = [KTLicenseData sharedLicenseData].licenseError;
@@ -115,7 +117,6 @@ static RKObjectManager *_usedManager;
             failure(self,error);
         }
         return;
-
     }
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
@@ -162,6 +163,7 @@ static RKObjectManager *_usedManager;
              parameters:nil
                 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                     NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+
                     NSString *locationString = (NSString*)[response.allHeaderFields objectForKey:@"Location"];
                     self.noteID = [locationString integerValue];
                     if (success) {
@@ -184,7 +186,6 @@ static RKObjectManager *_usedManager;
                  parameters:nil
                     success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                         NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                        
                         if (success) {
                             success(self);
                         }

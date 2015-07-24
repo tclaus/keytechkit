@@ -79,6 +79,7 @@
  Saves the current note
  */
 -(void)saveNote:(void (^)(KTNoteItem *noteItem))success failure:(void (^)(KTNoteItem *noteItem, NSError *error))failure;
+
 /**
  Deletes the current note
  */
