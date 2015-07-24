@@ -12,6 +12,8 @@
 //#import "testResponseLoader.h"
 #import "TestDefaults.h"
 
+#import <KTElementPermissions.h>
+
 @interface testKeytechElements : XCTestCase
 
 @end
@@ -49,6 +51,8 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     elementKeyItem = @"DEFAULT_MI:2088";  //* Represents an item with bom structure
     elementKeyWithStateWork = @"3DMISC_SLDPRT:2133";
     elementKeyWithBOM = @"DEFAULT_MI:2007";
+    
+    // RKLogConfigureByName("RestKit", RKLogLevelDebug);
     
 }
 
@@ -246,7 +250,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     [element loadFileListSuccess:^(NSArray *itemsList) {
         [documentOpenExpectation fulfill];
-        XCTAssertNotNil(itemsList, @"Fiellist list should not be nil");
+        XCTAssertNotNil(itemsList, @"Filellist list should not be nil");
         XCTAssertTrue(itemsList.count>0, @"Filelist list should have some items");
         XCTAssertTrue(element.itemFilesList.count>0,@"Element property should not be empty");
 
@@ -265,6 +269,65 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     
 }
+
+/**
+ Holt die Permissions von einem Element ab
+ */
+- (void)testGetElementPermissionList
+{
+
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"PermissionLoad"];
+    
+    [KTElementPermissions loadWithElementKey:elementKeyWithStateWork success:^(KTElementPermissions *elementPermission) {
+
+        NSLog(@"loaded element Permission: %@",elementPermission);
+        
+        [expectation fulfill];
+    } failure:^(NSError *error) {
+        XCTFail(@"Failed with error : %@",error.localizedDescription);
+        [expectation fulfill];
+        
+    }];
+    
+    
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            NSLog(@"%@",error);
+        }
+    }];
+}
+
+- (void)testGetElementPermissionListWithChild
+{
+    
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"PermissionLoad"];
+    
+    // Test with child Element
+    [KTElementPermissions loadWithElementKey:elementKeyWithStateWork
+                             childElementkey:elementKeyWithBOM
+                                     success:^(KTElementPermissions *elementPermission) {
+        
+        NSLog(@"loaded element Permission: %@",elementPermission);
+        
+        [expectation fulfill];
+    } failure:^(NSError *error) {
+        XCTFail(@"Failed with error : %@",error.localizedDescription);
+        [expectation fulfill];
+        
+    }];
+    
+    
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            NSLog(@"%@",error);
+        }
+    }];
+}
+
 
 /// Gets the list of version from the given element
 - (void)testGetElementVersionsList

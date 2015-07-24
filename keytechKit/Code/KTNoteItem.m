@@ -133,7 +133,8 @@ static RKObjectManager *_usedManager;
 
      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
          if (failure) {
-             failure(self,error);
+             NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+             failure(self,transcodedError);
          }
      }];
     
