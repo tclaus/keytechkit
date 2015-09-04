@@ -82,7 +82,7 @@ static RKObjectManager *_usedManager;
         
         [manager.router.routeSet addRoute:[RKRoute
                                            routeWithClass:[KTNoteItem class]
-                                           pathPattern:@"elements/:targetElementkey/notes"
+                                           pathPattern:@"elements/:targetElementKey/notes"
                                            method:RKRequestMethodPOST]] ;
         
         [manager.router.routeSet addRoute:[RKRoute

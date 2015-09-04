@@ -350,7 +350,8 @@ static NSString * const kSDFParseAPIKey = @"fdB5jQ8x1gOF2ruzjzfMJdqVrWYYZkJuN2fp
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
     _isloading=NO;
-
+    _lastEvaluatedValue = YES;
+    
     NSLog(@"Failed reading licencedata with error: %@",error.localizedDescription);
 }
 
