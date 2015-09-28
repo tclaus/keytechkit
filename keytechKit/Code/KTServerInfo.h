@@ -48,6 +48,11 @@
 @property (readonly)NSString *APIVersion;
 
 /**
+ Returns the baseURL for this Serverinfo
+ */
+@property (readonly) NSString *baseURL;
+
+/**
  A unique key to identify the current Server
  */
 @property (readonly) NSString *serverID;

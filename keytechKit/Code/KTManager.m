@@ -13,7 +13,8 @@
 #import "KTServerInfo.h"
 #import "KTLicenseData.h"
 
-#define keytechDefaultServerURL @"https://demo.keytech.de"  // internal default URL )(for testing)
+//#define keytechDefaultServerURL @"https://demo.keytech.de"  // internal default URL )(for testing)
+#define keytechDefaultServerURL @"http://claus-pc.keytech.de:8080/keytech"  // internal default URL )(for testing)
 #define keytechDefaultServerUser @"jgrant"
 #define keytechDefaultServerPassword @""
 

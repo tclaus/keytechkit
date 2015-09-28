@@ -11,6 +11,7 @@
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UILabel *serverURL;
 
 @end
 
@@ -21,21 +22,21 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     
-    [KTManager sharedManager].servername = @"https://demo.keytech.de";
-    //webservice.servername = @"http://claus-pc.keytech.de:8080/keytech";
+    //[KTManager sharedManager].servername = @"https://demo.keytech.de";
+    [KTManager sharedManager].servername = @"http://claus-pc.keytech.de:8080/keytech";
     [KTManager sharedManager].username = @"jgrant";
     [[KTManager sharedManager]  synchronizeServerCredentials];
     [[KTServerInfo sharedServerInfo] waitUnitlLoad];
     
     [[KTManager sharedManager] setLicenceKey:@"bla"];
     
-    
+    [[KTServerInfo sharedServerInfo] waitUnitlLoad];
     NSString *apiversion =  [KTServerInfo sharedServerInfo].APIVersion;
 
     NSLog(@"APIVersion: %@",apiversion);
     
     self.label.text = apiversion;
-    
+    self.serverURL.text = [KTServerInfo sharedServerInfo].baseURL;
     
 }
 

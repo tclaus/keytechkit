@@ -2,21 +2,28 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>claus-software.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string></string>
+	<key>CFBundleExecutable</key>
+	<string></string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>BNDL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
+	<key>CFBundleName</key>
+	<string></string>
+	<key>CFBundleDisplayName</key>
+	<string></string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string></string>
+	<key>CFBundleShortVersionString</key>
+	<string></string>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
 </dict>
 </plist>

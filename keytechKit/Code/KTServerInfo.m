@@ -90,6 +90,7 @@ static KTServerInfo *_sharedServerInfo;
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTServerInfo mappingWithManager:manager];
     
+    /*
     if (_isLoading) {
         [self waitUnitlLoad];
         if (success) {
@@ -97,11 +98,11 @@ static KTServerInfo *_sharedServerInfo;
         }
         return;
     }
+    */
     
     _isLoading = YES;
     [manager getObject:_sharedServerInfo path:@"serverinfo" parameters:nil
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                   NSLog(@"Serverinfo loaded.");
                    
                    [self.keyValueList removeAllObjects];
                    [self.keyValueList addObjectsFromArray:mappingResult.array];
@@ -253,6 +254,11 @@ static KTServerInfo *_sharedServerInfo;
 
 -(NSString *)licencedCompany{
     return [self valueForKey:@"LicensedCompany"];
+}
+
+-(NSString*)baseURL {
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    return manager.baseURL.absoluteString;
 }
 
 @end

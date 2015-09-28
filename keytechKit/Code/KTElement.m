@@ -631,7 +631,13 @@ NSMutableDictionary *_lastPages;
               resoucePath:resourcePath
                  fromPage:page
                  withSize:size
-                  success:success
+                  success:^(NSArray *itemsList) {
+                      _isBomListLoaded = YES;
+                      if (success) {
+                          success(itemsList);
+                      }
+                  }
+
                   failure:failure];
     
 }
