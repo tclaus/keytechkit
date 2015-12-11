@@ -66,7 +66,7 @@
  Reloads the current userobject. All settings will be lost
 @param success Will be called after the object is loaded
  */
--(void)reload:(void(^)(KTUser*))success;
+-(void)reload:(void(^)(KTUser*))success failure:(void(^)(NSError* error))failure;
 
 
 /**

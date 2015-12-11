@@ -121,11 +121,19 @@ static KTServerInfo *_sharedServerInfo;
                    _isLoaded = NO;
                    _isLoading = NO;
                    
-                   NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
-                   
-                   if (failure) {
-                       failure(transcodedError);
+                   if (!error) {
+                       NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                       
+                       if (failure) {
+                           failure(transcodedError);
+                       }
+
+                   } else {
+                       if (failure) {
+                           failure(error);
+                       }
                    }
+                   
                    
                }];
     

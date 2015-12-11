@@ -29,14 +29,32 @@
     [[KTServerInfo sharedServerInfo] waitUnitlLoad];
     
     [[KTManager sharedManager] setLicenceKey:@"bla"];
+
+    [[KTServerInfo sharedServerInfo]loadWithSuccess:^(KTServerInfo *serverInfo) {
+        
+        self.label.text = serverInfo.APIVersion;
+        self.serverURL.text = [KTServerInfo sharedServerInfo].baseURL;
+        
+    } failure:^(NSError *error) {
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@""
+                                                       message:error.localizedDescription
+                                                      delegate:nil
+                                             cancelButtonTitle:@"OK"
+                                             otherButtonTitles:nil];
+        [alert show];
+        
+    }];
+
+    
     
     [[KTServerInfo sharedServerInfo] waitUnitlLoad];
     NSString *apiversion =  [KTServerInfo sharedServerInfo].APIVersion;
 
     NSLog(@"APIVersion: %@",apiversion);
     
-    self.label.text = apiversion;
-    self.serverURL.text = [KTServerInfo sharedServerInfo].baseURL;
+   
     
 }
 

@@ -102,7 +102,7 @@ static RKObjectManager *_usedManager;
     KTUser *user = [[KTUser alloc]init] ;
     user.userKey = username;
     
-    [user reload:success];
+    [user reload:success failure:failure];
     
 }
 
@@ -119,13 +119,13 @@ static RKObjectManager *_usedManager;
 -(void)reload{
     if (!_isLoading) {
         
-        [self reload:nil];
+        [self reload:nil failure:nil];
         [self waitForData];
     }
     
 }
 
--(void)reload:(void (^)(KTUser *))success{
+-(void)reload:(void (^)(KTUser *))success failure:(void (^)(NSError *))failure{
         NSLog(@"Start reloading user with key %@",self.userKey);
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTUser mappingWithManager:manager];
@@ -164,6 +164,11 @@ static RKObjectManager *_usedManager;
                    
                    _isLoaded = NO;
                    _isLoading = NO;
+                   
+                   if (failure) {
+                       failure(transcodedError);
+                   }
+                   
                }];
 
 }
