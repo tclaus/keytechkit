@@ -93,11 +93,11 @@ typedef struct {int page; int size;} PageDefinition;
 -(void)synchronizeServerCredentials;
 
 /**
- Translates a error respnse to a error object and extracts the API Respone error header description message
- @param response The response will be parsed by its X-Errordescription Header.
+ Translates a error response to a error object and extracts the API Respone error header description message
+ @param response The response will be parsed by its X-ErrorDescription Header.
  @returns A error object with the http error code and a text extracted from the API's response header
  */
-+(NSError*)translateErrorFromResponse:(NSHTTPURLResponse*)response;
++(NSError*)translateErrorFromResponse:(NSHTTPURLResponse*)response error:(NSError*)error;
 
 #pragma mark License Management
 

@@ -54,7 +54,7 @@
         if (loadedNoteTypes.count == 0 ) {
             XCTFail(@"Could not load any note types");
         } else {
-            NSLog(@"Loaded %d notetypes",noteTypes.count);
+            NSLog(@"Loaded %lu notetypes",(unsigned long)noteTypes.count);
             KTNoteType *noteType = noteTypes[0];
             NSLog(@"Notetype: %@",noteType.displaytext);
         }

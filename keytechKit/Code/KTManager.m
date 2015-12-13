@@ -305,17 +305,22 @@
 }
 
 
-+(NSError*)translateErrorFromResponse:(NSHTTPURLResponse*)response{
-
++(NSError*)translateErrorFromResponse:(NSHTTPURLResponse*)response error:(NSError *)error{
+    
+    if (error) {
+        return error;
+    }
+    
+    
     if (response) {
-    NSString *ErrorDescription = [[response allHeaderFields] objectForKey:@"X-ErrorDescription"];
-    NSError *transcodedError = [NSError errorWithDomain:@"keytech"
-                                                   code:response.statusCode
-                                               userInfo:@{NSLocalizedDescriptionKey:ErrorDescription}];
-return transcodedError;
+        NSString *ErrorDescription = [[response allHeaderFields] objectForKey:@"X-ErrorDescription"];
+        NSError *transcodedError = [NSError errorWithDomain:@"keytech"
+                                                       code:response.statusCode
+                                                   userInfo:@{NSLocalizedDescriptionKey:ErrorDescription}];
+        return transcodedError;
     } else {
         // An unknown error occured
-        return [NSError errorWithDomain:@"keytech" code:1000 userInfo:@{NSLocalizedDescriptionKey:@"An unknwon error occured"}];
+        return [NSError errorWithDomain:@"keytech" code:1000 userInfo:@{NSLocalizedDescriptionKey:@"An unknown error occured"}];
     }
     
 }

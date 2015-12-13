@@ -76,7 +76,7 @@ static RKObjectManager *_usedManager;
                               success(mappingResult.array);
                           }
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                          NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
                           
                           if (failure) {
                               failure(transcodedError);

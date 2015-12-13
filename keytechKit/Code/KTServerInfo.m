@@ -120,20 +120,12 @@ static KTServerInfo *_sharedServerInfo;
                    NSLog(@"Error while getting the serverinfo resource: %@",error.localizedDescription);
                    _isLoaded = NO;
                    _isLoading = NO;
+                    NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
                    
-                   if (!error) {
-                       NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
-                       
-                       if (failure) {
-                           failure(transcodedError);
-                       }
-
-                   } else {
-                       if (failure) {
-                           failure(error);
-                       }
+                   if (failure) {
+                       failure(transcodedError);
                    }
-                   
+
                    
                }];
     

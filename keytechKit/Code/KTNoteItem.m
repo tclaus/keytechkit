@@ -134,7 +134,7 @@ static RKObjectManager *_usedManager;
 
      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
          if (failure) {
-             NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+             NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
              failure(self,transcodedError);
          }
      }];
@@ -171,7 +171,7 @@ static RKObjectManager *_usedManager;
                     }
                     
                 } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                    NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                    NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
                     
                     if (failure) {
                         failure(self,transcodedError);
@@ -185,13 +185,12 @@ static RKObjectManager *_usedManager;
                        path:nil
                  parameters:nil
                     success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                        NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
                         if (success) {
                             success(self);
                         }
                         
                     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                        NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                        NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
                         
                         if (failure) {
                             failure(self,transcodedError);

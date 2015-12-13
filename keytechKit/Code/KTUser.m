@@ -155,7 +155,7 @@ static RKObjectManager *_usedManager;
                    }
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                   NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
                   
                    NSLog(@"Error API response:: %@",transcodedError.localizedDescription);
                    NSLog(@"Error while getting the user-object: %@",error.localizedDescription);

@@ -99,20 +99,11 @@ static RKObjectManager *_usedManager;
                          }
                          
                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
                          
-                         // Use error object, if response is null1
+                        NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
+                         
                          if (failure) {
-                             if (!response) {
-                                 failure(error);
-                             } else {
-                                  NSString *headerDescription =  [[response allHeaderFields]objectForKey:@"X-ErrorDescription"];
-                                 NSError *requestError = [NSError errorWithDomain:@"keytech"
-                                                                             code:[response statusCode]
-                                                                         userInfo:@{NSLocalizedDescriptionKey: headerDescription}];
-                                 failure(requestError);
-                             }
-
+                             failure(transcodedError);
                          }
                      }];
 }
@@ -124,7 +115,7 @@ static RKObjectManager *_usedManager;
                                success();
                            }
                        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                           NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response];
+                           NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
                            
                            if (failure) {
                                failure(transcodedError);
