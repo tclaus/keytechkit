@@ -58,7 +58,6 @@ static NSString * const kSDFParseAPIKey = @"fdB5jQ8x1gOF2ruzjzfMJdqVrWYYZkJuN2fp
     dispatch_once(&onceToken, ^{
         _sharedLicense = [[self alloc]init];
     });
-    NSLog(@"license: %@",_sharedLicense);
     return _sharedLicense;
     
 }
@@ -290,7 +289,6 @@ static NSString * const kSDFParseAPIKey = @"fdB5jQ8x1gOF2ruzjzfMJdqVrWYYZkJuN2fp
 -(void)readLicenceData{
     
     if (!_APILicenseKey) {
-        NSLog(@"Need to set an API Licence Key first");
         _failureError = [NSError errorWithDomain:@"keytech SDK" code:0 userInfo:@{NSLocalizedDescriptionKey:@"To use the SDK you need an API Key"}];
         
         return;
@@ -352,7 +350,6 @@ static NSString * const kSDFParseAPIKey = @"fdB5jQ8x1gOF2ruzjzfMJdqVrWYYZkJuN2fp
     _isloading=NO;
     _lastEvaluatedValue = YES;
     
-    NSLog(@"Failed reading licencedata with error: %@",error.localizedDescription);
 }
 
 

@@ -117,7 +117,6 @@ static KTServerInfo *_sharedServerInfo;
                    }
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   NSLog(@"Error while getting the serverinfo resource: %@",error.localizedDescription);
                    _isLoaded = NO;
                    _isLoading = NO;
                     NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
@@ -143,13 +142,11 @@ static KTServerInfo *_sharedServerInfo;
         
         [manager getObject:nil path:@"serverinfo" parameters:nil
                    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                       NSLog(@"Serverinfo loaded.");
                        // Key Value liste austauschen
                     _keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
                        _isLoaded = YES;
                        _isLoading = NO;
                    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                       NSLog(@"Error while getting the serverinfo resource: %@",error.localizedDescription);
                        _isLoaded = NO;
                        _isLoading = NO;
                    }];

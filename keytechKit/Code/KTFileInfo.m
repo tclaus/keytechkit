@@ -118,7 +118,6 @@ static RKObjectManager *_usedManager;
             break;
             
         default:
-            NSLog(@"No filetype set!");
             return @"";
             break;
     }
@@ -229,7 +228,6 @@ static RKObjectManager *_usedManager;
     
     if (![self isLocalLoaded] && !_isLoading){
         _isLoading = YES;
-        NSLog(@"Start download of %@",self.fileName);
         
         NSString* resource = [NSString stringWithFormat:@"files/%ld",(long)self.fileID];
         
@@ -258,7 +256,6 @@ static RKObjectManager *_usedManager;
 }
 
 -(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error{
-    NSLog(@"Completes: %s",__PRETTY_FUNCTION__);
     
     if ([self.delegate respondsToSelector:@selector(FinishedUploadWithFileInfo:)]) {
         [self.delegate FinishedUploadWithFileInfo:self];
@@ -267,7 +264,6 @@ static RKObjectManager *_usedManager;
 }
 
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location{
-    NSLog(@"Download finished of: %@",self.fileName);
     
     if (location) {
         NSFileManager *manager = [NSFileManager defaultManager];
@@ -278,7 +274,7 @@ static RKObjectManager *_usedManager;
         
         [manager removeItemAtURL:targetURL error:&err];
         if (err) {
-            NSLog(@"Target file can not be deleted.");
+            NSLog(@"Target file can not be deleted. %@",err);
         }
         
         [manager moveItemAtURL:location toURL:targetURL error:&err];
@@ -439,7 +435,6 @@ static RKObjectManager *_usedManager;
         [[fileURL pathExtension] compare:@"numbers" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
         [[fileURL pathExtension] compare:@"key" options:NSCaseInsensitiveSearch] == NSOrderedSame)
     {
-        NSLog(@"Add preview file for iWork file");
         
         // iWork file format found
         // unzip

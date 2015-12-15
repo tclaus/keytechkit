@@ -386,6 +386,15 @@ typedef enum {
  */
 -(void)moveToClass:(NSString*)targetClassKey success:(void(^)(NSString *newElementkey))success failure:(void(^)(NSError *error))failure;
 
+/**
+ Sets a Reserved / Unreserverd status. Only elements of type document can be reserverd. 
+ If a element is reserverd by others, no file operations are allowed.
+ @param newReserveStatus Set ti true or false to set or release a reserved status.
+ @param success Will be called when request responds successfully
+ @param failure Will be called in case of any error
+ */
+-(void)setReserveStatus:(BOOL)newReserveStatus success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
+
 @end
 
 

@@ -52,7 +52,6 @@
     if (!_longUserName) {
         
         while ([KTUser currentUser].isLoading) {
-            NSLog(@"Warte...");
             NSDate* untilDate = [NSDate dateWithTimeIntervalSinceNow:POLL_INTERVAL];
             [[NSRunLoop currentRunLoop] runUntilDate:untilDate];
         }
@@ -148,8 +147,6 @@ dispatch_once(&onceToken, ^{
 //            "device_type":1 // 1 iPhone, 7 Mac
 //        }
 //    }
-
-    NSLog(@"Registering push service on: %@",AppType);
     
     // Force loading serverID from configuration setting, if currently not loaded
     if (!self.serverID) {
@@ -170,7 +167,6 @@ dispatch_once(&onceToken, ^{
     _hardwareID = uniqueID;
     
     if (!languageID) {
-        NSLog(@"Language ID can not be empty!");
         return;
     }
     
@@ -281,7 +277,6 @@ dispatch_once(&onceToken, ^{
     //
     
     if (!_hardwareID) {
-        NSLog(@"Register Device first");
         return;
     }
     

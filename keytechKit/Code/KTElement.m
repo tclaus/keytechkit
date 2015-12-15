@@ -788,7 +788,6 @@ static long numberOfThumbnailsLoaded;
                     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
                     if ([[NSDate date] timeIntervalSinceDate:startDate] > _thumbnailLoadingTimeout) {
                         
-                        // NSLog(@"*** Time out for loading thumnail for %@ after %f seconds...", thumbnailKey, _thumbnailLoadingTimeout);
                         _isItemThumbnailLoading = NO;
                         _isItemThumnailLoaded = YES;
                         
@@ -980,7 +979,7 @@ static long numberOfThumbnailsLoaded;
 }
 
 -(NSString *)debugDescription{
-    return self.itemDescription;
+    return [NSString stringWithFormat:@"Key: %@, Description: %@",self.itemKey,self.itemDescription];
 }
 
 // Return full qualified FileID
@@ -1244,12 +1243,7 @@ static long numberOfThumbnailsLoaded;
     
     [manager getObject:self path:nil parameters:rpcData success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         
-        NSLog(@"New element: %@",mappingResult.firstObject);
-        if (mappingResult.firstObject == mySelf) {
-            NSLog(@"classes are equal");
-        } else {
-            NSLog(@"classes are not equal");
-        }
+
         
         if (success) {
             success(mappingResult.firstObject);
@@ -1298,12 +1292,11 @@ static long numberOfThumbnailsLoaded;
     [NSURLConnection sendAsynchronousRequest:urlRequest
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+
+                                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
                                if (!connectionError){
-                                   
-                                   
-                                   NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
+                                  
                                    if (httpResponse.statusCode>=400) {
-                                       NSLog(@"Could not move element! No server implementation?");
                                        if (failure) {
                                            NSError *error = [NSError errorWithDomain:@"keytech" code:100
                                                                             userInfo:@{NSLocalizedDescriptionKey: @"Server has no 'move' implementation."}];
@@ -1314,8 +1307,6 @@ static long numberOfThumbnailsLoaded;
                                        
                                        NSString *location =  [httpResponse allHeaderFields][@"Location"];
                                        
-                                       NSLog(@"Element moved! New elementID: %@",location);
-                                       
                                        // set the new location key after move
                                        theElement.itemKey = location;
                                        
@@ -1325,9 +1316,10 @@ static long numberOfThumbnailsLoaded;
                                    }
                                    
                                } else {
+                                    NSError *transcodedError = [KTManager translateErrorFromResponse:httpResponse error:connectionError];
                                    if (failure){
-                                       NSLog(@"Error while elememt moving: %@",connectionError.localizedDescription);
-                                       failure(connectionError);
+
+                                       failure(transcodedError);
                                    }
                                }
                            }];
@@ -1335,6 +1327,84 @@ static long numberOfThumbnailsLoaded;
 
     
 }
+
+-(void)setReserveStatus:(BOOL)newReserveStatus success:(void (^)(void))success failure:(void (^)(NSError *))failure {
+    // {"ElementReserveAction" :{
+    //    "ReserveElement": true,
+    //    "UnreserveElement":true' }}
+    
+    
+    NSString *baseURL =[[KTManager sharedManager].baseURL absoluteString];
+    
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@elements/%@",baseURL, self.itemKey]];
+    
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:URL];
+    [[KTManager sharedManager] setDefaultHeadersToRequest:urlRequest];
+    
+    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    [urlRequest setHTTPMethod:@"POST"];
+    
+    NSError *error;
+    NSDictionary *jsonDictionary;
+    
+    if (newReserveStatus == true) {
+        // Reservieren
+        jsonDictionary = @{@"ElementReserveAction":@{@"ReserveElement":@YES}};
+    } else {
+        // Entreservieren
+        jsonDictionary = @{@"ElementReserveAction":@{@"UnreserveElement":@YES}};
+    }
+    
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:jsonDictionary
+                                                       options:kNilOptions error:&error];
+    
+    urlRequest.HTTPBody = jsonData;
+    
+    KTElement *theElement;
+    theElement = self;
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+
+                               NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
+                               if (!connectionError){
+                                   
+                                   if (httpResponse.statusCode>=400) {
+
+                                       if (failure) {
+                                           NSError *error = [NSError errorWithDomain:@"keytech" code:100
+                                                                            userInfo:@{NSLocalizedDescriptionKey: @"Server has no 'move' implementation."}];
+                                           failure(error);
+                                           return;
+                                       }
+                                   } else {
+                                       
+                                       NSString *location =  [httpResponse allHeaderFields][@"Location"];
+                                       
+                                       NSLog(@"Reserve changed");
+                                       
+                                       // set the new location key after move
+                                       theElement.itemKey = location;
+                                       
+                                       if (success){
+                                           success();
+                                       }
+                                   }
+                                   
+                               } else {
+                                   NSLog(@"Error while reserving element: %@",connectionError.localizedDescription);
+                                   if (failure){
+                                       NSError *transcodedError = [KTManager translateErrorFromResponse:httpResponse error:connectionError];
+                                       
+                                       failure(transcodedError);
+                                   }
+                               }
+                           }];
+    
+}
+
 
 @end
 

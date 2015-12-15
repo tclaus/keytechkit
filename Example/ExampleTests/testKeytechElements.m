@@ -40,8 +40,8 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     [super setUp];
     
     _testdefaults =[[TestDefaults alloc]init];
-     [_testdefaults setUp];
-     
+    [_testdefaults setUp];
+    
     // Put setup code here; it will be run once, before the first test case.
     
     
@@ -128,10 +128,10 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         XCTFail(@"Shuld not return an element");
         [expectation fulfill];
     }
-     failure:^(NSError *error) {
-        NSLog(@"Error: %@",error);
-        [expectation fulfill];
-    }];
+                          failure:^(NSError *error) {
+                              NSLog(@"Error: %@",error);
+                              [expectation fulfill];
+                          }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
         if (error) {
@@ -253,7 +253,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         XCTAssertNotNil(itemsList, @"Filellist list should not be nil");
         XCTAssertTrue(itemsList.count>0, @"Filelist list should have some items");
         XCTAssertTrue(element.itemFilesList.count>0,@"Element property should not be empty");
-
+        
         
     } failure:^(NSError *error) {
         [documentOpenExpectation fulfill];
@@ -275,12 +275,12 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
  */
 - (void)testGetElementPermissionList
 {
-
+    
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"PermissionLoad"];
     
     [KTElementPermissions loadWithElementKey:elementKeyWithStateWork success:^(KTElementPermissions *elementPermission) {
-
+        
         NSLog(@"loaded element Permission: %@",elementPermission);
         
         [expectation fulfill];
@@ -309,15 +309,15 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     [KTElementPermissions loadWithElementKey:elementKeyWithStateWork
                              childElementkey:elementKeyWithBOM
                                      success:^(KTElementPermissions *elementPermission) {
-        
-        NSLog(@"loaded element Permission: %@",elementPermission);
-        
-        [expectation fulfill];
-    } failure:^(NSError *error) {
-        XCTFail(@"Failed with error : %@",error.localizedDescription);
-        [expectation fulfill];
-        
-    }];
+                                         
+                                         NSLog(@"loaded element Permission: %@",elementPermission);
+                                         
+                                         [expectation fulfill];
+                                     } failure:^(NSError *error) {
+                                         XCTFail(@"Failed with error : %@",error.localizedDescription);
+                                         [expectation fulfill];
+                                         
+                                     }];
     
     
     
@@ -398,20 +398,20 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"BOM Loaded"];
     
     [element loadBomListPage:1
-                          withSize:100
-                           success:^(NSArray *itemsList) {
-                               [documentOpenExpectation fulfill];
-                               XCTAssertNotNil(itemsList);
-                               XCTAssertTrue(itemsList.count>0);
-                               XCTAssertTrue(element.itemBomList.count>0,@"Element property should not be empty");
-                               
-                               
-                               
-                           } failure:^(NSError *error) {
-                               [documentOpenExpectation fulfill];
-                               XCTAssert(NO);
-
-                           }];
+                    withSize:100
+                     success:^(NSArray *itemsList) {
+                         [documentOpenExpectation fulfill];
+                         XCTAssertNotNil(itemsList);
+                         XCTAssertTrue(itemsList.count>0);
+                         XCTAssertTrue(element.itemBomList.count>0,@"Element property should not be empty");
+                         
+                         
+                         
+                     } failure:^(NSError *error) {
+                         [documentOpenExpectation fulfill];
+                         XCTAssert(NO);
+                         
+                     }];
     
     
     // Expectation
@@ -438,7 +438,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     NSMutableArray* structure =  item.itemNextAvailableStatusList;
     
-
+    
     
 }
 
@@ -487,7 +487,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     image=nil;
     
- 
+    
 }
 
 
@@ -552,11 +552,11 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         [elementSavedExpectation fulfill];
     }];
     
-        [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-            if (error) {
-                XCTFail(@"Could not cerate a new element");
-            }
-        }];
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Could not cerate a new element");
+        }
+    }];
     
     XCTestExpectation *elementMovedExpectation = [self expectationWithDescription:@"Element moved"];
     
@@ -565,23 +565,72 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     [element moveToClass:@"TEST_FILE"
                  success:^(NSString *newElementkey) {
                      
-                    XCTAssert([newElementkey isEqualToString:newExpectedID]);
+                     XCTAssert([newElementkey isEqualToString:newExpectedID]);
                      
-                      [elementMovedExpectation fulfill];
-
+                     [elementMovedExpectation fulfill];
+                     
                  } failure:^(NSError *error) {
                      XCTFail(@"Element move server failure: %@",error);
-                      [elementMovedExpectation fulfill];
+                     [elementMovedExpectation fulfill];
                  }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
         if  (error) {
-             XCTFail(@"Element could not be moved: %@",error);
+            XCTFail(@"Element could not be moved: %@",error);
         }
     }];
-
+    
     
 }
+
+/// Starts a test to reserve a given element
+-(void)testReserveElement {
+    
+    XCTestExpectation *elementSavedExpectation = [self expectationWithDescription:@"Element saved"];
+    
+    KTElement *element = [KTElement elementWithElementKey:@"MISC_FILE"];
+    
+    // Store a new element
+    [element saveItem:^(KTElement *element) {
+        [elementSavedExpectation fulfill];
+        NSLog(@"Element created with ID: %@",element.itemKey);
+        
+    } failure:^(KTElement *element, NSError *error) {
+        NSLog(@"Creation failed");
+        XCTFail(@"Could not store a new element");
+        [elementSavedExpectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Could not create a new element");
+        }
+    }];
+    
+    
+    XCTestExpectation *elementReserverdExpectation = [self expectationWithDescription:@"Element reserved"];
+    
+    [element setReserveStatus:YES
+                      success:^{
+                          [elementReserverdExpectation fulfill];
+                          NSLog(@"Element reserved");
+                          
+                      } failure:^(NSError *error) {
+                          [elementReserverdExpectation fulfill];
+                          NSLog(@"Reserve Error: %@",error.localizedDescription);
+                          XCTFail(@"Could not reserve a new element");
+
+                          
+                      }];
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError * _Nullable error) {
+        if (error) {
+            XCTFail(@"Could not reserve the element");
+        }
+    }];
+    
+}
+
 
 
 @end
