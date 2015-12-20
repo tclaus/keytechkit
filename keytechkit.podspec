@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'keytechkit'
-  spec.version      = '0.1.7'
+  spec.version      = '0.1.8'
   spec.license      = { :type => 'BSD' }
   spec.homepage     = 'https://bitbucket.org/tclaus/keytechkit.git'
   spec.authors      = { 'Thorsten Claus' => 'thorstenclaus@web.de' }
@@ -12,5 +12,5 @@ Pod::Spec.new do |spec|
   spec.osx.deployment_target  = '10.9'
   spec.prefix_header_contents ='#import <RestKit/RestKit.h>'
   spec.dependency 'RestKit', '~>0.24'
-  spec.dependency 'SSZipArchive', '~>0.3'
+  spec.dependency 'SSZipArchive'
 end

@@ -41,8 +41,6 @@ static KTManager  *_webservice;
     
     [KTUser loadUserWithKey:@"jgrant" success:^(KTUser *user) {
         
-        
-        
         XCTAssert(YES, @"Pass");
         [documentOpenExpectation fulfill];
         
@@ -57,6 +55,47 @@ static KTManager  *_webservice;
     // This is an example of a functional test case.
     
 }
+
+-(void)testUserFavorites {
+    XCTestExpectation *loadUserExpectation = [self expectationWithDescription:@"load user"];
+    
+    __block KTUser * jgrantUser;
+    
+    [KTUser loadUserWithKey:@"jgrant"success:^(KTUser *user) {
+        jgrantUser = user;
+        [loadUserExpectation fulfill];
+    } failure:^(NSError *error) {
+        [loadUserExpectation fulfill];
+        XCTFail(@"Could not load a test user for loading favorites");
+    }];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+
+    XCTestExpectation *loadFavorites = [self expectationWithDescription:@"loadFavorites"];
+    if (jgrantUser) {
+        
+        [jgrantUser loadFavoritesSuccess:^(NSArray *targetLinks) {
+            if (!targetLinks) {
+                XCTFail(@"Favoites Links was empty");
+               
+            } else {
+                // OK
+            }
+            
+            [loadFavorites fulfill];
+        } failure:^(NSError *error) {
+            
+            XCTFail(@"Favoites Links was empty");
+            [loadFavorites fulfill];
+        }];
+    }
+    
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+    
+    
+    
+}
+
 
 - (void)testPerformanceExample {
     // This is an example of a performance test case.

@@ -22,8 +22,8 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     
-    //[KTManager sharedManager].servername = @"https://demo.keytech.de";
-    [KTManager sharedManager].servername = @"http://claus-pc.keytech.de:8080/keytech";
+    [KTManager sharedManager].servername = @"https://demo.keytech.de";
+    //[KTManager sharedManager].servername = @"http://claus-pc.keytech.de:8080/keytech";
     [KTManager sharedManager].username = @"jgrant";
     [[KTManager sharedManager]  synchronizeServerCredentials];
     [[KTServerInfo sharedServerInfo] waitUnitlLoad];
