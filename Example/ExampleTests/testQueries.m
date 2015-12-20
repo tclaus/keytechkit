@@ -86,6 +86,43 @@
     XCTAssert(YES, @"Pass");
 }
 
+- (void)testQueryByTextWithClasses {
+    
+    XCTestExpectation *queryExpectation = [self expectationWithDescription:@"Query returned with data"];
+    
+    KTQuery *query = [[KTQuery alloc]init];
+    
+    NSString *inClasses = @"DEFAULT_DO";
+    
+    [query queryByText:@"keytech"
+             inClasses:@[inClasses]
+                 paged:_pagedObject
+                 block:^(NSArray *results) {  // 'keytech' exist in most databases
+                     
+                     XCTAssertNotNil(results);
+                     [queryExpectation fulfill];
+                     
+                     if (results.count>0) {
+                         
+                     } else{
+                         XCTFail(@"Result query should have data");
+                     }
+                     
+                 } failure:^(NSError *error) {
+                     [queryExpectation fulfill];
+                     XCTFail(@"Error while waiting for data: %@",error);
+                     
+                 }];
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Error while fetching data: %@",error);
+        }
+    }];
+    XCTAssert(YES, @"Pass");
+}
+
+
 /// A search request is canceled immediately
 -(void)testStartAndCancelQuery{
     XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
@@ -396,7 +433,7 @@
     
     XCTestExpectation *solrsearchexpectation = [self expectationWithDescription:@"Solr search returned"];
     
-   
+    
     [KTElement mappingWithManager:[RKObjectManager sharedManager]];
     [KTSearchengineResult mappingWithManager:[RKObjectManager sharedManager]];
     
@@ -406,7 +443,7 @@
                                               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                                                   [solrsearchexpectation fulfill];
                                                   KTSearchengineResult *firstelement = [mappingResult firstObject];
-
+                                                  
                                                   XCTAssertNotNil(firstelement,@"Response was nil");
                                                   KTElement *element = firstelement.element;
                                                   
@@ -464,7 +501,7 @@
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
-
+    
 }
 
 

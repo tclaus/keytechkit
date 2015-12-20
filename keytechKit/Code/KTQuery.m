@@ -118,7 +118,14 @@
     }
     
     if (inClasses) { // Return only elements within this classes
-        rpcData[@"classtypes"] = inClasses;
+        
+        NSMutableString *classList = [[NSMutableString alloc] init];
+        for (NSString* aClass in inClasses) {
+            [classList appendString:aClass];
+            [classList appendString:@","];
+        }
+        
+        rpcData[@"classtypes"] = [classList stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]] ;
     }
     
     if (pagedObject) {
