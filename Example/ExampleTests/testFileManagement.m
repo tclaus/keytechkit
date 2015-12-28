@@ -118,7 +118,7 @@ NSTimeInterval _timeOut = 12;
         [newFile saveFile:fileURL success:nil failure:nil];
         
         //
-    } failure:^(KTElement *element, NSError *error) {
+    } failure:^(NSError *error) {
         [elementFileExpectation fulfill];
         
     }];

@@ -358,7 +358,7 @@ typedef enum {
  @param failure Will be called in case of any error
  */
 -(void)saveItem:(void (^)(KTElement *element))success
-                 failure:(void (^)(KTElement *element,NSError *error))failure;
+                 failure:(void (^)(NSError *error))failure;
                  
 
 /**
@@ -366,7 +366,8 @@ typedef enum {
  @param success will be performed when completed.
  @param failure In case of any error the failure block is called
  */
--(void)reload:(void(^)(KTElement *element))success failure:(void(^)(NSError *error))failure;
+-(void)reload:(void(^)(KTElement *element))success
+      failure:(void(^)(NSError *error))failure;
 
 /**
  Refreshes this instance immediatley by loading from API
@@ -376,7 +377,7 @@ typedef enum {
 
  */
 -(void)reload:(KTResponseAttributes)metadata success:(void(^)(KTElement *element))success
-      failure:(void (^)(NSError *))failure;
+      failure:(void (^)(NSError *error))failure;
 
 /**
  Moves the element to a new target class
@@ -384,7 +385,8 @@ typedef enum {
   @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
--(void)moveToClass:(NSString*)targetClassKey success:(void(^)(NSString *newElementkey))success failure:(void(^)(NSError *error))failure;
+-(void)moveToClass:(NSString*)targetClassKey success:(void(^)(NSString *newElementkey))success
+           failure:(void(^)(NSError *error))failure;
 
 /**
  Sets a Reserved / Unreserverd status. Only elements of type document can be reserverd. 
@@ -393,7 +395,8 @@ typedef enum {
  @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
--(void)setReserveStatus:(BOOL)newReserveStatus success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
+-(void)setReserveStatus:(BOOL)newReserveStatus success:(void(^)(void))success
+                failure:(void(^)(NSError *error))failure;
 
 @end
 

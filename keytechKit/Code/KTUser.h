@@ -36,7 +36,7 @@
  */
 -(void)loadQueriesSuccess:(void(^)(NSArray* targetLinks))success failure:(void(^)(NSError* error))failure;
 /**
- Loads a structured list of favorie elemets
+ Loads a structured list of favorite (KTTargetLink) elements
  @param success Called after the user object is successfully loaded
  @param failure Called when the user object could not be loaded. The error object will have a localized error message
  */
@@ -81,7 +81,7 @@
 @property (nonatomic) BOOL isSuperuser;
 
 /**
- Returns YES if thos user has the admin role. Admins should administer keytechs meta data.
+ Returns YES if thos user has the admin role. Admins should administer keytech meta data.
  */
 @property (nonatomic) BOOL isAdmin;
 

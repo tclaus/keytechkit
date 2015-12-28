@@ -1080,12 +1080,12 @@ static long numberOfThumbnailsLoaded;
 /**
  Saves this current Item
  */
--(void)saveItem:(void (^)(KTElement *))success failure:(void (^)(KTElement *, NSError *))failure{
+-(void)saveItem:(void (^)(KTElement *))success failure:(void (^)(NSError *error))failure{
 
     if (![KTLicenseData sharedLicenseData].isValidLicense) {
         NSError *error = [KTLicenseData sharedLicenseData].licenseError;
         if (failure) {
-            failure(self,error);
+            failure(error);
         }
         return;
     }
@@ -1117,7 +1117,7 @@ static long numberOfThumbnailsLoaded;
                         NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
                         
                         if (failure) {
-                            failure(self,transcodedError);
+                            failure(transcodedError);
                         }
                     }];
         
@@ -1139,7 +1139,7 @@ static long numberOfThumbnailsLoaded;
                        NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
                        
                        if (failure) {
-                           failure(self,transcodedError);
+                           failure(transcodedError);
                        }
                    }];
     }
@@ -1200,7 +1200,6 @@ static long numberOfThumbnailsLoaded;
 -(void)reload:(KTResponseAttributes)metadata success:(void(^)(KTElement *element))success failure:(void (^)(NSError *))failure{
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    KTElement *mySelf = self;
     
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
     

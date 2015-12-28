@@ -100,7 +100,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         
         
         //
-    } failure:^(KTElement *element, NSError *error) {
+    } failure:^(NSError *error) {
         [elementFileExpectation fulfill];
         
     }];
@@ -546,7 +546,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         [elementSavedExpectation fulfill];
         NSLog(@"Element created with ID: %@",element.itemKey);
         
-    } failure:^(KTElement *element, NSError *error) {
+    } failure:^(NSError *error) {
         NSLog(@"Creation failed");
         XCTFail(@"Could not store a new element");
         [elementSavedExpectation fulfill];
@@ -595,7 +595,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         [elementSavedExpectation fulfill];
         NSLog(@"Element created with ID: %@",element.itemKey);
         
-    } failure:^(KTElement *element, NSError *error) {
+    } failure:^(NSError *error) {
         NSLog(@"Creation failed");
         XCTFail(@"Could not store a new element");
         [elementSavedExpectation fulfill];
