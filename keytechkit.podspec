@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'keytechkit'
-  spec.version      = '0.1.9'
+  spec.version      = '0.1.10'
   spec.license      = { :type => 'BSD' }
   spec.homepage     = 'https://bitbucket.org/tclaus/keytechkit.git'
   spec.authors      = { 'Thorsten Claus' => 'thorstenclaus@web.de' }

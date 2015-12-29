@@ -101,6 +101,72 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         
         //
     } failure:^(NSError *error) {
+        XCTFail(@"Could not create a element");
+        [elementFileExpectation fulfill];
+        
+    }];
+    
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Failed uploading a file: %@",error);
+        }
+        
+    }];
+    
+}
+
+
+/**
+ To Create folder type user must have right permission
+ 
+ */
+-(void)testCreateElementOfFolderType
+{
+    // Create a new element
+    // Must fail! 0001_WF has no restictions
+    
+    KTElement *element = [KTElement elementWithElementKey:@"0001_WF"];
+    XCTestExpectation *elementFileExpectation = [self expectationWithDescription:@"Element Created"];
+    
+    
+    [element saveItem:^(KTElement *element) {
+        [elementFileExpectation fulfill];
+        
+        
+        //
+    } failure:^(NSError *error) {
+        XCTFail(@"Could not create a element");
+        [elementFileExpectation fulfill];
+        
+    }];
+    
+    
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Failed uploading a file: %@",error);
+        }
+        
+    }];
+    
+}
+
+-(void)testCreateElementOfFolderType2
+{
+    // Create a new element
+    // Must proceed! 0001_WF has no restictions
+    
+    KTElement *element = [KTElement elementWithElementKey:@"0002_WF"];
+    XCTestExpectation *elementFileExpectation = [self expectationWithDescription:@"Element Created"];
+    
+    
+    [element saveItem:^(KTElement *element) {
+        XCTFail(@"Could not create a element");
+        [elementFileExpectation fulfill];
+        
+        //
+    } failure:^(NSError *error) {
+        
         [elementFileExpectation fulfill];
         
     }];
@@ -619,7 +685,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
                           [elementReserverdExpectation fulfill];
                           NSLog(@"Reserve Error: %@",error.localizedDescription);
                           XCTFail(@"Could not reserve a new element");
-
+                          
                           
                       }];
     
