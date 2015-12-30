@@ -26,22 +26,32 @@
  @param pagedObject The requested page and its size
  @param block A block that will execute after search is completed
  @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
-*/
--(void)queryByText:(NSString*)queryText paged:(KTPagedObject*)pagedObject
-             block:(void(^)(NSArray* results))block
+ */
+-(void)queryByText:(NSString*)queryText
+            reload:(BOOL)shouldReload
+             paged:(KTPagedObject*)pagedObject
+           success:(void(^)(NSArray* results))success
            failure:(void(^)(NSError *error))failure;
 
+
+
 /**
- Starts a query with th given text
- @param queryText One or more word to search for.
- @param inClasses A string list of classkeys. Result is only returned for the speified classes. If this parameter is nil all classes are searched
+ Starts a query with querytext, and / or fields. One must be not null or both can have a value.
+ @param queryText One or more word to search for. can be null if fields parameter has a value
+ @param fields A list of fields with query parametrers. one entry must have the form <field>[=,<>,!=,>,<,like]<Value>. field can have a short or the long form: created_by=jgrant oder as_do__created_by = jgrant
  @param pagedObject The requested page and its size
  @param block A block that will execute after search is completed
  @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
  */
--(void)queryByText:(NSString*)queryText inClasses:(NSArray*)inClasses paged:(KTPagedObject*)pagedObject
-             block:(void(^)(NSArray* results))block
+-(void)queryByText:(NSString*)queryText
+            fields:(NSArray*)fields
+         inClasses:(NSArray*)inClasses
+            reload:(BOOL)shouldReload
+             paged:(KTPagedObject*)pagedObject
+           success:(void(^)(NSArray* results))success
            failure:(void(^)(NSError *error))failure;
+
+
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 
@@ -52,9 +62,12 @@
  @param pagedObject The requested page and its size
  @param block A block that will execute after search is completed
  @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
-*/
--(void)queryByPredicate:(NSPredicate*)predicate inClasses:(NSArray*)inClasses paged:(KTPagedObject*)pagedObject
-                  block:(void(^)(NSArray* results))block
+ */
+-(void)queryByPredicate:(NSPredicate*)predicate
+              inClasses:(NSArray*)inClasses
+                 reload:(BOOL)shouldReload
+                  paged:(KTPagedObject*)pagedObject
+                success:(void(^)(NSArray* results))success
                 failure:(void(^)(NSError *error))failure;
 
 #endif
@@ -66,8 +79,10 @@
  @param block A block that will execute after search is completed
  @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
  */
--(void)queryByStoredSearch:(NSInteger)storedQueryID paged:(KTPagedObject*)pagedObject
-                     block:(void(^)(NSArray* results))block
+-(void)queryByStoredSearch:(NSInteger)storedQueryID
+                    reload:(BOOL)shouldReload
+                     paged:(KTPagedObject*)pagedObject
+                   success:(void(^)(NSArray* results))success
                    failure:(void(^)(NSError *error))failure;
 
 /**
@@ -77,8 +92,10 @@
  @param block A block that will execute after search is completed
  @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
  */
--(void)queryInVaultsByText:(NSString *)fileContentText paged:(KTPagedObject*)pagedObject
-                     block:(void(^)(NSArray* results))block
+-(void)queryInVaultsByText:(NSString *)fileContentText
+                    reload:(BOOL)shouldReload
+                     paged:(KTPagedObject*)pagedObject
+                   success:(void(^)(NSArray* results))success
                    failure:(void(^)(NSError *error))failure;
 
 /**

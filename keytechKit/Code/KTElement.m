@@ -273,7 +273,7 @@ int maxPagesize=500;
                                            pathPattern:@"elements/:itemKey"
                                            method:RKRequestMethodDELETE]] ;
         
- 
+
         [manager addResponseDescriptorsFromArray:@[ responseGETDescriptor,responsePOSTDescriptor, responseDescriptorSearchEngine ]]; // GET
         [manager addRequestDescriptor:elementRequestDescriptor]; // POST, PUT        
     }

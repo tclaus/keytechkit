@@ -131,12 +131,13 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     
     [element saveItem:^(KTElement *element) {
+        XCTFail(@"Could not create a element");
         [elementFileExpectation fulfill];
-        
         
         //
     } failure:^(NSError *error) {
-        XCTFail(@"Could not create a element");
+
+        
         [elementFileExpectation fulfill];
         
     }];
@@ -161,12 +162,12 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     
     [element saveItem:^(KTElement *element) {
-        XCTFail(@"Could not create a element");
+       
         [elementFileExpectation fulfill];
         
         //
     } failure:^(NSError *error) {
-        
+         XCTFail(@"Could not create a element");
         [elementFileExpectation fulfill];
         
     }];

@@ -307,7 +307,22 @@
 
 +(NSError*)translateErrorFromResponse:(NSHTTPURLResponse*)response error:(NSError *)error{
     
+    
     if (error) {
+        NSLog(@"An error occured: %@",error);
+        
+        if (response) {
+            NSString *ErrorDescription = [[response allHeaderFields] objectForKey:@"X-ErrorDescription"];
+            NSError *transcodedError = [NSError errorWithDomain:@"keytech"
+                                                           code:response.statusCode
+                                                       userInfo:@{NSLocalizedDescriptionKey:ErrorDescription,
+                                                                  NSLocalizedFailureReasonErrorKey:error.localizedDescription}];
+            
+            NSLog(@" Error translated to: %@", transcodedError);
+            return transcodedError;
+        }
+        
+        NSLog(@"An error occured: %@",error);
         return error;
     }
     

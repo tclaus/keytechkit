@@ -16,13 +16,124 @@
 @implementation KTQuery
 
 
+-(void)queryByText:(NSString *)queryText
+            reload:(BOOL)shouldReload
+             paged:(KTPagedObject *)pagedObject
+           success:(void (^)(NSArray *results))success
+           failure:(void(^)(NSError *error))failure{
+    
+    [self queryByText:queryText
+               fields:nil
+            inClasses:nil
+               reload:shouldReload
+                paged:pagedObject
+              success:success
+              failure:failure];
+}
+
+
+-(void)queryByText:(NSString *)queryText
+            fields:(NSArray *)fields
+         inClasses:(NSArray *)inClasses
+            reload:(BOOL)shouldReload
+             paged:(KTPagedObject *)pagedObject
+           success:(void (^)(NSArray *results))success
+           failure:(void (^)(NSError *error))failure {
+    
+    if (![KTLicenseData sharedLicenseData].isValidLicense) {
+        NSError *error = [KTLicenseData sharedLicenseData].licenseError;
+        if (failure) {
+            failure(error);
+        }
+        return;
+    }
+    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    
+    [KTElement mappingWithManager:manager];
+    
+    NSString *resourcePath = @"Search";
+    
+    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
+    
+    // If QueryText then ??? Exception ?
+    
+    if (queryText == nil && fields == nil) {
+        NSException *myException = [NSException exceptionWithName:@"Invalid Parameter"
+                                                           reason:@"Either querytext or fiels must not be null"
+                                                         userInfo:nil];
+        @throw myException;
+        return;
+    }
+    
+    if (queryText) { // server will search this text in more than one attribute at once. Look at the server configuration
+        rpcData[@"q"] = queryText;
+    }
+    
+    if (fields) {
+        NSMutableString *fieldList = [[NSMutableString alloc] init];
+        for (NSString* aField in fields) {
+            [fieldList appendString:[self generateHTMLStringFromString:aField] ];
+            [fieldList appendString:@":"];
+        }
+        
+        rpcData[@"fields"] = [fieldList stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]] ;
+    }
+    
+    
+    if (inClasses) { // Return only elements within this classes
+        
+        NSMutableString *classList = [[NSMutableString alloc] init];
+        for (NSString* aClass in inClasses) {
+            [classList appendString:aClass];
+            [classList appendString:@","];
+        }
+        
+        rpcData[@"classtypes"] = [classList stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]] ;
+    }
+    
+    if (shouldReload) {
+        rpcData[@"reload"] = @"true";
+    } else {
+        rpcData[@"reload"] = @"false";
+    }
+    
+    if (pagedObject) {
+        rpcData[@"page"] = @((int)pagedObject.page);
+        rpcData[@"size"] = @((int)pagedObject.size);
+    }
+    
+       [manager getObject:nil path:resourcePath parameters:rpcData
+               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                   
+                   // Dont call Block and delegate
+                   if (success) {
+                       success(mappingResult.array);
+                   }
+                   
+               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   
+                   NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
+                   
+                   if (failure) {
+                       failure(transcodedError);
+                   }
+                   
+               }];
+    
+    
+}
+
+
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 
 
-
--(void)queryByPredicate:(NSPredicate*)predicate inClasses:(NSArray*)inClasses paged:(KTPagedObject*)pagedObject
-                  block:(void(^)(NSArray* results))block
+-(void)queryByPredicate:(NSPredicate*)predicate
+              inClasses:(NSArray*)inClasses
+                 reload:(BOOL)shouldReload
+                  paged:(KTPagedObject*)pagedObject
+                success:(void(^)(NSArray* results))success
                 failure:(void(^)(NSError *error))failure{
     
     if (![KTLicenseData sharedLicenseData].isValidLicense) {
@@ -57,6 +168,12 @@
         rpcData[@"fields"] = fieldList;
     }
     
+    if (shouldReload) {
+        rpcData[@"reload"] = @"true";
+    } else {
+        rpcData[@"reload"] = @"false";
+    }
+    
     if (pagedObject) { // A pageObject should not be nil
         rpcData[@"page"] = @((int)pagedObject.page);
         rpcData[@"size"] = @((int)pagedObject.size);
@@ -84,81 +201,11 @@
 }
 #endif
 
--(void)queryByText:(NSString *)queryText paged:(KTPagedObject *)pagedObject
-             block:(void (^)(NSArray *))block
-           failure:(void(^)(NSError *error))failure{
-    
-    [self queryByText:queryText inClasses:nil paged:pagedObject block:block failure:failure];
-}
-
--(void)queryByText:(NSString *)queryText inClasses:(NSArray *)inClasses paged:(KTPagedObject *)pagedObject
-             block:(void (^)(NSArray *))block
-           failure:(void(^)(NSError *error))failure{
-    
-    if (![KTLicenseData sharedLicenseData].isValidLicense) {
-        NSError *error = [KTLicenseData sharedLicenseData].licenseError;
-        if (failure) {
-            failure(error);
-        }
-        return;
-    }
-    
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    
-    [KTElement mappingWithManager:manager];
-    
-    NSString *resourcePath = @"Search";
-    
-    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
-    
-    // If QueryText then ??? Exception ?
-    
-    if (queryText) { // server will search this text in more than one attribute at once. Look at the server configuration
-        rpcData[@"q"] = queryText;
-    }
-    
-    if (inClasses) { // Return only elements within this classes
-        
-        NSMutableString *classList = [[NSMutableString alloc] init];
-        for (NSString* aClass in inClasses) {
-            [classList appendString:aClass];
-            [classList appendString:@","];
-        }
-        
-        rpcData[@"classtypes"] = [classList stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]] ;
-    }
-    
-    if (pagedObject) {
-        rpcData[@"page"] = @((int)pagedObject.page);
-        rpcData[@"size"] = @((int)pagedObject.size);
-    }
-    
-    [manager getObject:nil path:resourcePath parameters:rpcData
-               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                   
-                   // Dont call Block and delegate
-                   if (block) {
-                       block(mappingResult.array);
-                   }
-                   
-               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   
-                   NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
-                   
-                   if (failure) {
-                       failure(transcodedError);
-                   }
-                   
-               }];
-    
-    
-    
-}
-
 /// Starts a Solr Vault query
 -(void)queryInVaultsByText:(NSString *)fileContentText
+                    reload:(BOOL)shouldReload
                      paged:(KTPagedObject *)pagedObject
-                     block:(void (^)(NSArray *))block
+                   success:(void (^)(NSArray *))success
                    failure:(void (^)(NSError *))failure
 {
     
@@ -185,6 +232,11 @@
         rpcData[@"q"] = fileContentText;
     }
     
+    if (shouldReload) {
+        rpcData[@"reload"] = @"true";
+    } else {
+        rpcData[@"reload"] = @"false";
+    }
     
     if (pagedObject) {
         rpcData[@"page"] = @((int)pagedObject.page);
@@ -195,8 +247,8 @@
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    
                    // Dont call Block and delegate
-                   if (block) {
-                       block(mappingResult.array);
+                   if (success) {
+                       success(mappingResult.array);
                    }
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -215,8 +267,10 @@
 
 
 
--(void)queryByStoredSearch:(NSInteger)storedQueryID paged:(KTPagedObject *)pagedObject
-                     block:(void (^)(NSArray *))block
+-(void)queryByStoredSearch:(NSInteger)storedQueryID
+                    reload:(BOOL)shouldReload
+                     paged:(KTPagedObject *)pagedObject
+                   success:(void (^)(NSArray *))success
                    failure:(void(^)(NSError *error))failure{
     
     /// Stats a Search by its queryID
@@ -240,13 +294,20 @@
     
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
     rpcData[@"byQuery"] = @((int)storedQueryID);
+    
+    if (shouldReload) {
+        rpcData[@"reload"] = @"true";
+    } else {
+        rpcData[@"reload"] = @"false";
+    }
+    
     rpcData[@"page"] = @((int)pagedObject.page);
     rpcData[@"size"] = @((int)pagedObject.size);
     
     [manager getObject:nil path:resourcePath parameters:rpcData
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                   if (block) {
-                       block(mappingResult.array);
+                   if (success) {
+                       success(mappingResult.array);
                    }
                    
                    
@@ -262,6 +323,20 @@
                    
                }];
     
+}
+
+- (NSString *)generateHTMLStringFromString:(NSString*)inString
+{
+    
+    NSMutableString *mutableString = [inString mutableCopy];
+    
+    [mutableString replaceOccurrencesOfString:@"&"  withString:@"&amp;"  options:NSLiteralSearch range:NSMakeRange(0, [mutableString length])];
+    [mutableString replaceOccurrencesOfString:@"\"" withString:@"&quot;" options:NSLiteralSearch range:NSMakeRange(0, [mutableString length])];
+    [mutableString replaceOccurrencesOfString:@"'"  withString:@"&#x27;" options:NSLiteralSearch range:NSMakeRange(0, [mutableString length])];
+    [mutableString replaceOccurrencesOfString:@">"  withString:@"&gt;"   options:NSLiteralSearch range:NSMakeRange(0, [mutableString length])];
+    [mutableString replaceOccurrencesOfString:@"<"  withString:@"&lt;"   options:NSLiteralSearch range:NSMakeRange(0, [mutableString length])];
+    
+    return mutableString;
 }
 
 
