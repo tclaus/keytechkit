@@ -87,7 +87,7 @@ static NSString * const kSDFParseAPIKey = @"fdB5jQ8x1gOF2ruzjzfMJdqVrWYYZkJuN2fp
     
     if (!_calendar) {
         _calendar =[[NSCalendar alloc]
-                    initWithCalendarIdentifier:NSGregorianCalendar];
+                    initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     }
     return _calendar;
 }
@@ -139,10 +139,10 @@ static NSString * const kSDFParseAPIKey = @"fdB5jQ8x1gOF2ruzjzfMJdqVrWYYZkJuN2fp
         
         
         NSDateComponents *lastCheck =
-        [[self calendar] components:NSMinuteCalendarUnit fromDate:_lastLicenceCheck];
+        [[self calendar] components:NSCalendarUnitMinute fromDate:_lastLicenceCheck];
         
         NSDateComponents *current =
-        [[self calendar] components:NSMinuteCalendarUnit fromDate:[NSDate date]];
+        [[self calendar] components:NSCalendarUnitMinute fromDate:[NSDate date]];
         
         
         if (lastCheck.minute - current.minute >2 || lastCheck.minute - current.minute <-2 || _lastEvaluatedValue == NO) {
@@ -302,10 +302,10 @@ static NSString * const kSDFParseAPIKey = @"fdB5jQ8x1gOF2ruzjzfMJdqVrWYYZkJuN2fp
                 
                 
                 NSDateComponents *lastCheck =
-                [[self calendar] components:NSMinuteCalendarUnit fromDate:_lastLicenceCheck];
+                [[self calendar] components:NSCalendarUnitMinute fromDate:_lastLicenceCheck];
                 
                 NSDateComponents *current =
-                [[self calendar] components:NSMinuteCalendarUnit fromDate:[NSDate date]];
+                [[self calendar] components:NSCalendarUnitMinute fromDate:[NSDate date]];
                 
                 
                 if (lastCheck.minute - current.minute <=2 && lastCheck.minute - current.minute >=-2) {
@@ -334,7 +334,8 @@ static NSString * const kSDFParseAPIKey = @"fdB5jQ8x1gOF2ruzjzfMJdqVrWYYZkJuN2fp
     
     urlRequest.timeoutInterval = 10;
 
-    [licenseData setData:nil];
+    // Clear data
+    [licenseData setData:[[NSData alloc]init]];
     
     if (!URLconnection) {
         URLconnection = [NSURLConnection connectionWithRequest:urlRequest delegate:self];

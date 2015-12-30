@@ -1,7 +1,14 @@
 Pod::Spec.new do |spec|
   spec.name         = 'keytechkit'
   spec.version      = '0.1.10'
-  spec.license      = { :type => 'BSD' }
+  spec.license      = { :type => 'Personal', :text => <<-LICENSE
+/* Copyright (C) Claus-Software, Thorsten Claus, Inc - All Rights Reserved
+* Unauthorized copying of this file, via any medium is strictly prohibited
+* Proprietary and confidential
+* Written by Thorsten Claus <thorstenclaus@web.de>, September 2016
+*/
+LICENSE
+}
   spec.homepage     = 'https://bitbucket.org/tclaus/keytechkit.git'
   spec.authors      = { 'Thorsten Claus' => 'thorstenclaus@web.de' }
   spec.summary      = 'keytech lib to access the keytech software Web-API.'
