@@ -184,8 +184,8 @@
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    
                    // Dont call Block and delegate
-                   if (block) {
-                       block(mappingResult.array);
+                   if (success) {
+                       success(mappingResult.array);
                    }
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
