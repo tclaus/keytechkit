@@ -1,5 +1,5 @@
 //
-//  SimpleFileInfo.h
+//  KTFileInfo.h
 //  keytech search ios
 //
 //  Created by Thorsten Claus on 18.10.12.
@@ -9,10 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 
+
+@class KTElement;
+@protocol KTFileObjectDelegate;
+
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  A typedef for valid filetypes to send and receive
  */
-typedef NS_ENUM(NSUInteger, FileStorageType) {
+typedef NS_ENUM(NSInteger, FileStorageType) {
     /// The main type of file. Any element can only have one file of this type.
     FileTypeMaster,
     /// A Preview file. May be visible in clients. Represents an image to represent the file.
@@ -20,30 +26,10 @@ typedef NS_ENUM(NSUInteger, FileStorageType) {
     /// A smaller version of a preview of the masterfile. Quickpreview files are noramlly not visible as files in clients but its contents in preview panes
     FileTypeQuickPreview,
     /// A unknown filetype. Ask the AIP Team.
-    FileTypeOleRef,
+    FileTypeOleRef
 };
 
-@class KTFileInfo;
-@protocol KTFileObjectDelegate <NSObject>
 
-/**
- Send periodically to notify download progress 
- */
--(void)KTFileInfo:(KTFileInfo*)fileInfo downloadProgress:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten;
-/**
- Send periodiacally to notify upload progress
- */
--(void)KTFileInfo:(KTFileInfo*)fileInfo uploadProgress:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent;
-
-@optional
-/**
- Sends a response that a file was uploaded
- */
--(void)FinishedUploadWithFileInfo:(KTFileInfo*)fileInfo;
-@optional
-@end
-
-@class KTElement;
 /**
  Provides a fileinfo object and helps loading the file to local machine
  */
@@ -78,7 +64,7 @@ typedef NS_ENUM(NSUInteger, FileStorageType) {
 /**
  Gets the elementkey this file belongs to
  */
-@property (nonatomic,copy) NSString *elementKey;
+@property (nonatomic,copy,nullable) NSString *elementKey;
 
 /**
  Short filename is the filename without the ElementName. Shortend usually after the Divider '-+-' in filenames.
@@ -153,10 +139,26 @@ When file is loaded a local URL is returned. Nil otherwise
  */
 @property (readonly) BOOL isLoading;
 
-
-
 @end
 
 
+@protocol KTFileObjectDelegate <NSObject>
 
+/**
+ Send periodically to notify download progress
+ */
+-(void)fileInfo:(KTFileInfo*)fileInfo downloadProgress:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten;
+/**
+ Send periodiacally to notify upload progress
+ */
+-(void)fileInfo:(KTFileInfo*)fileInfo uploadProgress:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent;
 
+@optional
+/**
+ Sends a response that a file was uploaded
+ */
+-(void)FinishedUploadWithFileInfo:(KTFileInfo*)fileInfo;
+@optional
+@end
+
+NS_ASSUME_NONNULL_END

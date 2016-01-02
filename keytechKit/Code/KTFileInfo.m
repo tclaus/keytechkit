@@ -317,8 +317,8 @@ static RKObjectManager *_usedManager;
 #endif
     
     if (delegate){
-        if ([self.delegate respondsToSelector:@selector(KTFileInfo:downloadProgress:totalBytesWritten:)]) {
-            [self.delegate KTFileInfo:self downloadProgress:bytesWritten totalBytesWritten:totalBytesExpectedToWrite];
+        if ([self.delegate respondsToSelector:@selector(fileInfo:downloadProgress:totalBytesWritten:)]) {
+            [self.delegate fileInfo:self downloadProgress:bytesWritten totalBytesWritten:totalBytesExpectedToWrite];
         }
     }
     
@@ -331,8 +331,8 @@ static RKObjectManager *_usedManager;
     NSLog(@"Uploaded %@: %d / %d",self.fileName, (int)totalBytesSent,(int)totalBytesExpectedToSend);
 #endif
     
-    if ([self.delegate respondsToSelector:@selector(KTFileInfo:uploadProgress:totalBytesSent:)]) {
-        [self.delegate KTFileInfo:self uploadProgress:totalBytesSent totalBytesSent:totalBytesExpectedToSend];
+    if ([self.delegate respondsToSelector:@selector(fileInfo:uploadProgress:totalBytesSent:)]) {
+        [self.delegate fileInfo:self uploadProgress:totalBytesSent totalBytesSent:totalBytesExpectedToSend];
     }
     
     
@@ -475,8 +475,8 @@ static RKObjectManager *_usedManager;
 
 /// Saves the current file to API as normaul upload task
 -(void)saveFile:(NSURL *)fileURL
-        success:(void (^)(void))success
-        failure:(void (^)(NSError *))failure{
+        success:( void (^ )(void))success
+        failure:( void (^ )(NSError *))failure{
     
     // Check for Delegate
     // Check for element Key
