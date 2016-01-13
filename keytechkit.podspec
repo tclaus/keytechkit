@@ -1,11 +1,11 @@
 Pod::Spec.new do |spec|
   spec.name         = 'keytechkit'
-  spec.version      = '0.1.11'
+  spec.version      = '0.1.12'
   spec.license      = { :type => 'Personal', :text => <<-LICENSE
 /* Copyright (C) Claus-Software, Thorsten Claus, Inc - All Rights Reserved
 * Unauthorized copying of this file, via any medium is strictly prohibited
 * Proprietary and confidential
-* Written by Thorsten Claus <thorstenclaus@web.de>, September 2016
+* Written by Thorsten Claus <thorstenclaus@web.de>, September 2013
 */
 LICENSE
 }

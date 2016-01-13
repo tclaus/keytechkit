@@ -312,11 +312,8 @@ dispatch_once(&onceToken, ^{
     
     if (!self.serverID) {
         // If not currently initialzed, then do not send any notifications
-        NSLog(@"No ServerInfo ID can not send notification");
         return;
     }
-    
-    NSLog(@"Send notification to %@",AppType);
     
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:APNURL,@"createMessage"]];
     
@@ -606,22 +603,20 @@ dispatch_once(&onceToken, ^{
 #pragma mark -
 #pragma mark connectionDelegate
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    NSLog(@"Sending Notification OK:");
     self.connectionSucceeded = YES;
     self.connectionFinished = YES;
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    NSLog(@"Sending Notification Error: %@",error.localizedDescription);
     self.connectionSucceeded = NO;
     self.connectionFinished = YES;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    NSString *JSONMessageBody = [[NSString alloc] initWithData:data
-                                                      encoding:NSUTF8StringEncoding];
-    NSLog(@"Response Data: %@",JSONMessageBody);
-    
+//    NSString *JSONMessageBody = [[NSString alloc] initWithData:data
+//                                                      encoding:NSUTF8StringEncoding];
+//    NSLog(@"Response Data: %@",JSONMessageBody);
+//    
     self.connectionSucceeded = YES;
     self.connectionFinished = YES;
 }
@@ -633,7 +628,6 @@ dispatch_once(&onceToken, ^{
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     self.connectionSucceeded = YES;
     self.connectionFinished = YES;
-    NSLog(@"Response:  %@",response);
 }
 
 - (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {

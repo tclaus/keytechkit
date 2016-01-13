@@ -360,7 +360,7 @@ int maxPagesize=500;
     return NO;
 }
 
--(void)removeLinkTo:(NSString *)linkToElementKey success:(void(^)(void))success failure:(void(^)(NSError*))failure{
+-(void)removeLinkTo:(NSString *)linkToElementKey success:(void(^)(void))success failure:(void(^)(NSError* error))failure{
     
     KTElementLink *newLink = [[KTElementLink alloc]initWithParent:self.itemKey childKey:linkToElementKey];
     [newLink deleteLink:^{
@@ -1382,8 +1382,6 @@ static long numberOfThumbnailsLoaded;
                                        
                                        NSString *location =  [httpResponse allHeaderFields][@"Location"];
                                        
-                                       NSLog(@"Reserve changed");
-                                       
                                        // set the new location key after move
                                        theElement.itemKey = location;
                                        
@@ -1393,7 +1391,6 @@ static long numberOfThumbnailsLoaded;
                                    }
                                    
                                } else {
-                                   NSLog(@"Error while reserving element: %@",connectionError.localizedDescription);
                                    if (failure){
                                        NSError *transcodedError = [KTManager translateErrorFromResponse:httpResponse error:connectionError];
                                        

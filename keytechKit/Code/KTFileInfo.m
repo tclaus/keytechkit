@@ -388,7 +388,6 @@ static RKObjectManager *_usedManager;
 }
 
 -(void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session{
-    NSLog(@"URLSessionDidFinishEventsForBackgroundURLSession");
     [_backgroundSession invalidateAndCancel];
     _backgroundSession = nil;
 }
@@ -526,24 +525,18 @@ static RKObjectManager *_usedManager;
                                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                           
                                                           
-                                                          if (error) {
-                                                              NSLog(@"File upload finished with error: %@",error.localizedDescription);
-                                                              NSHTTPURLResponse *httpResponse =(NSHTTPURLResponse*)response;
-                                                              NSLog(@"With Status Code: %ld",(long)httpResponse.statusCode);
+                                                          if (error) {                                                              NSHTTPURLResponse *httpResponse =(NSHTTPURLResponse*)response;
                                                               
                                                               if (failure)
                                                                   failure(error);
                                                               return;
                                                               
                                                           } else {
-                                                              NSLog(@"File upload finished!");
                                                               // Now checking for error
                                                               
                                                               NSHTTPURLResponse *httpResponse =(NSHTTPURLResponse*)response;
                                                               
                                                               if ([httpResponse statusCode]>299 ) {
-                                                                  
-                                                                  NSLog(@"http response : %ld",(long)[httpResponse statusCode]);
                                                                   
                                                                   if (failure) {
                                                                       
@@ -589,7 +582,6 @@ static RKObjectManager *_usedManager;
                                                           
                                                       }];
     [uploadTask resume];
-    // NSLog(@"Headers: %@",sessionConfiguration.HTTPAdditionalHeaders);
     
 }
 

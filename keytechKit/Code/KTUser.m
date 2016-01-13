@@ -225,7 +225,7 @@ static RKObjectManager *_usedManager;
                           self.favorites = mappingResult.array;
                           
                           if (success) {
-                              success(self.favorites);
+                              success(mappingResult.array);
                           }
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -250,7 +250,7 @@ static RKObjectManager *_usedManager;
                           self.queries = mappingResult.array;
                           
                           if (success) {
-                              success(self.queries);
+                              success(mappingResult.array);
                           }
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {

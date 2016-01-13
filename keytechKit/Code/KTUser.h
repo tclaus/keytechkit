@@ -45,11 +45,11 @@
 /**
  Returns a list of queries. Is nil when never loaded.
  */
-@property (nonatomic,weak) NSArray* queries;
+@property (nonatomic) NSArray* queries;
 /**
  Returns a list of favorite elements. Returns nil if never loaded
  */
-@property (nonatomic,weak) NSArray* favorites;
+@property (nonatomic) NSArray* favorites;
 
 /**
  Loads a new user objects but waits until returns
@@ -89,8 +89,8 @@
 /**
  The unique key. Represents the shortname (loginname)
  */
-@property (readonly,copy)NSString* identifier;
-@property (nonatomic,copy)NSString* userKey;
+@property (readonly,copy) NSString* identifier;
+@property (nonatomic,copy) NSString* userKey;
 
 /**
  If a user can not be load, a sever error message can be fetched here
