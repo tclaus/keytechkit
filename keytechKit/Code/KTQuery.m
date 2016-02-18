@@ -129,13 +129,7 @@
                 success:(void(^)(NSArray* results))success
                 failure:(void(^)(NSError *error))failure{
     
-    if (![KTLicenseData sharedLicenseData].isValidLicense) {
-        NSError *error = [KTLicenseData sharedLicenseData].licenseError;
-        if (failure) {
-            failure(error);
-        }
-        return;
-    }
+ 
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
