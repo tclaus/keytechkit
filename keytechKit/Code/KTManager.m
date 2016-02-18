@@ -11,7 +11,7 @@
 #import "KTNotifications.h"
 #import "KTUser.h"
 #import "KTServerInfo.h"
-#import "KTLicenseData.h"
+
 
 #define keytechDefaultServerURL @"https://demo.keytech.de"  // internal default URL )(for testing)
 //#define keytechDefaultServerURL @"http://claus-pc.keytech.de:8080/keytech"  // internal default URL )(for testing)
@@ -340,14 +340,7 @@
     
 }
 
--(void)setLicenceKey:(NSString *)clientKey{
-    static KTLicenseData* licenseData = nil;
-    licenseData = [KTLicenseData sharedLicenseData];
-    [[KTLicenseData sharedLicenseData] setAPIURL:self.servername];
-    [[KTLicenseData sharedLicenseData] setAPILicenseKey:clientKey];
-    [[KTLicenseData sharedLicenseData] readLicenceData];
-    
-}
+
 @end
 
 

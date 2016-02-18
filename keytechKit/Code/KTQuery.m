@@ -9,7 +9,7 @@
 #import "KTQuery.h"
 #import "KTSearchengineResult.h"
 #import "KTManager.h"
-#import "KTLicenseData.h"
+
 
 #import "NSPredicate+PredicateKTFormat.h"
 
@@ -40,13 +40,6 @@
            success:(void (^)(NSArray *results))success
            failure:(void (^)(NSError *error))failure {
     
-    if (![KTLicenseData sharedLicenseData].isValidLicense) {
-        NSError *error = [KTLicenseData sharedLicenseData].licenseError;
-        if (failure) {
-            failure(error);
-        }
-        return;
-    }
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
@@ -209,13 +202,7 @@
                    failure:(void (^)(NSError *))failure
 {
     
-    if (![KTLicenseData sharedLicenseData].isValidLicense) {
-        NSError *error = [KTLicenseData sharedLicenseData].licenseError;
-        if (failure) {
-            failure(error);
-        }
-        return;
-    }
+    
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
@@ -276,13 +263,7 @@
     /// Stats a Search by its queryID
     
     
-    if (![KTLicenseData sharedLicenseData].isValidLicense) {
-        NSError *error = [KTLicenseData sharedLicenseData].licenseError;
-        if (failure) {
-            failure(error);
-        }
-        return;
-    }
+   
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTElement mappingWithManager:[RKObjectManager sharedManager]];

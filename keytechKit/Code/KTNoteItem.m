@@ -9,7 +9,7 @@
 #import "KTNoteItem.h"
 #import <RestKit/RestKit.h>
 #import <KTManager.h>
-#import <KTLicenseData.h>
+
 
 @implementation KTNoteItem
 
@@ -111,13 +111,7 @@ static RKObjectManager *_usedManager;
 
 
 -(void)deleteNote:(void (^)())success failure:(void (^)(KTNoteItem *, NSError *))failure {
-    if (![KTLicenseData sharedLicenseData].isValidLicense) {
-        NSError *error = [KTLicenseData sharedLicenseData].licenseError;
-        if (failure) {
-            failure(self,error);
-        }
-        return;
-    }
+    
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
@@ -142,13 +136,7 @@ static RKObjectManager *_usedManager;
 }
 
 -(void)saveNote:(void (^)(KTNoteItem *))success failure:(void (^)(KTNoteItem *, NSError *))failure {
-    if (![KTLicenseData sharedLicenseData].isValidLicense) {
-        NSError *error = [KTLicenseData sharedLicenseData].licenseError;
-        if (failure) {
-            failure(self,error);
-        }
-        return;
-    }
+    
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     

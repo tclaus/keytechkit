@@ -14,7 +14,7 @@
 #import "KTSendNotifications.h"
 #import "KTBomItem.h"
 #import "KTBaseObject.h"
-#import "KTLicenseData.h"
+
 
 @interface KTElement()
 
@@ -1082,13 +1082,7 @@ static long numberOfThumbnailsLoaded;
  */
 -(void)saveItem:(void (^)(KTElement *))success failure:(void (^)(NSError *error))failure{
 
-    if (![KTLicenseData sharedLicenseData].isValidLicense) {
-        NSError *error = [KTLicenseData sharedLicenseData].licenseError;
-        if (failure) {
-            failure(error);
-        }
-        return;
-    }
+  
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
@@ -1162,13 +1156,6 @@ static long numberOfThumbnailsLoaded;
                   success:(void (^)(KTElement *theElement))success
                   failure:(void(^)(NSError *error))failure{
     
-    if (![KTLicenseData sharedLicenseData].isValidLicense) {
-        NSError *error = [KTLicenseData sharedLicenseData].licenseError;
-        if (failure) {
-            failure(error);
-        }
-        return;
-    }
     
     [KTElement mappingWithManager:[RKObjectManager sharedManager]];
     KTElement* element = [[KTElement alloc]init];
@@ -1232,13 +1219,7 @@ static long numberOfThumbnailsLoaded;
     _isWhereUsedListLoaded = NO;
     
     
-    if (![KTLicenseData sharedLicenseData].isValidLicense) {
-        NSError *error = [KTLicenseData sharedLicenseData].licenseError;
-        if (failure) {
-            failure(error);
-        }
-        return;
-    }
+   
     
     [manager getObject:self path:nil parameters:rpcData success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         
