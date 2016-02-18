@@ -21,14 +21,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    // Edit in Xcode: "Manage Scheme"=> Build => EnvironmentVariables.
+    //                Add a key: "APIURL and the current keytech Base URL for its Web-API
+    //                ( was https://demo.keytech.de )
     
-    [KTManager sharedManager].servername = @"https://demo.keytech.de";
-    //[KTManager sharedManager].servername = @"http://claus-pc.keytech.de:8080/keytech";
-    [KTManager sharedManager].username = @"jgrant";
+    NSString *serverURL = [[[NSProcessInfo processInfo]environment] objectForKey:@"APIURL"];
+    NSString *username = [[[NSProcessInfo processInfo]environment] objectForKey:@"APIUserName"];
+    
+    [KTManager sharedManager].servername = serverURL;
+    
+    [KTManager sharedManager].username =username;
+    
     [[KTManager sharedManager]  synchronizeServerCredentials];
     [[KTServerInfo sharedServerInfo] waitUnitlLoad];
     
-    [[KTManager sharedManager] setLicenceKey:@"bla"];
 
     [[KTServerInfo sharedServerInfo]loadWithSuccess:^(KTServerInfo *serverInfo) {
         

@@ -4,6 +4,8 @@ platform :ios, '8.0'
 source 'https://bitbucket.org/tclaus/podspec'
 source 'https://github.com/CocoaPods/Specs.git'
 
+xcodeproj 'Example.xcodeproj'
+
 target 'Example' do
  pod 'keytechkit', :path =>'../'
 end

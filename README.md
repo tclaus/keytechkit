@@ -1,27 +1,21 @@
-# README #
+# keytechKit
 
-keytechKit is a iOS / OSX framework to communicate with the keytech Web API. 
+keytechKit is a iOS / OSX framework for accessing the keytech WebAPI. 
 
-### What is this repository for? ###
+## Start building a project
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Simply add the following to your Podfile using CocoaPods:
+´´´ ruby
+pod 'keytechkit', '~>0.1'
+```
 
-### How do I get set up? ###
+keytechKit works for iOS >=8 and OSX >=10.9
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
 
-### Contribution guidelines ###
+## How do I get set up?
 
-* Writing tests
-* Code review
-* Other guidelines
+
+
 
 ### Who do I talk to? ###
 
