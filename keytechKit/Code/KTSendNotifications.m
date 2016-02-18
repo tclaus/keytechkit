@@ -71,7 +71,8 @@ static KTSendNotifications *_sharedSendNotification;
 
 // URL for PushWoosh service
 static NSString* APNURL =@"https://cp.pushwoosh.com/json/1.3/%@";
-static NSString* APNAPIToken =@"BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8sxaxEnrQnM0UlAf2aQpFRPSwjrT2WeaUig7aB";
+// Read from Environment
+NSString* APNAPIToken;
 
 #ifndef DEBUG
  static NSString* APNApplictionID =@"A1270-D0C69"; // The Production Service
@@ -91,7 +92,7 @@ BOOL _serverIsLoaded;
     {
 
         _shortUserName = [KTManager sharedManager].username;
-        
+        APNAPIToken = [[[NSProcessInfo processInfo]environment]objectForKey:@"APNToken"];
         
         if ([KTServerInfo sharedServerInfo].isLoaded) {
             _serverID = [KTServerInfo sharedServerInfo].serverID;
