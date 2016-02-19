@@ -66,7 +66,6 @@ static KTSendNotifications *_sharedSendNotification;
 
 // PushWoosh
 // https://cp.pushwoosh.com/json/1.3/%methodName%
-// API Token : BLB4PUNrf4V64SMpMT30hx4M0AhnSAnjpeop8yJjmXpprj8sxaxEnrQnM0UlAf2aQpFRPSwjrT2WeaUig7aB
 // Keep it secret !
 
 // URL for PushWoosh service
