@@ -10,6 +10,7 @@ Pod::Spec.new do |spec|
   spec.requires_arc = true
   spec.ios.deployment_target  = '8.0'
   spec.osx.deployment_target  = '10.9'
+  spec.ios.framework = 'SystemConfiguration' ,'MobileCoreServices'
   spec.prefix_header_contents ='#import <RestKit/RestKit.h>'
   spec.dependency 'RestKit', '~>0.24'
   spec.dependency 'SSZipArchive'

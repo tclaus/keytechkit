@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		34E8C7AE12540EFBA729ADE8 /* libPods-Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B8C9358BDAE96878DBA52C /* libPods-Example.a */; };
+		65327BA71C777233003C3712 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65327BA61C777233003C3712 /* SystemConfiguration.framework */; };
 		6565EF511B5E705000D4823D /* Aerial04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6565EF331B5E704F00D4823D /* Aerial04.jpg */; };
 		6565EF521B5E705000D4823D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6565EF351B5E704F00D4823D /* InfoPlist.strings */; };
 		6565EF531B5E705000D4823D /* keytechKitTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6565EF3A1B5E704F00D4823D /* keytechKitTests-Info.plist */; };
@@ -25,7 +26,6 @@
 		6565EF5F1B5E705000D4823D /* testQueries.m in Sources */ = {isa = PBXBuildFile; fileRef = 6565EF471B5E704F00D4823D /* testQueries.m */; };
 		6565EF601B5E705000D4823D /* testRequestServers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6565EF481B5E704F00D4823D /* testRequestServers.m */; };
 		6565EF611B5E705000D4823D /* testResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6565EF4A1B5E704F00D4823D /* testResponseLoader.m */; };
-		6565EF621B5E705000D4823D /* testSDKLicenses.m in Sources */ = {isa = PBXBuildFile; fileRef = 6565EF4B1B5E704F00D4823D /* testSDKLicenses.m */; };
 		6565EF631B5E705000D4823D /* testSendNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6565EF4C1B5E704F00D4823D /* testSendNotification.m */; };
 		6565EF641B5E705000D4823D /* testServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6565EF4D1B5E704F00D4823D /* testServerInfo.m */; };
 		6565EF651B5E705000D4823D /* testStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 6565EF4E1B5E704F00D4823D /* testStatus.m */; };
@@ -56,6 +56,7 @@
 		2652709B59A1E271ADD29F7A /* Pods-ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ExampleTests/Pods-ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		345765E74C868D71DE49DE07 /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
 		650B46441C37BF6500B74474 /* Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Example-Bridging-Header.h"; sourceTree = "<group>"; };
+		65327BA61C777233003C3712 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6565EF331B5E704F00D4823D /* Aerial04.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Aerial04.jpg; sourceTree = "<group>"; };
 		6565EF361B5E704F00D4823D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		6565EF371B5E704F00D4823D /* keytechKitFramework Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "keytechKitFramework Tests-Prefix.pch"; sourceTree = "<group>"; };
@@ -78,7 +79,6 @@
 		6565EF481B5E704F00D4823D /* testRequestServers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testRequestServers.m; sourceTree = "<group>"; };
 		6565EF491B5E704F00D4823D /* testResponseLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testResponseLoader.h; sourceTree = "<group>"; };
 		6565EF4A1B5E704F00D4823D /* testResponseLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testResponseLoader.m; sourceTree = "<group>"; };
-		6565EF4B1B5E704F00D4823D /* testSDKLicenses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testSDKLicenses.m; sourceTree = "<group>"; };
 		6565EF4C1B5E704F00D4823D /* testSendNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testSendNotification.m; sourceTree = "<group>"; };
 		6565EF4D1B5E704F00D4823D /* testServerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testServerInfo.m; sourceTree = "<group>"; };
 		6565EF4E1B5E704F00D4823D /* testStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testStatus.m; sourceTree = "<group>"; };
@@ -107,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65327BA71C777233003C3712 /* SystemConfiguration.framework in Frameworks */,
 				34E8C7AE12540EFBA729ADE8 /* libPods-Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -211,7 +212,6 @@
 				6565EF481B5E704F00D4823D /* testRequestServers.m */,
 				6565EF491B5E704F00D4823D /* testResponseLoader.h */,
 				6565EF4A1B5E704F00D4823D /* testResponseLoader.m */,
-				6565EF4B1B5E704F00D4823D /* testSDKLicenses.m */,
 				6565EF4C1B5E704F00D4823D /* testSendNotification.m */,
 				6565EF4D1B5E704F00D4823D /* testServerInfo.m */,
 				6565EF4E1B5E704F00D4823D /* testStatus.m */,
@@ -234,6 +234,7 @@
 		EC0ACE34DF31DB802FBA2712 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				65327BA61C777233003C3712 /* SystemConfiguration.framework */,
 				65B8C9358BDAE96878DBA52C /* libPods-Example.a */,
 				A7F18283105E1D0858521AA8 /* libPods-ExampleTests.a */,
 			);
@@ -460,7 +461,6 @@
 				65710CB21B5E6D9900662B78 /* ExampleTests.m in Sources */,
 				6565EF601B5E705000D4823D /* testRequestServers.m in Sources */,
 				6565EF671B5E705000D4823D /* testUserSettings.m in Sources */,
-				6565EF621B5E705000D4823D /* testSDKLicenses.m in Sources */,
 				6565EF591B5E705000D4823D /* testFileManagement.m in Sources */,
 				6565EF661B5E705000D4823D /* testUser.m in Sources */,
 				6565EF5E1B5E705000D4823D /* testNotes.m in Sources */,

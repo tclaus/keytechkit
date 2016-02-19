@@ -4,3 +4,4 @@
 
 #import <keytechKit/KTFileInfo.h>
 #import <keytechKit/KTElement.h>
+#import <SystemConfiguration/SystemConfiguration.h>
