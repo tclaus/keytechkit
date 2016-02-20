@@ -84,7 +84,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "28DEF927AAE1432F453CF6D47AD6A6D9"
+               BlueprintIdentifier = "A07AE896ABB2EBB7BADF3FFCD9EF4F35"
                BuildableName = "libRestKit.a"
                BlueprintName = "RestKit"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -98,7 +98,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D1D4093FC176DA4A59FA047DAEAC8706"
+               BlueprintIdentifier = "DF5098790A8EA9330FD828D3D2EA3F69"
                BuildableName = "libSOCKit.a"
                BlueprintName = "SOCKit"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -112,7 +112,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "04213C2244CA2240AB7F1D7E8943F83B"
+               BlueprintIdentifier = "CAD16BB881E152B9AB139666A393527D"
                BuildableName = "libSSZipArchive.a"
                BlueprintName = "SSZipArchive"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -126,7 +126,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "86BCDDC3CE7BE50439F1E39ABBD787EF"
+               BlueprintIdentifier = "7F7C11E484975F1F540FFF8A2393E74B"
                BuildableName = "libTransitionKit.a"
                BlueprintName = "TransitionKit"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -140,7 +140,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1C856B81C59CE6944BFB458C1BA4827F"
+               BlueprintIdentifier = "B802F4BAABFF18D04FCDE00D1153039A"
                BuildableName = "libkeytechkit.a"
                BlueprintName = "keytechkit"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -177,6 +177,47 @@
                BlueprintName = "ExampleTests"
                ReferencedContainer = "container:Example.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "testAttributeMappings">
+               </Test>
+               <Test
+                  Identifier = "testKeytechElements/testGetElementNotesList">
+               </Test>
+               <Test
+                  Identifier = "testKeytechElements/testGetElementPermissionList">
+               </Test>
+               <Test
+                  Identifier = "testKeytechElements/testGetElementPermissionListWithChild">
+               </Test>
+               <Test
+                  Identifier = "testKeytechElements/testGetElementStatusHistory">
+               </Test>
+               <Test
+                  Identifier = "testKeytechElements/testMoveElement">
+               </Test>
+               <Test
+                  Identifier = "testKeytechElements/testPostElement">
+               </Test>
+               <Test
+                  Identifier = "testKeytechElements/testReserveElement">
+               </Test>
+               <Test
+                  Identifier = "testNotes">
+               </Test>
+               <Test
+                  Identifier = "testQueries/testQueryByTextWithClassRestriction">
+               </Test>
+               <Test
+                  Identifier = "testQueries/testStoredQuery">
+               </Test>
+               <Test
+                  Identifier = "testRequestServers">
+               </Test>
+               <Test
+                  Identifier = "testSendNotification">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

@@ -45,12 +45,12 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     // Put setup code here; it will be run once, before the first test case.
     
     
-    elementKeyWithStructure = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API
+    elementKeyWithStructure = @"3DMISC_SLDASM:2248"; //* Element with structure on Test API
     elementKeyWithNotes = @"2DMISC_SLDDRW:2221"; //* Element with notes on Test API
     elementKeyWithStatusHistory = @"3dmisc_sldprt:2156"; //* Element with some status changed´s in the past. Will provide a status history
-    elementKeyItem = @"DEFAULT_MI:2088";  //* Represents an item with bom structure
-    elementKeyWithStateWork = @"3DMISC_SLDPRT:2133";
-    elementKeyWithBOM = @"DEFAULT_MI:2007";
+    elementKeyItem = @"DEFAULT_MI:2209";  //* Represents an item with bom structure
+    elementKeyWithStateWork = @"33DMISC_SLDASM:2248";
+    elementKeyWithBOM = @"DEFAULT_MI:2209";
     
     // RKLogConfigureByName("RestKit", RKLogLevelDebug);
     
@@ -101,7 +101,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         
         //
     } failure:^(NSError *error) {
-        XCTFail(@"Could not create a element");
+        XCTFail(@"Could not create a element: %@",error.localizedDescription);
         [elementFileExpectation fulfill];
         
     }];
@@ -131,13 +131,13 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     
     [element saveItem:^(KTElement *element) {
-        XCTFail(@"Could not create a element");
+      
         [elementFileExpectation fulfill];
         
         //
     } failure:^(NSError *error) {
 
-        
+          XCTFail(@"Should not create a element");
         [elementFileExpectation fulfill];
         
     }];
@@ -152,35 +152,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
 }
 
--(void)testCreateElementOfFolderType2
-{
-    // Create a new element
-    // Must proceed! 0001_WF has no restictions
-    
-    KTElement *element = [KTElement elementWithElementKey:@"0002_WF"];
-    XCTestExpectation *elementFileExpectation = [self expectationWithDescription:@"Element Created"];
-    
-    
-    [element saveItem:^(KTElement *element) {
-       
-        [elementFileExpectation fulfill];
-        
-        //
-    } failure:^(NSError *error) {
-         XCTFail(@"Could not create a element");
-        [elementFileExpectation fulfill];
-        
-    }];
-    
-    
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Failed uploading a file: %@",error);
-        }
-        
-    }];
-    
-}
+
 
 /**
  Test to get a invalid Element. No element with this key should be found. But response array should not be nil.
