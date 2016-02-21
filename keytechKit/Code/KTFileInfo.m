@@ -208,7 +208,7 @@ static RKObjectManager *_usedManager;
                                                  [[KTSendNotifications sharedSendNotification]sendElementFileHasBeenRemoved:self.elementKey];
                                              }
                                              
-
+                                             
                                              if (success) {
                                                  success();
                                              }
@@ -425,28 +425,28 @@ static RKObjectManager *_usedManager;
 /// Saves a preview file for the given apple iWork File
 -(void)saveiWorkPreviewFile:(NSURL*)fileURL{
     
-
+    
     // NSArray *validiWorkTypes = @[@"pages",@"numbers",@"key"];
     
-
+    
     
     if  ( [[fileURL pathExtension] compare:@"pages" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
-        [[fileURL pathExtension] compare:@"numbers" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
-        [[fileURL pathExtension] compare:@"key" options:NSCaseInsensitiveSearch] == NSOrderedSame)
+         [[fileURL pathExtension] compare:@"numbers" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
+         [[fileURL pathExtension] compare:@"key" options:NSCaseInsensitiveSearch] == NSOrderedSame)
     {
         
         // iWork file format found
         // unzip
         // Is file zipped?
         // If not, zip it
-
+        
         
         NSString *zipPath = [fileURL path];
         
         NSString *destinationPath = NSTemporaryDirectory();
         BOOL success = [SSZipArchive unzipFileAtPath:zipPath toDestination:destinationPath];
         if (success){
-        // If successfully unzipped, try to get the preview
+            // If successfully unzipped, try to get the preview
             
             NSString *previewPath = @"Preview.jpg";
             previewPath = [destinationPath stringByAppendingPathComponent:previewPath];
@@ -459,18 +459,23 @@ static RKObjectManager *_usedManager;
                 previewFile.elementKey = self.elementKey;
                 
                 [previewFile saveFile:[NSURL fileURLWithPath:previewPath]
-                              success:nil
-                              failure:nil];
+                              success:^{
+                                  // Simply Upload and do nothing
+                              } failure:^(NSError * _Nonnull error) {
+                                  // In case of any failure: do nothing this time
+                              }];
                 
             };
             
         }
         
-
+        
         
         
     }
 }
+
+
 
 /// Saves the current file to API as normaul upload task
 -(void)saveFile:(NSURL *)fileURL
@@ -521,14 +526,16 @@ static RKObjectManager *_usedManager;
     // Data uploading task. We could use NSURLSessionUploadTask instead of NSURLSessionDataTask if we needed to support uploads in the background
     NSData *data = [NSData dataWithContentsOfURL:[fileURL filePathURL]];
     self.fileSize = [data length];
-    NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:postRequest fromFile:fileURL
+    NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:postRequest
+                                                               fromFile:fileURL
                                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                           
-                                                          
-                                                          if (error) {                                                              NSHTTPURLResponse *httpResponse =(NSHTTPURLResponse*)response;
+                                                          if (error) {
+
+                                                              NSError *transcodedError = [KTManager translateErrorFromResponse:(NSHTTPURLResponse*)response error:error];
                                                               
                                                               if (failure)
-                                                                  failure(error);
+                                                                  failure(transcodedError);
                                                               return;
                                                               
                                                           } else {
@@ -562,9 +569,9 @@ static RKObjectManager *_usedManager;
                                                                   if (self.fileStorageType == FileTypeMaster){
                                                                       
                                                                       // Send notification Async
-                                                                    //  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                                                          [[KTSendNotifications sharedSendNotification]sendElementFileUploaded:self.elementKey];
-                                                                    //  });
+                                                                      //  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                      [[KTSendNotifications sharedSendNotification]sendElementFileUploaded:self.elementKey];
+                                                                      //  });
                                                                       
                                                                       // Check for iWork preview files
                                                                       [self saveiWorkPreviewFile:fileURL];

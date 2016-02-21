@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'keytechkit'
-  spec.version      = '0.1.13'
+  spec.version      = '0.1.14'
   spec.license      = 'MIT'
   spec.homepage     = 'https://github.com/vvanchesa/keytechkit'
   spec.authors      = { 'Thorsten Claus' => 'thorstenclaus@web.de' }
@@ -14,7 +14,16 @@ Pod::Spec.new do |spec|
   spec.ios.frameworks = 'MobileCoreServices', 'SystemConfiguration'
   spec.osx.frameworks = 'CoreServices', 'SystemConfiguration'
 
-  spec.prefix_header_contents ='#import <RestKit/RestKit.h>'
+  spec.prefix_header_contents ='
+   #if __IPHONE_OS_VERSION_MIN_REQUIRED
+        #import <SystemConfiguration/SystemConfiguration.h>
+        #import <MobileCoreServices/MobileCoreServices.h>
+    #else
+        #import <SystemConfiguration/SystemConfiguration.h>
+        #import <CoreServices/CoreServices.h>
+    #endif
+    #import <RestKit/RestKit.h>'
+
   spec.dependency 'RestKit', '~>0.24'
   spec.dependency 'SSZipArchive'
 end

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		34E8C7AE12540EFBA729ADE8 /* libPods-Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B8C9358BDAE96878DBA52C /* libPods-Example.a */; };
-		65327BA71C777233003C3712 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65327BA61C777233003C3712 /* SystemConfiguration.framework */; };
 		6565EF511B5E705000D4823D /* Aerial04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6565EF331B5E704F00D4823D /* Aerial04.jpg */; };
 		6565EF521B5E705000D4823D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6565EF351B5E704F00D4823D /* InfoPlist.strings */; };
 		6565EF531B5E705000D4823D /* keytechKitTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6565EF3A1B5E704F00D4823D /* keytechKitTests-Info.plist */; };
@@ -107,7 +106,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65327BA71C777233003C3712 /* SystemConfiguration.framework in Frameworks */,
 				34E8C7AE12540EFBA729ADE8 /* libPods-Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
