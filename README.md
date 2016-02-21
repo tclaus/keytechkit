@@ -2,6 +2,8 @@
 
 keytechKit is a iOS / OSX framework for accessing the keytech WebAPI. 
 
+[![Build Status](https://travis-ci.org/vvanchesa/keytechkit.svg?branch=master)](https://travis-ci.org/vvanchesa/keytechkit)
+
 ## Start building a project
 
 Simply add the following to your Podfile using CocoaPods:
