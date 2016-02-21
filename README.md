@@ -1,6 +1,6 @@
 # keytechKit
 
-keytechKit is a iOS / OSX framework for accessing the keytech WebAPI. 
+keytechKit is a iOS / OSX framework for accessing the german keytech PLM Web API. 
 
 [![Build Status](https://travis-ci.org/vvanchesa/keytechkit.svg?branch=master)](https://travis-ci.org/vvanchesa/keytechkit)
 
@@ -49,6 +49,7 @@ Add the pod, and then start to connect to a server:
 
 ## License
 keytechKit is licensed under the MIT license. Read the LICENSE file for details.
+
 
 ## Who do I talk to? ###
 
