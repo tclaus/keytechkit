@@ -20,13 +20,11 @@ static NSString * const kTESTAPIKey = @"0Bai9DsRDQ";
 -(void)setUp{
 
     [KTManager sharedManager].servername = @"https://demo.keytech.de";
-    //[KTManager sharedManager].servername = @"https://api.keytech.de:4233";
-    //[KTManager sharedManager].servername = @"http://claus-pc.keytech.de:8080/keytech";
     [KTManager sharedManager].username = @"jgrant";
     [[KTManager sharedManager]  synchronizeServerCredentials];
     [[KTServerInfo sharedServerInfo] waitUnitlLoad];
     
-    [[KTManager sharedManager] setLicenceKey:kTESTAPIKey];
+
     
 }
 

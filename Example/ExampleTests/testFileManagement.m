@@ -54,7 +54,7 @@ NSTimeInterval _timeOut = 12;
     [TestDefaults initialize];
     // Put setup code here; it will be run once, before the first test case.
     webservice = [KTManager sharedManager];
-    elementKeyWithStructure= @"3DMISC_SLDASM:2220"; //* Element with structure on Test API
+    elementKeyWithStructure= @"3DMISC_SLDASM:2248"; //* "Steamroller"
     
     fixtureBundle = [NSBundle bundleForClass:[testFileManagement class]];
     
@@ -145,7 +145,7 @@ NSTimeInterval _timeOut = 12;
     
     [element loadFileListSuccess:^(NSArray *itemsList) {
         [documentOpenExpectation fulfill];
-        XCTAssertNotNil(itemsList, @"Fiellist list should not be nil");
+        XCTAssertNotNil(itemsList, @"Filelist list should not be nil");
         XCTAssertTrue(itemsList.count>0, @"Filelist list should have some items");
         XCTAssertTrue(element.itemFilesList.count>0,@"Element property should not be empty");
         
