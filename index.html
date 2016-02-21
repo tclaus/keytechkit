@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Keytechkit by vvanchesa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Keytechkit</h1>
+      <h2 class="project-tagline">keytechKit is the SDK to consume the keytech PLM WebAPI on iOS and OS X </h2>
+      <a href="https://github.com/vvanchesa/keytechkit" class="btn">View on GitHub</a>
+      <a href="https://github.com/vvanchesa/keytechkit/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/vvanchesa/keytechkit/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="keytechkit" class="anchor" href="#keytechkit" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>keytechKit</h1>
+
+<p>keytechKit is a iOS / OSX framework for accessing the german keytech PLM Web API. </p>
+
+<p><a href="https://travis-ci.org/vvanchesa/keytechkit"><img src="https://travis-ci.org/vvanchesa/keytechkit.svg?branch=master" alt="Build Status"></a></p>
+
+<h2>
+<a id="start-building-a-project" class="anchor" href="#start-building-a-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start building a project</h2>
+
+<p>Simply add the following to your Podfile using CocoaPods:</p>
+
+<div class="highlight highlight-source-ruby"><pre>pod <span class="pl-s"><span class="pl-pds">'</span>keytechkit<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>~&gt;0.1<span class="pl-pds">'</span></span></pre></div>
+
+<p>keytechKit works for iOS &gt;=8 and OSX &gt;=10.9</p>
+
+<p>Please remind that keytech provides a public Web-API to test and develop, but to use this in your own envoronment you will need a suitable license. Contact keytech for terms and conditions.</p>
+
+<h2>
+<a id="how-do-i-get-set-up" class="anchor" href="#how-do-i-get-set-up" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How do I get set up?</h2>
+
+<p>Add the pod, and then start to connect to a server: </p>
+
+<div class="highlight highlight-source-objc"><pre>    <span class="pl-c1">NSString</span> *serverURL = [[[<span class="pl-c1">NSProcessInfo</span> <span class="pl-c1">processInfo</span>]environment] <span class="pl-c1">objectForKey:</span><span class="pl-s"><span class="pl-pds">@"</span>APIURL<span class="pl-pds">"</span></span>]; <span class="pl-c">// Read from envorinment</span>
+    <span class="pl-c1">NSString</span> *username = [[[<span class="pl-c1">NSProcessInfo</span> <span class="pl-c1">processInfo</span>]environment] <span class="pl-c1">objectForKey:</span><span class="pl-s"><span class="pl-pds">@"</span>APIUserName<span class="pl-pds">"</span></span>];
+
+    <span class="pl-c">// Setup credentials</span>
+    [KTManager <span class="pl-c1">sharedManager</span>].servername = serverURL;
+    [KTManager <span class="pl-c1">sharedManager</span>].username =username;
+    [[KTManager <span class="pl-c1">sharedManager</span>]  <span class="pl-c1">synchronizeServerCredentials</span>];
+    <span class="pl-c">// Read Server side basic information</span>
+    [[KTServerInfo <span class="pl-c1">sharedServerInfo</span>] <span class="pl-c1">waitUnitlLoad</span>];
+
+    [[KTServerInfo <span class="pl-c1">sharedServerInfo</span>]loadWithSuccess:^(KTServerInfo *serverInfo) {
+        <span class="pl-c">// Store some basic Infos</span>
+        <span class="pl-c1">NSString</span> *apiVersion = serverInfo.<span class="pl-smi">APIVersion</span>;
+        <span class="pl-c1">NSString</span> *baseURL = [KTServerInfo <span class="pl-c1">sharedServerInfo</span>].<span class="pl-smi">baseURL</span>;
+
+    } failure:^(<span class="pl-c1">NSError</span> *error) {
+
+        UIAlertView *alert = [[UIAlertView <span class="pl-c1">alloc</span>]initWithTitle:<span class="pl-s"><span class="pl-pds">@"</span><span class="pl-pds">"</span></span>
+                                                       <span class="pl-c1">message:</span>error.localizedDescription
+                                                      <span class="pl-c1">delegate:</span><span class="pl-c1">nil</span>
+                                             <span class="pl-c1">cancelButtonTitle:</span><span class="pl-s"><span class="pl-pds">@"</span>OK<span class="pl-pds">"</span></span>
+                                             <span class="pl-c1">otherButtonTitles:</span><span class="pl-c1">nil</span>];
+        [alert <span class="pl-c1">show</span>];
+    }];</pre></div>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>keytechKit is licensed under the MIT license. Read the LICENSE file for details.</p>
+
+<h2>
+<a id="who-do-i-talk-to" class="anchor" href="#who-do-i-talk-to" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Who do I talk to?</h2>
+
+<p>keytechKit was made and is maintenanced by <a href="https://twitter.com/vanchesa">Thorsten Claus</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/vvanchesa/keytechkit">Keytechkit</a> is maintained by <a href="https://github.com/vvanchesa">vvanchesa</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
