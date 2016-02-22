@@ -107,6 +107,7 @@ When file is loaded a local URL is returned. Nil otherwise
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 /**
  Saves a file in a background task
+  @param fileURL The local URL to the file to upload
  */
 -(void)saveFileInBackground:(NSURL *)fileURL;
 #endif
@@ -114,6 +115,9 @@ When file is loaded a local URL is returned. Nil otherwise
 
 /**
  Stores this file to API. Uses the delegate to inform about progress
+ @param fileURL The local URL to the file to upload
+ @param success A block to execute after file is uploaded
+ @param failure A block to execite after file upload failed
  */
 -(void)saveFile:(NSURL *)fileURL
         success:(void (^)(void))success
@@ -121,9 +125,12 @@ When file is loaded a local URL is returned. Nil otherwise
 
 /**
  Delets this file from API. 
- A valid elementKey property is needed
+ A valid elementKey property is needed to set to this object first.
+ @param success A block to execute after delete of file succeeds.
+ @param failure A block to execute after delete fails
  */
--(void)deleteFile:(void(^)(void))success failure:(void(^)(NSError* error))failure;
+-(void)deleteFile:(void(^)(void))success
+          failure:(void(^)(NSError* error))failure;
 
 /**
  Cancels a running upload
@@ -141,21 +148,28 @@ When file is loaded a local URL is returned. Nil otherwise
 
 @end
 
-
+/// A delegate to manage file upload or download statistics
 @protocol KTFileObjectDelegate <NSObject>
 
 /**
  Send periodically to notify download progress
+ @param fileInfo The fileinfo object who sends the update.
+ @param bytesWritten The ammount of bytes now sendet.
+ @param totalBytesWritten The total ammout of bytes to receive
  */
 -(void)fileInfo:(KTFileInfo*)fileInfo downloadProgress:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten;
 /**
  Send periodiacally to notify upload progress
+ @param fileInfo The fileinfo object who sends the update.
+ @param bytesSent The ammount of bytes sendet by the server.
+ @param totalBytesSent The total ammout of bytes to send
  */
 -(void)fileInfo:(KTFileInfo*)fileInfo uploadProgress:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent;
 
 @optional
 /**
  Sends a response that a file was uploaded
+  @param fileInfo The fileinfo object who sends the update.
  */
 -(void)FinishedUploadWithFileInfo:(KTFileInfo*)fileInfo;
 @optional

@@ -24,13 +24,17 @@
  Can be null
  */
 @property (nonatomic) NSString *childElementKey;
+/// The user shortname
 @property (nonatomic) NSString *userKey;
+/// The list of permissions
 @property (nonatomic) KTElementPermissionList *permissions;
 
 /**
  Loads the current elementPerimssion for this moment in time.
  @param elementKey The elementKey to get the permissions from.
  @param childElementKey If not nil, the link poermission between elementKey and this childelememt is returned.
+ @param success A block to execute after the permission list is loaded
+ @param failure A block to execute if loading fails
  */
 +(void)loadWithElementKey:(NSString*)elementKey
           childElementkey:(NSString*)childElementKey
@@ -39,6 +43,8 @@
 /**
  Loads the current elementPerimssion for this moment in time. 
  @param elementKey The elementKey to get the permissions from.
+ @param success A block to execute after the permission list is loaded
+ @param failure A block to execute if loading fails
  */
 +(void)loadWithElementKey:(NSString*)elementKey
                   success:(void (^)(KTElementPermissions *elementPermission))success

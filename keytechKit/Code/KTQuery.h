@@ -24,7 +24,8 @@
  Starts a query with th given text
  @param queryText One or more word to search for.
  @param pagedObject The requested page and its size
- @param block A block that will execute after search is completed
+ @param shouldReload Set to True if a server side reload will be forced.
+ @param success A block that will execute after search is completed
  @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
  */
 -(void)queryByText:(NSString*)queryText
@@ -39,8 +40,10 @@
  Starts a query with querytext, and / or fields. One must be not null or both can have a value.
  @param queryText One or more word to search for. can be null if fields parameter has a value
  @param fields A list of fields with query parametrers. one entry must have the form <field>[=,<>,!=,>,<,like]<Value>. field can have a short or the long form: created_by=jgrant oder as_do__created_by = jgrant
+ @param inClasses An array of classkeys. The result will only contain elements of this kind of classes.
  @param pagedObject The requested page and its size
- @param block A block that will execute after search is completed
+ @param shouldReload Set to True if a server side reload will be forced.
+ @param success A block that will execute after search is completed
  @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
  */
 -(void)queryByText:(NSString*)queryText
@@ -60,7 +63,9 @@
  @param predicate A complex predicate to execute the query.
  @param inClasses A string list of classkeys. Result is only returned for the speified classes. If this parameter is nil all classes are searched
  @param pagedObject The requested page and its size
- @param block A block that will execute after search is completed
+ @param inClasses An array of classkeys. The result will only contain elements of this kind of classes.
+ @param shouldReload Set to True if a server side reload will be forced.
+ @param success A block that will execute after search is completed
  @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
  */
 -(void)queryByPredicate:(NSPredicate*)predicate
@@ -75,8 +80,9 @@
 /**
  Starts a query by a server stored query by its ID
  @param storedQueryID The nummeric ID of a server side stored query
+ @param shouldReload Set to True if a server side reload will be forced.
  @param pagedObject The requested page and its size
- @param block A block that will execute after search is completed
+ @param success A block that will execute after search is completed
  @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
  */
 -(void)queryByStoredSearch:(NSInteger)storedQueryID
@@ -88,8 +94,9 @@
 /**
  Starts a query in vaults (Solr search in Vaults) when enabled on server side.
  @param fileContentText A text fragment to be searched in files
+ @param shouldReload Set to True if a server side reload will be forced.
  @param pagedObject The requested page and its size
- @param block A block that will execute after search is completed
+ @param success A block that will execute after search is completed
  @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
  */
 -(void)queryInVaultsByText:(NSString *)fileContentText

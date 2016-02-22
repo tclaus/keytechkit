@@ -6,7 +6,12 @@
 //  Copyright (c) 2014 Claus-Software. All rights reserved.
 //
 /**
- Represents a keytech class with its definition and all assign attribites.
+ Represents a keytech class with its definition and all assign attributes.
+ Every element lives in a class of a distinct type. A Class has properties which describes ist behavior. 
+ 
+ There are three main classifications: Documents, Items and Folders. 
+ Documents and Folders can have subtypes described in classtype and class labes such as "FileTypes", "3D CAD Files" or "Customer Folder", "Misc Folder"
+ and so on.
  */
 #import <Foundation/Foundation.h>
 #import "KTClassAttribute.h"
@@ -54,6 +59,9 @@
  This array contains a full list of class specific attributes (fields). Not all atributes sould be user writeable
  */
 @property (nonatomic) NSArray *classAttributesList;
+/**
+ A non localized descriptive text of a class
+ */
 @property (nonatomic,copy) NSString *classDescription;
 /**
  If YES any status changes of elements of this class must follow the status change rules defined. 
@@ -64,6 +72,7 @@
 /**
  A YES indicates that new elements of this class use a auto number generator to set its unique name property. 
  A client must not fill the name attribute manually.
+ If NO every new element of this classtype must have a unique new name set by the client.
  */
 @property (assign) BOOL classHasNumberGenerator;
 
@@ -77,6 +86,9 @@
  If NO this class shuld be rejected from creation, editing, searching etc. A client should respect this. However the API core will
  */
 @property (nonatomic) BOOL isActive;
+/**
+ For informative purposes: A newly created element of this classtype will have an initial status descibed in this object
+ */
 @property (nonatomic) NSObject *classInitialStatus;
 
 @property (readonly) BOOL isSmallClassImageLoaded;
@@ -88,7 +100,7 @@
 @property (readonly,copy) NSString *largeClassImageURL;
 
 /**
- Returns the classtype as a string value. One of DO,MI,FD.
+ Returns the main classtype as a string value. One of DO,MI,FD.
  */
 @property (readonly,copy) NSString *classType;
 
@@ -107,8 +119,9 @@
  @param success Will be called after class definition is received
  @param failure A failure handler
  */
-+(void)loadClassByKey:(NSString*)classKey success:(void(^)(KTClass* ktclass))success
-                     failure:(void(^)(NSError *error))failure;
++(void)loadClassByKey:(NSString*)classKey
+              success:(void(^)(KTClass* ktclass))success
+              failure:(void(^)(NSError *error))failure;
 
 @end
 

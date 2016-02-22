@@ -15,11 +15,24 @@
 #import "KTElementLink.h"
 
 /**
+ This is the main object that descibes a data part in the keytech world.
  Provides the object representation for keytech element classes. Can be a document, folder or masteritem.
+ Every element can have some more proerties like its child elements (stucture), its parent elements (whereused), notes, files and so on. 
+ Not every element can or will have every poissible sub parts.
  */
 @interface KTElement :  NSObject
 
-typedef enum {
+/**
+  A list of types to request the attributes of an element. 
+  Every is presented by a minimal set of descriptive propertiers. With this enum some more or even all attributes will be returned by a server request
+ 
+ - none : Only the minimal set of descriptive attributes are returned
+ - fullAttributes: Every attribute of this element will returned in the keyValue list
+ - editorAttributes: Only attribiutes visible by an editor will returned
+ - listerAttributes: Only attribites visible by a lister will returned
+ 
+ */
+typedef enum : NSUInteger {
     /// Returns the reduced list of Attributes (default)
     KTResponseNoneAttributes            = 0,
     /// Return all available attributes for this element
@@ -101,8 +114,13 @@ typedef enum {
  A shortcut to detect any versions of this element without make a query.
  */
 @property (readonly) BOOL hasVersions;
-
+/**
+ Returns a list of element recent versions
+ */
 @property (readonly,strong) NSArray *itemVersionsList;
+/**
+ If yes then the list ist full loaded
+ */
 @property (readonly) BOOL isVersionListLoaded;
 
 /**
@@ -114,6 +132,10 @@ typedef enum {
  Versionstring of current element Version
  */
 @property (nonatomic,strong) NSString* itemVersion;
+/**
+ Returns a list of all element attributes as a key value list. 
+ You can set the attribute list by set the KTResponseAttributes property while loading or reloading this element
+ */
 @property (nonatomic,strong) NSMutableArray* keyValueList;
 
 /**
@@ -239,7 +261,7 @@ typedef enum {
 
 /**
  Removes a link to the parent element
- @param linkToElementkey The elementKey of the parent element to remove this element from.
+ @param linkToElementKey The elementKey of the parent element to remove this element from.
  @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
@@ -302,17 +324,26 @@ typedef enum {
 @property (readonly) BOOL isStatusHistoryLoaded;
 
 
-// Diese Properties liegen in der KeyValueListe vor
+// These are some well defined element properties
+/// The date this element was created
 @property (nonatomic,copy) NSDate* itemCreatedAt;
+/// The longname this element was created by whom
 @property (nonatomic,copy) NSString* itemCreatedByLong;
+/// The shortname this element was created by whom
 @property (nonatomic,copy) NSString* itemCreatedBy;
-
+/// The date this element was last changed
 @property (nonatomic,copy) NSDate* itemChangedAt;
+/// The longname this element was changed by whom
 @property (nonatomic,copy) NSString* itemChangedByLong;
+/// The shortname this element was changed by whom
 @property (nonatomic,copy) NSString* itemChangedBy;
 
+/// In case of a document or item: The date this element got a released state
 @property (nonatomic,copy) NSDate* itemReleasedAt;
+/// In case this element got a release state: shortname of the releaser
 @property (nonatomic,copy) NSString* itemReleasedBy;
+
+/// In case this element got a release state: longname of the releaser
 @property (nonatomic,copy) NSString* itemReleasedByLong;
 
 /// Returns TRUE after a successfull delete
@@ -336,7 +367,7 @@ typedef enum {
 /**
  Loads the element with the key and metadata
  @param elementKey Loads a element with this elementkey. eg: "Misc_file:1234"
- @param metadata: Can be one of ALL, Editor,Lister or None. In addition to the default attributes more attributes can be loaded. If 'ALL' is set, every attribute is loaded with the element. The attribute count can be high. Consider only fetching Editor attributes. Defaults to none.
+ @param metadata Can be one of ALL, Editor,Lister or None. In addition to the default attributes more attributes can be loaded. If 'ALL' is set, every attribute is loaded with the element. The attribute count can be high. Consider only fetching Editor attributes. Defaults to none.
  @param success Is excecuted after a element is fetched
  @param failure Is excecuded in any case of an error
  */
