@@ -23,6 +23,7 @@
 
 /**
  Creates a new note item to be attached under this element 
+ @param elementkey The element key on which the note is attached
  */
 +(instancetype)noteItemForElementKey:(NSString*)elementkey;
 
@@ -77,13 +78,19 @@
 
 /** 
  Saves the current note
+ @param success A block to be execute after the note is successfully saved
+ @param failure A block to execute after saving the note failed
  */
--(void)saveNote:(void (^)(KTNoteItem *noteItem))success failure:(void (^)(KTNoteItem *noteItem, NSError *error))failure;
+-(void)saveNote:(void (^)(KTNoteItem *noteItem))success
+        failure:(void (^)(KTNoteItem *noteItem, NSError *error))failure;
 
 /**
  Deletes the current note
+ @param success A block to be execute after the note is successfully deleted
+ @param failure A block to execute after delete the note failed
  */
--(void)deleteNote:(void (^)())success failure:(void (^)(KTNoteItem *noteItem, NSError *error))failure;
+-(void)deleteNote:(void (^)())success
+          failure:(void (^)(KTNoteItem *noteItem, NSError *error))failure;
 @end
 
 

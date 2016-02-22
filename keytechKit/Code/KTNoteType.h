@@ -26,6 +26,8 @@
 
 /**
  Returns a list of current valid notetypes
+ @param success A block to execute after notetypes are loaded
+ @para, failure A block to execute after loading failed
  */
 +(void)loadNoteTypesSuccess:(void (^)(NSArray *noteTypes))success failure:(void (^)(NSError *error))failure;
 

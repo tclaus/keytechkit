@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 /**
- Represents a single detailed attribute of a class
+ Represents a single atomic attribute of a class or of an element.
+ Every element is described by a set of attributes. An attribute is represented as teh smalles storeable property of an element. 
  */
 @interface KTClassAttribute : NSObject <NSCoding>
 
@@ -26,7 +27,7 @@
 
 @property (nonatomic) int attributeLength;
 /**
- A text representation of the attribute type: TEXT, CHECK, DATE, INTEGER, DOUBLE.
+ A text representation of the attribute type:s TEXT, CHECK, DATE, INTEGER, DOUBLE.
  */
 @property (nonatomic,copy) NSString *attributeType;
 

@@ -450,9 +450,10 @@ dispatch_once(&onceToken, ^{
 }
 
 /**
- Returns a localized text when an element has been removed from a structure
+ Returns a localized text when an element has been removed from a structure (folder)
  @param elementName The element which has changed
  @param userName The own username
+ @param folderName The displaytext of the parent folder
  */
 -(NSDictionary*)localizedTextElementRemovedFromLink:(NSString*)elementName userName:(NSString*)userName folderName:(NSString*)folderName{
     NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Das Element %@ wurde von %@ aus der Mappe %@ entfernt.",elementName,userName,folderName],
@@ -464,6 +465,7 @@ dispatch_once(&onceToken, ^{
  Returns a localized text when a element has been added to a structure
  @param elementName The element which has changed
  @param userName The own username
+  @param folderName The displaytext of the parent folder
  */
 -(NSDictionary*)localizedTextElementAddedToLink:(NSString*)elementName userName:(NSString*)userName folderName:(NSString*)folderName{
     NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Das Element %@ wurde in die Mappe %@ eingefügt.",elementName,folderName],
@@ -474,7 +476,6 @@ dispatch_once(&onceToken, ^{
 /**
  Returns a localized text when a element got a new file
  @param elementName: The element which has changed
- @param userName: The own username
  */
 -(NSDictionary*)localizedTextElementFileAdded:(NSString*)elementName{
     NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Eine Datei wurde dem Element %@ hinzugefügt.",elementName],
@@ -486,7 +487,6 @@ dispatch_once(&onceToken, ^{
  Returns a localized text when a element master file has been removed
  @description A Masterfile is the most imporant file of a documenbt
  @param elementName The element which has changed
- @param userName The own username
  */
 -(NSDictionary*)localizedTextElementMasterFileRemoved:(NSString*)elementName{
     NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Die Masterdatei wurde vom Element %@ entfernt.",elementName],
@@ -498,7 +498,6 @@ dispatch_once(&onceToken, ^{
 /**
  Returns a localized text when a elements file has been removed
  @param elementName The element which has changed
- @param userName The own username
  */
 -(NSDictionary*)localizedTextElementFileRemoved:(NSString*)elementName{
     NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Eine Datei wurde vom Element %@ entfernt.",elementName],
