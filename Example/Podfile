@@ -11,7 +11,7 @@ target 'Example' do
 end
 
 target 'ExampleTests' do
- pod 'keytechkit', :path =>'../'
+  pod 'keytechkit', :path =>'../'
 end 
 
 

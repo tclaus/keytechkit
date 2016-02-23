@@ -178,8 +178,8 @@
     // Logging für RestKit definieren
     
 #ifdef DEBUG
-    RKLogConfigureByName("RestKit/Network", RKLogLevelInfo);
-    RKLogConfigureFromEnvironment();
+     RKLogConfigureByName("RestKit/Network", RKLogLevelWarning);
+    // RKLogConfigureFromEnvironment();
 #endif
     
     // Timeout definieren

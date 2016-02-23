@@ -32,7 +32,7 @@ static NSBundle *fixtureBundle = nil;
 }
 
 
-NSTimeInterval _timeOut = 12;
+NSTimeInterval _timeOut = 25;
 
 -(NSBundle *)fixtureBundle
 {
