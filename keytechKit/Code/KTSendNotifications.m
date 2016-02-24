@@ -70,28 +70,43 @@ static KTSendNotifications *_sharedSendNotification;
 
 // URL for PushWoosh service
 static NSString* APNURL =@"https://cp.pushwoosh.com/json/1.3/%@";
-// Read from Environment
-NSString* APNAPIToken;
 
-#ifndef DEBUG
- static NSString* APNApplictionID =@"A1270-D0C69"; // The Production Service
- static NSString* AppType = @"Production";
 
-#else
-
-static NSString* APNApplictionID =@"80616-00E5F"; // The Sandbox Service
- static NSString* AppType = @"Development";
-#endif
+/// Is the Service enabled? API Token set?
+/// If yes - sending notifications is allowed.
+static bool ServiceEnabled;
 
 BOOL _userIsLoaded;
 BOOL _serverIsLoaded;
+
+-(void)setAPNAPIToken:(NSString *)APNAPIToken {
+    _APNAPIToken = APNAPIToken;
+    
+    if (_APNAPIToken && _APNApplictionID) {
+        ServiceEnabled = YES;
+    } else {
+        ServiceEnabled = NO;
+    }
+    
+}
+
+-(void)setAPNApplictionID:(NSString *)APNApplictionID {
+    _APNApplictionID = APNApplictionID;
+    
+    if (_APNAPIToken && _APNApplictionID) {
+        ServiceEnabled = YES;
+    } else {
+        ServiceEnabled = NO;
+    }
+}
+
 
 -(instancetype) init {
     if (self = [super init])
     {
 
         _shortUserName = [KTManager sharedManager].username;
-        APNAPIToken = [[[NSProcessInfo processInfo]environment]objectForKey:@"APNToken"];
+
         
         if ([KTServerInfo sharedServerInfo].isLoaded) {
             _serverID = [KTServerInfo sharedServerInfo].serverID;
@@ -198,7 +213,7 @@ dispatch_once(&onceToken, ^{
     
     
     NSDictionary *payload = @{@"request":@{
-                                              @"application":APNApplictionID,
+                                              @"application":self.APNApplictionID,
                                               @"push_token":sbuf,
                                               @"language":languageID,
                                               @"hwid":uniqueID,
@@ -250,7 +265,7 @@ dispatch_once(&onceToken, ^{
     [urlRequest setHTTPMethod:@"POST"];
 
     NSDictionary *payload = @{@"request":@{
-                                      @"application":APNApplictionID,
+                                      @"application":self.APNApplictionID,
                                       @"hwid":_hardwareID,
                                       @"hash":pushHashValue
                                       }};
@@ -288,8 +303,8 @@ dispatch_once(&onceToken, ^{
     [urlRequest setHTTPMethod:@"POST"];
     
     NSDictionary *payload = @{@"request":@{
-                                      @"application":APNApplictionID,
-                                      @"auth":APNAPIToken,
+                                      @"application":self.APNApplictionID,
+                                      @"auth":self.APNAPIToken,
                                       @"hwid":_hardwareID,
                                       @"tags":@{@"serverid":self.serverID,
                                                   @"username":[self shortUserName],
@@ -315,6 +330,12 @@ dispatch_once(&onceToken, ^{
         return;
     }
     
+    if (!ServiceEnabled) {
+        // Dont send if no API token set or notification Service set up.
+        return;
+    }
+    
+    
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:APNURL,@"createMessage"]];
     
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:URL];
@@ -326,8 +347,8 @@ dispatch_once(&onceToken, ^{
     NSArray *Tag_ConditionUsername =@[@"username",@"EQ",elementOwner]; //["UserID","EQ","<ID>"]
     
     NSDictionary *payload = @{@"request":@{
-                                      @"application":APNApplictionID,
-                                      @"auth":APNAPIToken,
+                                      @"application":self.APNApplictionID,
+                                      @"auth":self.APNAPIToken,
                                       @"notifications":@[@{@"send_date":@"now",
                                                           @"ignore_user_timezone":@1,
                                                           @"content":messageDictionary, //message as a languageCode- Message dictionary,

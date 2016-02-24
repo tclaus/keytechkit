@@ -131,8 +131,8 @@ static RKObjectManager *_usedManager;
     
     __weak KTUser *userObject = self;
     
-    _isLoaded = NO;
-    _isLoading = YES;
+     _isLoaded = NO;
+     _isLoading = YES;
 
     
     [manager getObject:userObject path:nil parameters:nil

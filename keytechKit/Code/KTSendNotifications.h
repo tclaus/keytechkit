@@ -14,15 +14,34 @@
  Push notification manager
  Dont use this directly
  
- Sends push notifications when element changes occure. EG sends a 'Element XY has been changed by user Z' to user who own (created) the element
+ Sends push notifications when element changes occure. EG sends a 'Element XY has been changed by user Z' to user who own (created) the element.
+ 
+ To use the Push Service: 
+ 1. Start an account on POushWoosh
+ 2. Enter the API Token, by setting an the environment "APNToken" to the API Token
+ 
  */
 @interface KTSendNotifications : NSObject <NSURLConnectionDataDelegate>
 
 /**
- Identifies the unique ServerID. Only clients connected to this ServerID will receive the message. You can get the serverID by asking the KTServerInfo object.
+ Identifies the unique keytech ServerID. Only clients connected to this ServerID will receive the message. You can get the serverID by asking the KTServerInfo object.
  */
 @property (nonatomic,copy) NSString* serverID;
 
+/**
+ Set to the PushWoosh API Token
+ */
+@property (nonatomic,copy) NSString* APNAPIToken;
+/**
+ Define the APN Application ID, provided by the Push Wosh Service
+ */
+@property (nonatomic, copy) NSString* APNApplictionID;
+
+/**
+ Set a freetext to define the App Type - for exampe you can set this to "release", "debug" or whatever you like to specify this app. 
+ Will be a hint on some debug messages only
+ */
+@property (nonatomic,copy)NSString* AppType;
 
 /**
  Registers a deviceID to the APN. Register a device in the AppDelegates didRegisterForRemoteNotificationsWithDeviceToken function. The language used is the preferredLanguage of the device. Dont cache the deviceToken.
