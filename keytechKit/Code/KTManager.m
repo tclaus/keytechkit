@@ -13,10 +13,7 @@
 #import "KTServerInfo.h"
 
 
-#define keytechDefaultServerURL @"https://demo.keytech.de"  // internal default URL )(for testing)
-//#define keytechDefaultServerURL @"http://claus-pc.keytech.de:8080/keytech"  // internal default URL )(for testing)
-#define keytechDefaultServerUser @"jgrant"
-#define keytechDefaultServerPassword @""
+
 
 @implementation KTManager{
     
@@ -155,14 +152,13 @@
     // (Deleted stuff): Make no assume about user preferences. Caller has to take care about user credentials.
     
     // Defaults to demo-Server
-    if (self.servername ==nil) self.servername = keytechDefaultServerURL; // @"demo URL"
-    if (self.username ==nil) self.username = keytechDefaultServerUser; // @"jgrant";
+    if (self.servername ==nil) self.servername = [[[NSProcessInfo processInfo]environment] objectForKey:@"APIURL"]; // @"demo URL"
+    if (self.username ==nil) self.username = [[[NSProcessInfo processInfo]environment] objectForKey:@"APIUserName"]; // @"jgrant";
     if (self.password ==nil) self.password =@"";
     
 
     
-    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.servername]]] ;// @"http://192.168.0.10:8080/keytech"];
-    
+    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.servername]]] ;
     
     [objectManager.HTTPClient setAuthorizationHeaderWithUsername:self.username password:self.password];
     [[RKValueTransformer defaultValueTransformer]addValueTransformer:[RKDotNetDateFormatter dotNetDateFormatterWithTimeZone:[NSTimeZone localTimeZone]]];
