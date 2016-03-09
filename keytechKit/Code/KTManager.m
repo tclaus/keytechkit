@@ -11,6 +11,7 @@
 #import "KTNotifications.h"
 #import "KTUser.h"
 #import "KTServerInfo.h"
+#import "KTSendNotifications.h"
 
 
 
@@ -279,8 +280,19 @@
     bool objectsAreEqual =     [[RKObjectManager sharedManager].HTTPClient.baseURL isEqual:[NSURL URLWithString:Servername]];
     if (!objectsAreEqual){
         // Remove all queries
-        //TODO: Check this cancel operation
-        [[RKObjectManager sharedManager] cancelAllObjectRequestOperationsWithMethod:RKRequestMethodAny matchingPathPattern:@"" ];
+
+// Cancel only, if a base URL was ever set
+
+             
+        @try {
+                    [[RKObjectManager sharedManager] cancelAllObjectRequestOperationsWithMethod:RKRequestMethodAny matchingPathPattern:@"" ];
+        }
+        @catch (NSException *exception) {
+            //
+        }
+        @finally {
+            //
+        }
         
         RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:Servername]];
         [objectManager setRequestSerializationMIMEType: RKMIMETypeJSON];
