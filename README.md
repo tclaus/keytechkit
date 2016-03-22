@@ -23,15 +23,15 @@ Most of keytech Web-API ressources:
 * Creating, updating and deleting of elements
 * Loading of Elements Structure, WhereUsed, Thumbnails, Notes, Bom, Files
 * Fetching User with favorites, stored queries
-* fetching class definitions 
+* Fetching class definitions 
 
 
 ## How do I get set up?
 
-Add the pod, and then start to connect to a server: 
+Add the pod and then start to connect to a server: 
 
 ``` Objective-C
-    // Read ServerURL from envorinment
+    // Read ServerURL from environment
     NSString *serverURL = [[[NSProcessInfo processInfo]environment] objectForKey:@"APIURL"]; 
     NSString *username = [[[NSProcessInfo processInfo]environment] objectForKey:@"APIUserName"];
     
