@@ -15,12 +15,24 @@ keytechKit works for iOS >=8 and OSX >=10.9
 
 Please remind that keytech provides a public Web-API to test and develop, but to use this in your own envoronment you will need a suitable license. Contact keytech for terms and conditions.
 
+## What can you do with this?
+
+keytechKit supports: 
+Most of keytech Web-API ressources: 
+* Search of elements, by Text, direct field, with class restrictions
+* Creating, updating and deleting of elements
+* Loading of Elements Structure, WhereUsed, Thumbnails, Notes, Bom, Files
+* Fetching User with favorites, stored queries
+* fetching class definitions 
+
+
 ## How do I get set up?
 
 Add the pod, and then start to connect to a server: 
 
 ``` Objective-C
-    NSString *serverURL = [[[NSProcessInfo processInfo]environment] objectForKey:@"APIURL"]; // Read from envorinment
+    // Read ServerURL from envorinment
+    NSString *serverURL = [[[NSProcessInfo processInfo]environment] objectForKey:@"APIURL"]; 
     NSString *username = [[[NSProcessInfo processInfo]environment] objectForKey:@"APIUserName"];
     
     // Setup credentials
@@ -45,6 +57,37 @@ Add the pod, and then start to connect to a server:
         [alert show];
     }];
 ```
+
+Start a simple query
+
+To start a query to get elements with the keyword 'Steam' in it, check this code: 
+
+``` Objective-C
+
+    // Start a paging object 
+    KTPagedObject *paging = [KTPagedObject initWithPage:1
+                                                   size:10];
+    
+    NSString *searchtext = @"Steam";  // Search 'Steam' related elements
+
+    KTQuery *query = [[KTQuery alloc]init];
+    [query queryByText:searchtext           // a text based search
+                fields:nil                  // no special fields
+             inClasses:nil                  // no special keytech classes (all in this case) 
+                reload:false                //                  
+                 paged:paging               // use a paging object
+               success:^(NSArray *results) {
+                    // results is a array with KTElement Objects in it
+                   [self progressElements:results];
+               }
+               failure:^(NSError* error){
+                   // Progress the error
+               }];
+
+```
+
+Fields and Classes can be an array to specify more preciecly the results.
+
 
 
 ## License
