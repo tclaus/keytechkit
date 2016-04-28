@@ -17,9 +17,6 @@
     BOOL _isGroupListLoaded; // Is loaded
     BOOL _isGroupListLoading; // During al loading process
     
-    BOOL _isPermissionLoaded;
-    BOOL _isPermissionLoading;
-    
 }
 
 static KTUser* _currentUser;
@@ -35,7 +32,6 @@ static KTUser* _currentUser;
 @synthesize userLongName = _userLongName;
 @synthesize userLanguage =_userLanguage;
 @synthesize groupList = _groupList;
-@synthesize permissionsList =_permissionsList;
 
 
 static RKObjectMapping* _mapping = nil; /** contains the mapping*/
@@ -47,7 +43,6 @@ static RKObjectManager *_usedManager;
     if (self) {
         
         _groupList = [[NSMutableArray alloc]init];
-        _permissionsList = [[NSMutableArray alloc]init];
         
         _userLanguage = @"";
         _userEmail = @"";
@@ -174,27 +169,6 @@ static RKObjectManager *_usedManager;
 }
 
 
--(BOOL)isPermissionListLoaded{
-    return _isPermissionLoaded;
-}
-
--(void)refreshPermissions{
-    _isPermissionLoaded = NO;
-    [_permissionsList removeAllObjects];
-}
-
-//Layzy load PermissionLIst
--(NSMutableArray*)permissionsList{
-    if (_isPermissionLoaded &! _isPermissionLoading) {
-        return _permissionsList;
-    } else {
-        _isPermissionLoading = YES;
-//TODO: Load Permisisons
-        return _permissionsList;
-    }
-}
-
-
 -(void)refreshGroups{
     _isGroupListLoaded = NO;
     [_groupList removeAllObjects];
@@ -261,15 +235,24 @@ static RKObjectManager *_usedManager;
                       }];
 }
 
++(void)loadCurrentUser:(void (^)(KTUser *user))success failure:(void (^)(NSError *error))failure{
+    [KTUser loadUserWithKey:[KTManager sharedManager].username
+                    success:^(KTUser *user) {
+                        
+                        _currentUser = user;
+                        
+                        if ((success)) {
+                            success(user);
+                        }
+                    } failure:^(NSError *error) {
+                        if (failure) {
+                            failure(error);
+                        }
+                    }];
+}
+
+
 +(instancetype)currentUser{
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _currentUser = [[KTUser alloc]init];
-        _currentUser.userKey = [KTManager sharedManager].username;
-        [_currentUser reload];
-    });
-    
     return _currentUser;
 }
 

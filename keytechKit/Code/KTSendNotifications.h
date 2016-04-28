@@ -23,10 +23,16 @@
  */
 @interface KTSendNotifications : NSObject <NSURLConnectionDataDelegate>
 
+
 /**
- Identifies the unique keytech ServerID. Only clients connected to this ServerID will receive the message. You can get the serverID by asking the KTServerInfo object.
+ Should be called immediatly after a succesful keytech connection was made.
+ -Needs a valid APNAPIToken, APNApplicationID for registering the APN, serverID
+ -Username, usernameLong and serverID for registering the right device and keytech user with the right database
+ - deviceID and uniqeID for the specific device 
+ 
  */
-@property (nonatomic,copy) NSString* serverID;
+-(void)setupService;
+
 
 /**
  Set to the PushWoosh API Token
@@ -38,27 +44,39 @@
 @property (nonatomic, copy) NSString* APNApplictionID;
 
 /**
+ Set the unique server-side serverid. 
+ */
+@property (nonatomic,copy) NSString* serverID;
+
+/**
+ Set the short keytech username ('jgrant') to identify this current working user
+ */
+@property (nonatomic,copy) NSString* userName;
+/**
+ Set the long username. ('Julia Grant') for better push texts.
+ */
+@property (nonatomic,copy) NSString* userNameLong;
+
+/**
+ sets the device Token for registering
+ */
+-(void)setDeviceToken:(NSData*)token;
+
+/**
+ Sets a device specific uniqe key. 
+ Get a uniqueID as a identifierForVendors: 
+ 
+     NSString *identifierForVendors;
+     NSUUID *UUID = [NSUUID UUID];
+     identifierForVendors = UUID.UUIDString;
+ */
+-(void)setUniqueID:(NSString*)uniqueString;
+
+/**
  Set a freetext to define the App Type - for exampe you can set this to "release", "debug" or whatever you like to specify this app. 
  Will be a hint on some debug messages only
  */
 @property (nonatomic,copy)NSString* AppType;
-
-/**
- Registers a deviceID to the APN. Register a device in the AppDelegates didRegisterForRemoteNotificationsWithDeviceToken function. The language used is the preferredLanguage of the device. Dont cache the deviceToken.
- @param deviceToken The devicetoken as provided in the (NSData *)deviceToken parameter of the didRegisterForRemoteNotificationsWithDeviceToken selector.
- @param uniqueID A Unique ID to identify the device. Not the bundleID. On iOS and OSX devices you can set it by
-    [NSUUID UUID].uuidString;
- */
--(void)registerDevice:(NSData*)deviceToken uniqueID:(NSString*)uniqueID;
-
-/**
- Registers a deviceID to the APN with the given languageID. Register a device in the AppDelegates didRegisterForRemoteNotificationsWithDeviceToken function. Dont cache the deviceToken.
- @param deviceToken The devicetoken as provided in the (NSData *)deviceToken parameter of the didRegisterForRemoteNotificationsWithDeviceToken selector.
- @param uniqueID A Unique ID to identify the device. Not the bundleID. On iOS and OSX devices you can set it by
- [NSUUID UUID].uuidString;
- @param languageID The language ID is the 2 character iso language identifier. If nil the english language will be used for notifications.
- */
--(void)registerDevice:(NSData*)deviceToken uniqueID:(NSString*)uniqueID languageID:(NSString*)languageID;
 
 /*
  Notifies about an opend push

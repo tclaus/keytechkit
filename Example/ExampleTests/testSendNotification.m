@@ -13,6 +13,7 @@
 #import "KTManager.h"
 #import "TestDefaults.h"
 
+
 @interface testSendNotification : XCTestCase
 
 @end
@@ -22,6 +23,7 @@
     KTManager *_webService;
 }
 static KTElement *testElement;
+
 
 - (void)setUp {
     [super setUp];
@@ -51,33 +53,31 @@ static KTElement *testElement;
 
 
 -(void)testRegisterDevice{
-    NSString* deviceID =@"123456789";
-    NSString* hWID = @"HW: 12345";
     
-    KTSendNotifications *sendNotfifications =[[KTSendNotifications alloc]init];
-    [sendNotfifications registerDevice:[deviceID dataUsingEncoding:NSUTF8StringEncoding]uniqueID:hWID];
-    
+    [KTSendNotifications sharedSendNotification].APNAPIToken = @"";
+    [KTSendNotifications sharedSendNotification].APNApplictionID = @"";
+    [[KTSendNotifications sharedSendNotification] setupService];
     
 }
 
 
 -(void)testSendPushNotificationOpend{
-    NSString* deviceID =@"123456789";
-    NSString* hWID = @"HW: 12345";
+  
+    [KTSendNotifications sharedSendNotification].APNAPIToken = @"";
+    [KTSendNotifications sharedSendNotification].APNApplictionID = @"";
+    [[KTSendNotifications sharedSendNotification] setupService];
     
-    KTSendNotifications *sendNotfifications =[[KTSendNotifications alloc]init];
-    [sendNotfifications setServerID:@"Test-Server"];
-    [sendNotfifications registerDevice:[deviceID dataUsingEncoding:NSUTF8StringEncoding]uniqueID:hWID];
-    
-    [sendNotfifications sendPushOpend:@"HashValue"];
+    [[KTSendNotifications sharedSendNotification] sendPushOpend:@"HashValue"];
 }
 
 /// Sends a information that
 -(void)testSendToPushWoosh{
     
-    KTSendNotifications *sendNotfifications =[[KTSendNotifications alloc]init];
-    [sendNotfifications sendElementFileUploaded:@"FILE_File:123"];
-    
+    [KTSendNotifications sharedSendNotification].APNAPIToken = @"";
+    [KTSendNotifications sharedSendNotification].APNApplictionID = @"";
+    [[KTSendNotifications sharedSendNotification] setupService];
+
+    [[KTSendNotifications sharedSendNotification] sendElementFileUploaded:@"FILE_File:123"];
     
 }
 

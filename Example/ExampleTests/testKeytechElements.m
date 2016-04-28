@@ -45,12 +45,12 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     // Put setup code here; it will be run once, before the first test case.
     
     
-    elementKeyWithStructure = @"3DMISC_SLDASM:2248"; //* Element with structure on Test API
+    elementKeyWithStructure = @"3DMISC_SLDASM:500308"; //* Element with structure on Test API
     elementKeyWithNotes = @"2DMISC_SLDDRW:2221"; //* Element with notes on Test API
     elementKeyWithStatusHistory = @"3dmisc_sldprt:2156"; //* Element with some status changed´s in the past. Will provide a status history
     elementKeyItem = @"DEFAULT_MI:2209";  //* Represents an item with bom structure
     elementKeyWithStateWork = @"33DMISC_SLDASM:2248";
-    elementKeyWithBOM = @"DEFAULT_MI:2209";
+    elementKeyWithBOM = @"DEFAULT_MI:500228";
     
     // RKLogConfigureByName("RestKit", RKLogLevelDebug);
     
@@ -126,7 +126,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     // Create a new element
     // Must fail! 0001_WF has no restictions
     
-    KTElement *element = [KTElement elementWithElementKey:@"0001_WF"];
+    KTElement *element = [KTElement elementWithElementKey:@"FOLDER_WF"];
     XCTestExpectation *elementFileExpectation = [self expectationWithDescription:@"Element Created"];
     
     
@@ -547,7 +547,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
                                [expectation fulfill];
                                
                            } failure:^(NSError *error) {
-                               XCTFail(@"Element returned no tructure");
+                               XCTFail(@"Element returned no structure");
                                [expectation fulfill];
                            }];
     

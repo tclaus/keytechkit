@@ -68,7 +68,6 @@
  */
 -(void)reload:(void(^)(KTUser*))success failure:(void(^)(NSError* error))failure;
 
-
 /**
  Returns YES if this user is active. (Means it's allowed to login and can use services.
  */
@@ -85,11 +84,14 @@
  */
 @property (nonatomic) BOOL isAdmin;
 
-
 /**
  The unique key. Represents the shortname (loginname)
  */
 @property (readonly,copy) NSString* identifier;
+
+/**
+ The short username. This identifies uniquely a user in the keytech system
+ */
 @property (nonatomic,copy) NSString* userKey;
 
 /**
@@ -126,17 +128,17 @@ The users longname.
  Empties the group list and forces a reload on next read access
  */
 -(void)refreshGroups;
+
 /**
  Return YES if permission list is loaded. Returns NO if not loaded or loading in progress
  */
 @property (nonatomic,readonly) BOOL isPermissionListLoaded;
-@property (nonatomic,readonly)NSMutableArray *permissionsList;
+
 
 /**
- Empties the permissions list and forces a reload on next read access
+ Loads the currently logged-in user. Failure if user unknown 
  */
--(void)refreshPermissions;
-
++(void)loadCurrentUser:(void (^)(KTUser *user))success failure:(void (^)(NSError *error))failure;
 /**
  Creates and returns the instance of the currently logged in user account.
  */

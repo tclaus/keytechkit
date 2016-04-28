@@ -157,7 +157,7 @@
     if (self.username ==nil) self.username = [[[NSProcessInfo processInfo]environment] objectForKey:@"APIUserName"]; // @"jgrant";
     if (self.password ==nil) self.password =@"";
     
-
+    
     
     RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.servername]]] ;
     
@@ -175,7 +175,7 @@
     // Logging für RestKit definieren
     
 #ifdef DEBUG
-     RKLogConfigureByName("RestKit/Network", RKLogLevelWarning);
+    RKLogConfigureByName("RestKit/Network", RKLogLevelWarning);
     // RKLogConfigureFromEnvironment();
 #endif
     
@@ -248,7 +248,7 @@
 -(BOOL)currentUserHasLoginRight{
     
     KTUser *currentUser = [KTUser loadUserWithKey:self.username];
-
+    
     if (currentUser.isLoaded) {
         _serverErrorDescription = nil;
         return currentUser.isActive;
@@ -258,7 +258,7 @@
         _serverErrorDescription = currentUser.latestLocalizedServerMessage;
         return NO;
     }
- 
+    
 }
 
 /// Synchonizes changed user credentials with the api level.
@@ -280,12 +280,12 @@
     bool objectsAreEqual =     [[RKObjectManager sharedManager].HTTPClient.baseURL isEqual:[NSURL URLWithString:Servername]];
     if (!objectsAreEqual){
         // Remove all queries
-
-// Cancel only, if a base URL was ever set
-
-             
+        
+        // Cancel only, if a base URL was ever set
+        
+        
         @try {
-                    [[RKObjectManager sharedManager] cancelAllObjectRequestOperationsWithMethod:RKRequestMethodAny matchingPathPattern:@"" ];
+            [[RKObjectManager sharedManager] cancelAllObjectRequestOperationsWithMethod:RKRequestMethodAny matchingPathPattern:@"" ];
         }
         @catch (NSException *exception) {
             //
@@ -303,7 +303,24 @@
         
         // If server changed, then reload serverInfo
         [KTServerInfo mappingWithManager:objectManager];
-        [[KTServerInfo serverInfo] loadWithSuccess:nil failure:nil];
+        [[KTServerInfo serverInfo] loadWithSuccess:^(KTServerInfo *serverInfo) {
+            
+            [KTSendNotifications sharedSendNotification].serverID = serverInfo.serverID;
+            
+            // Server responds
+            // Init CurrentUser
+            [KTUser loadCurrentUser:^(KTUser *user) {
+                
+                // Init NotificationService
+                [KTSendNotifications sharedSendNotification].userName = user.userKey;
+                 [KTSendNotifications sharedSendNotification].userNameLong = user.userLongName;
+                [[KTSendNotifications sharedSendNotification] setupService];
+                
+            } failure:^(NSError *error) {
+                //
+            }];
+            
+        } failure:nil];
         
     } else {
         // Set new Authorization

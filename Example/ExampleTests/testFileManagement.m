@@ -54,7 +54,7 @@ NSTimeInterval _timeOut = 25;
     [TestDefaults initialize];
     // Put setup code here; it will be run once, before the first test case.
     webservice = [KTManager sharedManager];
-    elementKeyWithStructure= @"3DMISC_SLDASM:2248"; //* "Steamroller"
+    elementKeyWithStructure= @"3DMISC_SLDASM:500308"; //* "Steamroller"
     
     fixtureBundle = [NSBundle bundleForClass:[testFileManagement class]];
     
