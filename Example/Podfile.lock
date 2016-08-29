@@ -1,7 +1,7 @@
 PODS:
   - ISO8601DateFormatterValueTransformer (0.6.1):
     - RKValueTransformers (~> 1.1.0)
-  - keytechkit (0.2.1):
+  - keytechkit (0.2.2):
     - RestKit (~> 0.26)
     - SSZipArchive
   - RestKit (0.27.0):
@@ -36,7 +36,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   ISO8601DateFormatterValueTransformer: 52da467d6ec899d6aedda8e48280ac92e8ee97e6
-  keytechkit: b5f52c8335af2aa33893bd397abe123f0e2bdbd4
+  keytechkit: 67f8f935fe81cecdb928b9b4cec22a2ba12d6c3a
   RestKit: a0244db34e14ed9cf059fcee2be6733cc162c34a
   RKValueTransformers: e5ed67e3811229b616fe01bddeeafe3bb337b1b9
   SOCKit: c7376ac262bea9115b8f749358f762522a47d392
