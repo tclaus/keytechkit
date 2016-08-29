@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <KTClass.h>
+#import "KTClass.h"
 
 /**
  Provides the full classlist of the server. In keytech terms a class is the definition of an elementtype.

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <KTElementPermissionList.h>
+#import "KTElementPermissionList.h"
 
 @interface KTElementPermissions : NSObject
 

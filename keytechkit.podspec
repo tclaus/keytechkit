@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'keytechkit'
-  spec.version      = '0.2.1'
+  spec.version      = '0.2.2'
   spec.license      = 'MIT'
   spec.homepage     = 'https://github.com/vvanchesa/keytechkit'
   spec.authors      = { 'Thorsten Claus' => 'thorstenclaus@web.de' }

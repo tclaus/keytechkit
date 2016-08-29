@@ -19,7 +19,7 @@
 -(void)queryByText:(NSString *)queryText
             reload:(BOOL)shouldReload
              paged:(KTPagedObject *)pagedObject
-           success:(void (^)(NSArray *results))success
+           success:(void (^)(NSArray<KTElement*>  *results))success
            failure:(void(^)(NSError *error))failure{
     
     [self queryByText:queryText
@@ -126,7 +126,7 @@
               inClasses:(NSArray*)inClasses
                  reload:(BOOL)shouldReload
                   paged:(KTPagedObject*)pagedObject
-                success:(void(^)(NSArray* results))success
+                success:(void(^)(NSArray<KTElement*> * results))success
                 failure:(void(^)(NSError *error))failure{
     
  
