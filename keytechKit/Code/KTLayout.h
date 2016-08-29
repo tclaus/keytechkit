@@ -26,12 +26,12 @@
 /**
  Returns a list of lister layout controls
  */
-@property (nonatomic,copy) NSArray* listerLayout;
+@property (nonatomic,copy) NSArray <KTSimpleControl*> * listerLayout;
 
 /**
  Returns a list of editor controls
  */
-@property (nonatomic,copy) NSArray* editorLayout;
+@property (nonatomic,copy) NSArray<KTSimpleControl*> * editorLayout;
 
 /**
  Returns or sets the classkey for this Layout

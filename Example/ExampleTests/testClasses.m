@@ -11,7 +11,7 @@
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
 #import "TestDefaults.h"
-#import "KTClass.h"
+#import "KTClasses.h"
 
 
 @interface testClasses : XCTestCase
@@ -60,7 +60,8 @@
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"Classlist Loaded"];
     
-    [KTClass loadClassListSuccess:^(NSArray *classList) {
+    
+    [KTClasses loadClassListSuccess:^(NSArray<KTClass*> *classList) {
         _results = classList;
         [expectation fulfill];
         

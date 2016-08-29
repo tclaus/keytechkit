@@ -16,6 +16,8 @@
 #import <Foundation/Foundation.h>
 #import "KTClassAttribute.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface KTClass : NSObject <NSCoding>
 
 
@@ -31,7 +33,7 @@
 /**
  Returns a dictionary with ClassType names mapped to its application name
  */
-+(NSDictionary*)classApplications;
++(NSDictionary <NSString*,NSString*> *)classApplications;
 
 /**
  The decoded class version. Must be equal to the objects version
@@ -41,7 +43,7 @@
 /**
  The unique classkey. Has the <classLabel>_<ClassType> notation. eg: "3DSLD_DRW"
  */
-@property (nonatomic,copy) NSString *classKey;
+@property (nonatomic,copy) NSString * classKey;
 
 /**
  The non localized application name of this classtype. This is the main application for filecontents in this class or a base name.
@@ -58,7 +60,7 @@
 /**
  This array contains a full list of class specific attributes (fields). Not all atributes sould be user writeable
  */
-@property (nonatomic) NSArray *classAttributesList;
+@property (nonatomic) NSArray <KTClassAttribute*> *classAttributesList;
 /**
  A non localized descriptive text of a class
  */
@@ -86,6 +88,7 @@
  If NO this class shuld be rejected from creation, editing, searching etc. A client should respect this. However the API core will
  */
 @property (nonatomic) BOOL isActive;
+
 /**
  For informative purposes: A newly created element of this classtype will have an initial status descibed in this object
  */
@@ -104,15 +107,6 @@
  */
 @property (readonly,copy) NSString *classType;
 
-
-/**
- Load a list of available classes
- @param success Called after the object is successfully loaded
- @param failure Called when the object could not be loaded. The error object will have a localized error message
- */
-+(void)loadClassListSuccess:(void(^)(NSArray* classList))success
-                    failure:(void(^)(NSError *error))failure;
-
 /**
  Loads a specific class by its classKey
  @param classKey A Classkey e.g: Default_MI
@@ -125,7 +119,7 @@
 
 @end
 
-
+NS_ASSUME_NONNULL_END
 
 
 

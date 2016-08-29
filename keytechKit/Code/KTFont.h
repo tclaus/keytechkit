@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  Simple Font description for a control in editor or lister
@@ -48,3 +49,6 @@
 @property (readonly) BOOL isItalic;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

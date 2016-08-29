@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0720"
+   LastUpgradeVersion = "0730"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -84,7 +84,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A07AE896ABB2EBB7BADF3FFCD9EF4F35"
+               BlueprintIdentifier = "0B06505C5423E8BBE3568F3D41D6A3AD"
                BuildableName = "libRestKit.a"
                BlueprintName = "RestKit"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -98,7 +98,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DF5098790A8EA9330FD828D3D2EA3F69"
+               BlueprintIdentifier = "1A89ECAEF0DB617EA1B13FBB03CE25D7"
                BuildableName = "libSOCKit.a"
                BlueprintName = "SOCKit"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -112,7 +112,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CAD16BB881E152B9AB139666A393527D"
+               BlueprintIdentifier = "69B04198A8AF5202576BC2859F65B930"
                BuildableName = "libSSZipArchive.a"
                BlueprintName = "SSZipArchive"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -126,7 +126,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7F7C11E484975F1F540FFF8A2393E74B"
+               BlueprintIdentifier = "3C312E403393235EB313A83EC9381C35"
                BuildableName = "libTransitionKit.a"
                BlueprintName = "TransitionKit"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -140,7 +140,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B802F4BAABFF18D04FCDE00D1153039A"
+               BlueprintIdentifier = "F3A28CB922F7788FE2821A3C38BCAD58"
                BuildableName = "libkeytechkit.a"
                BlueprintName = "keytechkit"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">

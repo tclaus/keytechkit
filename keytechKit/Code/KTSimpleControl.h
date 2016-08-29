@@ -12,6 +12,8 @@
 #import "KTPosition.h"
 #import "KTFont.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Represents a control for the keytech editor or lister. Contains everything you need to build you own views
  */
@@ -82,3 +84,6 @@ Returns position and size as rect-Structure. Measurement is same as in keytech p
 
 
 @end
+
+
+NS_ASSUME_NONNULL_END

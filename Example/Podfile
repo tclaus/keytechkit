@@ -1,17 +1,15 @@
 # Uncomment this line to define a global platform for your project
-#platform :ios, '8.0'
+platform :ios, '8.4'
 
 
 source 'https://github.com/CocoaPods/Specs.git'
 
-xcodeproj 'Example.xcodeproj'
+project 'Example.xcodeproj'
 
 target 'Example' do
- pod 'keytechkit', :path =>'../'
+	pod 'keytechkit', :path =>'../'
 end
 
 target 'ExampleTests' do
-  pod 'keytechkit', :path =>'../'
-end 
-
-
+	pod 'keytechkit', :path =>'../'
+end

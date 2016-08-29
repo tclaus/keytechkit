@@ -30,7 +30,7 @@
 /**
  Contains the full key-value list of all bom attribes, including all element attributes
  */
-@property (readonly)NSMutableArray* keyValueList;
+@property (readonly)NSMutableArray <KTKeyValue*> * keyValueList;
 
 
 

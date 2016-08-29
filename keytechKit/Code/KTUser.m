@@ -84,7 +84,7 @@ static RKObjectManager *_usedManager;
         
         
         [_usedManager addResponseDescriptor:userResponse];
-       // [_usedManager addResponseDescriptor:userResponseClientError];
+        // [_usedManager addResponseDescriptor:userResponseClientError];
     }
     
     
@@ -104,9 +104,9 @@ static RKObjectManager *_usedManager;
 +(KTUser*)loadUserWithKey:(NSString *)username{
     KTUser *user = [[KTUser alloc]init] ;
     user.userKey = username;
-
+    
     [user reload];
-
+    
     return user;
 }
 
@@ -126,15 +126,15 @@ static RKObjectManager *_usedManager;
     
     __weak KTUser *userObject = self;
     
-     _isLoaded = NO;
-     _isLoading = YES;
-
+    _isLoaded = NO;
+    _isLoading = YES;
+    
     
     [manager getObject:userObject path:nil parameters:nil
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    KTUser *user = mappingResult.firstObject;
                    
-
+                   
                    userObject.userEmail =user.userEmail;
                    userObject.userLanguage = user.userLanguage;
                    userObject.userLongName = user.userLongName;
@@ -160,7 +160,7 @@ static RKObjectManager *_usedManager;
                    }
                    
                }];
-
+    
 }
 
 // Returns the unique indetifier key
@@ -180,14 +180,15 @@ static RKObjectManager *_usedManager;
         return _groupList;
     }else{
         _isGroupListLoading = YES;
-       //TODO: Load Users groups
+        //TODO: Load Users groups
         return _groupList;
     }
 }
 
 
--(void)loadFavoritesSuccess:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure{
-
+-(void)loadFavoritesSuccess:(void (^)(NSArray <KTTargetLink*> *))success
+                    failure:(void (^)(NSError *))failure{
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTTargetLink mappingWithManager:manager];
     
@@ -210,8 +211,9 @@ static RKObjectManager *_usedManager;
                       }];
 }
 
--(void)loadQueriesSuccess:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure{
-
+-(void)loadQueriesSuccess:(void (^)(NSArray <KTTargetLink*> *))success
+                  failure:(void (^)(NSError *))failure{
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTTargetLink mappingWithManager:manager];
     
@@ -235,7 +237,9 @@ static RKObjectManager *_usedManager;
                       }];
 }
 
-+(void)loadCurrentUser:(void (^)(KTUser *user))success failure:(void (^)(NSError *error))failure{
++(void)loadCurrentUser:(void (^)(KTUser *user))success
+               failure:(void (^)(NSError *error))failure{
+    
     [KTUser loadUserWithKey:[KTManager sharedManager].username
                     success:^(KTUser *user) {
                         

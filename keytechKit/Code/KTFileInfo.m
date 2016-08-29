@@ -479,8 +479,8 @@ static RKObjectManager *_usedManager;
 
 /// Saves the current file to API as normaul upload task
 -(void)saveFile:(NSURL *)fileURL
-        success:( void (^ )(void))success
-        failure:( void (^ )(NSError *))failure{
+        success:( void  (^)(void))  success
+        failure:( void (^)(NSError *)) failure{
     
     // Check for Delegate
     // Check for element Key

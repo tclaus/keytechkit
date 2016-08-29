@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  A key value pair. Value can be of any type but will be represented as a string value
  */
@@ -27,16 +29,16 @@
  Returns or stets the key that identifies the value. 
  Represents typically a keytech attribute name
  */
-@property (copy) NSString* key;
+@property (copy,nonnull) NSString* key;
 /**
  The value. Can be of any type. Check the named valuetypes.
  */
-@property (copy) NSString* value;
+@property (copy,nullable) NSString* value;
 
 /**
  Tries to interpret the value as a date value. Needs a valid JSON datetype
  */
--(NSDate*) valueAsDate;
+-(nullable NSDate*) valueAsDate;
 /**
  Tries to interpret the value as a COCOA bool type.
  */
@@ -49,3 +51,6 @@
 + (NSDate*) dateFromJSONString:(NSString *)dateString;
 
 @end
+
+NS_ASSUME_NONNULL_END
+

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  A note can be interpreted as a informative text with a subject line and a body. Will describe an element, a status change or any othe object in the keytech API.
@@ -93,6 +93,6 @@
           failure:(void (^)(KTNoteItem *noteItem, NSError *error))failure;
 @end
 
-
+NS_ASSUME_NONNULL_END
 
 

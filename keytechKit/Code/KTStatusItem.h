@@ -43,7 +43,8 @@
  @param success Will excecute after list is loaded
  @param failure In any case of an error failure will be called.
  */
-+(void)loadStatusListSuccess:(void (^)(NSArray *statusList))success failure:(void(^)(NSError *error))failure;
++(void)loadStatusListSuccess:(void (^)(NSArray <KTStatusItem*> *statusList))success
+                     failure:(void(^)(NSError *error))failure;
 
 @end
 

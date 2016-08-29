@@ -37,7 +37,7 @@
          inClasses:(NSArray *)inClasses
             reload:(BOOL)shouldReload
              paged:(KTPagedObject *)pagedObject
-           success:(void (^)(NSArray *results))success
+           success:(void (^)(NSArray <KTElement*> *results))success
            failure:(void (^)(NSError *error))failure {
     
     
@@ -192,7 +192,7 @@
 -(void)queryInVaultsByText:(NSString *)fileContentText
                     reload:(BOOL)shouldReload
                      paged:(KTPagedObject *)pagedObject
-                   success:(void (^)(NSArray *))success
+                   success:(void (^)(NSArray <KTElement*> *))success
                    failure:(void (^)(NSError *))failure
 {
     
@@ -251,7 +251,7 @@
 -(void)queryByStoredSearch:(NSInteger)storedQueryID
                     reload:(BOOL)shouldReload
                      paged:(KTPagedObject *)pagedObject
-                   success:(void (^)(NSArray *))success
+                   success:(void (^)(NSArray <KTElement*> *))success
                    failure:(void(^)(NSError *error))failure{
     
     /// Stats a Search by its queryID

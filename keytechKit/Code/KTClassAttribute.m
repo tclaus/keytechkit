@@ -45,7 +45,7 @@ static RKObjectManager *_usedManager;
     return self.attributeName;
 }
 
-- (id)initWithCoder:(NSCoder *)coder
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
     if (self) {

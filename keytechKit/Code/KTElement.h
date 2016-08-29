@@ -136,7 +136,7 @@ typedef enum : NSUInteger {
  Returns a list of all element attributes as a key value list. 
  You can set the attribute list by set the KTResponseAttributes property while loading or reloading this element
  */
-@property (nonatomic,strong) NSMutableArray* keyValueList;
+@property (nonatomic,strong) NSMutableArray <KTKeyValue*> * keyValueList;
 
 /**
  Returns an attribute value from the keyValue list. Element must have a full attributelist.
@@ -157,7 +157,7 @@ typedef enum : NSUInteger {
  Returns the next level of linked elements. If not currentlty loaded a request starts.
  Array contains full elements
  */
-@property (readonly,strong) NSArray* itemStructureList;
+@property (readonly,strong) NSArray <KTElement*> * itemStructureList;
 @property (readonly) BOOL isStructureListLoaded;
 
 /**
@@ -168,7 +168,7 @@ typedef enum : NSUInteger {
  @param failure Will be called in case of any error
  */
 -(void)loadStructureListPage:(int)page withSize:(int)size
-                 success:(void(^)(NSArray* itemsList))success
+                 success:(void(^)(NSArray<KTElement*> * itemsList))success
                  failure:(void(^)(NSError *error))failure;
 
 
@@ -197,7 +197,7 @@ typedef enum : NSUInteger {
 /**
  Loads the list of parent elements of structure.
  */
-@property (readonly,strong) NSMutableArray* itemWhereUsedList;
+@property (readonly,strong) NSMutableArray <KTElement*> * itemWhereUsedList;
 @property (readonly) BOOL isWhereUsedListLoaded;
 
 
@@ -209,14 +209,14 @@ typedef enum : NSUInteger {
  @param failure Will be called in case of any error
  */
 -(void)loadWhereUsedListPage:(int)page withSize:(int)size
-                 success:(void(^)(NSArray* itemsList))success
+                 success:(void(^)(NSArray <KTElement*> * itemsList))success
                  failure:(void(^)(NSError *error))failure;
 /**
  Starts loading the status history.
-@param success Will be called when request responds successfully
+ @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
--(void)loadStatusHistoryListSuccess:(void(^)(NSArray* itemsList))success
+-(void)loadStatusHistoryListSuccess:(void(^)(NSArray <KTStatusHistoryItem* >* itemsList))success
                             failure:(void(^)(NSError *error))failure;
 
 /**
@@ -224,7 +224,7 @@ typedef enum : NSUInteger {
  @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
--(void)loadNextAvailableStatusListSuccess:(void(^)(NSArray* itemsList))success
+-(void)loadNextAvailableStatusListSuccess:(void(^)(NSArray <NSString*> * itemsList))success
                             failure:(void(^)(NSError *error))failure;
 
 /**
@@ -232,14 +232,14 @@ typedef enum : NSUInteger {
   @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
--(void)loadNotesListSuccess:(void(^)(NSArray* itemsList))success
+-(void)loadNotesListSuccess:(void(^)(NSArray <KTNoteItem*> * itemsList))success
                     failure:(void(^)(NSError *error))failure;
 /**
  Starts loading the filelist
  @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
--(void)loadFileListSuccess:(void(^)(NSArray* itemsList))success
+-(void)loadFileListSuccess:(void(^)(NSArray <KTFileInfo*> * itemsList))success
                    failure:(void(^)(NSError *error))failure;
 
 /**
@@ -247,7 +247,7 @@ typedef enum : NSUInteger {
   @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
--(void)loadVersionListSuccess:(void(^)(NSArray* itemsList))success
+-(void)loadVersionListSuccess:(void(^)(NSArray <KTElement*> * itemsList))success
                    failure:(void(^)(NSError *error))failure;
 
 /**
@@ -265,7 +265,8 @@ typedef enum : NSUInteger {
  @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
--(void)removeLinkTo:(NSString*)linkToElementKey success:(void(^)(void))success failure:(void(^)(NSError* error))failure;
+-(void)removeLinkTo:(NSString*)linkToElementKey success:(void(^)(void))success
+            failure:(void(^)(NSError* error))failure;
 
 
 
@@ -276,20 +277,20 @@ typedef enum : NSUInteger {
 /**
  Returny the attached filelist. If not currentlty loaded a request starts.
  */
-@property (readonly,strong) NSMutableArray* itemFilesList; // Nur bei Dokumente!
+@property (readonly,strong) NSMutableArray <KTFileInfo*> * itemFilesList; // Nur bei Dokumente!
 @property (readonly) BOOL isFilesListLoaded;
 
 
 /**
  Loads a list of states to which this element can be set.
  */
-@property (readonly,strong)NSMutableArray* itemNextAvailableStatusList;
+@property (readonly,strong)NSMutableArray <NSString*> *  itemNextAvailableStatusList;
 @property (readonly) BOOL isNextAvailableStatusListLoaded;
 
 /**
  Loads notes assigned notes to this element. If not currentlty loaded a request starts.
  */
-@property (nonatomic,readonly) NSMutableArray* itemNotesList;
+@property (nonatomic,readonly) NSMutableArray <KTNoteItem*> * itemNotesList;
 @property (readonly) BOOL isNotesListLoaded;
 
 /**
@@ -320,7 +321,7 @@ typedef enum : NSUInteger {
  */
 -(NSString*)fileURLOfFileID:(int)fileID;
 
-@property (nonatomic,readonly) NSArray* itemStatusHistory;
+@property (nonatomic,readonly) NSArray <KTStatusHistoryItem*> * itemStatusHistory;
 @property (readonly) BOOL isStatusHistoryLoaded;
 
 

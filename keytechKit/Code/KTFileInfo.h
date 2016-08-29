@@ -120,7 +120,7 @@ When file is loaded a local URL is returned. Nil otherwise
  @param failure A block to execite after file upload failed
  */
 -(void)saveFile:(NSURL *)fileURL
-        success:(void (^)(void))success
+        success: (void (^)(void)) success
         failure:(void(^)(NSError *error))failure;
 
 /**
@@ -129,8 +129,8 @@ When file is loaded a local URL is returned. Nil otherwise
  @param success A block to execute after delete of file succeeds.
  @param failure A block to execute after delete fails
  */
--(void)deleteFile:(void(^)(void))success
-          failure:(void(^)(NSError* error))failure;
+-(void)deleteFile:(void(^)(void)) success
+          failure:(void(^)(NSError* error)) failure;
 
 /**
  Cancels a running upload

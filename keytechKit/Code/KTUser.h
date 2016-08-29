@@ -27,29 +27,32 @@
  @param success Called after the user object is successfully loaded
  @param failure Called when the user object could not be loaded. The error object will have a localized error message
  */
-+(void)loadUserWithKey:(NSString*)username success:(void(^)(KTUser* user))success failure:(void(^)(NSError* error))failure;
++(void)loadUserWithKey:(NSString*)username success:(void(^)(KTUser* user))success
+               failure:(void(^)(NSError* error))failure;
 
 /**
  Loads a list of server side stored queries. These ware queries definied in the keytech database by a client or admin controlled
  @param success Called after the user object is successfully loaded
  @param failure Called when the user object could not be loaded. The error object will have a localized error message
  */
--(void)loadQueriesSuccess:(void(^)(NSArray* targetLinks))success failure:(void(^)(NSError* error))failure;
+-(void)loadQueriesSuccess:(void(^)(NSArray <KTTargetLink*> * targetLinks))success
+                  failure:(void(^)(NSError* error))failure;
 /**
  Loads a structured list of favorite (KTTargetLink) elements
  @param success Called after the user object is successfully loaded
  @param failure Called when the user object could not be loaded. The error object will have a localized error message
  */
--(void)loadFavoritesSuccess:(void(^)(NSArray* targetLinks))success failure:(void(^)(NSError* error))failure;
+-(void)loadFavoritesSuccess:(void(^)(NSArray <KTTargetLink*> * targetLinks))success
+                    failure:(void(^)(NSError* error))failure;
 
 /**
  Returns a list of queries. Is nil when never loaded.
  */
-@property (nonatomic) NSArray* queries;
+@property (nonatomic) NSArray <KTTargetLink*> * queries;
 /**
  Returns a list of favorite elements. Returns nil if never loaded
  */
-@property (nonatomic) NSArray* favorites;
+@property (nonatomic) NSArray <KTTargetLink*> * favorites;
 
 /**
  Loads a new user objects but waits until returns
@@ -66,7 +69,8 @@
  Reloads the current userobject. All settings will be lost
 @param success Will be called after the object is loaded
  */
--(void)reload:(void(^)(KTUser*))success failure:(void(^)(NSError* error))failure;
+-(void)reload:(void(^)(KTUser*))success
+      failure:(void(^)(NSError* error))failure;
 
 /**
  Returns YES if this user is active. (Means it's allowed to login and can use services.
@@ -138,7 +142,8 @@ The users longname.
 /**
  Loads the currently logged-in user. Failure if user unknown 
  */
-+(void)loadCurrentUser:(void (^)(KTUser *user))success failure:(void (^)(NSError *error))failure;
++(void)loadCurrentUser:(void (^)(KTUser *user))success
+               failure:(void (^)(NSError *error))failure;
 /**
  Creates and returns the instance of the currently logged in user account.
  */

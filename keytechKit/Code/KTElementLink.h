@@ -10,6 +10,7 @@
 #import <RestKit/RestKit.h>
 @class KTElement;
 
+NS_ASSUME_NONNULL_BEGIN
 /**
  Represents a simple Parent-Child relationship between elements in its structure
  */
@@ -38,5 +39,6 @@
 
 -(id)initWithParent:(NSString*)parentElementKey childKey:(NSString*)childKey;
 
+NS_ASSUME_NONNULL_END
 
 @end

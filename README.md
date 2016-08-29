@@ -6,9 +6,13 @@ keytechKit is a iOS / OSX framework for accessing the german keytech PLM Web API
 
 ## Start building a project
 
-Simply add the following to your Podfile using CocoaPods:
+In your project folder do a 
+pod init
+to create a smart podfile with some defaults.
+
+Thens simply add the following to your Podfile:
 ``` ruby
-pod 'keytechkit', '~>0.1'
+pod 'keytechkit', '~>0.2'
 ```
 
 keytechKit works for iOS >=8 and OSX >=10.9
@@ -19,7 +23,7 @@ Please remind that keytech provides a public Web-API to test and develop, but to
 
 keytechKit supports: 
 Most of keytech Web-API ressources: 
-* Search of elements, by Text, direct field, with class restrictions
+* Search for elements: by Text, direct field value, with class restrictions
 * Creating, updating and deleting of elements
 * Loading of Elements Structure, WhereUsed, Thumbnails, Notes, Bom, Files
 * Fetching User with favorites, stored queries
@@ -89,6 +93,8 @@ To start a query to get elements with the keyword 'Steam' in it, check this code
 Fields and Classes can be an array to specify more preciecly the results.
 
 
+You can of course use a swift project. Ask me if you are interested in more samples in swift.
+
 
 ## License
 keytechKit is licensed under the MIT license. Read the LICENSE file for details.
@@ -96,4 +102,7 @@ keytechKit is licensed under the MIT license. Read the LICENSE file for details.
 
 ## Who do I talk to? ###
 
-keytechKit was made and is maintenanced by [Thorsten Claus](https://twitter.com/vanchesa)
+keytechKit was made and is maintenanced by [Thorsten Claus](https://claus-software.de)
+
+
+

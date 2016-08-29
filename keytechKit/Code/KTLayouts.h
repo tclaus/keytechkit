@@ -39,7 +39,7 @@ Loads a layout -Editor and lister- and waits until layout is loaded.
  @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
--(void)loadListerLayoutForBOM:(void(^)(NSArray* controls))success failure:(void(^)(NSError* error))failure;
+-(void)loadListerLayoutForBOM:(void(^)(NSArray<KTSimpleControl*> * controls))success failure:(void(^)(NSError* error))failure;
                                
 
 /**

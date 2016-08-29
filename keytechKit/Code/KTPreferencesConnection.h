@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Provides a Connection Setting for OSX
  */
@@ -29,3 +31,5 @@
 
 
 @end
+
+NS_ASSUME_NONNULL_END

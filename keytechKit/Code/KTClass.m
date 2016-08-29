@@ -95,7 +95,7 @@ static NSDictionary *_classTypes;
 
 
 +(NSInteger)version{
-    return 6; //Incement with every class property change!
+    return 7; //Incement with every class property change!
 }
 
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
@@ -167,28 +167,6 @@ static NSDictionary *_classTypes;
     
 }
 
-+(void)loadClassListSuccess:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure
-{
-
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    [KTClass mappingWithManager:manager];
-    
-    NSString *resourcePath = @"classes";
-
-    [manager getObjectsAtPath:resourcePath parameters:nil
-                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                          if (success) {
-                              success(mappingResult.array);
-                          }
-                          
-                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
-                          
-                          if (failure) {
-                              failure(transcodedError);
-                          }
-                      }];
-}
 
 -(BOOL)isEqualToString:(NSString*)aString{
     return [[self description] isEqualToString:aString];

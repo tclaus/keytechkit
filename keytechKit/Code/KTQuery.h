@@ -51,7 +51,7 @@
          inClasses:(NSArray*)inClasses
             reload:(BOOL)shouldReload
              paged:(KTPagedObject*)pagedObject
-           success:(void(^)(NSArray* results))success
+           success:(void(^)(NSArray <KTElement*> * results))success
            failure:(void(^)(NSError *error))failure;
 
 
@@ -72,7 +72,7 @@
               inClasses:(NSArray*)inClasses
                  reload:(BOOL)shouldReload
                   paged:(KTPagedObject*)pagedObject
-                success:(void(^)(NSArray* results))success
+                success:(void(^)(NSArray <KTElement*> * results))success
                 failure:(void(^)(NSError *error))failure;
 
 #endif
@@ -88,7 +88,7 @@
 -(void)queryByStoredSearch:(NSInteger)storedQueryID
                     reload:(BOOL)shouldReload
                      paged:(KTPagedObject*)pagedObject
-                   success:(void(^)(NSArray* results))success
+                   success:(void(^)(NSArray <KTElement*> * results))success
                    failure:(void(^)(NSError *error))failure;
 
 /**
@@ -102,7 +102,7 @@
 -(void)queryInVaultsByText:(NSString *)fileContentText
                     reload:(BOOL)shouldReload
                      paged:(KTPagedObject*)pagedObject
-                   success:(void(^)(NSArray* results))success
+                   success:(void(^)(NSArray <KTElement*>* results))success
                    failure:(void(^)(NSError *error))failure;
 
 /**

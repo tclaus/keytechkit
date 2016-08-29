@@ -78,7 +78,8 @@
  @param success Will be called after a successful load of server information
  @param failure Will be called when request returns with an error.
  */
--(void)loadWithSuccess:(void(^)(KTServerInfo* serverInfo))success failure:(void(^)(NSError *error))failure;
+-(void)loadWithSuccess:(void(^)(KTServerInfo* serverInfo))success
+               failure:(void(^)(NSError *error))failure;
 
 
 -(void)waitUnitlLoad;

@@ -504,7 +504,8 @@ NSMutableDictionary *_lastPages;
 }
 
 /// Loads next available statuslist
--(void)loadNextAvailableStatusListSuccess:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure{
+-(void)loadNextAvailableStatusListSuccess:(void (^)(NSArray <NSString*> *))success
+                                  failure:(void (^)(NSError *))failure{
     NSString *elementKey = [KTBaseObject normalizeElementKey:self.itemKey];
     NSString* resourcePath = [NSString stringWithFormat:@"elements/%@/nextstatus",elementKey];
     
@@ -524,7 +525,7 @@ NSMutableDictionary *_lastPages;
 
 -(void)loadWhereUsedListPage:(int)page
                     withSize:(int)size
-                     success:(void (^)(NSArray *))success
+                     success:(void (^)(NSArray <KTElement*> *))success
                      failure:(void (^)(NSError *))failure
 {
     
@@ -547,7 +548,7 @@ NSMutableDictionary *_lastPages;
 /**
  Loads the structure with the given page and pagesize. Every query adds the structure list to the internal array.
  */
--(void)loadStatusHistoryListSuccess:(void(^)(NSArray* itemsList))success
+-(void)loadStatusHistoryListSuccess:(void(^)(NSArray <KTStatusHistoryItem*> * itemsList))success
                             failure:(void(^)(NSError *error))failure
 {
     
@@ -570,7 +571,7 @@ NSMutableDictionary *_lastPages;
 }
 
 
--(void)loadNotesListSuccess:(void(^)(NSArray* itemsList))success
+-(void)loadNotesListSuccess:(void(^)(NSArray <KTNoteItem*> * itemsList))success
                     failure:(void(^)(NSError *error))failure
 {
     
@@ -599,7 +600,7 @@ NSMutableDictionary *_lastPages;
  */
 -(void)loadStructureListPage:(int)page
                     withSize:(int)size
-                     success:(void(^)(NSArray* itemsList))success
+                     success:(void(^)(NSArray <KTElement*> * itemsList))success
                      failure:(void(^)(NSError *error))failure
 {
     
@@ -642,7 +643,7 @@ NSMutableDictionary *_lastPages;
     
 }
 
--(void)loadFileListSuccess:(void(^)(NSArray* itemsList))success
+-(void)loadFileListSuccess:(void(^)(NSArray <KTFileInfo*> * itemsList))success
                    failure:(void(^)(NSError *error))failure
 {
     
@@ -672,7 +673,7 @@ NSMutableDictionary *_lastPages;
 }
 
 /// Loads all Versions of this element
--(void)loadVersionListSuccess:(void(^)(NSArray* itemsList))success
+-(void)loadVersionListSuccess:(void(^)(NSArray <KTElement*> * itemsList))success
                       failure:(void(^)(NSError *error))failure
 {
     

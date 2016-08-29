@@ -114,7 +114,7 @@ static KTLayouts *_sharedLayouts;
 }
 
 
--(void)loadListerLayoutForBOM:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure{
+-(void)loadListerLayoutForBOM:(void (^)(NSArray<KTSimpleControl *> *))success failure:(void (^)(NSError *))failure{
   
     NSString *classKey = @"BOM";
     

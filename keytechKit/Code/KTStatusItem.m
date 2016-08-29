@@ -63,7 +63,8 @@ static RKObjectManager *_usedManager;
     return self;
 }
 
-+(void)loadStatusListSuccess:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure{
++(void)loadStatusListSuccess:(void (^)(NSArray <KTStatusItem*> *))success
+                     failure:(void (^)(NSError *))failure{
     
     
     

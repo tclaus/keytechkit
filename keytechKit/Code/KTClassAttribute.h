@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Represents a single atomic attribute of a class or of an element.
  Every element is described by a set of attributes. An attribute is represented as teh smalles storeable property of an element. 
@@ -21,7 +23,7 @@
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 
-- (id)initWithCoder:(NSCoder *)coder;
+-(instancetype)initWithCoder:(NSCoder *)coder;
 -(void)encodeWithCoder:(NSCoder *)aCoder;
 
 
@@ -62,3 +64,5 @@
 
 
 @end
+
+NS_ASSUME_NONNULL_END
