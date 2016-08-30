@@ -90,7 +90,7 @@ To start a query to get elements with the keyword 'Steam' in it, check this code
 
 ```
 
-Fields and Classes can be an array to specify more preciecly the results.
+Fields and Classes can be an array to specify more precisely the results.
 
 
 You can of course use a swift project. Ask me if you are interested in more samples in swift.
@@ -102,7 +102,7 @@ keytechKit is licensed under the MIT license. Read the LICENSE file for details.
 
 ## Who do I talk to? ###
 
-keytechKit was made and is maintenanced by [Thorsten Claus](https://claus-software.de)
+keytechKit was made and is maintenanced by [Thorsten Claus](http://claus-software.de)
 
 
 
