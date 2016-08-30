@@ -7,5 +7,4 @@ xcode_sdk: iphonesimulator9.2
 podfile: Example/Podfile
 
 before_install:
- - gem install cocoapods
  - pod repo update
