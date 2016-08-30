@@ -24,6 +24,6 @@ Pod::Spec.new do |spec|
     #endif
     #import <RestKit/RestKit.h>'
 
-  spec.dependency 'RestKit', '~>0.26.0'
+  spec.dependency 'RestKit', '~>0.27.0'
   spec.dependency 'SSZipArchive'
 end
