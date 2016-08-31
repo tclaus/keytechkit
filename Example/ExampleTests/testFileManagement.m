@@ -115,7 +115,11 @@ NSTimeInterval _timeOut = 25;
         newFile.fileStorageType = FileTypeMaster;
         
         NSURL *fileURL = [self urlForFixture:@"Aerial04.jpg"];
-        [newFile saveFile:fileURL success:nil failure:nil];
+        [newFile saveFile:fileURL success:^{
+            // do nothing
+        } failure:^(NSError * _Nonnull error) {
+            // Do nothing
+        }];
         
         //
     } failure:^(NSError *error) {

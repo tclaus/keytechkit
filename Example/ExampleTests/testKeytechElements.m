@@ -477,7 +477,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     NSMutableArray* structure =  item.itemNextAvailableStatusList;
     
-    
+    XCTAssertNotNil(structure,@"statuslist should not be empty");
     
 }
 
