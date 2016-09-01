@@ -101,7 +101,11 @@
             XCTFail(@"Failed creating a note with error: %@",error);
         } else {
             // Delete it
-            [newNote deleteNote:nil failure:nil];
+            [newNote deleteNote:^{
+                // Do nothing
+            } failure:^(KTNoteItem * _Nonnull noteItem, NSError * _Nonnull error) {
+                // do nothing
+            }];
         }
         
     }];
@@ -191,7 +195,11 @@
             XCTFail(@"Failed creating a note with error: %@",error);
         } else {
             // Delete it
-            [newNote deleteNote:nil failure:nil];
+            [newNote deleteNote:^{
+                // Do nothing
+            } failure:^(KTNoteItem * _Nonnull noteItem, NSError * _Nonnull error) {
+                // do nothing
+            }];
         }
         
     }];
