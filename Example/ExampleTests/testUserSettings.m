@@ -42,26 +42,6 @@
 
 
 
-/**
- Gets the permissions directly set to the user
- */
--(void)testGetDirectPermissionsForUser{
-    
-   
-    
-}
-
--(void)testGetIndirectPermissionsForUser{
-    
- 
-}
-
-
--(void)testGetGroupList{
-
-    
-}
-
 
 /**
  Returns the groups in which a specific user is member.

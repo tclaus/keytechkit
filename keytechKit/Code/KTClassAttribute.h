@@ -26,7 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
 -(void)encodeWithCoder:(NSCoder *)aCoder;
 
-
+/**
+ In case the attributeType is a text based type this is the maximum charcter count
+ */
 @property (nonatomic) int attributeLength;
 /**
  A text representation of the attribute type:s TEXT, CHECK, DATE, INTEGER, DOUBLE.

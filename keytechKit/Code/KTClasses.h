@@ -19,7 +19,10 @@
  */
 +(instancetype)sharedClasses;
 
--(KTClass*)classByClassKey:(NSString*) classKey;
+/**
+ Returns a class by the classkey
+ */
+-(nullable KTClass*)classByClassKey:(NSString*) classKey;
 
 /**
  Loads the classlist from WebAPI Server
@@ -34,7 +37,6 @@
  */
 +(void)loadClassListSuccess:(void(^)(NSArray<KTClass*> * classList))success
                     failure:(void(^)(NSError *error))failure;
-
 
 
 @end

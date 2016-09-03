@@ -19,8 +19,8 @@ static NSString * const kTESTAPIKey = @"0Bai9DsRDQ";
 @implementation TestDefaults
 -(void)setUp{
 
-    [KTManager sharedManager].servername =[[[NSProcessInfo processInfo]environment] objectForKey:@"APIURL"];
-    [KTManager sharedManager].username = [[[NSProcessInfo processInfo]environment] objectForKey:@"APIUserName"];
+    [KTManager sharedManager].servername = @"https://demo.keytech.de";
+    [KTManager sharedManager].username = @"jgrant";
     [[KTManager sharedManager]  synchronizeServerCredentials];
     [[KTServerInfo sharedServerInfo] waitUnitlLoad];
     

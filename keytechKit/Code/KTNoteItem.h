@@ -27,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 +(instancetype)noteItemForElementKey:(NSString*)elementkey;
 
+/**
+ Returns or sets the elementKey this note is attached at.
+ */
 @property (nonatomic) NSString *targetElementKey;
 
 /**

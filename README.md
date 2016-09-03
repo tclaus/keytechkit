@@ -4,6 +4,14 @@ keytechKit is a iOS / OSX framework for accessing the german keytech PLM Web API
 
 [![Build Status](https://travis-ci.org/vvanchesa/keytechkit.svg?branch=master)](https://travis-ci.org/vvanchesa/keytechkit)
 
+## Try out the keytech SDK
+
+You can try the keytechKit SDK with `pod try`. Run the following command to temporary clone source and start immediately an example project.
+
+```
+$ pod try keytechkit
+```
+
 ## Start building a project
 
 In your project folder do a 

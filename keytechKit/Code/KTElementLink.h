@@ -34,8 +34,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic,copy) NSString* parentElementKey;
 
-
+/**
+ Saves a new link to a parent element.  
+ */
 -(void)saveLink:(void (^)(KTElement *childElement))success failure:(void (^)(NSError * error))failure;
+/**
+ Deletes an existing link
+ */
 -(void)deleteLink:(void (^)(void))success failure:(void (^)(NSError * error))failure;
 
 -(instancetype)initWithParent:(NSString*)parentElementKey childKey:(NSString*)childKey;

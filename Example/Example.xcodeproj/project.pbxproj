@@ -17,6 +17,28 @@
 		657F1F961D7ABC8600BA499A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 657F1F951D7ABC8600BA499A /* Assets.xcassets */; };
 		657F1F991D7ABC8600BA499A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 657F1F971D7ABC8600BA499A /* LaunchScreen.storyboard */; };
 		657F1FA41D7ABC8600BA499A /* ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 657F1FA31D7ABC8600BA499A /* ExampleTests.m */; };
+		65B546D71D7AD08300A28BCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65B546BF1D7AD08300A28BCE /* InfoPlist.strings */; };
+		65B546D81D7AD08300A28BCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65B546C11D7AD08300A28BCE /* InfoPlist.strings */; };
+		65B546D91D7AD08300A28BCE /* Aerial04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65B546C31D7AD08300A28BCE /* Aerial04.jpg */; };
+		65B546DA1D7AD08300A28BCE /* testBaseKeytechKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546C41D7AD08300A28BCE /* testBaseKeytechKit.m */; };
+		65B546DB1D7AD08300A28BCE /* testClasses.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546C51D7AD08300A28BCE /* testClasses.m */; };
+		65B546DC1D7AD08300A28BCE /* TestDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546C61D7AD08300A28BCE /* TestDefaults.m */; };
+		65B546DD1D7AD08300A28BCE /* testEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546C71D7AD08300A28BCE /* testEnvironment.m */; };
+		65B546DE1D7AD08300A28BCE /* testFileManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546C81D7AD08300A28BCE /* testFileManagement.m */; };
+		65B546DF1D7AD08300A28BCE /* testFolderManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546C91D7AD08300A28BCE /* testFolderManagement.m */; };
+		65B546E01D7AD08300A28BCE /* testGlobalSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546CA1D7AD08300A28BCE /* testGlobalSettings.m */; };
+		65B546E11D7AD08300A28BCE /* testKeytechElements.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546CB1D7AD08300A28BCE /* testKeytechElements.m */; };
+		65B546E21D7AD08300A28BCE /* testLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546CC1D7AD08300A28BCE /* testLayout.m */; };
+		65B546E31D7AD08300A28BCE /* testNotes.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546CD1D7AD08300A28BCE /* testNotes.m */; };
+		65B546E41D7AD08300A28BCE /* testQueries.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546CE1D7AD08300A28BCE /* testQueries.m */; };
+		65B546E51D7AD08300A28BCE /* testRequestServers.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546CF1D7AD08300A28BCE /* testRequestServers.m */; };
+		65B546E61D7AD08300A28BCE /* testResponseLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546D01D7AD08300A28BCE /* testResponseLoader.m */; };
+		65B546E71D7AD08300A28BCE /* testSendNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546D11D7AD08300A28BCE /* testSendNotification.m */; };
+		65B546E81D7AD08300A28BCE /* testServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546D21D7AD08300A28BCE /* testServerInfo.m */; };
+		65B546E91D7AD08300A28BCE /* testStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546D31D7AD08300A28BCE /* testStatus.m */; };
+		65B546EA1D7AD08300A28BCE /* testUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546D41D7AD08300A28BCE /* testUser.m */; };
+		65B546EB1D7AD08300A28BCE /* testUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546D51D7AD08300A28BCE /* testUserSettings.m */; };
+		65B546EC1D7AD08300A28BCE /* keytechKitTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65B546D61D7AD08300A28BCE /* keytechKitTests-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +72,33 @@
 		657F1F9F1D7ABC8600BA499A /* ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		657F1FA31D7ABC8600BA499A /* ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleTests.m; sourceTree = "<group>"; };
 		657F1FA51D7ABC8600BA499A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		65B546B91D7AD08300A28BCE /* keytechKitFrameworkTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "keytechKitFrameworkTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		65B546BA1D7AD08300A28BCE /* keytechKitTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "keytechKitTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		65B546BB1D7AD08300A28BCE /* TestDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestDefaults.h; sourceTree = "<group>"; };
+		65B546BC1D7AD08300A28BCE /* testResponseLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testResponseLoader.h; sourceTree = "<group>"; };
+		65B546BD1D7AD08300A28BCE /* keytechKitFramework Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "keytechKitFramework Tests-Prefix.pch"; sourceTree = "<group>"; };
+		65B546C01D7AD08300A28BCE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		65B546C21D7AD08300A28BCE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		65B546C31D7AD08300A28BCE /* Aerial04.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Aerial04.jpg; sourceTree = "<group>"; };
+		65B546C41D7AD08300A28BCE /* testBaseKeytechKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testBaseKeytechKit.m; sourceTree = "<group>"; };
+		65B546C51D7AD08300A28BCE /* testClasses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testClasses.m; sourceTree = "<group>"; };
+		65B546C61D7AD08300A28BCE /* TestDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestDefaults.m; sourceTree = "<group>"; };
+		65B546C71D7AD08300A28BCE /* testEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testEnvironment.m; sourceTree = "<group>"; };
+		65B546C81D7AD08300A28BCE /* testFileManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testFileManagement.m; sourceTree = "<group>"; };
+		65B546C91D7AD08300A28BCE /* testFolderManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testFolderManagement.m; sourceTree = "<group>"; };
+		65B546CA1D7AD08300A28BCE /* testGlobalSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testGlobalSettings.m; sourceTree = "<group>"; };
+		65B546CB1D7AD08300A28BCE /* testKeytechElements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testKeytechElements.m; sourceTree = "<group>"; };
+		65B546CC1D7AD08300A28BCE /* testLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testLayout.m; sourceTree = "<group>"; };
+		65B546CD1D7AD08300A28BCE /* testNotes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testNotes.m; sourceTree = "<group>"; };
+		65B546CE1D7AD08300A28BCE /* testQueries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testQueries.m; sourceTree = "<group>"; };
+		65B546CF1D7AD08300A28BCE /* testRequestServers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testRequestServers.m; sourceTree = "<group>"; };
+		65B546D01D7AD08300A28BCE /* testResponseLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testResponseLoader.m; sourceTree = "<group>"; };
+		65B546D11D7AD08300A28BCE /* testSendNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testSendNotification.m; sourceTree = "<group>"; };
+		65B546D21D7AD08300A28BCE /* testServerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testServerInfo.m; sourceTree = "<group>"; };
+		65B546D31D7AD08300A28BCE /* testStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testStatus.m; sourceTree = "<group>"; };
+		65B546D41D7AD08300A28BCE /* testUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testUser.m; sourceTree = "<group>"; };
+		65B546D51D7AD08300A28BCE /* testUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testUserSettings.m; sourceTree = "<group>"; };
+		65B546D61D7AD08300A28BCE /* keytechKitTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "keytechKitTests-Info.plist"; sourceTree = "<group>"; };
 		B6CF0B052AAC9FF12EABAA4D /* Pods-ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExampleTests/Pods-ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,10 +171,45 @@
 		657F1FA21D7ABC8600BA499A /* ExampleTests */ = {
 			isa = PBXGroup;
 			children = (
+				65B546B91D7AD08300A28BCE /* keytechKitFrameworkTests-Bridging-Header.h */,
+				65B546BA1D7AD08300A28BCE /* keytechKitTests-Bridging-Header.h */,
+				65B546BB1D7AD08300A28BCE /* TestDefaults.h */,
+				65B546BC1D7AD08300A28BCE /* testResponseLoader.h */,
+				65B546BD1D7AD08300A28BCE /* keytechKitFramework Tests-Prefix.pch */,
+				65B546BE1D7AD08300A28BCE /* en.lproj */,
+				65B546C11D7AD08300A28BCE /* InfoPlist.strings */,
+				65B546C31D7AD08300A28BCE /* Aerial04.jpg */,
+				65B546C41D7AD08300A28BCE /* testBaseKeytechKit.m */,
+				65B546C51D7AD08300A28BCE /* testClasses.m */,
+				65B546C61D7AD08300A28BCE /* TestDefaults.m */,
+				65B546C71D7AD08300A28BCE /* testEnvironment.m */,
+				65B546C81D7AD08300A28BCE /* testFileManagement.m */,
+				65B546C91D7AD08300A28BCE /* testFolderManagement.m */,
+				65B546CA1D7AD08300A28BCE /* testGlobalSettings.m */,
+				65B546CB1D7AD08300A28BCE /* testKeytechElements.m */,
+				65B546CC1D7AD08300A28BCE /* testLayout.m */,
+				65B546CD1D7AD08300A28BCE /* testNotes.m */,
+				65B546CE1D7AD08300A28BCE /* testQueries.m */,
+				65B546CF1D7AD08300A28BCE /* testRequestServers.m */,
+				65B546D01D7AD08300A28BCE /* testResponseLoader.m */,
+				65B546D11D7AD08300A28BCE /* testSendNotification.m */,
+				65B546D21D7AD08300A28BCE /* testServerInfo.m */,
+				65B546D31D7AD08300A28BCE /* testStatus.m */,
+				65B546D41D7AD08300A28BCE /* testUser.m */,
+				65B546D51D7AD08300A28BCE /* testUserSettings.m */,
+				65B546D61D7AD08300A28BCE /* keytechKitTests-Info.plist */,
 				657F1FA31D7ABC8600BA499A /* ExampleTests.m */,
 				657F1FA51D7ABC8600BA499A /* Info.plist */,
 			);
 			path = ExampleTests;
+			sourceTree = "<group>";
+		};
+		65B546BE1D7AD08300A28BCE /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				65B546BF1D7AD08300A28BCE /* InfoPlist.strings */,
+			);
+			path = en.lproj;
 			sourceTree = "<group>";
 		};
 		903B0CF6F47DF869C0C0035D /* Frameworks */ = {
@@ -244,6 +328,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65B546D71D7AD08300A28BCE /* InfoPlist.strings in Resources */,
+				65B546EC1D7AD08300A28BCE /* keytechKitTests-Info.plist in Resources */,
+				65B546D91D7AD08300A28BCE /* Aerial04.jpg in Resources */,
+				65B546D81D7AD08300A28BCE /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,7 +446,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65B546DF1D7AD08300A28BCE /* testFolderManagement.m in Sources */,
+				65B546EB1D7AD08300A28BCE /* testUserSettings.m in Sources */,
+				65B546E21D7AD08300A28BCE /* testLayout.m in Sources */,
+				65B546E41D7AD08300A28BCE /* testQueries.m in Sources */,
+				65B546E01D7AD08300A28BCE /* testGlobalSettings.m in Sources */,
 				657F1FA41D7ABC8600BA499A /* ExampleTests.m in Sources */,
+				65B546E61D7AD08300A28BCE /* testResponseLoader.m in Sources */,
+				65B546EA1D7AD08300A28BCE /* testUser.m in Sources */,
+				65B546E51D7AD08300A28BCE /* testRequestServers.m in Sources */,
+				65B546DD1D7AD08300A28BCE /* testEnvironment.m in Sources */,
+				65B546E91D7AD08300A28BCE /* testStatus.m in Sources */,
+				65B546DC1D7AD08300A28BCE /* TestDefaults.m in Sources */,
+				65B546E11D7AD08300A28BCE /* testKeytechElements.m in Sources */,
+				65B546DA1D7AD08300A28BCE /* testBaseKeytechKit.m in Sources */,
+				65B546DE1D7AD08300A28BCE /* testFileManagement.m in Sources */,
+				65B546DB1D7AD08300A28BCE /* testClasses.m in Sources */,
+				65B546E71D7AD08300A28BCE /* testSendNotification.m in Sources */,
+				65B546E81D7AD08300A28BCE /* testServerInfo.m in Sources */,
+				65B546E31D7AD08300A28BCE /* testNotes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +493,22 @@
 				657F1F981D7ABC8600BA499A /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		65B546BF1D7AD08300A28BCE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				65B546C01D7AD08300A28BCE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		65B546C11D7AD08300A28BCE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				65B546C21D7AD08300A28BCE /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

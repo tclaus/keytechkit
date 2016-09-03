@@ -324,7 +324,13 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
  */
 -(NSString*)fileURLOfFileID:(int)fileID;
 
+/**
+ Returns the list of status change events. Who did it and when.
+ */
 @property (nonatomic,readonly) NSArray <KTStatusHistoryItem*> * itemStatusHistory;
+/**
+ Retuns a value indicating if a statusHistory is already loaded
+ */
 @property (readonly) BOOL isStatusHistoryLoaded;
 
 
