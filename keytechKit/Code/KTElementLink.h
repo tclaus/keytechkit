@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)saveLink:(void (^)(KTElement *childElement))success failure:(void (^)(NSError * error))failure;
 -(void)deleteLink:(void (^)(void))success failure:(void (^)(NSError * error))failure;
 
--(id)initWithParent:(NSString*)parentElementKey childKey:(NSString*)childKey;
+-(instancetype)initWithParent:(NSString*)parentElementKey childKey:(NSString*)childKey;
 
 NS_ASSUME_NONNULL_END
 

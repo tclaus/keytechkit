@@ -13,9 +13,9 @@
 
 
 /// If string represents a ElementKey this method returns a classkey. (Converts a full ElementKey to a classKey, without the nummeric ID)
--(NSString*) ktClassKey;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *ktClassKey;
 
 /// If string represents a classkey or a element Key this returns the classtype (DO,MI,FD)
--(NSString*) ktClassType;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *ktClassType;
     
 @end

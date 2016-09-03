@@ -80,7 +80,7 @@ static RKObjectManager *_usedManager;
     return self;
 }
 
--(id)initWithParent:(NSString *)parentElementKey childKey:(NSString *)childKey{
+-(instancetype)initWithParent:(NSString *)parentElementKey childKey:(NSString *)childKey{
     self =[self init];
     if (self) {
         [KTElementLink mappingWithManager:[RKObjectManager sharedManager]];

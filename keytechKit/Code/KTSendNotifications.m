@@ -79,7 +79,7 @@ static bool ServiceEnabled;
         if (self.serverID) {
             if (self.userName) {
                 
-                if (!self.userNameLong || [self.userNameLong length] == 0) {
+                if (!self.userNameLong || (self.userNameLong).length == 0) {
                     self.userNameLong = self.userName;
                 }
                 
@@ -157,7 +157,7 @@ static bool ServiceEnabled;
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:URL];
     [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-    [urlRequest setHTTPMethod:@"POST"];
+    urlRequest.HTTPMethod = @"POST";
     NSNumber *deviceType;
     
     // 1= iPhone, 7 = MacOS, PushWoosh device Type IDs
@@ -219,7 +219,7 @@ static bool ServiceEnabled;
         NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:URL];
         [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        [urlRequest setHTTPMethod:@"POST"];
+        urlRequest.HTTPMethod = @"POST";
         
         NSDictionary *payload = @{@"request":@{
                                           @"application":self.APNApplictionID,
@@ -258,7 +258,7 @@ static bool ServiceEnabled;
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:URL];
     [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-    [urlRequest setHTTPMethod:@"POST"];
+    urlRequest.HTTPMethod = @"POST";
     
     NSDictionary *payload = @{@"request":@{
                                       @"application":self.APNApplictionID,
@@ -299,7 +299,7 @@ static bool ServiceEnabled;
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:URL];
     [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-    [urlRequest setHTTPMethod:@"POST"];
+    urlRequest.HTTPMethod = @"POST";
     
     NSArray *Tag_ConditionServerID = @[@"serverid",@"EQ",self.serverID];   // Array: <tagname>,<operator>,<value> ["SERVERID","EQ","<ID>"]
     NSArray *Tag_ConditionUsername =@[@"username",@"EQ",elementOwner]; //["UserID","EQ","<ID>"]

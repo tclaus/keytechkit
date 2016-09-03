@@ -27,7 +27,7 @@
     _password = password;
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
+-(instancetype)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
     if (self) {
         _servername   = [aDecoder decodeObjectForKey:@"servername"];

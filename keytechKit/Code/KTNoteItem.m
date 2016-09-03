@@ -18,7 +18,7 @@ static RKObjectManager *_usedManager;
 
 
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -150,10 +150,10 @@ static RKObjectManager *_usedManager;
                    path:nil
              parameters:nil
                 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                    NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
+                    NSHTTPURLResponse *response = operation.HTTPRequestOperation.response;
 
-                    NSString *locationString = (NSString*)[response.allHeaderFields objectForKey:@"Location"];
-                    self.noteID = [locationString integerValue];
+                    NSString *locationString = (NSString*)(response.allHeaderFields)[@"Location"];
+                    self.noteID = locationString.integerValue;
                     if (success) {
                         success(self);
                     }

@@ -32,7 +32,10 @@
  - listerAttributes: Only attribites visible by a lister will returned
  
  */
-typedef enum : NSUInteger {
+#ifndef NS_ENUM
+@import Foundation;
+#endif
+typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
     /// Returns the reduced list of Attributes (default)
     KTResponseNoneAttributes            = 0,
     /// Return all available attributes for this element
@@ -40,7 +43,7 @@ typedef enum : NSUInteger {
     /// Return attribuites only needed for a editor layout
     KTResponseEditorAttributes          = 2,
     KTResponseListerAttributes          = 3
-} KTResponseAttributes;
+};
 
 /**
  Provides the object Mapping for this class and given objectManager
@@ -273,7 +276,7 @@ typedef enum : NSUInteger {
 /**
  Returns the masterfile object of applicable
  */
--(KTFileInfo*)masterFile;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) KTFileInfo *masterFile;
 /**
  Returny the attached filelist. If not currentlty loaded a request starts.
  */
@@ -351,7 +354,7 @@ typedef enum : NSUInteger {
 @property (readonly) BOOL isDeleted;
 
 
--(BOOL)isBomAvailable; // Nur Artikel haben Stücklisten
+@property (NS_NONATOMIC_IOSONLY, getter=isBomAvailable, readonly) BOOL bomAvailable; // Nur Artikel haben Stücklisten
 
 
 #pragma mark Methods

@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 -(void)encodeWithCoder:(NSCoder *)aCoder;
--(id)initWithCoder:(NSCoder *)aDecoder;
+-(instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 
 /**
  Represents the controlname. In each layout a controlname must be unique

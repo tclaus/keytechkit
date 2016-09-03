@@ -88,7 +88,7 @@ static RKObjectManager*_usedManager;
     
     
 }
-- (id)initWithCoder:(NSCoder *)coder
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
     if (self) {
@@ -122,7 +122,7 @@ static RKObjectManager*_usedManager;
  */
 -(CTTextAlignment)textAlignment{
     
-    NSString *alignmentString = [_controlAlignmentIntern uppercaseString];
+    NSString *alignmentString = _controlAlignmentIntern.uppercaseString;
     
     if ([alignmentString isEqualToString:@"LEFT"]){ // from keytech API: Left
         return kCTLeftTextAlignment;

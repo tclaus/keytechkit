@@ -23,7 +23,7 @@
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 
--(id)initWithCoder:(NSCoder *)aDecoder;
+-(instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 -(void)encodeWithCoder:(NSCoder *)aCoder;
 
 

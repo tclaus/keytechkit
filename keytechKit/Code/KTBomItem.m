@@ -76,17 +76,17 @@ static RKObjectManager *_usedManager;
             
             if (dateValue !=nil){
                 
-                [keyValues setValue:dateValue forKey:[keyValue key]];
+                [keyValues setValue:dateValue forKey:keyValue.key];
                 continue;
             }
             
             
             
-            [keyValues setValue:[keyValue value] forKey:[keyValue key]];
+            [keyValues setValue:keyValue.value forKey:keyValue.key];
         }
     }
     // Important: keep dictiony synchron with Data
-    return [keyValues objectForKey:key];
+    return keyValues[key];
     
 }
 

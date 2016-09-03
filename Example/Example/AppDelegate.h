@@ -1,9 +1,9 @@
 //
 //  AppDelegate.h
-//  test_podspec
+//  Example
 //
-//  Created by Thorsten Claus on 23.06.15.
-//  Copyright (c) 2015 Claus-Software. All rights reserved.
+//  Created by Thorsten Claus on 03.09.16.
+//  Copyright © 2016 Claus-Software. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

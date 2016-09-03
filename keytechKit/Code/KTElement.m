@@ -416,7 +416,7 @@ NSMutableDictionary *_lastPages;
     }
     
     NSValue *value = [NSValue valueWithBytes:&pageDefinition objCType:@encode(PageDefinition)];
-    [_lastPages setObject:value forKey:resourcePath];
+    _lastPages[resourcePath] = value;
     
 }
 
@@ -428,7 +428,7 @@ NSMutableDictionary *_lastPages;
     
     
     PageDefinition structValue;
-    NSValue *value = [_lastPages objectForKey:resourcePath];
+    NSValue *value = _lastPages[resourcePath];
     [value getValue:&structValue];
     
     return structValue;
@@ -976,7 +976,7 @@ static long numberOfThumbnailsLoaded;
 
 //Helps debugging output
 -(NSString*)description{
-    return [NSString stringWithFormat:@"item: %@",[self itemName]];
+    return [NSString stringWithFormat:@"item: %@",self.itemName];
 }
 
 -(NSString *)debugDescription{
@@ -1000,11 +1000,11 @@ static long numberOfThumbnailsLoaded;
 -(instancetype)initWithElementKey:(NSString*)elementKey{
     
     KTElement *element=[self init];
-    [element setItemKey:[elementKey copy]];
+    element.itemKey = [elementKey copy];
     return element;
 }
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -1098,8 +1098,8 @@ static long numberOfThumbnailsLoaded;
                     success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                         // Refresh the current Element with Data from API.
                         // API may has changed or added some valued
-                        NSHTTPURLResponse *response = [operation HTTPRequestOperation].response;
-                        self.itemKey = [response.allHeaderFields objectForKey:@"Location"];
+                        NSHTTPURLResponse *response = operation.HTTPRequestOperation.response;
+                        self.itemKey = (response.allHeaderFields)[@"Location"];
                         
                         // Element was created (Send a notification?)
                         // Who should get the notification?
@@ -1249,7 +1249,7 @@ static long numberOfThumbnailsLoaded;
      
      
      */
-    NSString *baseURL =[[KTManager sharedManager].baseURL absoluteString];
+    NSString *baseURL =([KTManager sharedManager].baseURL).absoluteString;
     
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@elements/%@",baseURL, self.itemKey]];
     
@@ -1258,7 +1258,7 @@ static long numberOfThumbnailsLoaded;
     
     [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-    [urlRequest setHTTPMethod:@"POST"];
+    urlRequest.HTTPMethod = @"POST";
     
     NSError *error;
     NSDictionary *jsonDictionary = @{@"MoveTo": targetClassKey};
@@ -1286,7 +1286,7 @@ static long numberOfThumbnailsLoaded;
                                        }
                                    } else {
                                        
-                                       NSString *location =  [httpResponse allHeaderFields][@"Location"];
+                                       NSString *location =  httpResponse.allHeaderFields[@"Location"];
                                        
                                        // set the new location key after move
                                        theElement.itemKey = location;
@@ -1315,7 +1315,7 @@ static long numberOfThumbnailsLoaded;
     //    "UnreserveElement":true' }}
     
     
-    NSString *baseURL =[[KTManager sharedManager].baseURL absoluteString];
+    NSString *baseURL =([KTManager sharedManager].baseURL).absoluteString;
     
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@elements/%@",baseURL, self.itemKey]];
     
@@ -1324,7 +1324,7 @@ static long numberOfThumbnailsLoaded;
     
     [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-    [urlRequest setHTTPMethod:@"POST"];
+    urlRequest.HTTPMethod = @"POST";
     
     NSError *error;
     NSDictionary *jsonDictionary;
@@ -1362,7 +1362,7 @@ static long numberOfThumbnailsLoaded;
                                        }
                                    } else {
                                        
-                                       NSString *location =  [httpResponse allHeaderFields][@"Location"];
+                                       NSString *location =  httpResponse.allHeaderFields[@"Location"];
                                        
                                        // set the new location key after move
                                        theElement.itemKey = location;

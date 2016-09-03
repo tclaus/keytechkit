@@ -15,5 +15,5 @@
 /**
  Identifies uniqely the object. Should be used to get data from API.
  */
--(NSString*)identifier;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *identifier;
 @end

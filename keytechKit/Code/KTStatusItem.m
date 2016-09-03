@@ -52,7 +52,7 @@ static RKObjectManager *_usedManager;
     
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
+-(instancetype)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
     if (self) {
         self.statusImageName = [aDecoder decodeObjectForKey:@"statusImageName"];

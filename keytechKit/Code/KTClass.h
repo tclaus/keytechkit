@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
-- (id)initWithCoder:(NSCoder *)coder;
+- (instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
 -(void)encodeWithCoder:(NSCoder *)aCoder;
 
 /**
@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  The non localized application name of this classtype. This is the main application for filecontents in this class or a base name.
  */
-@property (nonatomic,readonly) NSString *classApplicationName;
+@property (nonatomic,readonly)  NSString * _Nullable classApplicationName;
 /**
  A displayable localized classname
  */

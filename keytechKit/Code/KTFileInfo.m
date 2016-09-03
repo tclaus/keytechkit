@@ -26,7 +26,7 @@
 static RKObjectMapping *_mapping;
 static RKObjectManager *_usedManager;
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -148,7 +148,7 @@ static RKObjectManager *_usedManager;
             NSString* fileSuffix;
             NSString* fileNamePart;
             
-            if ([array count]>1){
+            if (array.count>1){
                 fileSuffix = array[1];
                 fileNamePart = array[0];
             } else
@@ -226,7 +226,7 @@ static RKObjectManager *_usedManager;
 // Loads the file, if not locally available
 -(void)loadRemoteFile{
     
-    if (![self isLocalLoaded] && !_isLoading){
+    if (!self.isLocalLoaded && !_isLoading){
         _isLoading = YES;
         
         NSString* resource = [NSString stringWithFormat:@"files/%ld",(long)self.fileID];
@@ -270,7 +270,7 @@ static RKObjectManager *_usedManager;
         NSError *err;
         NSURL *targetURL = [[[KTManager sharedManager]applicationDataDirectory] URLByAppendingPathComponent:self.fileName];
         
-        targetURL = [NSURL fileURLWithPath:[targetURL path]];
+        targetURL = [NSURL fileURLWithPath:targetURL.path];
         
         [manager removeItemAtURL:targetURL error:&err];
         if (err) {
@@ -280,15 +280,18 @@ static RKObjectManager *_usedManager;
         [manager moveItemAtURL:location toURL:targetURL error:&err];
         
         
-        [self willChangeValueForKey:@"localFileURL"];
-        _localFileURL = targetURL;
-        _isLoading = NO;
-        [self didChangeValueForKey:@"localFileURL"];
+        dispatch_main_sync_safe(^{
+            [self willChangeValueForKey:@"localFileURL"];
+            _localFileURL = targetURL;
+            _isLoading = NO;
+            [self didChangeValueForKey:@"localFileURL"];
+        });
+        
     } else {
         // Fehler, Datei konnte nicht geladen werden
         _isLoading = NO;
     }
-    
+
 }
 
 ///Uploaded Data - Ignore invalid SSL (Self signed Certificates, Ugly but needed..)
@@ -430,9 +433,9 @@ static RKObjectManager *_usedManager;
     
     
     
-    if  ( [[fileURL pathExtension] compare:@"pages" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
-         [[fileURL pathExtension] compare:@"numbers" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
-         [[fileURL pathExtension] compare:@"key" options:NSCaseInsensitiveSearch] == NSOrderedSame)
+    if  ( [fileURL.pathExtension compare:@"pages" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
+         [fileURL.pathExtension compare:@"numbers" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
+         [fileURL.pathExtension compare:@"key" options:NSCaseInsensitiveSearch] == NSOrderedSame)
     {
         
         // iWork file format found
@@ -441,7 +444,7 @@ static RKObjectManager *_usedManager;
         // If not, zip it
         
         
-        NSString *zipPath = [fileURL path];
+        NSString *zipPath = fileURL.path;
         
         NSString *destinationPath = NSTemporaryDirectory();
         BOOL success = [SSZipArchive unzipFileAtPath:zipPath toDestination:destinationPath];
@@ -503,7 +506,7 @@ static RKObjectManager *_usedManager;
     
     
     // Designate the request a POST request and specify its body data
-    [postRequest setHTTPMethod:@"POST"];
+    postRequest.HTTPMethod = @"POST";
     
     // [postRequest setHTTPBody:data];
     
@@ -524,8 +527,8 @@ static RKObjectManager *_usedManager;
     NSURLSession *session = [NSURLSession  sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
     
     // Data uploading task. We could use NSURLSessionUploadTask instead of NSURLSessionDataTask if we needed to support uploads in the background
-    NSData *data = [NSData dataWithContentsOfURL:[fileURL filePathURL]];
-    self.fileSize = [data length];
+    NSData *data = [NSData dataWithContentsOfURL:fileURL.filePathURL];
+    self.fileSize = data.length;
     NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:postRequest
                                                                fromFile:fileURL
                                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -543,19 +546,19 @@ static RKObjectManager *_usedManager;
                                                               
                                                               NSHTTPURLResponse *httpResponse =(NSHTTPURLResponse*)response;
                                                               
-                                                              if ([httpResponse statusCode]>299 ) {
+                                                              if (httpResponse.statusCode>299 ) {
                                                                   
                                                                   if (failure) {
                                                                       
-                                                                      NSString *errorDescription = [httpResponse.allHeaderFields objectForKey:@"X-ErrorDescription"];
+                                                                      NSString *errorDescription = (httpResponse.allHeaderFields)[@"X-ErrorDescription"];
                                                                       
                                                                       if (!errorDescription) {
-                                                                          errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]];
+                                                                          errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode];
                                                                       }
                                                                       
                                                                       NSError *error = [[NSError alloc]
                                                                                         initWithDomain:NSURLErrorDomain
-                                                                                        code:[httpResponse statusCode]
+                                                                                        code:httpResponse.statusCode
                                                                                         userInfo: @{ NSLocalizedDescriptionKey : errorDescription}];
                                                                       
                                                                       failure(error);
@@ -563,8 +566,8 @@ static RKObjectManager *_usedManager;
                                                                   return;
                                                               } else {
                                                                   // Set Location with new Header
-                                                                  NSString *location =[httpResponse.allHeaderFields objectForKey:@"Location"];
-                                                                  self.fileID = [location intValue];
+                                                                  NSString *location =(httpResponse.allHeaderFields)[@"Location"];
+                                                                  self.fileID = location.intValue;
                                                                   
                                                                   if (self.fileStorageType == FileTypeMaster){
                                                                       

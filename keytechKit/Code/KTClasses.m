@@ -52,7 +52,7 @@
         return nil;
     }
     
-    return [_classList objectForKey:classKey];
+    return _classList[classKey];
     
 }
 
@@ -67,7 +67,7 @@
         
         [_classList removeAllObjects];
         for (KTClass* aClass in classList) {
-            [_classList setObject:aClass forKey:aClass.classKey];
+            _classList[aClass.classKey] = aClass;
         }
         _isLoaded = YES;
         _isClassListLoading = NO;

@@ -38,17 +38,17 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Tries to interpret the value as a date value. Needs a valid JSON datetype
  */
--(nullable NSDate*) valueAsDate;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDate * _Nullable valueAsDate;
 /**
  Tries to interpret the value as a COCOA bool type.
  */
--(BOOL)valueAsBool;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL valueAsBool;
 
 /**
  Tests for Date occurence in JSON value. Returns nil if not convertible.
  @param dateString If value is of type Date (in EPOCH format) then a NSDate will be generated.
  */
-+ (NSDate*) dateFromJSONString:(NSString *)dateString;
++ (NSDate* _Nullable) dateFromJSONString:(NSString *)dateString;
 
 @end
 

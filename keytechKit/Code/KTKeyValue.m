@@ -84,15 +84,15 @@ static RKObjectManager *_usedManager;
 /**
  Tests for date occurence in JSON value. Returns nil if not convertible.
  */
-+ (NSDate*) dateFromJSONString:(NSString *)dateString
++ (NSDate* _Nullable) dateFromJSONString:(NSString *)dateString
 {
     if ([dateString rangeOfString:@"/Date("].location  == NSNotFound) return nil;
     
-    NSCharacterSet *charactersToRemove = [[ NSCharacterSet decimalDigitCharacterSet ] invertedSet ];
+    NSCharacterSet *charactersToRemove = [ NSCharacterSet decimalDigitCharacterSet ].invertedSet ;
     NSString* milliseconds = [dateString stringByTrimmingCharactersInSet:charactersToRemove];
     
     if (milliseconds != nil && ![milliseconds isEqualToString:@"62135596800000"]) {
-        NSTimeInterval  seconds = [milliseconds doubleValue] / 1000;
+        NSTimeInterval  seconds = milliseconds.doubleValue / 1000;
         return [NSDate dateWithTimeIntervalSince1970:seconds];
     }
     return nil;

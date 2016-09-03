@@ -12,6 +12,21 @@
 #import "KTPreferencesConnection.h"
 #import "KTServerInfo.h"
 
+#define dispatch_main_sync_safe(block)\
+if ([NSThread isMainThread]) {\
+  block();\
+} else {\
+  dispatch_sync(dispatch_get_main_queue(), block);\
+}
+
+#define dispatch_main_async_safe(block)\
+if ([NSThread isMainThread]) {\
+  block();\
+} else {\
+  dispatch_async(dispatch_get_main_queue(), block);\
+}
+
+
 /**
  Provides basic initialization
  */
@@ -27,11 +42,11 @@
 /**
  Returns the default application data directory
  */
-- (NSURL*)applicationDataDirectory;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSURL *applicationDataDirectory;
 /**
  Returns the default application cache directory
  */
-- (NSURL*)applicationCacheDirectory;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSURL *applicationCacheDirectory;
 
 @property (nonatomic,copy) NSString* servername;
 @property (nonatomic,copy) NSString* username;
@@ -45,7 +60,7 @@ typedef struct {int page; int size;} PageDefinition;
 /**
  Returns the current baseURL
  */
--(NSURL*)baseURL;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSURL *baseURL;
 
 /**
  Sets a default header with the given settings.
@@ -68,18 +83,18 @@ typedef struct {int page; int size;} PageDefinition;
 /*
  If any error occured on the server side. This value retuns the original server error description
  */
--(NSString*) lastServerErrorText;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *lastServerErrorText;
 
 /**
  Returns YES if the user identified by its credentials has an active admin role
  */
--(BOOL)currentUserHasActiveAdminRole;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL currentUserHasActiveAdminRole;
 
 /**
  Simply check if current user credentials has right to login.
  @Returns A value If username or password failed (402), or license violation (403) or 400 if unknown.
  */
--(BOOL)currentUserHasLoginRight;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL currentUserHasLoginRight;
 
 
 @property (readonly) KTPreferencesConnection* preferences;
@@ -87,7 +102,7 @@ typedef struct {int page; int size;} PageDefinition;
 //@property (nonatomic,weak) NSArray *simpleItemsList;
 
 
--(BOOL)needsInitialSetup;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL needsInitialSetup;
 
 /// Synchonizes changed user credentials with the api level.
 -(void)synchronizeServerCredentials;

@@ -27,7 +27,7 @@ static KTGroup *_groupNone;
 static RKObjectMapping* _mapping = nil; /** contains the mapping*/
 static RKObjectManager *_usedManager;
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {

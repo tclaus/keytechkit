@@ -14,7 +14,7 @@
  */
 @interface KTLayout : NSObject <NSCoding>
 
-- (id)initWithCoder:(NSCoder *)coder;
+- (instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
 
 -(void)encodeWithCoder:(NSCoder *)aCoder;
 
@@ -46,6 +46,6 @@
 /**
  Return true if listerlayout and editorlayout is loaded
  */
--(BOOL)isLoaded;
+@property (NS_NONATOMIC_IOSONLY, getter=isLoaded, readonly) BOOL loaded;
 
 @end

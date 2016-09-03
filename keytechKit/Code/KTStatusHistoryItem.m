@@ -53,7 +53,7 @@ static RKObjectManager *_usedManager;
 }
 
 -(NSDate*)lastSignedAt{
-    KTSignedBy* signedBy = [self.historySignedBy lastObject];
+    KTSignedBy* signedBy = (self.historySignedBy).lastObject;
     return  signedBy.signedAt;
     
 }

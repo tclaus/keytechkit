@@ -43,7 +43,7 @@
             NSComparisonPredicate *cp = (NSComparisonPredicate*)singlePredicate;
             
             if ([cp.leftExpression.keyPath isEqualToString:@"/*classtypes*/"]) {
-                return [cp.rightExpression constantValue];
+                return (cp.rightExpression).constantValue;
             }
             
         }
@@ -61,7 +61,7 @@
             NSComparisonPredicate *cp = (NSComparisonPredicate*)singlePredicate;
             
             if ([cp.leftExpression.keyPath isEqualToString:@"/*text*/"]) {
-                return [cp.rightExpression constantValue];
+                return (cp.rightExpression).constantValue;
             }
             
         }
@@ -85,7 +85,7 @@
                 
                 if (![singlePredicate isSpecialPredicate]) {
                     
-                    if ([output length]>0) {
+                    if (output.length>0) {
                         [output appendString:@":"];
                     }
                     [output appendString:[self predicateKTComarison:(NSComparisonPredicate*)singlePredicate]];
@@ -99,7 +99,7 @@
             
         }
         // Dont return an empty string - return nil!
-        if ([output length]>0) {
+        if (output.length>0) {
             return output;
         } else {
             return nil;
@@ -123,14 +123,14 @@
     
     // Check: KindOf Class?
     
-    if ([[cp.rightExpression constantValue] isKindOfClass:[NSDate class]]) {
+    if ([(cp.rightExpression).constantValue isKindOfClass:[NSDate class]]) {
         // Date to JSON Convert
-        NSDate *date = [cp.rightExpression constantValue];
+        NSDate *date = (cp.rightExpression).constantValue;
         
-        [output appendString:[NSString stringWithFormat:@"/DATE(%lli)/", [@(floor([date timeIntervalSince1970]*1000))longLongValue]]];
+        [output appendString:[NSString stringWithFormat:@"/DATE(%lli)/", (@(floor(date.timeIntervalSince1970*1000))).longLongValue]];
     }else {
         
-        [output appendString:[cp.rightExpression description]];
+        [output appendString:(cp.rightExpression).description];
     }
     
     return output;

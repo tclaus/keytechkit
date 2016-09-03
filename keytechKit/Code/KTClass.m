@@ -169,13 +169,14 @@ static NSDictionary *_classTypes;
 
 
 -(BOOL)isEqualToString:(NSString*)aString{
-    return [[self description] isEqualToString:aString];
+    return [self.description isEqualToString:aString];
     
 }
 
 -(NSString *)description{
     return self.classDisplayname;
 }
+
 
 - (instancetype)init
 {
@@ -192,7 +193,7 @@ static NSDictionary *_classTypes;
 }
 
 
-- (id)initWithCoder:(NSCoder *)coder
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
     if (self) {
@@ -236,12 +237,12 @@ static NSDictionary *_classTypes;
 
 
 
--(NSString *)classApplicationName{
+-( NSString * _Nullable)classApplicationName{
     if (self.classKey) {
         NSCharacterSet *typeDivider = [NSCharacterSet characterSetWithCharactersInString:@"_"];
         
-        NSString *classtype = [[self.classKey componentsSeparatedByCharactersInSet:typeDivider] lastObject];
-        return [[KTClass classApplications]objectForKey:classtype];
+        NSString *classtype = [self.classKey componentsSeparatedByCharactersInSet:typeDivider].lastObject;
+        return [KTClass classApplications][classtype];
     }
     return nil;
 }

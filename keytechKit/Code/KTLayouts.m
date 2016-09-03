@@ -41,7 +41,7 @@ static KTLayouts *_sharedLayouts;
     return _sharedLayouts;
 }
 
-- (id)init
+- (instancetype)init
 {
     if (!_sharedLayouts) {
         
@@ -67,8 +67,8 @@ static KTLayouts *_sharedLayouts;
 }
 
 -(BOOL)isLayoutLoaded:(NSString*)classKey{
-    if ([_layoutsList objectForKey:classKey] !=nil){
-        KTLayout *layout =  [_layoutsList objectForKey:classKey];
+    if (_layoutsList[classKey] !=nil){
+        KTLayout *layout =  _layoutsList[classKey];
         return layout.isLoaded;
     } else {
         return NO;
@@ -77,7 +77,7 @@ static KTLayouts *_sharedLayouts;
 
 // Returns the layout by its classekey
 -(KTLayout*)layoutForClassKey:(NSString*) classKey{
-    return [_layoutsList objectForKey:classKey];
+    return _layoutsList[classKey];
 }
 
 

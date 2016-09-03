@@ -24,7 +24,7 @@
     return 7; // Dev notice: Increment if definition if header changes
 }
 
-- (id)initWithCoder:(NSCoder *)coder
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
     if (self) {
@@ -62,7 +62,7 @@
     
 }
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {

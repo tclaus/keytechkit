@@ -71,7 +71,7 @@
 /// returns true if no servername was given. User interaction is required
 -(BOOL)needsInitialSetup{
     
-    if (![self servername]) {
+    if (!self.servername) {
         return YES;
     }
     else {
@@ -94,7 +94,7 @@
     // If a valid app support directory exists, add the
     // app's bundle ID to it to specify the final directory.
     if (appSupportDir) {
-        NSString* appBundleID = [[NSBundle mainBundle] bundleIdentifier];
+        NSString* appBundleID = [NSBundle mainBundle].bundleIdentifier;
         cacheDirectory = [appSupportDir URLByAppendingPathComponent:appBundleID];
     }
     
@@ -103,7 +103,7 @@
 
 -(NSString *) createTemporaryDirectory {
     // Create a unique directory in the system temporary directory
-    NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
+    NSString *guid = [NSProcessInfo processInfo].globallyUniqueString;
     NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:guid];
     if (![[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:nil]) {
         return nil;
@@ -126,7 +126,7 @@
     // If a valid app support directory exists, add the
     // app's bundle ID to it to specify the final directory.
     if (appSupportDir) {
-        NSString* appBundleID = [[NSBundle mainBundle] bundleIdentifier];
+        NSString* appBundleID = [NSBundle mainBundle].bundleIdentifier;
         if (!appBundleID){
             appDirectory = systemTemp;
             
@@ -144,7 +144,7 @@
 
 
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     
@@ -153,8 +153,8 @@
     // (Deleted stuff): Make no assume about user preferences. Caller has to take care about user credentials.
     
     // Defaults to demo-Server
-    if (self.servername ==nil) self.servername = [[[NSProcessInfo processInfo]environment] objectForKey:@"APIURL"]; // @"demo URL"
-    if (self.username ==nil) self.username = [[[NSProcessInfo processInfo]environment] objectForKey:@"APIUserName"]; // @"jgrant";
+    if (self.servername ==nil) self.servername = [NSProcessInfo processInfo].environment[@"APIURL"]; // @"demo URL"
+    if (self.username ==nil) self.username = [NSProcessInfo processInfo].environment[@"APIUserName"]; // @"jgrant";
     if (self.password ==nil) self.password =@"";
     
     
@@ -166,7 +166,7 @@
     
     [RKMIMETypeSerialization registerClass:[RKMIMETypeTextXML class] forMIMEType:@"text/html"];
     [RKMIMETypeSerialization registerClass:[RKMIMETypeTextXML class] forMIMEType:@"text/plain"];
-    [objectManager setRequestSerializationMIMEType: RKMIMETypeJSON];
+    objectManager.requestSerializationMIMEType = RKMIMETypeJSON;
     
     
     //RKXMLReaderSerialization, RKMIMETypeJSON
@@ -197,15 +197,15 @@
 
 -(void)setDefaultHeadersToRequest:(NSMutableURLRequest*)request{
     
-    for (NSString* headerKey in [self.defaultHeaders allKeys]){
-        NSString *headerValue = [self.defaultHeaders objectForKey:headerKey];
+    for (NSString* headerKey in (self.defaultHeaders).allKeys){
+        NSString *headerValue = (self.defaultHeaders)[headerKey];
         [request setValue:headerValue forHTTPHeaderField:headerKey];
     }
     
 }
 
 -(NSDictionary*)defaultHeaders{
-    return [[RKObjectManager sharedManager].HTTPClient defaultHeaders];
+    return ([RKObjectManager sharedManager].HTTPClient).defaultHeaders;
 }
 
 -(KTPreferencesConnection*)preferences{
@@ -295,7 +295,7 @@
         }
         
         RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:Servername]];
-        [objectManager setRequestSerializationMIMEType: RKMIMETypeJSON];
+        objectManager.requestSerializationMIMEType = RKMIMETypeJSON;
         [RKObjectManager setSharedManager:objectManager];
         
         // Set new authorization for new SharedObjectManager
@@ -337,7 +337,7 @@
         NSLog(@"An error occured: %@",error);
         
         if (response) {
-            NSString *ErrorDescription = [[response allHeaderFields] objectForKey:@"X-ErrorDescription"];
+            NSString *ErrorDescription = response.allHeaderFields[@"X-ErrorDescription"];
             NSError *transcodedError = [NSError errorWithDomain:@"keytech"
                                                            code:response.statusCode
                                                        userInfo:@{NSLocalizedDescriptionKey:ErrorDescription,
@@ -353,7 +353,7 @@
     
     
     if (response) {
-        NSString *ErrorDescription = [[response allHeaderFields] objectForKey:@"X-ErrorDescription"];
+        NSString *ErrorDescription = response.allHeaderFields[@"X-ErrorDescription"];
         NSError *transcodedError = [NSError errorWithDomain:@"keytech"
                                                        code:response.statusCode
                                                    userInfo:@{NSLocalizedDescriptionKey:ErrorDescription}];
