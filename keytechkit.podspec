@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'keytechkit'
-  spec.version      = '0.2.2'
+  spec.version      = '0.2.3'
   spec.license      = 'MIT'
   spec.homepage     = 'https://github.com/vvanchesa/keytechkit'
   spec.authors      = { 'Thorsten Claus' => 'thorstenclaus@web.de' }
@@ -24,6 +24,6 @@ Pod::Spec.new do |spec|
     #endif
     #import <RestKit/RestKit.h>'
 
-  spec.dependency 'RestKit', '~>0.27.0'
+  spec.dependency 'RestKit', '~>0.27'
   spec.dependency 'SSZipArchive'
 end
