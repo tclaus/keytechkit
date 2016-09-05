@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 
--(instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
+-(instancetype)initWithCoder:(NSCoder *)coder;
 -(void)encodeWithCoder:(NSCoder *)aCoder;
 
 /**

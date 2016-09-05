@@ -26,7 +26,6 @@
 		65B546DD1D7AD08300A28BCE /* testEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546C71D7AD08300A28BCE /* testEnvironment.m */; };
 		65B546DE1D7AD08300A28BCE /* testFileManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546C81D7AD08300A28BCE /* testFileManagement.m */; };
 		65B546DF1D7AD08300A28BCE /* testFolderManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546C91D7AD08300A28BCE /* testFolderManagement.m */; };
-		65B546E01D7AD08300A28BCE /* testGlobalSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546CA1D7AD08300A28BCE /* testGlobalSettings.m */; };
 		65B546E11D7AD08300A28BCE /* testKeytechElements.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546CB1D7AD08300A28BCE /* testKeytechElements.m */; };
 		65B546E21D7AD08300A28BCE /* testLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546CC1D7AD08300A28BCE /* testLayout.m */; };
 		65B546E31D7AD08300A28BCE /* testNotes.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B546CD1D7AD08300A28BCE /* testNotes.m */; };
@@ -86,7 +85,6 @@
 		65B546C71D7AD08300A28BCE /* testEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testEnvironment.m; sourceTree = "<group>"; };
 		65B546C81D7AD08300A28BCE /* testFileManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testFileManagement.m; sourceTree = "<group>"; };
 		65B546C91D7AD08300A28BCE /* testFolderManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testFolderManagement.m; sourceTree = "<group>"; };
-		65B546CA1D7AD08300A28BCE /* testGlobalSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testGlobalSettings.m; sourceTree = "<group>"; };
 		65B546CB1D7AD08300A28BCE /* testKeytechElements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testKeytechElements.m; sourceTree = "<group>"; };
 		65B546CC1D7AD08300A28BCE /* testLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testLayout.m; sourceTree = "<group>"; };
 		65B546CD1D7AD08300A28BCE /* testNotes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testNotes.m; sourceTree = "<group>"; };
@@ -185,7 +183,6 @@
 				65B546C71D7AD08300A28BCE /* testEnvironment.m */,
 				65B546C81D7AD08300A28BCE /* testFileManagement.m */,
 				65B546C91D7AD08300A28BCE /* testFolderManagement.m */,
-				65B546CA1D7AD08300A28BCE /* testGlobalSettings.m */,
 				65B546CB1D7AD08300A28BCE /* testKeytechElements.m */,
 				65B546CC1D7AD08300A28BCE /* testLayout.m */,
 				65B546CD1D7AD08300A28BCE /* testNotes.m */,
@@ -450,7 +447,6 @@
 				65B546EB1D7AD08300A28BCE /* testUserSettings.m in Sources */,
 				65B546E21D7AD08300A28BCE /* testLayout.m in Sources */,
 				65B546E41D7AD08300A28BCE /* testQueries.m in Sources */,
-				65B546E01D7AD08300A28BCE /* testGlobalSettings.m in Sources */,
 				657F1FA41D7ABC8600BA499A /* ExampleTests.m in Sources */,
 				65B546E61D7AD08300A28BCE /* testResponseLoader.m in Sources */,
 				65B546EA1D7AD08300A28BCE /* testUser.m in Sources */,

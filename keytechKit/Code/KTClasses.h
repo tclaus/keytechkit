@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "KTClass.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Provides the full classlist of the server. In keytech terms a class is the definition of an elementtype.
  */
@@ -40,3 +42,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
--(instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
+-(instancetype)initWithCoder:(NSCoder *)aDecoder;
 -(void)encodeWithCoder:(NSCoder *)aCoder;
 /**
  Name of a font. (Arial, Heletica, Sans Srif)
