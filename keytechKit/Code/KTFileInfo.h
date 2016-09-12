@@ -172,6 +172,13 @@ When file is loaded a local URL is returned. Nil otherwise
   @param fileInfo The fileinfo object who sends the update.
  */
 -(void)FinishedUploadWithFileInfo:(KTFileInfo*)fileInfo;
+
+/**
+ Sends a response that a file was uploaded
+ @param fileInfo The fileinfo object who sends the update.
+ */
+-(void)FinishedDownloadWithFileInfo:(KTFileInfo*)fileInfo;
+
 @optional
 @end
 

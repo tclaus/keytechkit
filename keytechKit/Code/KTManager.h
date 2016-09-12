@@ -12,14 +12,14 @@
 #import "KTPreferencesConnection.h"
 #import "KTServerInfo.h"
 
-#define dispatch_main_sync_safe(block)\
+#define dispatch_main_sync_safeKT(block)\
 if ([NSThread isMainThread]) {\
   block();\
 } else {\
   dispatch_sync(dispatch_get_main_queue(), block);\
 }
 
-#define dispatch_main_async_safe(block)\
+#define dispatch_main_async_safeKT(block)\
 if ([NSThread isMainThread]) {\
   block();\
 } else {\

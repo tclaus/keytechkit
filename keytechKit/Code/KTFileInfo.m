@@ -265,26 +265,34 @@ static RKObjectManager *_usedManager;
 
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location{
     
+    
     if (location) {
-        NSFileManager *manager = [NSFileManager defaultManager];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
         NSError *err;
         NSURL *targetURL = [[[KTManager sharedManager]applicationDataDirectory] URLByAppendingPathComponent:self.fileName];
         
         targetURL = [NSURL fileURLWithPath:targetURL.path];
         
-        [manager removeItemAtURL:targetURL error:&err];
-        if (err) {
-            NSLog(@"Target file can not be deleted. %@",err);
+        // Remove old temp file
+        if ([fileManager fileExistsAtPath:targetURL.absoluteString]) {
+            [fileManager removeItemAtURL:targetURL error:&err];
+            if (err) {
+                NSLog(@"Target file can not be deleted. %@",err.localizedDescription);
+            }
         }
+        [fileManager moveItemAtURL:location toURL:targetURL error:&err];
         
-        [manager moveItemAtURL:location toURL:targetURL error:&err];
         
-        
-        dispatch_main_sync_safe(^{
+        dispatch_main_sync_safeKT(^{
             [self willChangeValueForKey:@"localFileURL"];
             _localFileURL = targetURL;
             _isLoading = NO;
             [self didChangeValueForKey:@"localFileURL"];
+            
+            if ([self.delegate respondsToSelector:@selector(FinishedDownloadWithFileInfo:)]) {
+                [self.delegate FinishedDownloadWithFileInfo:self];
+            }
+            
         });
         
     } else {
@@ -315,13 +323,20 @@ static RKObjectManager *_usedManager;
 /// Download Progress
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite{
     // Progress
+    
+    int bytesExpected = totalBytesExpectedToWrite;
+    
+    if (bytesExpected == -1) {
+        bytesExpected = _fileSize;
+    }
+    
 #if DEBUG
-    NSLog(@"Downloaded %@: %d / %d",self.fileName, (int)totalBytesWritten,(int)totalBytesExpectedToWrite);
+    NSLog(@"Downloaded %@: %d / %d",self.fileName, (int)totalBytesWritten,(int)bytesExpected);
 #endif
     
     if (delegate){
         if ([self.delegate respondsToSelector:@selector(fileInfo:downloadProgress:totalBytesWritten:)]) {
-            [self.delegate fileInfo:self downloadProgress:bytesWritten totalBytesWritten:totalBytesExpectedToWrite];
+            [self.delegate fileInfo:self downloadProgress:bytesWritten totalBytesWritten:bytesExpected];
         }
     }
     
