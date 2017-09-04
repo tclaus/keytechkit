@@ -1270,41 +1270,39 @@ static long numberOfThumbnailsLoaded;
     KTElement *theElement;
     theElement = self;
     
-    [NSURLConnection sendAsynchronousRequest:urlRequest
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-
-                                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
-                               if (!connectionError){
-                                  
-                                   if (httpResponse.statusCode>=400) {
-                                       if (failure) {
-                                           NSError *error = [NSError errorWithDomain:@"keytech" code:100
-                                                                            userInfo:@{NSLocalizedDescriptionKey: @"Server has no 'move' implementation."}];
-                                           failure(error);
-                                           return;
-                                       }
-                                   } else {
-                                       
-                                       NSString *location =  httpResponse.allHeaderFields[@"Location"];
-                                       
-                                       // set the new location key after move
-                                       theElement.itemKey = location;
-                                       
-                                       if (success){
-                                           success(location);
-                                       }
-                                   }
-                                   
-                               } else {
-                                    NSError *transcodedError = [KTManager translateErrorFromResponse:httpResponse error:connectionError];
-                                   if (failure){
-
-                                       failure(transcodedError);
-                                   }
-                               }
-                           }];
-    
+    NSURLSessionDataTask *session =  [[NSURLSession sharedSession] dataTaskWithRequest:urlRequest
+                                                             completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                                                                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
+                                                                 if (!error){
+                                                                     
+                                                                     if (httpResponse.statusCode>=400) {
+                                                                         if (failure) {
+                                                                             NSError *error = [NSError errorWithDomain:@"keytech" code:100
+                                                                                                              userInfo:@{NSLocalizedDescriptionKey: @"Server has no 'move' implementation."}];
+                                                                             failure(error);
+                                                                             return;
+                                                                         }
+                                                                     } else {
+                                                                         
+                                                                         NSString *location =  httpResponse.allHeaderFields[@"Location"];
+                                                                         
+                                                                         // set the new location key after move
+                                                                         theElement.itemKey = location;
+                                                                         
+                                                                         if (success){
+                                                                             success(location);
+                                                                         }
+                                                                     }
+                                                                     
+                                                                 } else {
+                                                                     NSError *transcodedError = [KTManager translateErrorFromResponse:httpResponse error:error];
+                                                                     if (failure){
+                                                                         
+                                                                         failure(transcodedError);
+                                                                     }
+                                                                 }
+    }];
+    [session resume];
 
     
 }

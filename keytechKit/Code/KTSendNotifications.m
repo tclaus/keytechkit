@@ -383,6 +383,7 @@ static bool ServiceEnabled;
     
     // KTSendNotifications *connectionDelegate = [[KTSendNotifications alloc]init];
     
+    
     [NSURLConnection connectionWithRequest:urlRequest delegate:self];
     
     //return;
@@ -438,7 +439,7 @@ static bool ServiceEnabled;
 
 /**
  Returns a localized text when a element got a new file
- @param elementName: The element which has changed
+ @param elementName The element which has changed
  */
 -(NSDictionary*)localizedTextElementFileAdded:(NSString*)elementName{
     NSDictionary *dict = @{@"de":[NSString stringWithFormat:@"Eine Datei wurde dem Element %@ hinzugefügt.",elementName],

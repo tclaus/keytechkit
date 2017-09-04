@@ -110,7 +110,7 @@ static RKObjectManager *_usedManager;
 }
 
 
--(void)deleteNote:(void (^)())success failure:(void (^)(KTNoteItem *, NSError *))failure {
+-(void)deleteNote:(void (^)(void))success failure:(void (^)(KTNoteItem *, NSError *))failure {
     
     
     RKObjectManager *manager = [RKObjectManager sharedManager];

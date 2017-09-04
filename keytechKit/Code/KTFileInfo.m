@@ -324,7 +324,7 @@ static RKObjectManager *_usedManager;
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite{
     // Progress
     
-    int bytesExpected = totalBytesExpectedToWrite;
+    int64_t bytesExpected = totalBytesExpectedToWrite;
     
     if (bytesExpected == -1) {
         bytesExpected = _fileSize;

@@ -125,18 +125,18 @@ static RKObjectManager*_usedManager;
     NSString *alignmentString = _controlAlignmentIntern.uppercaseString;
     
     if ([alignmentString isEqualToString:@"LEFT"]){ // from keytech API: Left
-        return kCTLeftTextAlignment;
+        return kCTTextAlignmentLeft;
     }
     
     if ([alignmentString isEqualToString:@"CENTER"]){ // from keytech API: Center
-        return kCTCenterTextAlignment;
+        return kCTTextAlignmentCenter;
     }
     if ([alignmentString isEqualToString:@"RIGHT"]){ // from keytech API: Right
-        return kCTRightTextAlignment;
+        return kCTTextAlignmentRight;
     }
     
     // Return meaningful defaultvalue
-    return kCTNaturalTextAlignment;
+    return kCTTextAlignmentNatural;
 }
 
 

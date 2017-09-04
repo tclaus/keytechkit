@@ -92,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param success A block to be execute after the note is successfully deleted
  @param failure A block to execute after delete the note failed
  */
--(void)deleteNote:(void (^)())success
+-(void)deleteNote:(void (^)(void))success
           failure:(void (^)(KTNoteItem *noteItem, NSError *error))failure;
 @end
 

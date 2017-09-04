@@ -3,7 +3,7 @@
 //  Example
 //
 //  Created by Thorsten Claus on 03.09.16.
-//  Copyright © 2016 Claus-Software. All rights reserved.
+//  Copyright © 2017 Claus-Software. All rights reserved.
 //
 
 #import "MasterViewController.h"
@@ -42,7 +42,7 @@
     // Setup credentials
     [KTManager sharedManager].servername = serverURL;
     [KTManager sharedManager].username =username;
-    [[KTManager sharedManager]  synchronizeServerCredentials];
+    [[KTManager sharedManager] synchronizeServerCredentials];
     
     _searchController.searchBar.text = @"dampf";
     
