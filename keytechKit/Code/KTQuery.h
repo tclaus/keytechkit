@@ -63,7 +63,6 @@
  @param predicate A complex predicate to execute the query.
  @param inClasses A string list of classkeys. Result is only returned for the speified classes. If this parameter is nil all classes are searched
  @param pagedObject The requested page and its size
- @param inClasses An array of classkeys. The result will only contain elements of this kind of classes.
  @param shouldReload Set to True if a server side reload will be forced.
  @param success A block that will execute after search is completed
  @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
