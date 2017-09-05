@@ -2,7 +2,7 @@
 
 keytechKit is a iOS / OSX framework for accessing the german keytech PLM Web API. 
 
-[![Build Status](https://travis-ci.org/vvanchesa/keytechkit.svg?branch=master)](https://travis-ci.org/vvanchesa/keytechkit)
+[![Build Status](https://travis-ci.org/tclaus/keytechkit.svg?branch=master)](https://travis-ci.org/tclaus/keytechkit)
 
 ## Try out the keytech SDK
 
@@ -23,17 +23,17 @@ Thens simply add the following to your Podfile:
 pod 'keytechkit', '~>0.2'
 ```
 
-keytechKit works for iOS >=8 and OSX >=10.9
+keytechKit works for iOS >=9.3 and OSX >=10.9
 
 Please remind that keytech provides a public Web-API to test and develop, but to use this in your own envoronment you will need a suitable license. Contact keytech for terms and conditions.
 
 ## What can you do with this?
 
 keytechKit supports: 
-Most of keytech Web-API ressources: 
+Most of keytech Web-API resources: 
 * Search for elements: by Text, direct field value, with class restrictions
 * Creating, updating and deleting of elements
-* Loading of Elements Structure, WhereUsed, Thumbnails, Notes, Bom, Files
+* Loading of Elements Structure, WhereUsed, Thumbnails, Notes, BOM, Files
 * Fetching User with favorites, stored queries
 * Fetching class definitions 
 
