@@ -3,7 +3,7 @@
 //  keytechKit
 //
 //  Created by Thorsten Claus on 13.05.14.
-//  Copyright (c) 2014 Claus-Software. All rights reserved.
+//  Copyright (c) 2017 Claus-Software. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

@@ -3,7 +3,7 @@
 //  keytechKit
 //
 //  Created by Thorsten Claus on 01.03.14.
-//  Copyright (c) 2014 Claus-Software. All rights reserved.
+//  Copyright (c) 2017 Claus-Software. All rights reserved.
 //
 
 #import "KTClass.h"

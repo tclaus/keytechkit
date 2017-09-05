@@ -3,7 +3,7 @@
 //  keytechFoundation
 //
 //  Created by Thorsten Claus on 04.07.13.
-//  Copyright (c) 2013 Claus-Software. All rights reserved.
+//  Copyright (c) 2017 Claus-Software. All rights reserved.
 //
 // Povides Information about documents - status definitions.
 //
