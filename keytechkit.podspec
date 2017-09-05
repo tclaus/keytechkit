@@ -1,11 +1,11 @@
 Pod::Spec.new do |spec|
   spec.name         = 'keytechkit'
-  spec.version      = '0.2.5'
+  spec.version      = '0.2.6'
   spec.license      = 'MIT'
-  spec.homepage     = 'https://github.com/vvanchesa/keytechkit'
+  spec.homepage     = 'https://github.com/tclaus/keytechkit'
   spec.authors      = { 'Thorsten Claus' => 'thorstenclaus@web.de' }
   spec.summary      = 'keytech SDK to access the keytech software WebAPI.'
-  spec.source       = { :git => 'https://github.com/vvanchesa/keytechkit.git', :tag => spec.version.to_s }
+  spec.source       = { :git => 'https://github.com/tclaus/keytechkit.git', :tag => spec.version.to_s }
   spec.source_files = 'keytechKit/Code/**/*.{h,m}'
   spec.requires_arc = true
   spec.ios.deployment_target  = '9.3'
