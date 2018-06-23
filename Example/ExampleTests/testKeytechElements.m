@@ -313,7 +313,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
 /// Gets the list of version from the given element
 - (void)testGetElementVersionsList
 {
-    KTElement* element = [[KTElement alloc]initWithElementKey:elementKeyWithStructure];
+    KTElement* element = [[KTElement alloc] initWithElementKey:elementKeyWithStructure];
     
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Filelist Loaded"];
     
@@ -332,7 +332,6 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
     }];
     
-    
 }
 
 /**
@@ -340,7 +339,10 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
  */
 - (void)testGetElementNotesList
 {
-    KTElement* element = [[KTElement alloc]initWithElementKey:elementKeyWithNotes];
+    // Still need a test element with notes
+    // Can keytech add a note via web-api?
+    
+    KTElement* element = [[KTElement alloc] initWithElementKey:elementKeyWithNotes];
     
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Noteslist loaded"];
     
@@ -364,8 +366,6 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     }];
     
 }
-
-
 
 /**
  Performs a GET on an Elements BOM (Bill of Material)s list.
@@ -404,9 +404,6 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
             NSLog(@"%@",error);
         }
     }];
-    
-    
-    
 }
 
 /**
@@ -434,8 +431,8 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     [element loadStatusHistoryListSuccess:^(NSArray *itemsList) {
         
         XCTAssertNotNil(itemsList);
-        XCTAssertTrue(itemsList.count>0);
-        XCTAssertTrue(element.itemStatusHistory.count>0,@"Element property should not be empty");
+        XCTAssertTrue(itemsList.count > 0);
+        XCTAssertTrue(element.itemStatusHistory.count > 0,@"Element property should not be empty");
         
         [documentOpenExpectation fulfill];
         

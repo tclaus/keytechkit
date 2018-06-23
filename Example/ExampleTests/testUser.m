@@ -38,7 +38,6 @@ static KTManager  *_webservice;
 
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"userdata Loaded"];
     
-    
     [KTUser loadUserWithKey:@"jgrant" success:^(KTUser *user) {
         
         XCTAssert(YES, @"Pass");
@@ -51,8 +50,6 @@ static KTManager  *_webservice;
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
         
     }];
-    
-    // This is an example of a functional test case.
     
 }
 
@@ -91,8 +88,46 @@ static KTManager  *_webservice;
     }
     
     [self waitForExpectationsWithTimeout:30 handler:nil];
+
+}
+
+/**
+ Tests user defined queries, some are with parameters
+ */
+-(void)testUserQueries {
+    XCTestExpectation *loadUserExpectation = [self expectationWithDescription:@"load user"];
     
+    __block KTUser * jgrantUser;
     
+    [KTUser loadUserWithKey:@"jgrant"success:^(KTUser *user) {
+        jgrantUser = user;
+        [loadUserExpectation fulfill];
+    } failure:^(NSError *error) {
+        [loadUserExpectation fulfill];
+        XCTFail(@"Could not load a test user for loading queries");
+    }];
+    
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+    
+    XCTestExpectation *loadFavorites = [self expectationWithDescription:@"load queries"];
+    if (jgrantUser) {
+        
+        [jgrantUser loadQueriesSuccess:^(NSArray *targetLinks) {
+            if (!targetLinks) {
+                XCTFail(@"Queries Links was empty");
+            } else {
+                // OK
+            }
+            
+            [loadFavorites fulfill];
+        } failure:^(NSError *error) {
+            
+            XCTFail(@"Queries loaded with errors");
+            [loadFavorites fulfill];
+        }];
+    }
+    
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
 }
 

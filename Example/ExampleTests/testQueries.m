@@ -13,13 +13,12 @@
 #import "TestDefaults.h"
 #import "KTSearchengineResult.h"
 
-@interface testQueries : XCTestCase{
+@interface testQueries : XCTestCase {
     TestDefaults *_testdefaults;
 }
-
 @end
 
-@implementation testQueries{
+@implementation testQueries {
     KTManager *_webservice;
     KTPagedObject *_pagedObject;
 }
@@ -41,16 +40,12 @@
         _pagedObject.page=1;
         _pagedObject.size = 10;
     }
-    
-    
-    
 }
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
-
 
 /**
  Tests the /Search ressource withthe q=<text> parameter to query some server side attributes directly
@@ -162,9 +157,8 @@
     XCTAssert(YES, @"Pass");
 }
 
-
 /// A search request is canceled immediately
--(void)testStartAndCancelQuery{
+-(void)testStartAndCancelQuery {
     XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
     KTQuery *query = [[KTQuery alloc]init];
@@ -206,7 +200,7 @@
     // Test by name
     [query queryByText:@"keytech"
                 fields:nil
-             inClasses:@[@"PROPOSAL_WF",@"AB_FILE",@""]
+             inClasses:@[@"DOCCOMPANY_FILE",@"AB_FILE",@""]
                 reload:YES
                  paged:_pagedObject
                success:^(NSArray *results){  // 'keytech' exist in most databases
@@ -235,7 +229,7 @@
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 
-- (void)testQueryByPredicateLesserThanDate{
+- (void)testQueryByPredicateLesserThanDate {
     
     XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
@@ -275,7 +269,7 @@
 #endif
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
-- (void)testQueryByPredicateGreaterThanDate{
+- (void)testQueryByPredicateGreaterThanDate {
     // Date field greater than
     
     NSPredicate *predicateDateGreaterThan = [NSPredicate predicateWithFormat:@"created_at > %@",@"/Date(946995932000)/"];
@@ -348,7 +342,7 @@
 }
 #endif
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
-- (void)testQueryByPredicateBeginsWith{
+- (void)testQueryByPredicateBeginsWith {
     XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
     KTQuery *query = [[KTQuery alloc]init];
@@ -381,12 +375,11 @@
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
-    
-    
 }
 #endif
+
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
-- (void)testQueryByPredicateEndsWith{
+- (void)testQueryByPredicateEndsWith {
     XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
     KTQuery *query = [[KTQuery alloc]init];
@@ -419,12 +412,11 @@
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
-    
-    
 }
 #endif
+
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
-- (void)testQueryByPredicateContains{
+- (void)testQueryByPredicateContains {
     XCTestExpectation *queryExpectation = [self expectationWithDescription:@"query returned with data"];
     
     KTQuery *query = [[KTQuery alloc]init];
@@ -457,8 +449,6 @@
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
-    
-    
 }
 #endif
 
@@ -496,7 +486,7 @@
 }
 
 /// Test direct Solr vault fetch
--(void)testQueryWithSolr{
+-(void)testQueryWithSolr {
     
     if (![KTServerInfo sharedServerInfo].isIndexServerEnabled) {
         NSLog(@"Test Server dont supports Solr indexing");
@@ -577,9 +567,7 @@
             XCTFail(@"Error while fetching data: %@",error);
         }
     }];
-    
 }
-
 
 /**
  Starts a query that will return only 1 element by specifiying the pages and size attributes
@@ -590,10 +578,12 @@
     
     KTQuery *query = [[KTQuery alloc]init];
     
-    [query queryByStoredSearch:[@380 integerValue]
+    // Queries are user-defined: /user/{userid}/queries
+    
+    [query queryByStoredSearch:[@759 integerValue] // Stores query ID for user jgrant
                         reload:YES
                          paged:_pagedObject
-                       success:^(NSArray *results) {  // a Query with the IS'42' must exist in database
+                       success:^(NSArray *results) {  // a Query with this ID must exist in database
                            [documentOpenExpectation fulfill];
                            XCTAssertNotNil(results);
                            
@@ -616,11 +606,9 @@
     
     // Ist das assert hier korrekt?
     XCTAssert(YES, @"Pass");
-    
-    
 }
 
-
-
-
 @end
+
+
+

@@ -13,9 +13,6 @@
 #import "KTServerInfo.h"
 #import "KTSendNotifications.h"
 
-
-
-
 @implementation KTManager{
     
     BOOL _connectionIsValid;
@@ -26,8 +23,6 @@
 }
 
 
-
-
 -(NSString*) servername{
     return _preferences.servername;
 }
@@ -35,9 +30,11 @@
 -(void)setServername:(NSString *)servername{
     _preferences.servername = servername;
 }
+
 -(NSString*)username{
     return _preferences.username;
 }
+
 -(void)setUsername:(NSString *)username{
     _preferences.username = username;
 }
@@ -45,11 +42,10 @@
 -(NSString*)password{
     return _preferences.password;
 }
+
 -(void) setPassword:(NSString *)password{
     _preferences.password = password;
 }
-
-
 
 /// Creates the singelton class
 +(instancetype) sharedManager{
@@ -62,11 +58,7 @@
     });
     
     return _sharedInstance;
-    
 }
-
-
-
 
 /// returns true if no servername was given. User interaction is required
 -(BOOL)needsInitialSetup{
@@ -79,7 +71,6 @@
     }
 }
 
-
 // Returns the apps cache directory
 - (NSURL*)applicationCacheDirectory {
     NSFileManager* sharedFM = [NSFileManager defaultManager];
@@ -89,7 +80,6 @@
     NSURL* appSupportDir = [sharedFM URLForDirectory:NSCachesDirectory
                                             inDomain:NSUserDomainMask
                                    appropriateForURL:nil create:YES error:&err];
-    
     
     // If a valid app support directory exists, add the
     // app's bundle ID to it to specify the final directory.
@@ -130,19 +120,13 @@
         if (!appBundleID){
             appDirectory = systemTemp;
             
-            
-        }else{
+        } else {
             appDirectory = [appSupportDir URLByAppendingPathComponent:appBundleID];
             [sharedFM createDirectoryAtURL:appDirectory withIntermediateDirectories:YES attributes:nil error:nil];
-            
-            
         }
     }
-    
     return appDirectory;
 }
-
-
 
 - (instancetype)init
 {
@@ -153,11 +137,9 @@
     // (Deleted stuff): Make no assume about user preferences. Caller has to take care about user credentials.
     
     // Defaults to demo-Server
-    if (self.servername ==nil) self.servername = [NSProcessInfo processInfo].environment[@"APIURL"]; // @"demo URL"
-    if (self.username ==nil) self.username = [NSProcessInfo processInfo].environment[@"APIUserName"]; // @"jgrant";
-    if (self.password ==nil) self.password =@"";
-    
-    
+    if (self.servername == nil) self.servername = [NSProcessInfo processInfo].environment[@"APIURL"]; // @"demo URL"
+    if (self.username == nil) self.username = [NSProcessInfo processInfo].environment[@"APIUserName"]; // @"jgrant";
+    if (self.password == nil) self.password = @"";
     
     RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.servername]]] ;
     
@@ -213,7 +195,6 @@
 }
 
 
-
 /// Checks for Admin role by asking the API directly and wait for result
 -(BOOL)currentUserHasActiveAdminRole{
     //TODO:  Store value for a short period of time
@@ -266,7 +247,6 @@
     NSString *Servername;
     NSString *Username;
     NSString *Password;
-    
     
     Servername = self.servername;
     Username = self.username;

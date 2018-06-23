@@ -365,8 +365,8 @@ int maxPagesize=500;
     KTElementLink *newLink = [[KTElementLink alloc]initWithParent:self.itemKey childKey:linkToElementKey];
     [newLink deleteLink:^{
         
-        if (_isStructureListLoaded) {
-            [_itemStructureList removeObject:linkToElementKey];
+        if (self->_isStructureListLoaded) {
+            [self->_itemStructureList removeObject:linkToElementKey];
         }
         
         [[KTSendNotifications sharedSendNotification] sendElementChildLinkRemoved:linkToElementKey removedFromFolder:self.itemName];
@@ -388,8 +388,8 @@ int maxPagesize=500;
     KTElementLink *newLink = [[KTElementLink alloc]initWithParent:self.itemKey childKey:linkToElementKey];
     [newLink saveLink:^(KTElement *childElement) {
         
-        if (_isStructureListLoaded) {
-            [_itemStructureList addObject:childElement]; // Der Struktur hinzufügen
+        if (self->_isStructureListLoaded) {
+            [self->_itemStructureList addObject:childElement]; // Der Struktur hinzufügen
         }
         
         [[KTSendNotifications sharedSendNotification] sendElementHasNewChildLink:linkToElementKey addedtoFolder:self.itemName];
@@ -441,23 +441,19 @@ NSMutableDictionary *_lastPages;
               withSize:(int)size
                success:(void (^)(NSArray *itemsList))success
                failure:(void (^)(NSError *error))failure
-
 {
     
-    
-    if (page==0) {
-        page=1;
+    if (page == 0) {
+        page = 1;
     }
     
-    if (size==0) {
-        size=maxPagesize;
+    if (size == 0) {
+        size = maxPagesize;
     }
-    
     
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
     rpcData[@"page"] = @((int)page);
     rpcData[@"size"] = @((int)size);
-    
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [manager getObjectsAtPath:resourcePath parameters:rpcData
@@ -514,13 +510,12 @@ NSMutableDictionary *_lastPages;
                  fromPage:0
                  withSize:0
                   success:^(NSArray *itemsList) {
-                      _isNextAvailableStatusListLoaded = YES;
+                      self->_isNextAvailableStatusListLoaded = YES;
                       if (success) {
                           success(itemsList);
                       }
                   }
                   failure:failure];
-    
 }
 
 -(void)loadWhereUsedListPage:(int)page
@@ -537,7 +532,7 @@ NSMutableDictionary *_lastPages;
                  fromPage:page
                  withSize:size
                   success:^(NSArray *itemsList) {
-                      _isWhereUsedListLoaded = YES;
+                      self->_isWhereUsedListLoaded = YES;
                       if (success) {
                           success(itemsList);
                       }
@@ -563,7 +558,7 @@ NSMutableDictionary *_lastPages;
                  fromPage:0
                  withSize:0
                   success:^(NSArray *itemsList) {
-                      _isStatusHistoryLoaded = YES;
+                      self->_isStatusHistoryLoaded = YES;
                       if (success) {
                           success(itemsList);
                       }
@@ -586,7 +581,7 @@ NSMutableDictionary *_lastPages;
                  fromPage:0
                  withSize:0
                   success:^(NSArray *itemsList) {
-                      _isNotesListLoaded = YES;
+                      self->_isNotesListLoaded = YES;
                       if (success) {
                           success(itemsList);
                       }
@@ -611,7 +606,7 @@ NSMutableDictionary *_lastPages;
                  fromPage:page
                  withSize:size
                   success:^(NSArray *itemsList) {
-                      _isStructureListLoaded = YES;
+                      self->_isStructureListLoaded = YES;
                       if (success) {
                           success(itemsList);
                       }
@@ -633,7 +628,7 @@ NSMutableDictionary *_lastPages;
                  fromPage:page
                  withSize:size
                   success:^(NSArray *itemsList) {
-                      _isBomListLoaded = YES;
+                      self->_isBomListLoaded = YES;
                       if (success) {
                           success(itemsList);
                       }
@@ -658,7 +653,7 @@ NSMutableDictionary *_lastPages;
                  fromPage:0
                  withSize:0
                   success:^(NSArray *itemArray) {
-                      _isFilesListLoaded = YES;
+                      self->_isFilesListLoaded = YES;
                       [itemArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                           KTFileInfo *fileInfo = (KTFileInfo*)obj;
                           fileInfo.elementKey = self.itemKey;
@@ -685,7 +680,7 @@ NSMutableDictionary *_lastPages;
                  fromPage:0
                  withSize:0
                   success:^(NSArray *itemsList) {
-                      _isVersionListLoaded = YES;
+                      self->_isVersionListLoaded = YES;
                       if (success) {
                           success(itemsList);
                       }
@@ -789,8 +784,8 @@ static long numberOfThumbnailsLoaded;
                     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
                     if ([[NSDate date] timeIntervalSinceDate:startDate] > _thumbnailLoadingTimeout) {
                         
-                        _isItemThumbnailLoading = NO;
-                        _isItemThumnailLoaded = YES;
+                        self->_isItemThumbnailLoading = NO;
+                        self->_isItemThumnailLoaded = YES;
                         
                         // Remove the queue flag
                         
@@ -803,13 +798,13 @@ static long numberOfThumbnailsLoaded;
                 
                 
                 // Some other proces has loaded my requesed thumbnail
-                _isItemThumnailLoaded = YES;
-                _isItemThumbnailLoading = NO;
+                self->_isItemThumnailLoaded = YES;
+                self->_isItemThumbnailLoading = NO;
                 
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     // Returning the now cached thumbnail
                     [self willChangeValueForKey:@"itemThumbnail"]; //Signaling KVC that value has changed
-                    _itemThumbnail = [thumbnailCache objectForKey:thumbnailKey];
+                    self->_itemThumbnail = [thumbnailCache objectForKey:thumbnailKey];
                     [self didChangeValueForKey:@"itemThumbnail"]; //
                 });
             });
@@ -845,16 +840,16 @@ static long numberOfThumbnailsLoaded;
                                   
 #else
                                   NSData *data = [NSData dataWithContentsOfURL:location];
-                                  _itemThumbnail = [[UIImage alloc]initWithData:data];
+                                  self->_itemThumbnail = [[UIImage alloc]initWithData:data];
                                   
 #endif
-                                  _isItemThumnailLoaded = YES;
-                                  _isItemThumbnailLoading = NO;
+                                  self->_isItemThumnailLoaded = YES;
+                                  self->_isItemThumbnailLoading = NO;
                                   
                                   
                                   
-                                  if(_itemThumbnail) {  // might be NIL if server did not respond
-                                      [thumbnailCache setObject:_itemThumbnail forKey:thumbnailKey];
+                                  if(self->_itemThumbnail) {  // might be NIL if server did not respond
+                                      [thumbnailCache setObject:self->_itemThumbnail forKey:thumbnailKey];
                                   }
                                   // Remove hint from download-queue
                                   [self removeThumbnailKeyFromQueue:thumbnailKey];
@@ -1054,7 +1049,7 @@ static long numberOfThumbnailsLoaded;
     
     [manager deleteObject:self path:nil parameters:nil
                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                      _isDeleted = YES;
+                      self->_isDeleted = YES;
                       [[KTSendNotifications sharedSendNotification]sendElementHasBeenDeleted:self];
                       
                       if (success) {
@@ -1083,8 +1078,6 @@ static long numberOfThumbnailsLoaded;
  */
 -(void)saveItem:(void (^)(KTElement *))success failure:(void (^)(NSError *error))failure{
 
-  
-    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     // Make sure a mapping is set

@@ -32,50 +32,21 @@
     // Set-up code here.
     [TestDefaults initialize];
     
-    // Webservice startet initiale Verbindung zum Dienst
+    // Initialize webservice for tests
     _webservice = [KTManager sharedManager];
     elementKeyWithStructure = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API}
 }
 
-
 - (void)tearDown
 {
     // Tear-down code here.
-    
     [super tearDown];
 }
-
-
 
 -(void)testAllocWebservice
 {
     KTManager* web = [KTManager sharedManager];
-    
     if (!web) XCTFail(@"could not allocate webservice Class");
-    
 }
-
-
-
-
-/**
- Test if simple credentials (default values) are set
- */
--(void)testHasSimpleCredentials{
-    NSString *username = _webservice.username;
-    NSString *password = _webservice.password;
-    NSString *serverURL = _webservice.servername;
-    
-    XCTAssertNotNil(username,@"Username should not be nil");
-    XCTAssertNotNil(password,@"Password should not be nil");
-    XCTAssertNotNil(serverURL,@"ServerURL should not be nil");
-    
-}
-
-
-
-
-
-
 
 @end

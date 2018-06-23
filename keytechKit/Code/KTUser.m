@@ -141,8 +141,8 @@ static RKObjectManager *_usedManager;
                    userObject.userLanguageID = user.userLanguageID;
                    userObject.isActive = user.isActive;
                    
-                   _isLoaded = YES;
-                   _isLoading = NO;
+                   self->_isLoaded = YES;
+                   self->_isLoading = NO;
                    if (success) {
                        success(self);
                    }
@@ -150,10 +150,10 @@ static RKObjectManager *_usedManager;
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                    NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
                    
-                   _latestLocalizedServerMessage = transcodedError.localizedDescription;
+                   self->_latestLocalizedServerMessage = transcodedError.localizedDescription;
                    
-                   _isLoaded = NO;
-                   _isLoading = NO;
+                   self->_isLoaded = NO;
+                   self->_isLoading = NO;
                    
                    if (failure) {
                        failure(transcodedError);

@@ -143,7 +143,7 @@ static KTLayouts *_sharedLayouts;
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                           
                           [self layoutDidLoadForClassKey:classKey];
-                          KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:classKey];
+                          KTLayout* layout = (KTLayout*)[self->_layoutsList valueForKey:classKey];
                           layout.listerLayout = mappingResult.array;
 
                               if (success) {
@@ -208,7 +208,7 @@ static KTLayouts *_sharedLayouts;
                           
                           [self layoutDidLoadForClassKey:classKey];
                           // Editor layout was loaded
-                          KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:classKey];
+                          KTLayout* layout = (KTLayout*)[self->_layoutsList valueForKey:classKey];
                           layout.editorLayout = mappingResult.array;
                           
                           if (layout.isLoaded) {
@@ -228,7 +228,7 @@ static KTLayouts *_sharedLayouts;
                         
                           [self layoutDidLoadForClassKey:classKey];
                           // Lister layout was loaded
-                          KTLayout* layout = (KTLayout*)[_layoutsList valueForKey:classKey];
+                          KTLayout* layout = (KTLayout*)[self->_layoutsList valueForKey:classKey];
                           layout.listerLayout = mappingResult.array;
                           
                           

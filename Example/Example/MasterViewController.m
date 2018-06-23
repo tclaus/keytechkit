@@ -41,11 +41,10 @@
     
     // Setup credentials
     [KTManager sharedManager].servername = serverURL;
-    [KTManager sharedManager].username =username;
+    [KTManager sharedManager].username = username;
     [[KTManager sharedManager] synchronizeServerCredentials];
     
     _searchController.searchBar.text = @"dampf";
-    
     
 }
 

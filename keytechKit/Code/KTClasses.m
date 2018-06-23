@@ -56,7 +56,6 @@
     
 }
 
-
 -(void)initClassList{
     
     // Force a reload in case of a server change
@@ -64,16 +63,15 @@
     
     [KTClasses loadClassListSuccess:^(NSArray<KTClass*> *classList) {
         
-        
-        [_classList removeAllObjects];
+        [self->_classList removeAllObjects];
         for (KTClass* aClass in classList) {
-            _classList[aClass.classKey] = aClass;
+            self->_classList[aClass.classKey] = aClass;
         }
-        _isLoaded = YES;
-        _isClassListLoading = NO;
+        self->_isLoaded = YES;
+        self->_isClassListLoading = NO;
         
     } failure:^(NSError* error){
-        _isClassListLoading = NO;
+        self->_isClassListLoading = NO;
     }
      ];
     

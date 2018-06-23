@@ -241,12 +241,7 @@
                    }
                    
                }];
-    
-    
-    
 }
-
-
 
 -(void)queryByStoredSearch:(NSInteger)storedQueryID
                     reload:(BOOL)shouldReload
@@ -255,9 +250,6 @@
                    failure:(void(^)(NSError *error))failure{
     
     /// Stats a Search by its queryID
-    
-    
-   
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTElement mappingWithManager:[RKObjectManager sharedManager]];

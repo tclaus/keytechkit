@@ -26,8 +26,6 @@
     
     _webService = [KTManager sharedManager];
 
-    
-    
 }
 
 - (void)tearDown {
@@ -86,7 +84,6 @@
     XCTAssertNotNil(serverInfo.APIVersion,@"Version should not be nil");
     XCTAssertNotNil(serverInfo.licencedCompany,@"licencedCompany should not be nil");
 
-    
 }
 
 

@@ -285,8 +285,8 @@ static RKObjectManager *_usedManager;
         
         dispatch_main_sync_safeKT(^{
             [self willChangeValueForKey:@"localFileURL"];
-            _localFileURL = targetURL;
-            _isLoading = NO;
+            self->_localFileURL = targetURL;
+            self->_isLoading = NO;
             [self didChangeValueForKey:@"localFileURL"];
             
             if ([self.delegate respondsToSelector:@selector(FinishedDownloadWithFileInfo:)]) {

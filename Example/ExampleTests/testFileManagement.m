@@ -47,19 +47,15 @@ NSTimeInterval _timeOut = 25;
     return fixtureURL;
 }
 
-
 - (void)setUp
 {
     [super setUp];
     [TestDefaults initialize];
     // Put setup code here; it will be run once, before the first test case.
     webservice = [KTManager sharedManager];
-    elementKeyWithStructure= @"3DMISC_SLDASM:500308"; //* "Steamroller"
+    elementKeyWithStructure = @"3DMISC_SLDASM:500308"; //* "Steamroller"
     
     fixtureBundle = [NSBundle bundleForClass:[testFileManagement class]];
-    
-    
-
     
 }
 
@@ -72,7 +68,7 @@ NSTimeInterval _timeOut = 25;
 
 #pragma mark Getting data collections
 /**
- Observes for  KVO value changing
+ Observes for KVO value changing
  */
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     awaitingResponse = NO;
@@ -94,18 +90,13 @@ NSTimeInterval _timeOut = 25;
     }
 }
 
-
 #pragma mark The Tests
-
-
-
 
 -(void)testUploadFileInBackground
 {
     // Create a new element
     KTElement *element = [KTElement elementWithElementKey:@"MISC_FILE"];
     XCTestExpectation *elementFileExpectation = [self expectationWithDescription:@"File Loaded"];
-    
     
     [element saveItem:^(KTElement *element) {
         [elementFileExpectation fulfill];
@@ -142,8 +133,7 @@ NSTimeInterval _timeOut = 25;
 */
 - (void)testElementHasFiles
 {
-    KTElement* element = [[KTElement alloc]initWithElementKey:elementKeyWithStructure];
-    
+    KTElement* element = [[KTElement alloc] initWithElementKey:elementKeyWithStructure];
     
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Filelist Loaded"];
     
@@ -152,7 +142,6 @@ NSTimeInterval _timeOut = 25;
         XCTAssertNotNil(itemsList, @"Filelist list should not be nil");
         XCTAssertTrue(itemsList.count>0, @"Filelist list should have some items");
         XCTAssertTrue(element.itemFilesList.count>0,@"Element property should not be empty");
-        
         
     } failure:^(NSError *error) {
         [documentOpenExpectation fulfill];

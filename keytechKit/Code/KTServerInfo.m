@@ -108,17 +108,17 @@ static KTServerInfo *_sharedServerInfo;
                    [self.keyValueList addObjectsFromArray:mappingResult.array];
                    
                    // Key Value liste austauschen
-                   _keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
-                   _isLoaded = YES;
-                   _isLoading = NO;
+                   self->_keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
+                   self->_isLoaded = YES;
+                   self->_isLoading = NO;
                    
                    if (success) {
                        success(self);
                    }
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   _isLoaded = NO;
-                   _isLoading = NO;
+                   self->_isLoaded = NO;
+                   self->_isLoading = NO;
                     NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
                    
                    if (failure) {
@@ -143,12 +143,12 @@ static KTServerInfo *_sharedServerInfo;
         [manager getObject:nil path:@"serverinfo" parameters:nil
                    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                        // Key Value liste austauschen
-                    _keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
-                       _isLoaded = YES;
-                       _isLoading = NO;
+                       self->_keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
+                       self->_isLoaded = YES;
+                       self->_isLoading = NO;
                    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                       _isLoaded = NO;
-                       _isLoading = NO;
+                       self->_isLoaded = NO;
+                       self->_isLoading = NO;
                    }];
 
         
