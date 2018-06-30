@@ -165,10 +165,6 @@ static NSDictionary *_classTypes;
     return [self.description isEqualToString:aString];
 }
 
--(NSString *)description {
-    return self.classDisplayname;
-}
-
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -178,8 +174,13 @@ static NSDictionary *_classTypes;
     return self;
 }
 
--(NSString *)debugDescription {
-    return [NSString stringWithFormat:@"%@: %@",self.classKey, self.classDisplayname];
+-(instancetype)initWithClassKey:(NSString*)classKey {
+    self = [super init];
+    if (self) {
+         self.classVersion = [KTClass version];
+        self.classKey = classKey;
+    }
+    return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -242,6 +243,17 @@ static NSDictionary *_classTypes;
 -(NSString *)largeClassImageURL {
     return [NSString stringWithFormat:@"classes/%@/largeImage",self.classKey];
 }
+
+//Helps debugging output
+-(NSString*)description{
+    return [NSString stringWithFormat:@"key: %@",self.classKey];
+}
+
+-(NSString *)debugDescription{
+    return [NSString stringWithFormat:@"Key: %@, Description: %@",self.classKey,self.classDisplayname];
+}
+
+
 @end
 
 
