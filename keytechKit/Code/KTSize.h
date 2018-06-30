@@ -23,11 +23,11 @@
 -(void)encodeWithCoder:(NSCoder *)aCoder;
 -(instancetype)initWithCoder:(NSCoder *)aDecoder;
 
-
 /**
  The height in points
  */
 @property (nonatomic) NSInteger height;
+
 /**
  The width in points
  */

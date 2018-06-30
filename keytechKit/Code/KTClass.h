@@ -5,6 +5,7 @@
 //  Created by Thorsten Claus on 01.03.14.
 //  Copyright (c) 2017 Claus-Software. All rights reserved.
 //
+
 /**
  Represents a keytech class with its definition and all assign attributes.
  Every element lives in a class of a distinct type. A Class has properties which describes ist behavior. 
@@ -19,7 +20,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface KTClass : NSObject <NSCoding>
-
 
 /**
  Provides the object Mapping for this class and given objectManager

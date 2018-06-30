@@ -32,8 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
  Represents the controlname. In each layout a controlname must be unique
  */
 @property (nonatomic,copy) NSString* controlName;
+
 /**
- Represents the name of the underlying attribute. Only data controls are attached to a attribute. 
+ Represents the name of the underlying attribute. Only data controls are attached to a attribute.
  Label controls are normaly loose coupled and this property is empty or nil
  */
 @property (nonatomic,copy) NSString* controlAttributeName;
@@ -56,32 +57,30 @@ NS_ASSUME_NONNULL_BEGIN
  Returns YES if this textfield can be empty. A non nullable field should be rejected after user editing
  */
 @property (nonatomic) BOOL isNullable;
+
 /**
-A value of true indicates an editable field
+ A value of true indicates an editable field
  */
 @property (nonatomic) BOOL isEditable;
 
-
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 /**
-Returns position and size as rect-Structure. Measurement is same as in keytech provided.
+ Returns position and size as rect-Structure. Measurement is same as in keytech provided.
  */
 @property (nonatomic,readonly) NSRect rect;
+
 #else
-    @property (nonatomic,readonly) CGRect rect;
+@property (nonatomic,readonly) CGRect rect;
 #endif
 
 @property (nonatomic,strong) KTPosition* controlPosition;
 @property (nonatomic) NSInteger controlSequence; // Reihenfolge in der Anzeige
-
 
 /**
  Returns or sets the NStextAlignment enum for correct alignment in Views.
  see controlAlignment
  */
 @property (nonatomic) CTTextAlignment textAlignment;
-
-
 
 @end
 

@@ -13,19 +13,16 @@
 
 RKObjectMapping *_mapping;
 
-
-+(RKObjectMapping*)mapping{
++(RKObjectMapping*)mapping {
     
     if (!_mapping){
-    
+        
         RKObjectMapping *_mapping = [RKObjectMapping mappingForClass:[KTSimpleKeyValuePair class]];
         [_mapping addAttributeMappingsFromDictionary:@{
-                                                  @"Key":@"itemKey",
-                                                  @"ElementKey":@"itemValue"
-                                                  }];
-    
+                                                       @"Key":@"itemKey",
+                                                       @"ElementKey":@"itemValue"
+                                                       }];
     }
-    
     return _mapping;
 }
 @end

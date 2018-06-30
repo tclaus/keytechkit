@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
- Creates a new note item to be attached under this element 
+ Creates a new note item to be attached under this element
  @param elementkey The element key on which the note is attached
  */
 +(instancetype)noteItemForElementKey:(NSString*)elementkey;
@@ -37,13 +37,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic) NSInteger noteID;
 /**
- keyvalue of this notetype.      
+ keyvalue of this notetype.
  */
 @property (nonatomic,copy) NSString* noteType;
 /**
  Main text of the note
  */
 @property (nonatomic,copy) NSString* noteText;
+
 /**
  Subjectline of the note
  */
@@ -58,22 +59,27 @@ NS_ASSUME_NONNULL_BEGIN
  Date of last change
  */
 @property (nonatomic,copy) NSDate* noteChangedAt;
+
 /**
  Short name (key) of who did last change
  */
 @property (nonatomic,copy) NSString* noteChangedBy;
+
 /**
  Full name of who did last changed this note
  */
 @property (nonatomic,copy) NSString* noteChangedByLong;
+
 /**
  Date of creation
  */
 @property (nonatomic,copy) NSDate* noteCreatedAt;
+
 /**
  Short name (key) of creator
  */
 @property (nonatomic,copy) NSString* noteCreatedBy;
+
 /**
  Long name of creator
  */

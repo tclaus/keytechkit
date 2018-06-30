@@ -20,34 +20,39 @@
 
 @end
 
-@implementation KTElement{
+@implementation KTElement {
 @private
     
     /// Notifies about loading in process
     BOOL _isStatusHistoryLoading;
     
     BOOL _isStructureListLoaded;
+    
     /// Notifies about loading in process
     BOOL _isItemFileslistLoading;
+    
     /// Notifies about loading in process
     BOOL _isItemNotesListLoading;
+    
     /// Is YES if this collection is loaded
     BOOL _isItemThumnailLoaded;
+    
     /// Notifies about loading in process
     BOOL _isItemThumbnailLoading;
+    
     /// Notifies about loading in process
     BOOL _isItemWhereUsedListLoading;
+    
     /// Notifies about loading in process
     BOOL _isItemNextStatesListLoading;
-    /// Notifies about loading in process
     
+    /// Notifies about loading in process
     BOOL _isItemBomListLoading;
     /// Noti
     BOOL _isItemStructureListLoading;
     
     /// Notifies is load is in progress
     BOOL _isItemVersionListLoading;
-    
     
     NSMutableArray *_itemStructureList;
     NSMutableArray *_itemBomList;
@@ -62,7 +67,7 @@
 /// The last used manager for mapping
 static RKObjectManager *usedRKManager;
 
-static NSTimeInterval _thumbnailLoadingTimeout = 4; //* 4 Seconds Timeout for thumbnails
+static NSTimeInterval _thumbnailLoadingTimeout = 4; // 4 Seconds Timeout for thumbnails
 
 static dispatch_queue_t _barrierQueue;
 
@@ -78,7 +83,7 @@ static NSObject* dummy;
 static RKObjectMapping* _mapping;
 
 /// The maximum number of items to be returned in one query
-int maxPagesize=500;
+int maxPagesize = 500;
 
 
 #pragma mark Properties
@@ -105,22 +110,18 @@ int maxPagesize=500;
 
 @synthesize itemThumbnailHint = _itemThumbnailHint;
 
-
 @synthesize keyValueList = _keyValueList;
 
 @synthesize isDeleted = _isDeleted;
 
 
 /// Returns a trimmed item Display name.
--(NSString*)itemDisplayName{
+-(NSString*) itemDisplayName {
     return [_itemDisplayName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
-
-
-
 // Returns the numeric ID
--(int) itemID{
+-(int) itemID {
     NSArray *components=[self.itemKey componentsSeparatedByString:@":"];
     
     if(components.count>=2){
@@ -131,21 +132,20 @@ int maxPagesize=500;
     return -1;
 }
 
--(void)setItemKey:(NSString *)itemKey{
+-(void)setItemKey:(NSString *)itemKey {
     
     // change any % - classtypes to 'default'
     _itemKey = [KTBaseObject normalizeElementKey:itemKey];
-    
 }
 
--(void)setItemClassKey:(NSString *)itemClassKey{
+-(void)setItemClassKey:(NSString *)itemClassKey {
     // Will fail if assigned to a already full Element
     assert(self.itemID == -1);
     
     self.itemKey = itemClassKey;
 }
 
--(NSString*) itemClassKey{
+-(NSString*) itemClassKey {
     NSArray *components=[self.itemKey componentsSeparatedByString:@":"];
     
     if(components.count>=2)
@@ -154,19 +154,18 @@ int maxPagesize=500;
     return self.itemKey;
 }
 
--(NSString*) itemClassType{
+-(NSString*) itemClassType {
     
     if ([self.itemClassKey rangeOfString:@"_MI"].location !=NSNotFound) return @"MI";
     if ([self.itemClassKey rangeOfString:@"_FD"].location !=NSNotFound) return @"FD";
     if ([self.itemClassKey rangeOfString:@"_WF"].location !=NSNotFound) return @"FD";
     
     return @"DO";
-    
 }
 
 
 // Sets the Object mapping for JSON
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (usedRKManager!=manager){
         usedRKManager = manager;
@@ -280,12 +279,9 @@ int maxPagesize=500;
     return _mapping;
 }
 
-
-
-
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 //Multiplattform supportet. Returns thumnail or classicon. Whatever ist implemented
--(NSImage*)itemThumbnail{
+-(NSImage*)itemThumbnail {
     
     if (_isItemThumnailLoaded &! _isItemThumbnailLoading){
         return _itemThumbnail;
@@ -302,9 +298,9 @@ int maxPagesize=500;
         } else {
             return _itemThumbnail;
         }
-    
 }
 #else
+
 //Multiplattform supported. Returns thumbnail or classicon. Whatever ist implemented in keytech basis.
 -(UIImage*)itemThumbnail{
     if (_isItemThumnailLoaded & !_isItemThumbnailLoading){
@@ -320,7 +316,6 @@ int maxPagesize=500;
     }
 }
 #endif
-
 
 -(NSArray*)itemWhereUsedList{
     

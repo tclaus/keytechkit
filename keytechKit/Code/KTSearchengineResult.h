@@ -24,4 +24,5 @@
  The internal Solr ID to uniquely identify the element in the search index.
  */
 @property (nonatomic) NSString *solrIndexID;
+
 @end

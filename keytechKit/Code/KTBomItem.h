@@ -11,7 +11,7 @@
 
 
 /**
- A single bom entry. Contains element data and Bom data. 
+ A single bom entry. Contains element data and Bom data.
  A BOM contains Size, Count, weight and other specific attribute of a specific item.
  */
 @interface KTBomItem : NSObject
@@ -31,8 +31,5 @@
  Contains the full key-value list of all bom attribes, including all element attributes
  */
 @property (readonly)NSMutableArray <KTKeyValue*> * keyValueList;
-
-
-
 
 @end

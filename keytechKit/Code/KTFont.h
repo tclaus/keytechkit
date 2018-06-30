@@ -24,15 +24,19 @@ NS_ASSUME_NONNULL_BEGIN
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder;
+
 -(void)encodeWithCoder:(NSCoder *)aCoder;
+
 /**
  Name of a font. (Arial, Heletica, Sans Srif)
  */
 @property (nonatomic,copy) NSString* fontName;
+
 /**
  Name of a font style (Bold,Italic, underlne)
  */
 @property (nonatomic,copy) NSString* fontStyle;
+
 @property (nonatomic,copy) NSNumber* fontSize;
 
 /**

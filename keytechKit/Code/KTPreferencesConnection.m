@@ -14,20 +14,18 @@
 @synthesize username = _username;
 @synthesize password = _password;
 
-
-
--(NSString*)password{
+-(NSString*)password {
     if(_password == nil){
         _password = @"";
     }
     return _password;
 
 }
--(void)setPassword:(NSString *)password{
+-(void)setPassword:(NSString *)password {
     _password = password;
 }
 
--(instancetype)initWithCoder:(NSCoder *)aDecoder{
+-(instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
         _servername   = [aDecoder decodeObjectForKey:@"servername"];
@@ -38,7 +36,7 @@
 }
 
 
--(void)encodeWithCoder:(NSCoder *)aCoder{
+-(void)encodeWithCoder:(NSCoder *)aCoder {
     // encoden
     [aCoder encodeObject:self.servername forKey:@"servername"];
     [aCoder encodeObject:self.username forKey:@"username"];

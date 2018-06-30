@@ -13,8 +13,7 @@
 
 @implementation KTClass{
     
-    
-    /// Is load in progress
+    /// Is loaded in progress
     BOOL _isSmallClassImageLoading;
     
     // Das Classimage muss geladen werden
@@ -24,10 +23,8 @@
     // (Notification senden?
     // Delegate?
     // KVO ?
-    
-    
-    
 }
+
 @synthesize isSmallClassImageLoaded = _isSmallImageLoaded;
 
 static RKObjectMapping *_mapping = nil;
@@ -35,7 +32,7 @@ static RKObjectManager *_usedManager;
 static NSDictionary *_classTypes;
 
 
-+(NSDictionary*)classApplications{
++(NSDictionary*) classApplications {
     if (!_classTypes) {
         
         // List from K_t_ClassTypes Table
@@ -92,8 +89,6 @@ static NSDictionary *_classTypes;
     return _classTypes;
 }
 
-
-
 +(NSInteger)version{
     return 7; //Incement with every class property change!
 }
@@ -139,10 +134,11 @@ static NSDictionary *_classTypes;
     }
     
     return _mapping;
-    
 }
 
-+(void)loadClassByKey:(NSString*)classKey success:(void (^)(KTClass *))success failure:(void (^)(NSError *))failure{
++(void)loadClassByKey:(NSString*)classKey
+              success:(void (^)(KTClass *))success
+              failure:(void (^)(NSError *))failure {
 
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTClass mappingWithManager:manager];
@@ -163,23 +159,17 @@ static NSDictionary *_classTypes;
                        failure(transcodedError);
                    }
                }];
-    
-    
 }
 
-
--(BOOL)isEqualToString:(NSString*)aString{
+-(BOOL)isEqualToString:(NSString*)aString {
     return [self.description isEqualToString:aString];
-    
 }
 
--(NSString *)description{
+-(NSString *)description {
     return self.classDisplayname;
 }
 
-
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.classVersion = [KTClass version];
@@ -188,13 +178,11 @@ static NSDictionary *_classTypes;
     return self;
 }
 
--(NSString *)debugDescription{
+-(NSString *)debugDescription {
     return [NSString stringWithFormat:@"%@: %@",self.classKey, self.classDisplayname];
 }
 
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
     if (self) {
         
@@ -215,7 +203,7 @@ static NSDictionary *_classTypes;
 }
 
 
--(void)encodeWithCoder:(NSCoder *)aCoder{
+-(void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeInteger:self.classVersion forKey:@"classVersion"];
     
     [aCoder encodeBool:self.classAllowsElementCopy forKey:@"classAllowsElementCopy"];
@@ -230,14 +218,11 @@ static NSDictionary *_classTypes;
     
 }
 
-
 - (NSComparisonResult)localizedCaseInsensitiveCompare:(KTClass *)otherClass {
     return [self.description localizedCaseInsensitiveCompare:otherClass.description];
 }
 
-
-
--( NSString * _Nullable)classApplicationName{
+-( NSString * _Nullable)classApplicationName {
     if (self.classKey) {
         NSCharacterSet *typeDivider = [NSCharacterSet characterSetWithCharactersInString:@"_"];
         
@@ -247,14 +232,14 @@ static NSDictionary *_classTypes;
     return nil;
 }
 
--(NSString *)classType{
+-(NSString *)classType {
     return  [self.classKey ktClassType];
 }
 
--(NSString *)smallClassImageURL{
+-(NSString *)smallClassImageURL {
     return  [NSString stringWithFormat:@"classes/%@/smallImage",self.classKey ];
 }
--(NSString *)largeClassImageURL{
+-(NSString *)largeClassImageURL {
     return [NSString stringWithFormat:@"classes/%@/largeImage",self.classKey];
 }
 @end

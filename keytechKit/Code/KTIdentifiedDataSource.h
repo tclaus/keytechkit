@@ -12,6 +12,7 @@
  Identifies a class to access its members by a identifier property
  */
 @protocol KTIdentifiedDataSource <NSObject>
+
 /**
  Identifies uniqely the object. Should be used to get data from API.
  */

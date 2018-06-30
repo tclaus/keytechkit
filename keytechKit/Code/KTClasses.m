@@ -26,8 +26,7 @@
     return sharedInstance;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _classList = [[NSMutableDictionary alloc]init];
@@ -56,11 +55,9 @@
     
 }
 
--(void)initClassList{
+-(void)initClassList {
     
     // Force a reload in case of a server change
-    
-    
     [KTClasses loadClassListSuccess:^(NSArray<KTClass*> *classList) {
         
         [self->_classList removeAllObjects];
@@ -74,11 +71,10 @@
         self->_isClassListLoading = NO;
     }
      ];
-    
 }
 
-+(void)loadClassListSuccess:(void (^)(NSArray<KTClass*> * classList))success failure:(void (^)(NSError *))failure
-{
++(void)loadClassListSuccess:(void (^)(NSArray<KTClass*> * classList))success
+                    failure:(void (^)(NSError *))failure {
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTClass mappingWithManager:manager];

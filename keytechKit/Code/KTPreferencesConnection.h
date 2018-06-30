@@ -20,10 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
  keytech API host address
  */
 @property (copy) NSString* servername;
+
 /**
  keytech username
  */
 @property (copy) NSString* username;
+
 /**
  keytech users Password
  */

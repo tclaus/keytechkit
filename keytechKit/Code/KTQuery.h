@@ -10,15 +10,11 @@
 #import "KTPagedObject.h"
 #import "KTElement.h"
 
-
-
-
 /**
  Starts a Query to the API by using the search ressouces.
  A simple search can only have a text value or a complex assembled search query on a predicates base.
  */
 @interface KTQuery : NSObject
-
 
 /**
  Starts a query with th given text
@@ -33,8 +29,6 @@
              paged:(KTPagedObject*)pagedObject
            success:(void(^)(NSArray<KTElement*> * results))success
            failure:(void(^)(NSError *error))failure;
-
-
 
 /**
  Starts a query with querytext, and / or fields. One must be not null or both can have a value.
@@ -53,8 +47,6 @@
              paged:(KTPagedObject*)pagedObject
            success:(void(^)(NSArray <KTElement*> * results))success
            failure:(void(^)(NSError *error))failure;
-
-
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 

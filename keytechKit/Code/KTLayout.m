@@ -9,10 +9,8 @@
 #import "KTLayout.h"
 #import "NSString+ClassType.h"
 
-@implementation KTLayout{
-    
+@implementation KTLayout {
 }
-
 
 @synthesize listerLayout =_listerLayout;
 @synthesize editorLayout = _editorLayout;
@@ -20,12 +18,11 @@
 @synthesize classKey = _classKey;
 
 
-+(NSInteger)version{
++(NSInteger)version {
     return 7; // Dev notice: Increment if definition if header changes
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
     if (self) {
         
@@ -37,21 +34,18 @@
     return self;
 }
 
--(void)encodeWithCoder:(NSCoder *)aCoder{
+-(void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeInteger:self.classVersion forKey:@"classVersion"];
     [aCoder encodeObject:self.listerLayout forKey:@"listerLayout"];
     [aCoder encodeObject:self.editorLayout forKey:@"editorLayout"];
     [aCoder encodeObject:self.classKey forKey:@"classKey"];
-
 }
 
--(NSString *)classType{
+-(NSString *)classType {
     return  [self.classKey ktClassType];
 }
 
-
-
--(BOOL)isLoaded{
+-(BOOL)isLoaded {
     
     if ([self.classKey isEqualToString:@"BOM"]) {
         return _listerLayout !=nil;
@@ -59,19 +53,16 @@
         
         return (_listerLayout !=nil && _editorLayout !=nil);
     }
-    
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
-
-            self.classVersion = [KTLayout version];
+        
+        self.classVersion = [KTLayout version];
     }
     return self;
-
+    
 }
-
 
 @end

@@ -15,7 +15,7 @@ static RKObjectMapping *_mapping = nil;
 static RKObjectManager *_usedManager;
 
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
-
+    
     if (_usedManager !=manager){
         _usedManager = manager;
         

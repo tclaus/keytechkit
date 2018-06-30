@@ -14,19 +14,18 @@
 static RKObjectMapping* _mapping = nil; /** contains the mapping*/
 static RKObjectManager *_usedManager;
 
-
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     if (_usedManager !=manager){
         _usedManager = manager;
         
         _mapping = [RKObjectMapping mappingForClass:[KTPermission class]];
         
         [_mapping addAttributeMappingsFromDictionary:@{@"DisplayName":@"displayname",
-                                                      @"PermissionContext":@"permissionContext",
-                                                      @"PermissionKey":@"permissionKey",
-                                                      @"PermissionType":@"permissionType",
-                                                      @"AssignedByMembership":@"isPermissionSetByMembership"
-                                                    }];
+                                                       @"PermissionContext":@"permissionContext",
+                                                       @"PermissionKey":@"permissionKey",
+                                                       @"PermissionType":@"permissionType",
+                                                       @"AssignedByMembership":@"isPermissionSetByMembership"
+                                                       }];
         RKResponseDescriptor *permissionResponse =
         [RKResponseDescriptor responseDescriptorWithMapping:_mapping
                                                      method:RKRequestMethodAny
@@ -36,10 +35,7 @@ static RKObjectManager *_usedManager;
         
         [_usedManager addResponseDescriptor:permissionResponse];
     }
-    
-    
     return _mapping;
-    
 }
 
 @end

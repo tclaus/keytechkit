@@ -40,6 +40,7 @@ The users longname.
  Returns a shared instance of group which represents the 'ALL' group. All is a placeholder for everybody, assigned to all user and group instances.
  */
 +(KTGroup*)groupAll;
+
 /**
  Returns a shared instance of group which represents the 'None' group. None is a placeholder for nobody, not assigned.
  */

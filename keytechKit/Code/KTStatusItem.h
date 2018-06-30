@@ -11,7 +11,7 @@
 
 /**
  Represents a single statusitem. every keytech element miust have a status even no 'statusmanagement' is definied for the element Class. In this Case a element has a staus of value '------' (6 x minus sign).
-  The statusID property may not be localized on server side.
+ The statusID property may not be localized on server side.
  */
 @interface KTStatusItem : NSObject <NSCoding>
 

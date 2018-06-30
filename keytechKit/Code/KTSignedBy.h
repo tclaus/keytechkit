@@ -25,10 +25,12 @@
  Long username og who did sign a status change
  */
 @property (copy) NSString* signedByLong;
+
 /**
  Short (key) username of who did sign
  */
 @property (copy) NSString* signedBy;
+
 /**
  Date of sign.
  */

@@ -15,12 +15,11 @@
 
 @implementation KTQuery
 
-
--(void)queryByText:(NSString *)queryText
-            reload:(BOOL)shouldReload
-             paged:(KTPagedObject *)pagedObject
-           success:(void (^)(NSArray<KTElement*>  *results))success
-           failure:(void(^)(NSError *error))failure{
+-(void)queryByText:(NSString*)queryText
+            reload:(BOOL) shouldReload
+             paged:(KTPagedObject*) pagedObject
+           success:(void (^)(NSArray<KTElement*> *results))success
+           failure:(void(^)(NSError *error))failure {
     
     [self queryByText:queryText
                fields:nil
@@ -31,7 +30,6 @@
               failure:failure];
 }
 
-
 -(void)queryByText:(NSString *)queryText
             fields:(NSArray *)fields
          inClasses:(NSArray *)inClasses
@@ -39,7 +37,6 @@
              paged:(KTPagedObject *)pagedObject
            success:(void (^)(NSArray <KTElement*> *results))success
            failure:(void (^)(NSError *error))failure {
-    
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
@@ -96,7 +93,7 @@
         rpcData[@"size"] = @((int)pagedObject.size);
     }
     
-       [manager getObject:nil path:resourcePath parameters:rpcData
+    [manager getObject:nil path:resourcePath parameters:rpcData
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    
                    // Dont call Block and delegate
@@ -111,25 +108,17 @@
                    if (failure) {
                        failure(transcodedError);
                    }
-                   
                }];
-    
-    
 }
-
-
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 
-
 -(void)queryByPredicate:(NSPredicate*)predicate
-              inClasses:(NSArray*)inClasses
-                 reload:(BOOL)shouldReload
-                  paged:(KTPagedObject*)pagedObject
-                success:(void(^)(NSArray<KTElement*> * results))success
-                failure:(void(^)(NSError *error))failure{
-    
- 
+              inClasses:(NSArray*) inClasses
+                 reload:(BOOL) shouldReload
+                  paged:(KTPagedObject*) pagedObject
+                success:(void(^)(NSArray<KTElement*> *results)) success
+                failure:(void(^)(NSError *error)) failure {
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
@@ -138,7 +127,7 @@
     NSString *resourcePath = @"Search";
     
     // Extract query Data
-    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
+    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init];
     NSString *queryString = [predicate predicateKTQueryText];
     NSString *fieldList = [predicate predicateKTFormat];
     NSString *classtypes = [predicate predicateKTClasstypes];
@@ -166,7 +155,6 @@
         rpcData[@"size"] = @((int)pagedObject.size);
     }
     
-    
     [manager getObject:nil path:resourcePath parameters:rpcData
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    
@@ -182,9 +170,7 @@
                    if (failure) {
                        failure(transcodedError);
                    }
-                   
                }];
-    
 }
 #endif
 
@@ -193,10 +179,7 @@
                     reload:(BOOL)shouldReload
                      paged:(KTPagedObject *)pagedObject
                    success:(void (^)(NSArray <KTElement*> *))success
-                   failure:(void (^)(NSError *))failure
-{
-    
-    
+                   failure:(void (^)(NSError *))failure {
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
@@ -205,7 +188,7 @@
     
     NSString *resourcePath = @"Searchengine";
     
-    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
+    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init];
     
     // If QueryText then ??? Exception ?
     
@@ -247,16 +230,13 @@
                     reload:(BOOL)shouldReload
                      paged:(KTPagedObject *)pagedObject
                    success:(void (^)(NSArray <KTElement*> *))success
-                   failure:(void(^)(NSError *error))failure{
+                   failure:(void(^)(NSError *error))failure {
     
     /// Stats a Search by its queryID
-    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTElement mappingWithManager:[RKObjectManager sharedManager]];
     
-    
     // Creating Query Parameter
-    
     NSString *resourcePath = @"Search";
     
     NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
@@ -277,23 +257,18 @@
                        success(mappingResult.array);
                    }
                    
-                   
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                   
                    // Important: Error handler
-                   
-                   
                    NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
                    
                    if (failure) {
                        failure(transcodedError);
                    }
-                   
                }];
-    
 }
 
-- (NSString *)generateHTMLStringFromString:(NSString*)inString
-{
+- (NSString *)generateHTMLStringFromString:(NSString*)inString {
     
     NSMutableString *mutableString = [inString mutableCopy];
     
@@ -305,7 +280,6 @@
     
     return mutableString;
 }
-
 
 -(void)cancelSearches{
     // TODO: Cancel queries

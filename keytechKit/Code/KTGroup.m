@@ -11,7 +11,7 @@
 #import <RestKit/RestKit.h>
 
 @implementation KTGroup{
-    @private
+@private
     BOOL _isUserListLoaded;
     BOOL _isUserListLoading;
     
@@ -22,13 +22,10 @@ static KTGroup *_groupNone;
 
 @synthesize usersList = _usersList;
 
-
-
 static RKObjectMapping* _mapping = nil; /** contains the mapping*/
 static RKObjectManager *_usedManager;
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _usersList = [[NSMutableArray alloc]init];
@@ -37,28 +34,26 @@ static RKObjectManager *_usedManager;
     return self;
 }
 
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     if (_usedManager !=manager){
         _usedManager = manager;
         
         _mapping = [RKObjectMapping requestMapping];
         [_mapping addAttributeMappingsFromDictionary:@{
-            @"KeyName":@"groupKey",
-            @"LongName":@"groupLongName"
-            }];
+                                                       @"KeyName":@"groupKey",
+                                                       @"LongName":@"groupLongName"
+                                                       }];
         
         [_usedManager addRequestDescriptor:
          [RKRequestDescriptor requestDescriptorWithMapping:_mapping objectClass:[KTGroup class] rootKeyPath:@"MembersList" method:RKRequestMethodAny]];
         
     }
     
-    
     return _mapping;
-    
 }
 
 //Lazy loads a userlist
--(NSMutableArray*)usersList{
+-(NSMutableArray*)usersList {
     if (_isUserListLoaded &!_isUserListLoading) {
         return _usersList;
     } else {
@@ -69,11 +64,11 @@ static RKObjectManager *_usedManager;
 }
 
 /// Returns the uniue Group name. (included the grp_ prefixx)
--(NSString*)identifier{
+-(NSString*)identifier {
     return _groupKey;
 }
 
-+(KTGroup*)groupAll{
++(KTGroup*)groupAll {
     if(!_groupAll){
         _groupAll = [[KTGroup alloc]init];
         _groupAll.groupKey = @"ALL";
@@ -83,7 +78,7 @@ static RKObjectManager *_usedManager;
     return _groupAll;
 }
 
-+(KTGroup*)groupNone{
++(KTGroup*)groupNone {
     if(!_groupNone){
         _groupNone = [[KTGroup alloc]init];
         _groupNone.groupKey = @"NONE";

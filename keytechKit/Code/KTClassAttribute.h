@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  In case the attributeType is a text based type this is the maximum charcter count
  */
 @property (nonatomic) int attributeLength;
+
 /**
  A text representation of the attribute type:s TEXT, CHECK, DATE, INTEGER, DOUBLE.
  */
@@ -59,6 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
  If YES this attribute can be used in classlayouts
  */
 @property (nonatomic) BOOL isLayoutRelevant;
+
 /**
  If YES this attribute can be used in titleblocks. To store file related information
  */

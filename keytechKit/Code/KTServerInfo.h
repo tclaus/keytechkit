@@ -15,6 +15,7 @@
  This class must be used as a singelton class
  */
 @interface KTServerInfo : NSObject
+
 /**
  Provides the object Mapping for this class and given objectManager
  @param manager A shared RKObjectmanager that contains the connection data to the API
@@ -68,7 +69,7 @@
 @property (readonly) NSString* licencedCompany;
 
 /**
- Loads the current Serverinfo with globally set ServerURL. 
+ Loads the current Serverinfo with globally set ServerURL.
  Waits until server responds.
  */
 +(instancetype)serverInfo;

@@ -10,12 +10,12 @@
 #import "KTKeyValue.h"
 #import <RestKit/RestKit.h>
 
-
 @implementation KTBomItem{
     // Make a dictionary-Helper
     NSMutableDictionary* keyValues;
-
+    
 }
+
 // Mapping for Class
 static RKObjectMapping* _mapping;
 static RKObjectManager *_usedManager;
@@ -24,7 +24,7 @@ static RKObjectManager *_usedManager;
 @synthesize element = _element;
 
 // Sets the Object mapping for JSON
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (_usedManager !=manager){
         _usedManager = manager;
@@ -50,19 +50,14 @@ static RKObjectManager *_usedManager;
                                                       method:RKRequestMethodAny
                                                       pathPattern:nil keyPath:@"BomElementList" statusCodes:statusCodes];
         
-        
         [_usedManager addResponseDescriptorsFromArray:@[ bomElementDescriptor ]];
-        
-        
     }
     
     return _mapping;
 }
 
-
--(id)valueForKey:(NSString *)key{
+-(id)valueForKey:(NSString *)key {
     
-
     if (!self.keyValueList)
         return @"";
     
@@ -80,23 +75,15 @@ static RKObjectManager *_usedManager;
                 continue;
             }
             
-            
-            
             [keyValues setValue:keyValue.value forKey:keyValue.key];
         }
     }
+    
     // Important: keep dictiony synchron with Data
     return keyValues[key];
-    
 }
 
-
-
-
-
-
-
--(NSString *)description{
+-(NSString *)description {
     // Wird hier zu früh abgeholt
     return [NSString stringWithFormat:@"MI Name = %@",[self valueForKey:@"as_mi__name"]];
 }

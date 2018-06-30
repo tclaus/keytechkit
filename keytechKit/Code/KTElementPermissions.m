@@ -13,7 +13,7 @@
 static RKObjectMapping* _mapping;
 static RKObjectManager *_usedManager;
 
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (_usedManager !=manager){
         _usedManager = manager;
@@ -24,31 +24,31 @@ static RKObjectManager *_usedManager;
         
         RKObjectMapping *permissionMapping = [RKObjectMapping mappingForClass:[KTElementPermissionList class]];
         [permissionMapping addAttributeMappingsFromDictionary:@{@"AllowShowElement":@"allowShowElement",
-                                                               @"AlloModifyElement":@"allowModifyElement",
-                                                               @"AllowDeleteElement":@"allowDeleteElement",
-                                                               @"AllowLinkElement":@"allowLinkElement",
-                                                               @"AllowChangeStatus":@"allowChangeStatus",
-                                                               @"AllowReserveElement":@"allowReserveElement",
-                                                               @"AllowUnreserveElement":@"allowUnreserveElement",
-                                                               @"AllowCreateLink":@"allowCreateLink",
-                                                               @"AllowDeleteLink":@"allowDeleteLink"
-                                                               }];
+                                                                @"AlloModifyElement":@"allowModifyElement",
+                                                                @"AllowDeleteElement":@"allowDeleteElement",
+                                                                @"AllowLinkElement":@"allowLinkElement",
+                                                                @"AllowChangeStatus":@"allowChangeStatus",
+                                                                @"AllowReserveElement":@"allowReserveElement",
+                                                                @"AllowUnreserveElement":@"allowUnreserveElement",
+                                                                @"AllowCreateLink":@"allowCreateLink",
+                                                                @"AllowDeleteLink":@"allowDeleteLink"
+                                                                }];
         // Map the permissionlist to this object
         [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"Permissions"
-                                                                                toKeyPath:@"permissions"
-                                                                              withMapping:permissionMapping]];
+                                                                                 toKeyPath:@"permissions"
+                                                                               withMapping:permissionMapping]];
         
         
         
         
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
         RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor
-                                                         responseDescriptorWithMapping:_mapping
-                                                         method:RKRequestMethodGET
-                                                         pathPattern:@"user/:userKey/permissions/element/:elementKey"
+                                                    responseDescriptorWithMapping:_mapping
+                                                    method:RKRequestMethodGET
+                                                    pathPattern:@"user/:userKey/permissions/element/:elementKey"
                                                     keyPath:nil
                                                     statusCodes:statusCodes];
-
+        
         
         [manager addResponseDescriptor:responseDescriptor];
         
@@ -61,8 +61,7 @@ static RKObjectManager *_usedManager;
     }
     return _mapping;
 }
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.userKey = @"jgrant";
@@ -70,7 +69,10 @@ static RKObjectManager *_usedManager;
     return self;
 }
 
-+(void)loadWithElementKey:(NSString *)elementKey success:(void (^)(KTElementPermissions *))success failure:(void (^)(NSError *))failure {
++(void)loadWithElementKey:(NSString *)elementKey
+                  success:(void (^)(KTElementPermissions *))success
+                  failure:(void (^)(NSError *))failure {
+    
     [KTElementPermissions loadWithElementKey:elementKey
                              childElementkey:nil
                                      success:success
@@ -82,7 +84,7 @@ static RKObjectManager *_usedManager;
           childElementkey:(NSString *)childElementKey
                   success:(void (^)(KTElementPermissions *))success
                   failure:(void (^)(NSError *))failure {
-
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     [KTElementPermissions mappingWithManager:manager];
@@ -94,8 +96,6 @@ static RKObjectManager *_usedManager;
     if (childElementKey) {
         parameters = @{@"childElementKey":childElementKey};
     }
-    
-    
     
     [manager getObject:thePermission
                   path:nil

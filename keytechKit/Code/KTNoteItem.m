@@ -16,10 +16,7 @@
 static RKObjectMapping* _mapping;
 static RKObjectManager *_usedManager;
 
-
-
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         
@@ -27,11 +24,10 @@ static RKObjectManager *_usedManager;
     return self;
 }
 
-
 /**
  Sets the object mapping
  */
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (_usedManager !=manager){
         _usedManager = manager;
@@ -57,11 +53,8 @@ static RKObjectManager *_usedManager;
                                                  @"CreatedByLong":@"noteCreatedByLong"
                                                  };
 
-        
-        
         [_mapping addAttributeMappingsFromDictionary:noteResponseAttributes];
 
-        
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
         RKResponseDescriptor *notesResponseDescriptor = [RKResponseDescriptor
                                                          responseDescriptorWithMapping:_mapping
@@ -77,8 +70,6 @@ static RKObjectManager *_usedManager;
                                                       objectClass:[KTNoteItem class]
                                                       rootKeyPath:nil
                                                       method:RKRequestMethodPOST| RKRequestMethodPUT];
-        
-        
         
         [manager.router.routeSet addRoute:[RKRoute
                                            routeWithClass:[KTNoteItem class]
@@ -110,8 +101,8 @@ static RKObjectManager *_usedManager;
 }
 
 
--(void)deleteNote:(void (^)(void))success failure:(void (^)(KTNoteItem *, NSError *))failure {
-    
+-(void)deleteNote:(void (^)(void))success
+          failure:(void (^)(KTNoteItem *, NSError *))failure {
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
@@ -132,11 +123,10 @@ static RKObjectManager *_usedManager;
              failure(self,transcodedError);
          }
      }];
-    
 }
 
--(void)saveNote:(void (^)(KTNoteItem *))success failure:(void (^)(KTNoteItem *, NSError *))failure {
-    
+-(void)saveNote:(void (^)(KTNoteItem *))success
+        failure:(void (^)(KTNoteItem *, NSError *))failure {
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
@@ -167,8 +157,8 @@ static RKObjectManager *_usedManager;
                     
                 }];
     } else {
-        // Update an existing one
         
+        // Update an existing one
         [manager putObject:self
                        path:nil
                  parameters:nil
@@ -183,12 +173,8 @@ static RKObjectManager *_usedManager;
                         if (failure) {
                             failure(self,transcodedError);
                         }
-                        
                     }];
-        
     }
-    
-        
 }
 
 

@@ -9,8 +9,7 @@
 #import "KTSimpleControl.h"
 #import <RestKit/RestKit.h>
 
-
-@implementation KTSimpleControl{
+@implementation KTSimpleControl {
     
     /// Provides the API value for the control alignment
     NSString* _controlAlignmentIntern;
@@ -27,13 +26,11 @@
 @synthesize rect = _rect;
 @synthesize textAlignment = _textAlignment;
 
-
-
 static RKObjectMapping* _mapping = nil;
 static RKObjectManager*_usedManager;
 
 // Sets the mapping
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (_usedManager !=manager){
         _usedManager = manager;
@@ -51,7 +48,6 @@ static RKObjectManager*_usedManager;
                                                        @"IsNullable":@"isNullable"
                                                        }];
         
-        
         [_mapping addPropertyMapping:
          [RKRelationshipMapping relationshipMappingFromKeyPath:@"Position" toKeyPath:@"controlPosition" withMapping:[KTPosition mappingWithManager:manager]]];
         [_mapping addPropertyMapping:
@@ -64,15 +60,13 @@ static RKObjectManager*_usedManager;
         RKResponseDescriptor *simpleControlDescriptor =  [RKResponseDescriptor responseDescriptorWithMapping:_mapping
                                                                                                       method:RKRequestMethodAny pathPattern:nil keyPath:@"DesignerControls" statusCodes:statusCodes];
         
-        
         [[RKObjectManager sharedManager]addResponseDescriptor:simpleControlDescriptor];
-        
     }
     
     return _mapping;
 }
 
--(void)encodeWithCoder:(NSCoder *)aCoder{
+-(void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:_controlAlignmentIntern forKey:@"controlAlignment"];
     [aCoder encodeObject:self.controlAttributeName forKey:@"controlAttributeName"];
     [aCoder encodeObject:self.controlDisplayName forKey:@"controlDisplayName"];
@@ -85,11 +79,9 @@ static RKObjectManager*_usedManager;
     [aCoder encodeObject:self.defaultValue forKey:@"defaultValue"];
     [aCoder encodeBool:self.isEditable forKey:@"isEditable"];
     [aCoder encodeBool:self.isNullable forKey:@"isNullable"];
-    
-    
 }
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
     if (self) {
         _controlAlignmentIntern = [coder decodeObjectForKey:@"controlAlignment"];
@@ -104,15 +96,12 @@ static RKObjectManager*_usedManager;
         self.defaultValue =[coder decodeObjectForKey:@"defaultValue"];
         self.isNullable = [coder decodeBoolForKey:@"isNullable"];
         self.isEditable = [coder decodeBoolForKey:@"isEditable"];
-        
     }
     return self;
 }
 
-
-
 // Gets the api valuestring for the alignment
--(void)setControlAlignmentIntern:(NSString*)value{
+-(void)setControlAlignmentIntern:(NSString*)value {
     _controlAlignmentIntern = [value copy];
 }
 
@@ -120,7 +109,7 @@ static RKObjectManager*_usedManager;
 /**
  Returns the NSTextAlignment enum for correct behavior in Views.
  */
--(CTTextAlignment)textAlignment{
+-(CTTextAlignment)textAlignment {
     
     NSString *alignmentString = _controlAlignmentIntern.uppercaseString;
     
@@ -131,6 +120,7 @@ static RKObjectManager*_usedManager;
     if ([alignmentString isEqualToString:@"CENTER"]){ // from keytech API: Center
         return kCTTextAlignmentCenter;
     }
+    
     if ([alignmentString isEqualToString:@"RIGHT"]){ // from keytech API: Right
         return kCTTextAlignmentRight;
     }
@@ -139,17 +129,15 @@ static RKObjectManager*_usedManager;
     return kCTTextAlignmentNatural;
 }
 
-
-
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 // Returns a rect structure to describe the boundaries of this control
--(NSRect)rect{
+-(NSRect)rect {
     NSRect bounds= NSMakeRect(self.controlPosition.x, self.controlPosition.y, self.controlSize.width, self.controlSize.height);
     return bounds;
 }
 #else
 // Returns a rect structure to describe the boundaries of this control
--(CGRect)rect{
+-(CGRect)rect {
     //TODO: Return a rect structure
     //Rect bounds= NSMakeRect(self.controlPosition.x, self.controlPosition.y, self.controlSize.width, self.controlSize.height);
     CGRect bounds = CGRectMake(self.controlPosition.x, self.controlPosition.y, self.controlSize.width, self.controlSize.height);

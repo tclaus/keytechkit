@@ -17,9 +17,7 @@ static RKObjectMapping *_requestMapping;
 
 static RKObjectManager *_usedManager;
 
-
-
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (_usedManager !=manager) {
         _usedManager = manager;
@@ -33,14 +31,14 @@ static RKObjectManager *_usedManager;
         
         RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor
                                                     responseDescriptorWithMapping:_mapping
-                                                                         method:RKRequestMethodGET pathPattern:nil keyPath:@"KeyValueList"
+                                                    method:RKRequestMethodGET pathPattern:nil keyPath:@"KeyValueList"
                                                     statusCodes:nil];
-       
+        
         RKRequestDescriptor *requestDescriptor = [RKRequestDescriptor
                                                   requestDescriptorWithMapping:[_mapping inverseMapping]
-                                                                objectClass:[KTKeyValue class]
-                                                                rootKeyPath:nil
-                                                                method:RKRequestMethodPOST|RKRequestMethodPUT];
+                                                  objectClass:[KTKeyValue class]
+                                                  rootKeyPath:nil
+                                                  method:RKRequestMethodPOST|RKRequestMethodPUT];
         
         
         RKResponseDescriptor *serverkeyValues = [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny pathPattern:nil keyPath:@"ServerInfoResult" statusCodes:nil];
@@ -56,19 +54,20 @@ static RKObjectManager *_usedManager;
 }
 
 /// Returns teh Value as a datetype
--(NSDate*)valueAsDate{
+-(NSDate*)valueAsDate {
     return [KTKeyValue dateFromJSONString:self.value];
 }
 
 
 /// Returns the actual value as a bool type.
--(BOOL)valueAsBool{
+-(BOOL)valueAsBool {
     if ([self.value isEqualToString:@"true"] ||
         [self.value isEqualToString:@"yes"] )
         //||                ![value isEqualToNumber:[NSNumber numberWithInt:0]]
     {
         return YES;
     }
+    
     if ([self.value isEqualToString:@"false"] ||
         [self.value isEqualToString:@"no"] )
         //||                ![value isEqualToNumber:[NSNumber numberWithInt:0]]
@@ -80,12 +79,10 @@ static RKObjectManager *_usedManager;
     return NO;
 }
 
-
 /**
  Tests for date occurence in JSON value. Returns nil if not convertible.
  */
-+ (NSDate* _Nullable) dateFromJSONString:(NSString *)dateString
-{
++ (NSDate* _Nullable) dateFromJSONString:(NSString *)dateString {
     if ([dateString rangeOfString:@"/Date("].location  == NSNotFound) return nil;
     
     NSCharacterSet *charactersToRemove = [ NSCharacterSet decimalDigitCharacterSet ].invertedSet ;
@@ -98,7 +95,7 @@ static RKObjectManager *_usedManager;
     return nil;
 }
 
--(NSString *)debugDescription{
+-(NSString *)debugDescription {
     return [NSString stringWithFormat:@"KEY:%@ VALUE:%@",self.key,self.value];
 }
 

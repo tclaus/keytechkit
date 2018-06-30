@@ -17,14 +17,14 @@
 /**
  This is the main object that descibes a data part in the keytech world.
  Provides the object representation for keytech element classes. Can be a document, folder or masteritem.
- Every element can have some more proerties like its child elements (stucture), its parent elements (whereused), notes, files and so on. 
+ Every element can have some more proerties like its child elements (stucture), its parent elements (whereused), notes, files and so on.
  Not every element can or will have every poissible sub parts.
  */
 @interface KTElement :  NSObject
 
 /**
-  A list of types to request the attributes of an element. 
-  Every is presented by a minimal set of descriptive propertiers. With this enum some more or even all attributes will be returned by a server request
+ A list of types to request the attributes of an element.
+ Every is presented by a minimal set of descriptive propertiers. With this enum some more or even all attributes will be returned by a server request
  
  - none : Only the minimal set of descriptive attributes are returned
  - fullAttributes: Every attribute of this element will returned in the keyValue list
@@ -69,20 +69,24 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
  Unique item name
  */
 @property (nonatomic,copy) NSString* itemName;
+
 /**
  The displayname is a assembled name defined by the keytech API. It may contains the name, version, description and any other information about this
  element.
  You can not change this displaystring.
  */
 @property (nonatomic,copy) NSString* itemDisplayName;
+
 /**
  Main item Description as provided by the description field
  */
 @property (nonatomic,copy) NSString* itemDescription;
+
 /**
  Name (uniqueID) of the current state. You can not set a items state by simply set this property.
  */
 @property (nonatomic,copy) NSString* itemStatus;
+
 /**
  Localized name of the elements class.
  */
@@ -92,11 +96,13 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
  The nummeric ID of this element.
  */
 @property(readonly) int itemID;
+
 /**
  The full elementkey in notation ClassKey:ElementID.
  If this is a new element and still not saved through the API there is no nummeric elementid but only the the ClassKey
  */
 @property (nonatomic,copy) NSString* itemKey; // ClassKey:ID   SLDRW_3dMISC:1234
+
 /**
  The classkey is the elementkey without the identifier. In type of <ClassLabel>_<ClassType> like: 3DSLD_DRW.
  */
@@ -117,10 +123,12 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
  A shortcut to detect any versions of this element without make a query.
  */
 @property (readonly) BOOL hasVersions;
+
 /**
  Returns a list of element recent versions
  */
 @property (readonly,strong) NSArray *itemVersionsList;
+
 /**
  If yes then the list ist full loaded
  */
@@ -135,8 +143,9 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
  Versionstring of current element Version
  */
 @property (nonatomic,strong) NSString* itemVersion;
+
 /**
- Returns a list of all element attributes as a key value list. 
+ Returns a list of all element attributes as a key value list.
  You can set the attribute list by set the KTResponseAttributes property while loading or reloading this element
  */
 @property (nonatomic,strong) NSMutableArray <KTKeyValue*> * keyValueList;
@@ -165,15 +174,14 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
 
 /**
  Starts loading the list of child elements
- @param page The page with a given size. 
+ @param page The page with a given size.
  @param size The count of elements wothin a page
  @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
 -(void)loadStructureListPage:(int)page withSize:(int)size
-                 success:(void(^)(NSArray<KTElement*> * itemsList))success
-                 failure:(void(^)(NSError *error))failure;
-
+                     success:(void(^)(NSArray<KTElement*> * itemsList))success
+                     failure:(void(^)(NSError *error))failure;
 
 /**
  Returns the bill of material if this element is of type 'masteritem'. Returns an empty list if not loaded.
@@ -194,8 +202,8 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
  @param failure Will be called in case of any error
  */
 -(void)loadBomListPage:(int)page withSize:(int)size
-                 success:(void(^)(NSArray* itemsList))success
-                 failure:(void(^)(NSError *error))failure;
+               success:(void(^)(NSArray* itemsList))success
+               failure:(void(^)(NSError *error))failure;
 
 /**
  Loads the list of parent elements of structure.
@@ -212,8 +220,8 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
  @param failure Will be called in case of any error
  */
 -(void)loadWhereUsedListPage:(int)page withSize:(int)size
-                 success:(void(^)(NSArray <KTElement*> * itemsList))success
-                 failure:(void(^)(NSError *error))failure;
+                     success:(void(^)(NSArray <KTElement*> * itemsList))success
+                     failure:(void(^)(NSError *error))failure;
 /**
  Starts loading the status history.
  @param success Will be called when request responds successfully
@@ -228,11 +236,11 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
  @param failure Will be called in case of any error
  */
 -(void)loadNextAvailableStatusListSuccess:(void(^)(NSArray <NSString*> * itemsList))success
-                            failure:(void(^)(NSError *error))failure;
+                                  failure:(void(^)(NSError *error))failure;
 
 /**
  Starts loading the list of notes attached to this element.
-  @param success Will be called when request responds successfully
+ @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
 -(void)loadNotesListSuccess:(void(^)(NSArray <KTNoteItem*> * itemsList))success
@@ -247,17 +255,17 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
 
 /**
  Starts loading the list of recent versions
-  @param success Will be called when request responds successfully
+ @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
 -(void)loadVersionListSuccess:(void(^)(NSArray <KTElement*> * itemsList))success
-                   failure:(void(^)(NSError *error))failure;
+                      failure:(void(^)(NSError *error))failure;
 
 /**
  Adds a link for this element and makes it a chil of the linked element
-@param linkToElementKey Adds this element to the element with this key. Keep in mind that the API will make checks if you are allowed to link this element to this type of parent.
-@param success Will be called when request responds successfully
-@param failure Will be called in case of any error
+ @param linkToElementKey Adds this element to the element with this key. Keep in mind that the API will make checks if you are allowed to link this element to this type of parent.
+ @param success Will be called when request responds successfully
+ @param failure Will be called in case of any error
  */
 -(void)addLinkTo:(NSString*)linkToElementKey success:(void(^)(KTElement *elementLink))success
          failure:(void(^)(NSError* error))failure;
@@ -271,18 +279,16 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
 -(void)removeLinkTo:(NSString*)linkToElementKey success:(void(^)(void))success
             failure:(void(^)(NSError* error))failure;
 
-
-
 /**
  Returns the masterfile object of applicable
  */
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) KTFileInfo *masterFile;
+
 /**
  Returny the attached filelist. If not currentlty loaded a request starts.
  */
 @property (readonly,strong) NSMutableArray <KTFileInfo*> * itemFilesList; // Nur bei Dokumente!
 @property (readonly) BOOL isFilesListLoaded;
-
 
 /**
  Loads a list of states to which this element can be set.
@@ -309,7 +315,7 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 @property (readonly,nonatomic,copy) NSImage* itemThumbnail; // Versucht, zu diesem Element ein Thumbnail zu laden
 #else
-  @property (readonly,nonatomic,copy) UIImage* itemThumbnail; // Versucht, zu diesem Element ein Thumbnail zu laden
+@property (readonly,nonatomic,copy) UIImage* itemThumbnail; // Versucht, zu diesem Element ein Thumbnail zu laden
 #endif
 
 /// Removes an already loaded thumbnail from cache;
@@ -317,10 +323,10 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
 
 /**
  Returns the API URL of the file with the given ID
- If a clinet wants to load the file directly - here is the URL to start loading. 
- You must create a request header by your own. 
+ If a clinet wants to load the file directly - here is the URL to start loading.
+ You must create a request header by your own.
  @param fileID The nummeric fileID for a file attached to this element
-
+ 
  */
 -(NSString*)fileURLOfFileID:(int)fileID;
 
@@ -384,10 +390,10 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
 +(void)loadElementWithKey:(NSString *)elementKey withMetaData:(KTResponseAttributes)metadata
                   success:(void (^)(KTElement *theElement))success
                   failure:(void(^)(NSError *error))failure;
-                                                                                                                                                       
+
 /**
  Deletes this element from keytech API
-  @param success Will be called when request responds successfully
+ @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
 -(void)deleteItem:(void (^)(KTElement *element))success
@@ -395,12 +401,12 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
 
 /**
  Saves this element to API. If this is a new element a new one will be created
-  @param success Will be called when request responds successfully
+ @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
 -(void)saveItem:(void (^)(KTElement *element))success
-                 failure:(void (^)(NSError *error))failure;
-                 
+        failure:(void (^)(NSError *error))failure;
+
 
 /**
  Refreshes this instance immediatley by loading from API
@@ -413,9 +419,9 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
 /**
  Refreshes this instance immediatley by loading from API
  @param metadata A set of attributes that will be returned
-  @param success Will be called when request responds successfully
+ @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
-
+ 
  */
 -(void)reload:(KTResponseAttributes)metadata success:(void(^)(KTElement *element))success
       failure:(void (^)(NSError *error))failure;
@@ -423,14 +429,14 @@ typedef NS_ENUM(NSUInteger, KTResponseAttributes) {
 /**
  Moves the element to a new target class
  @param targetClassKey The target Class to that the element will be moved.
-  @param success Will be called when request responds successfully
+ @param success Will be called when request responds successfully
  @param failure Will be called in case of any error
  */
 -(void)moveToClass:(NSString*)targetClassKey success:(void(^)(NSString *newElementkey))success
            failure:(void(^)(NSError *error))failure;
 
 /**
- Sets a Reserved / Unreserverd status. Only elements of type document can be reserverd. 
+ Sets a Reserved / Unreserverd status. Only elements of type document can be reserverd.
  If a element is reserverd by others, no file operations are allowed.
  @param newReserveStatus Set ti true or false to set or release a reserved status.
  @param success Will be called when request responds successfully

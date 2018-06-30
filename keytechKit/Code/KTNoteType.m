@@ -13,27 +13,25 @@
 static RKObjectMapping* _mapping;
 static RKObjectManager *_usedManager;
 
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (_usedManager !=manager){
         _usedManager = manager;
         
         _mapping = [RKObjectMapping mappingForClass:[KTNoteType class]];
-    
+        
         
         NSDictionary *noteTypeResponseAttributes = @{@"ID":@"noteTypeID",
-                                                 @"AllowModify":@"allowModify",
-                                                 @"PostItType":@"isPostItType",
-                                                 @"Displaytext":@"displaytext",
-                                                 @"IsFolderInfo":@"isFolderInfo",
-                                                 @"IsMasteritemInfo":@"isMasteritemInfo",
-                                                 @"IsDocumentInfo":@"isDocumentInfo",
-                                                 @"IsSystemInfo":@"isSystemInfo",
-                                                 @"ShouldCopyOnElementCopy":@"shouldCopyOnElementCopy",
-                                                 @"ShouldCopyOnNewVersion":@"shouldCopyOnNewVersion"
-                                                 };
-        
-        
+                                                     @"AllowModify":@"allowModify",
+                                                     @"PostItType":@"isPostItType",
+                                                     @"Displaytext":@"displaytext",
+                                                     @"IsFolderInfo":@"isFolderInfo",
+                                                     @"IsMasteritemInfo":@"isMasteritemInfo",
+                                                     @"IsDocumentInfo":@"isDocumentInfo",
+                                                     @"IsSystemInfo":@"isSystemInfo",
+                                                     @"ShouldCopyOnElementCopy":@"shouldCopyOnElementCopy",
+                                                     @"ShouldCopyOnNewVersion":@"shouldCopyOnNewVersion"
+                                                     };
         
         [_mapping addAttributeMappingsFromDictionary:noteTypeResponseAttributes];
         
@@ -43,16 +41,14 @@ static RKObjectManager *_usedManager;
                                                          method:RKRequestMethodGET
                                                          pathPattern:@"notetypes" keyPath:@"Notetypes" statusCodes:statusCodes];
         
-        
-        
         [_usedManager addResponseDescriptor:notesResponseDescriptor];
-
-        
     }
     return _mapping;
 }
 
-+(void)loadNoteTypesSuccess:(void (^)(NSArray *noteTypes))success failure:(void (^)(NSError *error))failure{
++(void)loadNoteTypesSuccess:(void (^)(NSArray *noteTypes))success
+                    failure:(void (^)(NSError *error))failure {
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     // Make sure a mapping is set
@@ -68,16 +64,13 @@ static RKObjectManager *_usedManager;
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
                           
                           if (failure) {
-                               NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
+                              NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
                               failure(transcodedError);
                           }
-                          
                       }];
-    
 }
 
-
--(NSString *)description{
+-(NSString *)description {
     return self.displaytext;
 }
 

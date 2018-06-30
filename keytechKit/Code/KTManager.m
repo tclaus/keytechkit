@@ -13,7 +13,7 @@
 #import "KTServerInfo.h"
 #import "KTSendNotifications.h"
 
-@implementation KTManager{
+@implementation KTManager {
     
     BOOL _connectionIsValid;
     KTPreferencesConnection* _preferences;
@@ -22,33 +22,32 @@
     KTServerInfo *_sharedServerInfo;
 }
 
-
--(NSString*) servername{
+-(NSString*) servername {
     return _preferences.servername;
 }
 
--(void)setServername:(NSString *)servername{
+-(void)setServername:(NSString *)servername {
     _preferences.servername = servername;
 }
 
--(NSString*)username{
+-(NSString*)username {
     return _preferences.username;
 }
 
--(void)setUsername:(NSString *)username{
+-(void)setUsername:(NSString *)username {
     _preferences.username = username;
 }
 
--(NSString*)password{
+-(NSString*)password {
     return _preferences.password;
 }
 
--(void) setPassword:(NSString *)password{
+-(void) setPassword:(NSString *)password {
     _preferences.password = password;
 }
 
 /// Creates the singelton class
-+(instancetype) sharedManager{
++(instancetype) sharedManager {
     
     static KTManager *_sharedInstance;
     static dispatch_once_t one_token=0;
@@ -61,7 +60,7 @@
 }
 
 /// returns true if no servername was given. User interaction is required
--(BOOL)needsInitialSetup{
+-(BOOL)needsInitialSetup {
     
     if (!self.servername) {
         return YES;
@@ -72,7 +71,7 @@
 }
 
 // Returns the apps cache directory
-- (NSURL*)applicationCacheDirectory {
+-(NSURL*)applicationCacheDirectory {
     NSFileManager* sharedFM = [NSFileManager defaultManager];
     
     NSError* err;
@@ -128,8 +127,7 @@
     return appDirectory;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     
     _preferences = [[KTPreferencesConnection alloc]init];
@@ -150,53 +148,45 @@
     [RKMIMETypeSerialization registerClass:[RKMIMETypeTextXML class] forMIMEType:@"text/plain"];
     objectManager.requestSerializationMIMEType = RKMIMETypeJSON;
     
-    
-    //RKXMLReaderSerialization, RKMIMETypeJSON
-    
-    
-    // Logging für RestKit definieren
-    
+    // Set up logging for restkit
 #ifdef DEBUG
     RKLogConfigureByName("RestKit/Network", RKLogLevelWarning);
     // RKLogConfigureFromEnvironment();
 #endif
     
-    // Timeout definieren
-    //  manager.client.timeoutInterval = 20.0; // 20 seconds
-    
+    // Setup timeouts
+    // manager.client.timeoutInterval = 20.0; // 20 seconds
     
     return self;
 }
 
 /// Returns the current BaseURL
--(NSURL*)baseURL{
+-(NSURL*)baseURL {
     return [RKObjectManager sharedManager].baseURL;
 }
 
--(void)setDefaultHeader:(NSString*)headerName withValue:(NSString*)value{
+-(void)setDefaultHeader:(NSString*)headerName withValue:(NSString*)value {
     [[RKObjectManager sharedManager].HTTPClient setDefaultHeader:headerName value:value];
 }
 
--(void)setDefaultHeadersToRequest:(NSMutableURLRequest*)request{
+-(void)setDefaultHeadersToRequest:(NSMutableURLRequest*)request {
     
     for (NSString* headerKey in (self.defaultHeaders).allKeys){
         NSString *headerValue = (self.defaultHeaders)[headerKey];
         [request setValue:headerValue forHTTPHeaderField:headerKey];
     }
-    
 }
 
--(NSDictionary*)defaultHeaders{
+-(NSDictionary*)defaultHeaders {
     return ([RKObjectManager sharedManager].HTTPClient).defaultHeaders;
 }
 
--(KTPreferencesConnection*)preferences{
+-(KTPreferencesConnection*)preferences {
     return _preferences;
 }
 
-
 /// Checks for Admin role by asking the API directly and wait for result
--(BOOL)currentUserHasActiveAdminRole{
+-(BOOL)currentUserHasActiveAdminRole {
     //TODO:  Store value for a short period of time
     /*
      ResponseLoader *loader = [[ResponseLoader alloc]init];
@@ -214,11 +204,10 @@
      }
      */
     return NO;
-    
 }
 
 /// Returns last known server error description
--(NSString*) lastServerErrorText{
+-(NSString*) lastServerErrorText {
     return _serverErrorDescription;
 }
 
@@ -226,7 +215,7 @@
  Simply check if current user credentials has right to login
  Waits until keytech responds
  */
--(BOOL)currentUserHasLoginRight{
+-(BOOL)currentUserHasLoginRight {
     
     KTUser *currentUser = [KTUser loadUserWithKey:self.username];
     
@@ -239,11 +228,10 @@
         _serverErrorDescription = currentUser.latestLocalizedServerMessage;
         return NO;
     }
-    
 }
 
 /// Synchonizes changed user credentials with the api level.
--(void)synchronizeServerCredentials{
+-(void)synchronizeServerCredentials {
     NSString *Servername;
     NSString *Username;
     NSString *Password;
@@ -255,15 +243,11 @@
     if (![Servername hasSuffix:@"/"])
         Servername = [Servername stringByAppendingString:@"/"];
     
-    
-    
-    bool objectsAreEqual =     [[RKObjectManager sharedManager].HTTPClient.baseURL isEqual:[NSURL URLWithString:Servername]];
+    bool objectsAreEqual = [[RKObjectManager sharedManager].HTTPClient.baseURL isEqual:[NSURL URLWithString:Servername]];
     if (!objectsAreEqual){
         // Remove all queries
         
         // Cancel only, if a base URL was ever set
-        
-        
         @try {
             [[RKObjectManager sharedManager] cancelAllObjectRequestOperationsWithMethod:RKRequestMethodAny matchingPathPattern:@"" ];
         }
@@ -293,7 +277,7 @@
                 
                 // Init NotificationService
                 [KTSendNotifications sharedSendNotification].userName = user.userKey;
-                 [KTSendNotifications sharedSendNotification].userNameLong = user.userLongName;
+                [KTSendNotifications sharedSendNotification].userNameLong = user.userLongName;
                 [[KTSendNotifications sharedSendNotification] setupService];
                 
             } failure:^(NSError *error) {
@@ -306,12 +290,10 @@
         // Set new Authorization
         [[RKObjectManager sharedManager].HTTPClient setAuthorizationHeaderWithUsername:Username password:Password];
     }
-    
 }
 
-
-+(NSError*)translateErrorFromResponse:(NSHTTPURLResponse*)response error:(NSError *)error{
-    
++(NSError*)translateErrorFromResponse:(NSHTTPURLResponse*)response
+                                error:(NSError *)error {
     
     if (error) {
         NSLog(@"An error occured: %@",error);
@@ -331,7 +313,6 @@
         return error;
     }
     
-    
     if (response) {
         NSString *ErrorDescription = response.allHeaderFields[@"X-ErrorDescription"];
         NSError *transcodedError = [NSError errorWithDomain:@"keytech"
@@ -342,7 +323,6 @@
         // An unknown error occured
         return [NSError errorWithDomain:@"keytech" code:1000 userInfo:@{NSLocalizedDescriptionKey:@"An unknown error occured"}];
     }
-    
 }
 
 

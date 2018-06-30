@@ -9,13 +9,12 @@
 #import "KTSize.h"
 #import <RestKit/RestKit.h>
 
-
 @implementation KTSize
 
 static RKObjectMapping* _mapping;
 static RKObjectManager* _usedManager;
 
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (_usedManager !=manager) {
         _usedManager = manager;
@@ -25,28 +24,23 @@ static RKObjectManager* _usedManager;
                                                        @"height":@"height",
                                                        @"width":@"width",
                                                        }];
-    
+        
         [[RKObjectManager sharedManager] addResponseDescriptor:
-        [RKResponseDescriptor responseDescriptorWithMapping:_mapping
-                                                     method:RKRequestMethodAny
-                                                pathPattern:nil
-                                                    keyPath:@"Size"
-                                                statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
-        
-        
+         [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                      method:RKRequestMethodAny
+                                                 pathPattern:nil
+                                                     keyPath:@"Size"
+                                                 statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     }
-    
     return _mapping;
-    
 }
 
--(void)encodeWithCoder:(NSCoder *)aCoder{
+-(void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeInteger:self.height forKey:@"height"];
     [aCoder encodeInteger:self.width forKey:@"width"];
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
     if (self) {
         self.height = [coder decodeIntegerForKey:@"height"];
@@ -54,7 +48,6 @@ static RKObjectManager* _usedManager;
     }
     return self;
 }
-
 
 @end
 

@@ -10,7 +10,7 @@
 
 /**
  Stellt ein einfaches Schlüssel - Wertepaar bereit
-*/
+ */
 @interface KTSimpleKeyValuePair : NSObject
 /**
  The key of a value

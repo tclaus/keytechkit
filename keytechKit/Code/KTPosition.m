@@ -14,36 +14,32 @@
 static RKObjectMapping *_mapping = nil;
 static RKObjectManager *_usedManager;
 
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (_usedManager !=manager){
         _usedManager = manager;
         
         _mapping = [RKObjectMapping mappingForClass:[KTPosition class]];
         [_mapping addAttributeMappingsFromDictionary:@{@"x":@"x",
-                                                      @"y":@"y"
+                                                       @"y":@"y"
                                                        }];
         
         [_usedManager addResponseDescriptor:
-        [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny
-                                                pathPattern:nil
-                                                    keyPath:@"Position" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
-        
-        
+         [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny
+                                                 pathPattern:nil
+                                                     keyPath:@"Position" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     }
     
     return _mapping;
-
 }
 
--(void)encodeWithCoder:(NSCoder *)aCoder{
+-(void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeInteger:self.x forKey:@"positionX"];
     [aCoder encodeInteger:self.y forKey:@"positionY"];
     
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
     if (self) {
         self.x  = [coder decodeIntegerForKey:@"positionX"];
@@ -52,8 +48,7 @@ static RKObjectManager *_usedManager;
     return self;
 }
 
-
--(NSString*)debugDescription{
+-(NSString*)debugDescription {
     return [NSString stringWithFormat:@"(%ld,%ld)",(long)self.x,(long)self.y];
 }
 

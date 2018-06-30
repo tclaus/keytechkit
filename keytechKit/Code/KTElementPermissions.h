@@ -24,8 +24,10 @@
  Can be null
  */
 @property (nonatomic) NSString *childElementKey;
+
 /// The user shortname
 @property (nonatomic) NSString *userKey;
+
 /// The list of permissions
 @property (nonatomic) KTElementPermissionList *permissions;
 

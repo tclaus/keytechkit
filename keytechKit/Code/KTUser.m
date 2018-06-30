@@ -12,11 +12,10 @@
 
 #import <RestKit/RestKit.h>
 
-@implementation KTUser{
+@implementation KTUser {
 @private
     BOOL _isGroupListLoaded; // Is loaded
     BOOL _isGroupListLoading; // During al loading process
-    
 }
 
 static KTUser* _currentUser;
@@ -37,8 +36,7 @@ static KTUser* _currentUser;
 static RKObjectMapping* _mapping = nil; /** contains the mapping*/
 static RKObjectManager *_usedManager;
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         
@@ -56,7 +54,7 @@ static RKObjectManager *_usedManager;
     return self;
 }
 
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (_usedManager !=manager){
         _usedManager = manager;
@@ -89,19 +87,19 @@ static RKObjectManager *_usedManager;
     
     
     return _mapping;
-    
 }
 
-+(void)loadUserWithKey:(NSString *)username success:(void (^)(KTUser *user))success failure:(void (^)(NSError *error))failure{
++(void)loadUserWithKey:(NSString*) username
+               success:(void (^)(KTUser *user))success
+               failure:(void (^)(NSError *error))failure {
     
     KTUser *user = [[KTUser alloc]init] ;
     user.userKey = username;
     
     [user reload:success failure:failure];
-    
 }
 
-+(KTUser*)loadUserWithKey:(NSString *)username{
++(KTUser*)loadUserWithKey:(NSString*) username {
     KTUser *user = [[KTUser alloc]init] ;
     user.userKey = username;
     
@@ -111,16 +109,17 @@ static RKObjectManager *_usedManager;
 }
 
 // Starts reloading the user. The userkey is needed.
--(void)reload{
+-(void)reload {
     if (!_isLoading) {
         
         [self reload:nil failure:nil];
         [self waitForData];
     }
-    
 }
 
--(void)reload:(void (^)(KTUser *))success failure:(void (^)(NSError *))failure{
+-(void)reload:(void (^)(KTUser*))success
+      failure:(void (^)(NSError*))failure {
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTUser mappingWithManager:manager];
     
@@ -129,11 +128,9 @@ static RKObjectManager *_usedManager;
     _isLoaded = NO;
     _isLoading = YES;
     
-    
     [manager getObject:userObject path:nil parameters:nil
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    KTUser *user = mappingResult.firstObject;
-                   
                    
                    userObject.userEmail =user.userEmail;
                    userObject.userLanguage = user.userLanguage;
@@ -158,18 +155,15 @@ static RKObjectManager *_usedManager;
                    if (failure) {
                        failure(transcodedError);
                    }
-                   
                }];
-    
 }
 
 // Returns the unique indetifier key
--(NSString*)identifier{
+-(NSString*)identifier {
     return _userKey;
 }
 
-
--(void)refreshGroups{
+-(void)refreshGroups {
     _isGroupListLoaded = NO;
     [_groupList removeAllObjects];
 }
@@ -184,7 +178,6 @@ static RKObjectManager *_usedManager;
         return _groupList;
     }
 }
-
 
 -(void)loadFavoritesSuccess:(void (^)(NSArray <KTTargetLink*> *))success
                     failure:(void (^)(NSError *))failure{
@@ -211,8 +204,8 @@ static RKObjectManager *_usedManager;
                       }];
 }
 
--(void)loadQueriesSuccess:(void (^)(NSArray <KTTargetLink*> *))success
-                  failure:(void (^)(NSError *))failure{
+-(void)loadQueriesSuccess:(void (^)(NSArray <KTTargetLink*> *)) success
+                  failure:(void (^)(NSError *)) failure {
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTTargetLink mappingWithManager:manager];
@@ -237,8 +230,8 @@ static RKObjectManager *_usedManager;
                       }];
 }
 
-+(void)loadCurrentUser:(void (^)(KTUser *user))success
-               failure:(void (^)(NSError *error))failure{
++(void)loadCurrentUser:(void (^)(KTUser *user)) success
+               failure:(void (^)(NSError *error)) failure {
     
     [KTUser loadUserWithKey:[KTManager sharedManager].username
                     success:^(KTUser *user) {
@@ -255,12 +248,9 @@ static RKObjectManager *_usedManager;
                     }];
 }
 
-
 +(instancetype)currentUser{
     return _currentUser;
 }
-
-
 
 -(void)waitForData{
     // Wait
@@ -286,8 +276,7 @@ static RKObjectManager *_usedManager;
     
 }
 
-
--(NSString *)debugDescription{
+-(NSString *)debugDescription {
     return self.userKey;
 }
 

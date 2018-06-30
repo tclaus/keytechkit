@@ -10,15 +10,16 @@
 #import "KTManager.h"
 #import "KTBaseObject.h"
 
-@interface KTLayouts() {}
+@interface KTLayouts() {
+    
+}
 
 /// A block definition to call a fully loaded layout
 typedef void(^successfulLadedLayout)(KTLayout *layout);
-    
 
 @end
 
-@implementation KTLayouts{
+@implementation KTLayouts {
     
     /// A list of all layouts for all classes
     NSMutableDictionary *_layoutsList;
@@ -28,9 +29,7 @@ typedef void(^successfulLadedLayout)(KTLayout *layout);
 
 static KTLayouts *_sharedLayouts;
 
-
-+(instancetype)sharedLayouts{
-    
++(instancetype)sharedLayouts {
     
     static dispatch_once_t onceToken;
     
@@ -41,8 +40,7 @@ static KTLayouts *_sharedLayouts;
     return _sharedLayouts;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     if (!_sharedLayouts) {
         
         self = [super init];
@@ -58,15 +56,13 @@ static KTLayouts *_sharedLayouts;
     return self;
 }
 
-
-
 /// Clears all layout data
--(void)clearLayoutData{
+-(void)clearLayoutData {
     [_layoutsList removeAllObjects];
     _isAllLoaded = NO;
 }
 
--(BOOL)isLayoutLoaded:(NSString*)classKey{
+-(BOOL)isLayoutLoaded:(NSString*)classKey {
     if (_layoutsList[classKey] !=nil){
         KTLayout *layout =  _layoutsList[classKey];
         return layout.isLoaded;
@@ -76,29 +72,27 @@ static KTLayouts *_sharedLayouts;
 }
 
 // Returns the layout by its classekey
--(KTLayout*)layoutForClassKey:(NSString*) classKey{
+-(KTLayout*)layoutForClassKey:(NSString*) classKey {
     return _layoutsList[classKey];
 }
 
 
--(void)loadLayoutForClassKey:(NSString *)classKey{
+-(void)loadLayoutForClassKey:(NSString *)classKey {
     
     if ([self isLayoutLoaded:classKey]){
         return;
     }
     
-    
     __block BOOL awaitingResponse;
     awaitingResponse = YES;
     [self loadLayoutForClassKey:classKey
-                            success:^(KTLayout *layout) {
-                                awaitingResponse = NO;
-                            } failure:^(NSError *error) {
-                                awaitingResponse = NO;
-                            }];
+                        success:^(KTLayout *layout) {
+                            awaitingResponse = NO;
+                        } failure:^(NSError *error) {
+                            awaitingResponse = NO;
+                        }];
     
     //Wait...
-    
     NSDate *startDate = [NSDate date];
     int timeout = 30;
     
@@ -113,9 +107,9 @@ static KTLayouts *_sharedLayouts;
     
 }
 
-
--(void)loadListerLayoutForBOM:(void (^)(NSArray<KTSimpleControl *> *))success failure:(void (^)(NSError *))failure{
-  
+-(void)loadListerLayoutForBOM:(void (^)(NSArray<KTSimpleControl *> *))success
+                      failure:(void (^)(NSError *))failure {
+    
     NSString *classKey = @"BOM";
     
     if ([self isLayoutLoaded:classKey]) {
@@ -130,7 +124,6 @@ static KTLayouts *_sharedLayouts;
         KTLayout *layout =[[KTLayout alloc]init];
         layout.classKey =classKey;
         [_layoutsList setValue:layout forKey:classKey];
-        
     }
     
     NSString* listerResourcePath = [NSString stringWithFormat:@"classes/%@/listerlayout",classKey];
@@ -145,9 +138,9 @@ static KTLayouts *_sharedLayouts;
                           [self layoutDidLoadForClassKey:classKey];
                           KTLayout* layout = (KTLayout*)[self->_layoutsList valueForKey:classKey];
                           layout.listerLayout = mappingResult.array;
-
-                              if (success) {
-                                  success(layout.listerLayout);
+                          
+                          if (success) {
+                              success(layout.listerLayout);
                           }
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -158,7 +151,6 @@ static KTLayouts *_sharedLayouts;
                           }
                           
                       }];
-    
 }
 
 /// Starts loading layout for the given classkey
@@ -166,17 +158,15 @@ static KTLayouts *_sharedLayouts;
                      success:(void (^)(KTLayout *))success
                      failure:(void (^)(NSError *))failure {
     
-
+    
     if (!classKey) {
         return;
     }
-    
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTSimpleControl mappingWithManager:manager];
     
     classKey = [KTBaseObject normalizeElementKey:classKey];
-    
     
     NSString* editorResourcePath = [NSString stringWithFormat:@"classes/%@/editorlayout", classKey];
     NSString* listerResourcePath = [NSString stringWithFormat:@"classes/%@/listerlayout", classKey];
@@ -186,9 +176,8 @@ static KTLayouts *_sharedLayouts;
         KTLayout *layout =[[KTLayout alloc]init];
         layout.classKey =classKey;
         [_layoutsList setValue:layout forKey:classKey];
-        
     }
-   
+    
     // Dont query again, if already loaded
     // Maybe implement a reload later
     if ([_layoutsList valueForKey:classKey]) {
@@ -225,7 +214,7 @@ static KTLayouts *_sharedLayouts;
     [manager getObjectsAtPath:listerResourcePath
                    parameters:nil
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                        
+                          
                           [self layoutDidLoadForClassKey:classKey];
                           // Lister layout was loaded
                           KTLayout* layout = (KTLayout*)[self->_layoutsList valueForKey:classKey];
@@ -244,27 +233,21 @@ static KTLayouts *_sharedLayouts;
                           if (failure) {
                               failure(transcodedError);
                           }
-                          
                       }];
-    
-    
-    
-    
 }
-
 
 /**
  Add to layout list an return YES if layout is fully loaded
  */
--(void)layoutDidLoadForClassKey:(NSString*)classKey{
-
+-(void)layoutDidLoadForClassKey:(NSString*)classKey {
+    
     // Add to Layouts list
     if (![_layoutsList valueForKey:classKey]){
         KTLayout *layout =[[KTLayout alloc]init];
         layout.classKey =classKey;
         [_layoutsList setValue:layout forKey:classKey];
     }
-
+    
 }
 
 @end

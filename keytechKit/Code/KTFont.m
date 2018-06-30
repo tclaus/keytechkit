@@ -15,7 +15,7 @@ static RKObjectManager *_usedManager;
 @implementation KTFont
 
 
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     if (_usedManager !=manager) {
         _usedManager = manager;
         
@@ -40,8 +40,7 @@ static RKObjectManager *_usedManager;
 }
 
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
     if (self) {
         self.fontName = [coder decodeObjectForKey:@"fontName"];
@@ -52,16 +51,14 @@ static RKObjectManager *_usedManager;
     return self;
 }
 
--(void)encodeWithCoder:(NSCoder *)aCoder{
+-(void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.fontName forKey:@"fontName"];
     [aCoder encodeObject:self.fontSize forKey:@"fontSize"];
     [aCoder encodeObject:self.fontStyle forKey:@"fontStyle"];
-    
 }
 
-
 // Find the underline token
--(BOOL)isUnderlined{
+-(BOOL)isUnderlined {
     if ([self.fontStyle rangeOfString:@"UNDERLINE" options:NSCaseInsensitiveSearch].location !=NSNotFound){
         return YES;
     }
@@ -69,7 +66,7 @@ static RKObjectManager *_usedManager;
 }
 
 // Finds the italic token
--(BOOL)isItalic{
+-(BOOL)isItalic {
     if ([self.fontStyle rangeOfString:@"ITALIC" options:NSCaseInsensitiveSearch].location !=NSNotFound){
         return YES;
     }
@@ -77,7 +74,7 @@ static RKObjectManager *_usedManager;
 }
 
 // finds the bold token
--(BOOL)isBold{
+-(BOOL)isBold {
     if ([self.fontStyle rangeOfString:@"BOLD" options:NSCaseInsensitiveSearch].location !=NSNotFound){
         return YES;
     }
