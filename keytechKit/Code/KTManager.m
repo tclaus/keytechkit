@@ -150,7 +150,10 @@
     
     // Set up logging for restkit
 #ifdef DEBUG
-    RKLogConfigureByName("RestKit/Network", RKLogLevelWarning);
+    
+    RKLogConfigureByName("RestKit/*", RKLogLevelTrace);
+    
+    
     // RKLogConfigureFromEnvironment();
 #endif
     
@@ -299,10 +302,11 @@
         NSLog(@"An error occured: %@",error);
         
         if (response) {
-            NSString *ErrorDescription = response.allHeaderFields[@"X-ErrorDescription"];
+           NSString *serverErrorDescription = [KTManager getServerErrorDescription:response];
+            
             NSError *transcodedError = [NSError errorWithDomain:@"keytech"
                                                            code:response.statusCode
-                                                       userInfo:@{NSLocalizedDescriptionKey:ErrorDescription,
+                                                       userInfo:@{NSLocalizedDescriptionKey:serverErrorDescription,
                                                                   NSLocalizedFailureReasonErrorKey:error.localizedDescription}];
             
             NSLog(@" Error translated to: %@", transcodedError);
@@ -314,10 +318,11 @@
     }
     
     if (response) {
-        NSString *ErrorDescription = response.allHeaderFields[@"X-ErrorDescription"];
+        NSString *serverErrorDescription = [KTManager getServerErrorDescription:response];
+        
         NSError *transcodedError = [NSError errorWithDomain:@"keytech"
                                                        code:response.statusCode
-                                                   userInfo:@{NSLocalizedDescriptionKey:ErrorDescription}];
+                                                   userInfo:@{NSLocalizedDescriptionKey:serverErrorDescription}];
         return transcodedError;
     } else {
         // An unknown error occured
@@ -325,6 +330,13 @@
     }
 }
 
++(NSString*) getServerErrorDescription:(NSHTTPURLResponse*)response {
+    NSString *serverErrorDescription = response.allHeaderFields[@"X-ErrorDescription"];
+    if (serverErrorDescription == nil) {
+        serverErrorDescription = @"";
+    }
+    return serverErrorDescription;
+}
 
 @end
 

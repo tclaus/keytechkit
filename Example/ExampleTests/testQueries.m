@@ -59,18 +59,18 @@
     [query queryByText:@"keytech" reload:YES paged:_pagedObject success:^(NSArray *results) {  // 'keytech' exist in most databases
         
         XCTAssertNotNil(results);
-        [queryExpectation fulfill];
         
         if (results.count>0) {
             
-        } else{
+        } else {
             XCTFail(@"Result query should have data");
         }
+        [queryExpectation fulfill];
         
     } failure:^(NSError *error) {
-        [queryExpectation fulfill];
-        XCTFail(@"Error while waiting for data: %@",error);
         
+        XCTFail(@"Error while waiting for data: %@",error);
+        [queryExpectation fulfill];
     }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
@@ -97,13 +97,13 @@
                success:^(NSArray *results) {  // 'keytech' exist in most databases
                    
                    XCTAssertNotNil(results);
-                   [queryExpectation fulfill];
                    
                    if (results.count>0) {
                        
                    } else{
                        XCTFail(@"Result query should have data");
                    }
+                   [queryExpectation fulfill];
                    
                } failure:^(NSError *error) {
                    [queryExpectation fulfill];
@@ -135,18 +135,18 @@
                success:^(NSArray *results) {  // 'keytech' exist in most databases
                    
                    XCTAssertNotNil(results);
-                   [queryExpectation fulfill];
                    
                    if (results.count>0) {
                        
                    } else{
                        XCTFail(@"Result query should have data");
                    }
+                   [queryExpectation fulfill];
                    
                } failure:^(NSError *error) {
-                   [queryExpectation fulfill];
-                   XCTFail(@"Error while waiting for data: %@",error);
                    
+                   XCTFail(@"Error while waiting for data: %@",error);
+                   [queryExpectation fulfill];
                }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
@@ -167,7 +167,7 @@
                 reload:YES
                  paged:_pagedObject
                success:^(NSArray *results) {  // 'keytech' exist in most databases
-                   [queryExpectation fulfill];
+                   
                    XCTAssertNotNil(results);
                    
                    if (results.count>0) {
@@ -175,7 +175,7 @@
                    } else{
                        XCTFail(@"Result query should have data");
                    }
-                   
+                   [queryExpectation fulfill];
                } failure:^(NSError *error) {
                    // Cancel is tested - so a failure is correct
                    [queryExpectation fulfill];
@@ -204,19 +204,17 @@
                 reload:YES
                  paged:_pagedObject
                success:^(NSArray *results){  // 'keytech' exist in most databases
-                   [queryExpectation fulfill];
+                   
                    XCTAssertNotNil(results);
                    if (results.count>0) {
                        
                    } else{
                        XCTFail(@"Result query should have data");
                    }
-                   
-               } failure:^(NSError *error) {
                    [queryExpectation fulfill];
-                   if (error) {
-                       XCTFail(@"Error while fetching data: %@",error);
-                   }
+               } failure:^(NSError *error) {
+                   XCTFail(@"Error while fetching data: %@",error);
+                   [queryExpectation fulfill];
                }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
@@ -462,27 +460,18 @@
                 reload:YES
                  paged:[KTPagedObject initWithPage:1 size:1]
                success:^(NSArray *results) {  // 'keytech' exist in most databases
-                   [documentOpenExpectation fulfill];
+                   
                    XCTAssertNotNil(results);
-                   if (results.count==1) {
-                       
-                   } else{
-                       XCTFail(@"Result query should have data");
-                   }
+                   XCTAssertTrue(results.count > 0);
+                   [documentOpenExpectation fulfill];
                    
                } failure:^(NSError *error) {
+                    XCTFail(@"Error while fetching data: %@",error);
                    [documentOpenExpectation fulfill];
-                   if (!error) {
-                       XCTFail(@"Error while fetching data: %@",error);
-                   }
                }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Error while fetching data: %@",error);
-        }
-    }];
-    XCTAssert(YES, @"Pass");
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+    
 }
 
 /// Test direct Solr vault fetch
@@ -547,19 +536,21 @@
                         reload:YES
                          paged:[KTPagedObject initWithPage:1 size:1]
                        success:^(NSArray *results) {  // 'keytech' exist in most databases
-                           [documentOpenExpectation fulfill];
+                           
                            XCTAssertNotNil(results);
                            if (results.count==1) {
                                
                            } else{
                                XCTFail(@"Result query should have data");
                            }
+                           [documentOpenExpectation fulfill];
                            
                        } failure:^(NSError *error) {
-                           [documentOpenExpectation fulfill];
+                           
                            if (error) {
                                XCTFail(@"Error while fetching data: %@",error);
                            }
+                           [documentOpenExpectation fulfill];
                        }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
@@ -576,7 +567,7 @@
     
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
     
-    KTQuery *query = [[KTQuery alloc]init];
+    KTQuery *query = [[KTQuery alloc] init];
     
     // Queries are user-defined: /user/{userid}/queries
     
@@ -584,18 +575,20 @@
                         reload:YES
                          paged:_pagedObject
                        success:^(NSArray *results) {  // a Query with this ID must exist in database
-                           [documentOpenExpectation fulfill];
+                           
                            XCTAssertNotNil(results);
                            
-                           if (results.count>0) {
+                           if (results.count > 0) {
                                
                            } else{
                                XCTFail(@"Result query should have data");
                            }
+                           [documentOpenExpectation fulfill];
                            
                        } failure:^(NSError *error) {
-                           [documentOpenExpectation fulfill];
+                           
                            XCTFail(@"Error while waiting for data: %@",error);
+                           [documentOpenExpectation fulfill];
                        }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {

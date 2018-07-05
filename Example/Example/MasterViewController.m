@@ -34,7 +34,10 @@
     self.definesPresentationContext = YES;
     
     // Start connecting to keytech service
-    
+    // [self initializeKeytechAPI];
+}
+
+-(void)initializeKeytechAPI {
     NSString *serverURL = @"https://demo.keytech.de";
     NSString *username = @"jgrant";
     // No password so far
@@ -45,7 +48,6 @@
     [[KTManager sharedManager] synchronizeServerCredentials];
     
     _searchController.searchBar.text = @"dampf";
-    
 }
 
 -(void)updateSearchResultsForSearchController:(UISearchController *)searchController {

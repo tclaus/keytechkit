@@ -20,10 +20,8 @@
 
 static KTUser* _currentUser;
 
-
 @synthesize isLoaded = _isLoaded;
 @synthesize isLoading = _isLoading;
-
 
 @synthesize userEmail = _userEmail;
 
@@ -36,7 +34,7 @@ static KTUser* _currentUser;
 static RKObjectMapping* _mapping = nil; /** contains the mapping*/
 static RKObjectManager *_usedManager;
 
-- (instancetype)init {
+-(instancetype)init {
     self = [super init];
     if (self) {
         
@@ -197,7 +195,7 @@ static RKObjectManager *_usedManager;
                           }
                           
                       } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                          //TODO: prepaire the error
+                          //TODO: prepare the error
                           if (failure) {
                               failure(error);
                           }

@@ -9,7 +9,9 @@
 #import <XCTest/XCTest.h>
 #import "KTUser.h"
 #import "KTManager.h"
+#import "KTTargetLink.h"
 #import "TestDefaults.h"
+#import "KTQueryDetail.h"
 
 @interface testUser : XCTestCase
 
@@ -40,11 +42,11 @@ static KTManager  *_webservice;
     
     [KTUser loadUserWithKey:@"jgrant" success:^(KTUser *user) {
         
-        XCTAssert(YES, @"Pass");
         [documentOpenExpectation fulfill];
         
     } failure:^(NSError *error) {
-        XCTAssert(NO, @"Failure");
+        XCTFail("Failed loading user");
+        [documentOpenExpectation fulfill];
     }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
@@ -62,8 +64,9 @@ static KTManager  *_webservice;
         jgrantUser = user;
         [loadUserExpectation fulfill];
     } failure:^(NSError *error) {
-        [loadUserExpectation fulfill];
+        
         XCTFail(@"Could not load a test user for loading favorites");
+        [loadUserExpectation fulfill];
     }];
 
     [self waitForExpectationsWithTimeout:30 handler:nil];
@@ -103,8 +106,8 @@ static KTManager  *_webservice;
         jgrantUser = user;
         [loadUserExpectation fulfill];
     } failure:^(NSError *error) {
-        [loadUserExpectation fulfill];
         XCTFail(@"Could not load a test user for loading queries");
+        [loadUserExpectation fulfill];
     }];
     
     [self waitForExpectationsWithTimeout:30 handler:nil];
@@ -112,14 +115,14 @@ static KTManager  *_webservice;
     XCTestExpectation *loadFavorites = [self expectationWithDescription:@"load queries"];
     if (jgrantUser) {
         
-        [jgrantUser loadQueriesSuccess:^(NSArray *targetLinks) {
+        [jgrantUser loadQueriesSuccess:^(NSArray <KTTargetLink*> *targetLinks) {
             if (!targetLinks) {
                 XCTFail(@"Queries Links was empty");
             } else {
                 // OK
             }
-            
             [loadFavorites fulfill];
+            
         } failure:^(NSError *error) {
             
             XCTFail(@"Queries loaded with errors");
@@ -128,15 +131,33 @@ static KTManager  *_webservice;
     }
     
     [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+/**
+Tests user defined custom queries, some are with parameters
+*/
+-(void)testLoadUserQueries {
     
+    XCTestExpectation *loadAllQueriesDetails = [self expectationWithDescription:@"load user query"];
+    
+    int customQuery = 759;
+    
+    [KTQueryDetail loadQueryDetailsUserKey:@"jgrant"
+                                 queryID: customQuery
+                                success:^(KTQueryDetail *ktQueryDetails) {
+                                    
+                                    if (!ktQueryDetails) {
+                                        XCTFail(@"Failed loading query details");
+                                    }
+                                    [loadAllQueriesDetails fulfill];
+                                    
+                                } failure:^(NSError *error) {
+                                    XCTFail(@"Error loading queries: %@", error);
+                                    [loadAllQueriesDetails fulfill];
+                                }];
+    
+     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
-}
 
 @end

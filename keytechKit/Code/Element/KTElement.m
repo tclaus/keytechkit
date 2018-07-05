@@ -188,7 +188,7 @@ int maxPagesize = 500;
                                                        @"ChangedByLong":@"itemChangedByLong",
                                                        @"ReleasedAt":@"itemReleasedAt",
                                                        @"ReleasedBy":@"itemReleasedBy",
-                                                       @"ReleasedbyLong":@"itemReleasedByLong",
+                                                       @"ReleasedByLong":@"itemReleasedByLong",
                                                        @"ThumbnailHint":@"itemThumbnailHint",
                                                        @"HasVersions":@"hasVersions"
                                                        }];

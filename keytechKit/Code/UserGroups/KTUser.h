@@ -35,24 +35,24 @@
  @param success Called after the user object is successfully loaded
  @param failure Called when the user object could not be loaded. The error object will have a localized error message
  */
--(void)loadQueriesSuccess:(void(^)(NSArray <KTTargetLink*> * targetLinks))success
+-(void)loadQueriesSuccess:(void(^)(NSArray <KTTargetLink*> *targetLinks))success
                   failure:(void(^)(NSError* error))failure;
 /**
  Loads a structured list of favorite (KTTargetLink) elements
  @param success Called after the user object is successfully loaded
  @param failure Called when the user object could not be loaded. The error object will have a localized error message
  */
--(void)loadFavoritesSuccess:(void(^)(NSArray <KTTargetLink*> * targetLinks))success
+-(void)loadFavoritesSuccess:(void(^)(NSArray <KTTargetLink*> *targetLinks))success
                     failure:(void(^)(NSError* error))failure;
 
 /**
  Returns a list of queries. Is nil when never loaded.
  */
-@property (nonatomic) NSArray <KTTargetLink*> * queries;
+@property (nonatomic) NSArray <KTTargetLink*> *queries;
 /**
  Returns a list of favorite elements. Returns nil if never loaded
  */
-@property (nonatomic) NSArray <KTTargetLink*> * favorites;
+@property (nonatomic) NSArray <KTTargetLink*> *favorites;
 
 /**
  Loads a new user objects but waits until returns
@@ -70,7 +70,7 @@
 @param success Will be called after the object is loaded
  */
 -(void)reload:(void(^)(KTUser*))success
-      failure:(void(^)(NSError* error))failure;
+      failure:(void(^)(NSError *error))failure;
 
 /**
  Returns YES if this user is active. (Means it's allowed to login and can use services.

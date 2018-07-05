@@ -50,12 +50,12 @@
     __block NSArray *_statusList;
     
     [KTStatusItem loadStatusListSuccess:^(NSArray *statusList) {
-        [expectation fulfill];
-        _statusList = statusList;
         
-    } failure:^(NSError *error) {
+        _statusList = statusList;
         [expectation fulfill];
+    } failure:^(NSError *error) {
          XCTFail(@"Error loading statuslist: %@",error);
+        [expectation fulfill];
     } ];
 
     
@@ -82,12 +82,14 @@
     __block NSArray *_statusList;
     
     [KTStatusItem loadStatusListSuccess:^(NSArray *statusList) {
-        [expectation fulfill];
+        
         _statusList = statusList;
+        [expectation fulfill];
         
     } failure:^(NSError *error) {
-        [expectation fulfill];
+        
         XCTFail(@"Error loading statuslist: %@",error);
+        [expectation fulfill];
     } ];
     
     

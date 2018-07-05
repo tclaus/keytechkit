@@ -3,13 +3,13 @@ Pod::Spec.new do |spec|
   spec.version      = '0.2.7'
   spec.license      = 'MIT'
   spec.homepage     = 'https://github.com/tclaus/keytechkit'
-  spec.authors      = { 'Thorsten Claus' => 'thorstenclaus@web.de' }
+  spec.authors      = { 'Thorsten Claus' => 'thorsten.claus@claus-software.de' }
   spec.summary      = 'keytech SDK to access the keytech software WebAPI'
   spec.source       = { :git => 'https://github.com/tclaus/keytechkit.git', :tag => spec.version.to_s }
   spec.source_files = 'keytechKit/Code/**/*.{h,m}'
   spec.requires_arc = true
   spec.ios.deployment_target  = '9.3'
-  spec.osx.deployment_target  = '10.9'
+  spec.osx.deployment_target  = '10.10'
   
   spec.ios.frameworks = 'MobileCoreServices', 'SystemConfiguration'
   spec.osx.frameworks = 'CoreServices', 'SystemConfiguration'

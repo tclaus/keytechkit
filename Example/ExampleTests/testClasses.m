@@ -65,6 +65,7 @@
         [expectation fulfill];
         
     } failure:^(NSError *error) {
+        XCTFail("Failed loading claslist");
         [expectation fulfill];
         
     }];
@@ -87,8 +88,8 @@
                         _class = ktclass;
                         [expectation fulfill];
                     } failure:^(NSError *error) {
+                        XCTFail("Failed loading claslist by key");
                         [expectation fulfill];
-                        
                     }];
     
     [self waitForExpectationsWithTimeout:30 handler:nil];

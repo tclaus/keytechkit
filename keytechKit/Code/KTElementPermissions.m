@@ -15,6 +15,8 @@ static RKObjectManager *_usedManager;
 
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
+    NSString *permissionPathPattern = @"user/:userKey/permissions/element/:elementKey";
+    
     if (_usedManager !=manager){
         _usedManager = manager;
         
@@ -36,7 +38,9 @@ static RKObjectManager *_usedManager;
         // Map the permissionlist to this object
         [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"Permissions"
                                                                                  toKeyPath:@"permissions"
-                                                                               withMapping:permissionMapping]];
+                                                                               withMapping:permissionMapping
+                                      ]
+         ];
         
         
         
@@ -45,7 +49,7 @@ static RKObjectManager *_usedManager;
         RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor
                                                     responseDescriptorWithMapping:_mapping
                                                     method:RKRequestMethodGET
-                                                    pathPattern:@"user/:userKey/permissions/element/:elementKey"
+                                                    pathPattern: nil
                                                     keyPath:nil
                                                     statusCodes:statusCodes];
         
@@ -54,10 +58,8 @@ static RKObjectManager *_usedManager;
         
         [manager.router.routeSet addRoute:[RKRoute
                                            routeWithClass:[KTElementPermissions class]
-                                           pathPattern:@"user/:userKey/permissions/element/:elementKey"
+                                           pathPattern:permissionPathPattern
                                            method:RKRequestMethodGET]] ;
-        
-        
     }
     return _mapping;
 }

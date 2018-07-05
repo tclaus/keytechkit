@@ -586,7 +586,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B6CF0B052AAC9FF12EABAA4D /* Pods-ExampleTests.debug.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = ExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.claus-software.ExampleTests";
@@ -599,7 +598,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51AA6B33647D906A6A723EA2 /* Pods-ExampleTests.release.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = ExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.claus-software.ExampleTests";

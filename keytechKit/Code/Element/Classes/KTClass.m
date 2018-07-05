@@ -115,12 +115,14 @@ static NSDictionary *_classTypes;
                                       withMapping:[KTClassAttribute mappingWithManager:manager]]];
         
         [_usedManager addResponseDescriptor:
-         [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny
+         [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                      method:RKRequestMethodAny
                                                  pathPattern:nil
                                                      keyPath:@"ClassConfigurationList"
                                                  statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
         [_usedManager addResponseDescriptor:
-         [RKResponseDescriptor responseDescriptorWithMapping:_mapping method:RKRequestMethodAny
+         [RKResponseDescriptor responseDescriptorWithMapping:_mapping
+                                                      method:RKRequestMethodAny
                                                  pathPattern:@"classes/:classKey"
                                                      keyPath:@""
                                                  statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];

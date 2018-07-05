@@ -41,7 +41,7 @@
 +(void)loadWithElementKey:(NSString*)elementKey
           childElementkey:(NSString*)childElementKey
                   success:(void (^)(KTElementPermissions *elementPermission))success
-                  failure:(void (^)( NSError *error))failure;
+                  failure:(void (^)(NSError *error))failure;
 /**
  Loads the current elementPerimssion for this moment in time. 
  @param elementKey The elementKey to get the permissions from.
@@ -50,6 +50,6 @@
  */
 +(void)loadWithElementKey:(NSString*)elementKey
                   success:(void (^)(KTElementPermissions *elementPermission))success
-                  failure:(void (^)( NSError *error))failure;
+                  failure:(void (^)(NSError *error))failure;
 
 @end

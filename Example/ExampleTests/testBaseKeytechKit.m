@@ -10,8 +10,7 @@
 #import "KTManager.h"
 #import "Restkit/Restkit.h"
 #import "testResponseLoader.h"
-#import  "KTElement.h"
-#import  "TestDefaults.h"
+#import "TestDefaults.h"
 
 /**
  Basic keytech framework tests.
@@ -34,7 +33,7 @@
     
     // Initialize webservice for tests
     _webservice = [KTManager sharedManager];
-    elementKeyWithStructure = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API}
+    elementKeyWithStructure = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API
 }
 
 - (void)tearDown
