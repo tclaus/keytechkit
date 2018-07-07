@@ -136,7 +136,7 @@ static KTManager  *_webservice;
 /**
 Tests user defined custom queries, some are with parameters
 */
--(void)testLoadUserQueries {
+-(void)testLoadQueryDetails {
     
     XCTestExpectation *loadAllQueriesDetails = [self expectationWithDescription:@"load user query"];
     

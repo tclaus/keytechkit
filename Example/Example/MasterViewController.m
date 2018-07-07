@@ -38,7 +38,6 @@
     [self initializeKeytechAPI];
 }
 
-
 -(void)initializeKeytechAPI {
     NSString *serverURL = @"https://demo.keytech.de";
     NSString *username = @"jgrant";

@@ -151,10 +151,9 @@
     // Set up logging for restkit
 #ifdef DEBUG
     
-    RKLogConfigureByName("RestKit/*", RKLogLevelTrace);
+    // RKLogConfigureByName("RestKit/*", RKLogLevelTrace);
     
-    
-    // RKLogConfigureFromEnvironment();
+    RKLogConfigureFromEnvironment();
 #endif
     
     // Setup timeouts

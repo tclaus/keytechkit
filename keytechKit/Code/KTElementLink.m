@@ -126,6 +126,11 @@ static RKObjectManager *_usedManager;
                        }];
 }
 
+- (NSString *)debugDescription
+{
+    return [NSString stringWithFormat:@"<%@: %p> Parent: %@, child: %@", [self class], self, self.childLinkTo, self.parentElementKey];
+}
+
 @end
 
 

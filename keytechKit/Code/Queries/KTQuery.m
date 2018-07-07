@@ -93,7 +93,7 @@
         rpcData[@"size"] = @((int)pagedObject.size);
     }
     
-    [manager getObject:nil path:resourcePath parameters:rpcData
+    [manager getObjectsAtPath:resourcePath parameters:rpcData
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                    
                    // Dont call Block and delegate

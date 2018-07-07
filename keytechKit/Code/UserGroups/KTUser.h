@@ -42,7 +42,7 @@
  @param success Called after the user object is successfully loaded
  @param failure Called when the user object could not be loaded. The error object will have a localized error message
  */
--(void)loadFavoritesSuccess:(void(^)(NSArray <KTTargetLink*> *targetLinks))success
+-(void)loadFavoritesSuccess:(void(^)( NSArray <KTTargetLink*> *targetLinks))success
                     failure:(void(^)(NSError* error))failure;
 
 /**

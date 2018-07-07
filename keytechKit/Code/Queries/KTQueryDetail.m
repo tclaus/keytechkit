@@ -10,10 +10,11 @@
 #import "KTManager.h"
 #import "KTUser.h"
 
-
+NS_ASSUME_NONNULL_BEGIN
 @implementation KTQueryDetail
 
 static RKObjectManager *_usedManager;
+static RKObjectMapping *_mapping;
 
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*) manager {
     
@@ -22,9 +23,9 @@ static RKObjectManager *_usedManager;
     if (_usedManager !=manager){
         _usedManager = manager;
         
-        RKObjectMapping *mapping = [RKObjectMapping mappingForClass: KTQueryDetail.class];
+        _mapping = [RKObjectMapping mappingForClass: [KTQueryDetail class]];
         // JSON Prefix entfällt
-        [mapping addAttributeMappingsFromDictionary:@{@"ID":@"queryID",
+        [_mapping addAttributeMappingsFromDictionary:@{@"ID":@"queryID",
                                                        @"Key": @"key",
                                                        @"DisplayName" :@"displayName",
                                                        @"QueryParamTypes" :@"queryParamTypes"
@@ -32,75 +33,83 @@ static RKObjectManager *_usedManager;
         
         RKObjectMapping *parameterList = [RKObjectMapping mappingForClass: KTQueryParameter.class];
         [parameterList addAttributeMappingsFromDictionary:@{@"AttributeName":@"attributeName",
-                                                                @"AttributeType":@"attributeType",
-                                                                @"AttributeText":@"attributeText",
-                                                                @"Message":@"message",
-                                                                @"OperatorType":@"operatorType",
-                                                                @"OperatorLocalizedText":@"operatorLocalizedText",
-                                                                @"OperatorConcatLocalizedText":@"operatorConcatLocalizedText",
-                                                                @"OriginalValues":@"originalValues"
-                                                                }];
+                                                            @"AttributeType":@"attributeType",
+                                                            @"AttributeText":@"attributeText",
+                                                            @"Message":@"message",
+                                                            @"OperatorType":@"operatorType",
+                                                            @"OperatorLocalizedText":@"operatorLocalizedText",
+                                                            @"OperatorConcatLocalizedText":@"operatorConcatLocalizedText",
+                                                            @"OriginalValues":@"originalValues"
+                                                            }];
         // Map the query paramaters to this object
-        [mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"ParameterList"
+        [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"ParameterList"
                                                                                  toKeyPath:@"parameterList"
                                                                                withMapping:parameterList]];
         
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
+        
         RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor
-                                                    responseDescriptorWithMapping:mapping
+                                                    responseDescriptorWithMapping:_mapping
                                                     method:RKRequestMethodGET
-                                                    pathPattern:nil
-                                                    keyPath:nil
+                                                    pathPattern: pathPattern // Path must be set, for mapping without KVO. See https://github.com/RestKit/RestKit/wiki/Object-mapping#mapping-without-kvc
+                                                    keyPath: nil // This resource has no keyPath!
                                                     statusCodes:statusCodes];
         
         [manager addResponseDescriptor:responseDescriptor];
         
-        [manager.router.routeSet addRoute:[RKRoute
-                                           routeWithClass: KTQueryDetail.class
-                                           pathPattern: pathPattern
-                                           method:RKRequestMethodGET]] ;
-        
+        // Dont add to router - give
+        // Check tests if using path
+         [manager.router.routeSet addRoute:[RKRoute
+         routeWithClass: KTQueryDetail.class
+         pathPattern: pathPattern
+         method:RKRequestMethodGET]] ;
         
     }
-    return nil;
+    return _mapping;
 }
 
--(instancetype)initWithUser:(NSString *)userKey queryID:(int)queryID {
+- (instancetype)init
+{
     self = [super init];
     if (self) {
-        _userKey = userKey;
-        _queryID = queryID;
+        
     }
     return self;
 }
 
 +(void)loadQueryDetailsUserKey:(NSString*) userKey
-                        queryID:(int) queryID
+                       queryID:(int) queryID
                        success:(void (^)(KTQueryDetail*))success
                        failure:(void (^)(NSError *))failure {
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTQueryDetail mappingWithManager:manager];
-    KTQueryDetail *queryDetail = [[KTQueryDetail alloc] initWithUser: userKey queryID: queryID];
     
     
-    [manager getObject:queryDetail
-                  path:nil
-            parameters:nil
-               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                   if (success) {
-                       KTQueryDetail *queryDetail =  (KTQueryDetail*) mappingResult.firstObject;
-                       success(queryDetail);
-                   }
-               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   if (failure) {
-                       NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
-                       failure(transcodedError);
-                   }
-               }];
+    NSString* queryPath = [NSString stringWithFormat:@"user/%@/queries/%d",userKey,queryID];
+    
+    [manager getObjectsAtPath:queryPath
+                   parameters:nil
+                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                          if (success) {
+                              KTQueryDetail *queryDetail =  (KTQueryDetail*) mappingResult.firstObject;
+                              success(queryDetail);
+                          }
+                      } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                          if (failure) {
+                              NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
+                              failure(transcodedError);
+                          }
+                      }];
 }
-@end
 
+- (NSString *)debugDescription
+{
+    return [NSString stringWithFormat:@"<%@: %p> ID: %d, '%@'", [self class], self, self.queryID, self.displayName];
+}
+
+@end
+NS_ASSUME_NONNULL_END
 
 
 

@@ -32,9 +32,7 @@
                     success:(void (^)(KTQueryDetail* ktQueryDetails)) success
                     failure:(void (^)(NSError *error)) failure;
 
-@property (nonatomic,readonly, copy) NSString *userKey;
 @property (nonatomic) int queryID;
-
 @property (nonatomic, copy) NSString *key;
 @property (nonatomic, copy) NSString *displayName;
 @property (nonatomic, copy) NSString *queryParamTypes;

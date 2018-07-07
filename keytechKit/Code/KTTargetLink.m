@@ -70,10 +70,7 @@ static RKObjectManager *_usedManager;
  Helps debugging output
  */
 -(NSString*)debugDescription {
-    return [NSString stringWithFormat:@"%@, %@",self.entryName,self.targetElementKey];
-}
--(NSString *)description {
-    return [self debugDescription];
+    return [NSString stringWithFormat:@"<%@: %p> Name: '%@', Target: %@",[self class], self,self.entryName,self.targetElementKey];
 }
 
 @end
