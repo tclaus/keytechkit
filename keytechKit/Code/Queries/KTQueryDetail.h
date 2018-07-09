@@ -20,8 +20,6 @@
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*) manager;
 
--(instancetype)initWithUser:(NSString*)userKey queryID:(int)queryID;
-
 /**
  Returns a single query detail for currentUser
  @param success A block to execute after query is loaded
