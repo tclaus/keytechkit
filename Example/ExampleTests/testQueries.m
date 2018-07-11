@@ -61,24 +61,19 @@
         XCTAssertNotNil(results);
         
         if (results.count>0) {
-            
         } else {
             XCTFail(@"Result query should have data");
         }
+        
         [queryExpectation fulfill];
         
     } failure:^(NSError *error) {
-        
         XCTFail(@"Error while waiting for data: %@",error);
         [queryExpectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Error while fetching data: %@",error);
-        }
-    }];
-    XCTAssert(YES, @"Pass");
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+    
 }
 
 - (void)testQueryByTextWithField {
@@ -111,12 +106,7 @@
                    
                }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Error while fetching data: %@",error);
-        }
-    }];
-    XCTAssert(YES, @"Pass");
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 - (void)testQueryByTextWithClasses {
@@ -149,12 +139,7 @@
                    [queryExpectation fulfill];
                }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Error while fetching data: %@",error);
-        }
-    }];
-    XCTAssert(YES, @"Pass");
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 /// A search request is canceled immediately
@@ -183,12 +168,7 @@
     
     [query cancelSearches];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Error while fetching data: %@",error);
-        }
-    }];
-    XCTAssert(YES, @"Pass");
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 /// Test by given searchword and class restriction
@@ -217,12 +197,7 @@
                    [queryExpectation fulfill];
                }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Error while fetching data: %@",error);
-        }
-    }];
-    XCTAssert(YES, @"Pass");
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
@@ -257,11 +232,7 @@
                         }
                     }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Error while fetching data: %@",error);
-        }
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
 }
 #endif
@@ -278,26 +249,24 @@
                   inClasses:nil
                       paged:_pagedObject
                     success:^(NSArray *results) {  // 'keytech' exist in most databases
-                        [queryExpectation fulfill];
+                        
                         XCTAssertNotNil(results);
                         if (results.count>0) {
                             
-                        } else{
+                        } else {
                             XCTFail(@"Result query should have data");
                         }
+                        [queryExpectation fulfill];
                         
                     } failure:^(NSError *error) {
-                        [queryExpectation fulfill];
+                        
                         if (error) {
                             XCTFail(@"Error while fetching data: %@",error);
                         }
+                        [queryExpectation fulfill];
                     }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Error while fetching data: %@",error);
-        }
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 #endif
 
@@ -317,25 +286,21 @@
                       paged:_pagedObject
                     success:^(NSArray *results) {  // 'keytech' exist in most databases
                         XCTAssertNotNil(results);
-                        [queryExpectation fulfill];
+                        
                         if (results.count>0) {
                         } else{
                             XCTFail(@"Result query should have data");
                         }
-                        
-                    } failure:^(NSError *error) {
                         [queryExpectation fulfill];
+                    } failure:^(NSError *error) {
+                        
                         if (error) {
                             XCTFail(@"Error while fetching data: %@",error);
                         }
-                        
+                        [queryExpectation fulfill];
                     }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Error while fetching data: %@",error);
-        }
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
 }
 #endif
@@ -353,26 +318,23 @@
                      reload:YES
                       paged:_pagedObject
                     success:^(NSArray *results){
-                        [queryExpectation fulfill];
+                        
                         XCTAssertNotNil(results);
                         if (results.count>0) {
                             
                         } else{
                             XCTFail(@"Result query should have data");
                         }
-                        
-                    } failure:^(NSError *error) {
                         [queryExpectation fulfill];
+                    } failure:^(NSError *error) {
+                        
                         if (error) {
                             XCTFail(@"Error while fetching data: %@",error);
                         }
+                        [queryExpectation fulfill];
                     }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Error while fetching data: %@",error);
-        }
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 #endif
 
@@ -390,26 +352,23 @@
                      reload:YES
                       paged:_pagedObject
                     success:^(NSArray *results){
-                        [queryExpectation fulfill];
+                        
                         XCTAssertNotNil(results);
                         if (results.count>0) {
                             
                         } else{
                             XCTFail(@"Result query should have data");
                         }
-                        
-                    } failure:^(NSError *error) {
                         [queryExpectation fulfill];
+                    } failure:^(NSError *error) {
+                        
                         if (error) {
                             XCTFail(@"Error while fetching data: %@",error);
                         }
+                        [queryExpectation fulfill];
                     }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Error while fetching data: %@",error);
-        }
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 #endif
 
@@ -427,26 +386,23 @@
                      reload:YES
                       paged:_pagedObject
                     success:^(NSArray *results){
-                        [queryExpectation fulfill];
+                        
                         XCTAssertNotNil(results);
                         if (results.count>0) {
                             
                         } else{
                             XCTFail(@"Result query should have data");
                         }
-                        
-                    } failure:^(NSError *error) {
                         [queryExpectation fulfill];
+                    } failure:^(NSError *error) {
+                        
                         if (error) {
                             XCTFail(@"Error while fetching data: %@",error);
                         }
+                        [queryExpectation fulfill];
                     }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Error while fetching data: %@",error);
-        }
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 #endif
 
@@ -466,7 +422,7 @@
                    [documentOpenExpectation fulfill];
                    
                } failure:^(NSError *error) {
-                    XCTFail(@"Error while fetching data: %@",error);
+                   XCTFail(@"Error while fetching data: %@",error);
                    [documentOpenExpectation fulfill];
                }];
     
@@ -493,25 +449,23 @@
     [[RKObjectManager sharedManager] getObjectsAtPath:@"searchengine"
                                            parameters:@{@"q": @"keytech"}
                                               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                                                  [solrsearchexpectation fulfill];
+                                                  
                                                   KTSearchengineResult *firstelement = [mappingResult firstObject];
                                                   
                                                   XCTAssertNotNil(firstelement,@"Response was nil");
                                                   KTElement *element = firstelement.element;
                                                   
                                                   XCTAssertNotNil(element,@"Element was nil");
-                                                  
+                                                  [solrsearchexpectation fulfill];
                                                   NSLog(@"OK");
+                                                  
                                               } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                  XCTFail(@"Should return values");
                                                   [solrsearchexpectation fulfill];
                                                   NSLog(@"Failure");
                                               }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Error while fetching data: %@",error);
-        }
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
     
 }
@@ -553,11 +507,7 @@
                            [documentOpenExpectation fulfill];
                        }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Error while fetching data: %@",error);
-        }
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 /**
@@ -591,11 +541,45 @@
                            [documentOpenExpectation fulfill];
                        }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Error while fetching data: %@",error);
-        }
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+    
+    // Ist das assert hier korrekt?
+    XCTAssert(YES, @"Pass");
+}
+
+-(void)testStoredQuery_withValues {
+    
+    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"query returned with data"];
+    
+    KTQuery *query = [[KTQuery alloc] init];
+    
+    // Queries are user-defined: /user/{userid}/queries
+    
+    // Some fake values
+    NSArray *values = @[@"Value1", @"42"];
+    
+    [query queryByStoredSearch:[@759 integerValue] // Stores query ID for user jgrant
+                        values:values
+                        reload:YES
+                         paged:_pagedObject
+                       success:^(NSArray *results) {  // a Query with this ID must exist in database
+                           
+                           XCTAssertNotNil(results);
+                           
+                           if (results.count > 0) {
+                               
+                           } else{
+                               XCTFail(@"Result query should have data");
+                           }
+                           [documentOpenExpectation fulfill];
+                           
+                       } failure:^(NSError *error) {
+                           
+                           XCTFail(@"Error while waiting for data: %@",error);
+                           [documentOpenExpectation fulfill];
+                       }];
+    
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
     // Ist das assert hier korrekt?
     XCTAssert(YES, @"Pass");

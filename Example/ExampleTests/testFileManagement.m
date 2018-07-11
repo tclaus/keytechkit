@@ -121,13 +121,7 @@ NSTimeInterval _timeOut = 25;
         
     }];
     
-    
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Failed uploading a file: %@",error);
-        }
-        
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
 }
 

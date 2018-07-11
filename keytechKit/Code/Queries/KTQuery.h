@@ -83,6 +83,23 @@
                    failure:(void(^)(NSError *error))failure;
 
 /**
+ Starts a query by a server stored query by its ID
+ @param storedQueryID The nummeric ID of a server side stored query
+ @param parameterValuesInOrder Values for parametric search in order of api request
+ @param shouldReload Set to True if a server side reload will be forced.
+ @param pagedObject The requested page and its size
+ @param success A block that will execute after search is completed
+ @param failure A block that will be exectue in case of a failure. The Error object will have a descriptive text of the cause of the error when possible
+ */
+-(void)queryByStoredSearch:(NSInteger)storedQueryID
+                    values:(NSArray<NSString*>*) parameterValuesInOrder
+                    reload:(BOOL)shouldReload
+                     paged:(KTPagedObject*)pagedObject
+                   success:(void(^)(NSArray <KTElement*> * results))success
+                   failure:(void(^)(NSError *error))failure;
+
+
+/**
  Starts a query in vaults (Solr search in Vaults) when enabled on server side.
  @param fileContentText A text fragment to be searched in files
  @param shouldReload Set to True if a server side reload will be forced.

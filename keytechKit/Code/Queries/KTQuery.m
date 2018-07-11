@@ -232,6 +232,21 @@
                    success:(void (^)(NSArray <KTElement*> *))success
                    failure:(void(^)(NSError *error))failure {
     
+    [self queryByStoredSearch:storedQueryID
+                       values:nil
+                       reload:shouldReload
+                        paged:pagedObject
+                      success:success
+                      failure:failure];
+}
+
+-(void)queryByStoredSearch:(NSInteger)storedQueryID
+                    values:(NSArray<NSString*>*) parameterValuesInOrder
+                    reload:(BOOL)shouldReload
+                     paged:(KTPagedObject *)pagedObject
+                   success:(void (^)(NSArray <KTElement*> *))success
+                   failure:(void(^)(NSError *error))failure {
+    
     /// Stats a Search by its queryID
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTElement mappingWithManager:[RKObjectManager sharedManager]];
@@ -239,17 +254,18 @@
     // Creating Query Parameter
     NSString *resourcePath = @"Search";
     
-    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init ];
+    NSMutableDictionary *rpcData = [[NSMutableDictionary alloc] init];
     rpcData[@"byQuery"] = @((int)storedQueryID);
     
     if (shouldReload) {
         rpcData[@"reload"] = @"true";
-    } else {
-        rpcData[@"reload"] = @"false";
     }
     
     rpcData[@"page"] = @((int)pagedObject.page);
     rpcData[@"size"] = @((int)pagedObject.size);
+    
+    // If parametric fields are given, add these objects to RPC
+    [self addParameterFields:parameterValuesInOrder toRPCData:rpcData];
     
     [manager getObject:nil path:resourcePath parameters:rpcData
                success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
@@ -267,6 +283,23 @@
                    }
                }];
 }
+
+/**
+ Adds for each search parameter an extra field
+ Ignores value if null
+ */
+-(void)addParameterFields:(NSArray<NSString*>*) parameterFields toRPCData:(NSMutableDictionary*) rpcData {
+    if (parameterFields) {
+        int parameterCounter = 1;
+        for (NSString* field in parameterFields) {
+            NSString* parameterKey = [NSString stringWithFormat:@"param%d",parameterCounter];
+            [rpcData setObject:field forKey:parameterKey];
+            
+            parameterCounter += 1;
+        }
+    }
+}
+
 
 - (NSString *)generateHTMLStringFromString:(NSString*)inString {
     
