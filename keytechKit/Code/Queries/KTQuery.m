@@ -50,7 +50,7 @@
     
     if (queryText == nil && fields == nil) {
         NSException *myException = [NSException exceptionWithName:@"Invalid Parameter"
-                                                           reason:@"Either querytext or fiels must not be null"
+                                                           reason:@"Either querytext or fields must not be null"
                                                          userInfo:nil];
         @throw myException;
         return;
