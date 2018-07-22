@@ -26,10 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 //+(RKObjectMapping*)requestMapping;
 /**
- Returns or stets the key that identifies the value. 
+ Returns or stets the key that identifies the value.
  Represents typically a keytech attribute name
  */
 @property (copy,nonnull) NSString* key;
+
 /**
  The value. Can be of any type. Check the named valuetypes.
  */
@@ -39,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
  Tries to interpret the value as a date value. Needs a valid JSON datetype
  */
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDate * _Nullable valueAsDate;
+
 /**
  Tries to interpret the value as a COCOA bool type.
  */

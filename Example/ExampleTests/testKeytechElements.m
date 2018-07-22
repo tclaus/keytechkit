@@ -83,9 +83,6 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     item.itemKey = @"Default_MI:12345";  //MI
     XCTAssertTrue( [item.itemClassType isEqualToString:@"MI"],@"Masteritem did not return 'MI' as classtype");
-    
-    
-    
 }
 
 -(void)testPostElement
@@ -94,28 +91,18 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     KTElement *element = [KTElement elementWithElementKey:@"MISC_FILE"];
     XCTestExpectation *elementFileExpectation = [self expectationWithDescription:@"Element Created"];
     
-    
     [element saveItem:^(KTElement *element) {
+        XCTAssertNotNil(element);
         [elementFileExpectation fulfill];
         
-        
-        //
     } failure:^(NSError *error) {
         XCTFail(@"Could not create a element: %@",error.localizedDescription);
         [elementFileExpectation fulfill];
-        
     }];
     
-    
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Failed uploading a file: %@",error);
-        }
-        
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
 }
-
 
 /**
  To Create folder type user must have right permission
@@ -131,37 +118,26 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     
     [element saveItem:^(KTElement *element) {
-      
+        XCTAssertNotNil(element);
         [elementFileExpectation fulfill];
         
-        //
     } failure:^(NSError *error) {
-
-          XCTFail(@"Should not create a element");
+        
+        XCTFail(@"Should not create a element");
         [elementFileExpectation fulfill];
-        
     }];
     
-    
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Failed uploading a file: %@",error);
-        }
-        
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
 }
-
 
 
 /**
  Test to get a invalid Element. No element with this key should be found. But response array should not be nil.
  */
--(void)testGetInvalidElement{
-    
+-(void)testGetInvalidElement {
     
     XCTestExpectation *expectation =[self expectationWithDescription:@"Load invalid element"];
-    
     
     [KTElement loadElementWithKey:@"DummyItem" success:^(KTElement* element){
         XCTFail(@"Shuld not return an element");
@@ -180,7 +156,6 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         
     }];
     
-    
 }
 
 /**
@@ -188,29 +163,36 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
  */
 -(void)testGetValidElement{
     
-    
     XCTestExpectation *expectation =[self expectationWithDescription:@"Load element"];
     
-    __block KTElement *_theElement;
-    
     [KTElement loadElementWithKey:elementKeyWithStructure
-                          success:^(KTElement *theElement) {
-                              _theElement =theElement;
+                          success:^(KTElement *element) {
+                              XCTAssertNotNil(element);
                               [expectation fulfill];
                           } failure:^(NSError *error) {
-                              
                               XCTFail(@"Error loading element: %@",error);
                               [expectation fulfill];
                           }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error){
-            NSLog(@"error: %@",error);
-        } else {
-            if (_theElement==nil) XCTFail(@"The result should not be nil");
-        }
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+-(void)testElementPermissions {
     
+    XCTestExpectation *expectation =[self expectationWithDescription:@"Load element permissions"];
+    
+    [KTElementPermissions loadWithElementKey:elementKeyWithStructure
+                                     success:^(KTElementPermissions *elementPermission) {
+                                         
+                                         XCTAssertNotNil(elementPermission);
+                                         [expectation fulfill];
+                                     } failure:^(NSError *error) {
+                                         
+                                         XCTFail(@"Error loading element: %@",error);
+                                         [expectation fulfill];
+                                     }];
+    
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 /// Load element with the full set of attributes
@@ -218,13 +200,11 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     XCTestExpectation *expectation =[self expectationWithDescription:@"Load element"];
     
-    __block KTElement *_theElement;
-    
     [KTElement loadElementWithKey:elementKeyWithStructure withMetaData:KTResponseFullAttributes
-                          success:^(KTElement *theElement) {
+                          success:^(KTElement *element) {
                               
-                              _theElement =theElement;
-                              if (_theElement.keyValueList.count==0){
+                              XCTAssertNotNil(element);
+                              if (element.keyValueList.count == 0){
                                   XCTFail(@"Element key value list was empty. A full keyvalue list was expcted");
                               }
                               [expectation fulfill];
@@ -233,18 +213,9 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
                               [expectation fulfill];
                           }] ;
     
-    
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error){
-            NSLog(@"error: %@",error);
-        } else {
-            if (_theElement==nil) XCTFail(@"The result should not be nil");
-        }
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
 }
-
-
 
 /**
  Performs deferred getting whereused data.
@@ -270,9 +241,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
                                [documentOpenExpectation fulfill];
                            }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-    }];
-    
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
 }
 
@@ -288,24 +257,18 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Filelist Loaded"];
     
     [element loadFileListSuccess:^(NSArray *itemsList) {
-        [documentOpenExpectation fulfill];
         XCTAssertNotNil(itemsList, @"Filellist list should not be nil");
         XCTAssertTrue(itemsList.count>0, @"Filelist list should have some items");
         XCTAssertTrue(element.itemFilesList.count>0,@"Element property should not be empty");
-        
+        [documentOpenExpectation fulfill];
         
     } failure:^(NSError *error) {
-        [documentOpenExpectation fulfill];
-        XCTFail(@"Failed loading filelist: %@",error);
         
+        XCTFail(@"Failed loading filelist: %@",error);
+        [documentOpenExpectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            NSLog(@"%@",error);
-        }
-    }];
-    
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
 }
 
@@ -313,7 +276,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
 /// Gets the list of version from the given element
 - (void)testGetElementVersionsList
 {
-    KTElement* element = [[KTElement alloc]initWithElementKey:elementKeyWithStructure];
+    KTElement* element = [[KTElement alloc] initWithElementKey:elementKeyWithStructure];
     
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Filelist Loaded"];
     
@@ -329,9 +292,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         [documentOpenExpectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-    }];
-    
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
 }
 
@@ -340,7 +301,10 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
  */
 - (void)testGetElementNotesList
 {
-    KTElement* element = [[KTElement alloc]initWithElementKey:elementKeyWithNotes];
+    // Still need a test element with notes
+    // Can keytech add a note via web-api?
+    
+    KTElement* element = [[KTElement alloc] initWithElementKey:elementKeyWithNotes];
     
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Noteslist loaded"];
     
@@ -359,13 +323,9 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         [documentOpenExpectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
 }
-
-
 
 /**
  Performs a GET on an Elements BOM (Bill of Material)s list.
@@ -381,32 +341,18 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     [element loadBomListPage:1
                     withSize:100
                      success:^(NSArray *itemsList) {
-                         [documentOpenExpectation fulfill];
+                         
                          XCTAssertNotNil(itemsList);
                          XCTAssertTrue(itemsList.count>0);
                          XCTAssertTrue(element.itemBomList.count>0,@"Element property should not be empty");
-                         
-                         
+                         [documentOpenExpectation fulfill];
                          
                      } failure:^(NSError *error) {
+                         XCTFail("Failed loaded bom");
                          [documentOpenExpectation fulfill];
-                         XCTAssert(NO);
-                         
                      }];
-    
-    
-    // Expectation
-    // The test will pause here, running the run loop, until the timeout is hit
-    // or all expectations are fulfilled.
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        // Clean up test
-        if (error){
-            NSLog(@"%@",error);
-        }
-    }];
-    
-    
-    
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 /**
@@ -417,6 +363,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     KTElement* item = [[KTElement alloc]init];
     item.itemKey = elementKeyWithStateWork;
     
+    // TODO - Clean up this test! - make nextStatus load async
     NSMutableArray* structure =  item.itemNextAvailableStatusList;
     
     XCTAssertNotNil(structure,@"statuslist should not be empty");
@@ -434,8 +381,8 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     [element loadStatusHistoryListSuccess:^(NSArray *itemsList) {
         
         XCTAssertNotNil(itemsList);
-        XCTAssertTrue(itemsList.count>0);
-        XCTAssertTrue(element.itemStatusHistory.count>0,@"Element property should not be empty");
+        XCTAssertTrue(itemsList.count > 0);
+        XCTAssertTrue(element.itemStatusHistory.count > 0,@"Element property should not be empty");
         
         [documentOpenExpectation fulfill];
         
@@ -444,14 +391,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         [documentOpenExpectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:8 handler:^(NSError *error) {
-        // Clean up test
-        if (error){
-            NSLog(@"%@",error);
-        }
-    }];
-    
-    
+    [self waitForExpectationsWithTimeout:8 handler:nil];
 }
 
 /**
@@ -468,11 +408,10 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     image=nil;
     
-    
 }
 
 
--(void)testGetElementStructure{
+-(void)testGetElementStructure {
     
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"Load element structure"];
@@ -493,39 +432,22 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
                                [expectation fulfill];
                            }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if  (!error) {
-            
-            if (element){
-                if  (!element.itemStructureList){
-                    XCTFail(@"The structure list was empty");
-                } else {
-                    // OK
-                }
-            } else {
-                XCTFail(@"The element was empty");
-            }
-            
-        }else {
-            // Error occured
-            XCTFail(@"Error while loading structure: %@",error);
-        }
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
 }
 
 /// Starts moving a elemnet to another class
--(void)testMoveElement{
+-(void)testMoveElement {
     // Create a dummy element
     // Move it to another class
     
     XCTestExpectation *elementSavedExpectation = [self expectationWithDescription:@"Element saved"];
     
-    
     KTElement *element = [KTElement elementWithElementKey:@"MISC_FILE"];
     [element saveItem:^(KTElement *element) {
-        [elementSavedExpectation fulfill];
+        
         NSLog(@"Element created with ID: %@",element.itemKey);
+        [elementSavedExpectation fulfill];
         
     } failure:^(NSError *error) {
         NSLog(@"Creation failed");
@@ -533,11 +455,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
         [elementSavedExpectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Could not cerate a new element");
-        }
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
     XCTestExpectation *elementMovedExpectation = [self expectationWithDescription:@"Element moved"];
     
@@ -555,13 +473,7 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
                      [elementMovedExpectation fulfill];
                  }];
     
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if  (error) {
-            XCTFail(@"Element could not be moved: %@",error);
-        }
-    }];
-    
-    
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 /// Starts a test to reserve a given element
@@ -573,8 +485,8 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     // Store a new element
     [element saveItem:^(KTElement *element) {
-        [elementSavedExpectation fulfill];
         NSLog(@"Element created with ID: %@",element.itemKey);
+        [elementSavedExpectation fulfill];
         
     } failure:^(NSError *error) {
         NSLog(@"Creation failed");
@@ -593,15 +505,14 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     
     [element setReserveStatus:YES
                       success:^{
-                          [elementReserverdExpectation fulfill];
                           NSLog(@"Element reserved");
+                          [elementReserverdExpectation fulfill];
                           
                       } failure:^(NSError *error) {
-                          [elementReserverdExpectation fulfill];
+                          
                           NSLog(@"Reserve Error: %@",error.localizedDescription);
                           XCTFail(@"Could not reserve a new element");
-                          
-                          
+                          [elementReserverdExpectation fulfill];
                       }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError * _Nullable error) {
@@ -611,8 +522,6 @@ NSTimeInterval _timeout = 8; //* 8 Seconds Timeout
     }];
     
 }
-
-
 
 @end
 

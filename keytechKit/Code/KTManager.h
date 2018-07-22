@@ -14,16 +14,16 @@
 
 #define dispatch_main_sync_safeKT(block)\
 if ([NSThread isMainThread]) {\
-  block();\
+block();\
 } else {\
-  dispatch_sync(dispatch_get_main_queue(), block);\
+dispatch_sync(dispatch_get_main_queue(), block);\
 }
 
 #define dispatch_main_async_safeKT(block)\
 if ([NSThread isMainThread]) {\
-  block();\
+block();\
 } else {\
-  dispatch_async(dispatch_get_main_queue(), block);\
+dispatch_async(dispatch_get_main_queue(), block);\
 }
 
 
@@ -43,6 +43,7 @@ if ([NSThread isMainThread]) {\
  Returns the default application data directory
  */
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSURL *applicationDataDirectory;
+
 /**
  Returns the default application cache directory
  */
@@ -116,7 +117,6 @@ typedef struct {int page; int size;} PageDefinition;
 +(NSError*)translateErrorFromResponse:(NSHTTPURLResponse*)response error:(NSError*)error;
 
 #pragma mark License Management
-
 
 
 @end

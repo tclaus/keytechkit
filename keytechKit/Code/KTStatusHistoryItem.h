@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "KTSignedBy.h"
 
-
 /**
  Provides an item of Status change. Who and When signed the element.
  */

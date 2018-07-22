@@ -13,7 +13,7 @@
 static RKObjectMapping* _mapping = nil;
 static RKObjectManager *_usedManager;
 
--(NSString*) ItemClassKey{
+-(NSString*) ItemClassKey {
     NSArray *components=[self.elementKey componentsSeparatedByString:@":"];
     
     if(components.count>=2)
@@ -22,18 +22,17 @@ static RKObjectManager *_usedManager;
     return self.elementKey;
 }
 
--(NSString*) ItemClassType{
+-(NSString*) ItemClassType {
     
     if ([self.ItemClassKey rangeOfString:@"_MI"].location !=NSNotFound) return @"MI";
     if ([self.ItemClassKey rangeOfString:@"_FD"].location !=NSNotFound) return @"FD";
     if ([self.ItemClassKey rangeOfString:@"_WF"].location !=NSNotFound) return @"FD";
     
     return @"DO";
-    
 }
 
 /// Sets the mapping
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
 
     if (_usedManager !=manager){
         _usedManager = manager;

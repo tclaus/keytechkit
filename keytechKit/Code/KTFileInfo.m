@@ -26,8 +26,7 @@
 static RKObjectMapping *_mapping;
 static RKObjectManager *_usedManager;
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _fileDivider = @"-+-";
@@ -39,7 +38,7 @@ static RKObjectManager *_usedManager;
 /**
  Sets the object mapping
  */
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (_usedManager !=manager){
         _usedManager = manager;
@@ -68,7 +67,7 @@ static RKObjectManager *_usedManager;
     return _mapping;
 }
 
-+(instancetype)fileInfoWithElement:(KTElement *)element{
++(instancetype)fileInfoWithElement:(KTElement *)element {
     KTFileInfo *fileInfo = [[KTFileInfo alloc]init];
     if (fileInfo) {
         fileInfo.elementKey = element.itemKey;
@@ -76,11 +75,12 @@ static RKObjectManager *_usedManager;
     return fileInfo;
 }
 
--(void)setFileStorageTextType:(NSString*)storageType{
+-(void)setFileStorageTextType:(NSString*)storageType {
     if ([storageType compare:@"Master" options:NSCaseInsensitiveSearch] == NSOrderedSame ) {
         self.fileStorageType =FileTypeMaster;
         return;
     }
+    
     if ([storageType compare:@"Preview" options:NSCaseInsensitiveSearch] == NSOrderedSame ) {
         self.fileStorageType =FileTypePreview;
         return;
@@ -98,7 +98,7 @@ static RKObjectManager *_usedManager;
     
 }
 
--(NSString*)fileStorageTextType{
+-(NSString*)fileStorageTextType {
     switch (self.fileStorageType) {
             
         case FileTypeMaster:
@@ -123,8 +123,7 @@ static RKObjectManager *_usedManager;
     }
 }
 
-
--(id)copyWithZone:(NSZone *)zone{
+-(id)copyWithZone:(NSZone *)zone {
     KTFileInfo *newcopy = [[KTFileInfo alloc] init];
     newcopy.fileID = self.fileID;
     newcopy.fileName = self.fileName;
@@ -135,7 +134,7 @@ static RKObjectManager *_usedManager;
 }
 
 // Returns the shortende filename
--(NSString*)shortFileName{
+-(NSString*)shortFileName {
     if(self.fileName !=nil){
         //self.itemClassKey rangeOfString:@"_MI"].location !=NSNotFound
         
@@ -180,7 +179,7 @@ static RKObjectManager *_usedManager;
 /**
  Checks if the file is already transferd to local machine
  */
--(BOOL)isLocalLoaded{
+-(BOOL) isLocalLoaded {
     
     // Objekt ist nicht zugewiesen
     
@@ -224,7 +223,7 @@ static RKObjectManager *_usedManager;
 }
 
 // Loads the file, if not locally available
--(void)loadRemoteFile{
+-(void)loadRemoteFile {
     
     if (!self.isLocalLoaded && !_isLoading){
         _isLoading = YES;
@@ -246,7 +245,6 @@ static RKObjectManager *_usedManager;
         NSURLSessionDownloadTask *getFileTask= [session downloadTaskWithRequest:request];
         [getFileTask resume];
         
-        
         _isLoading = YES;
         return;
         
@@ -255,7 +253,9 @@ static RKObjectManager *_usedManager;
     }
 }
 
--(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error{
+-(void) URLSession:(NSURLSession *)session
+              task:(NSURLSessionTask *)task
+didCompleteWithError:(NSError *)error {
     
     if ([self.delegate respondsToSelector:@selector(FinishedUploadWithFileInfo:)]) {
         [self.delegate FinishedUploadWithFileInfo:self];
@@ -285,8 +285,8 @@ static RKObjectManager *_usedManager;
         
         dispatch_main_sync_safeKT(^{
             [self willChangeValueForKey:@"localFileURL"];
-            _localFileURL = targetURL;
-            _isLoading = NO;
+            self->_localFileURL = targetURL;
+            self->_isLoading = NO;
             [self didChangeValueForKey:@"localFileURL"];
             
             if ([self.delegate respondsToSelector:@selector(FinishedDownloadWithFileInfo:)]) {
@@ -299,7 +299,7 @@ static RKObjectManager *_usedManager;
         // Fehler, Datei konnte nicht geladen werden
         _isLoading = NO;
     }
-
+    
 }
 
 ///Uploaded Data - Ignore invalid SSL (Self signed Certificates, Ugly but needed..)
@@ -549,7 +549,7 @@ static RKObjectManager *_usedManager;
                                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                           
                                                           if (error) {
-
+                                                              
                                                               NSError *transcodedError = [KTManager translateErrorFromResponse:(NSHTTPURLResponse*)response error:error];
                                                               
                                                               if (failure)
@@ -561,7 +561,7 @@ static RKObjectManager *_usedManager;
                                                               
                                                               NSHTTPURLResponse *httpResponse =(NSHTTPURLResponse*)response;
                                                               
-                                                              if (httpResponse.statusCode>299 ) {
+                                                              if (httpResponse.statusCode > 299 ) {
                                                                   
                                                                   if (failure) {
                                                                       

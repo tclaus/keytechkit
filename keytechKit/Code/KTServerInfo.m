@@ -19,14 +19,13 @@ static KTServerInfo *_serverInfo;
 
 @synthesize keyValueList = _keyValueList;
 
-// Mapping for Class
+// Mapping for class
 static RKObjectMapping *_mapping;
 static RKObjectManager *_usedManager;
 
 static KTServerInfo *_sharedServerInfo;
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         [KTServerInfo mappingWithManager:[RKObjectManager sharedManager]];
@@ -38,36 +37,33 @@ static KTServerInfo *_sharedServerInfo;
 }
 
 /// Creates a shared instance and loads Data
-+(instancetype)sharedServerInfo{
-
++(instancetype)sharedServerInfo {
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedServerInfo = [[KTServerInfo alloc]init];
     });
-
+    
     return _sharedServerInfo;
 }
 
-
 // Sets the Object mapping for JSON
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (_usedManager !=manager){
         _usedManager = manager;
         
-       
         RKObjectMapping *kvMapping = [RKObjectMapping mappingForClass:[KTKeyValue class]];
         [kvMapping addAttributeMappingsFromDictionary:@{@"Key":@"key",
-                                                       @"Value":@"value"}];
-       
-         _mapping = [RKObjectMapping mappingForClass:[self class]];
+                                                        @"Value":@"value"}];
+        
+        _mapping = [RKObjectMapping mappingForClass:[self class]];
         [_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"ServerInfoResult" toKeyPath:@"_keyValueList" withMapping:kvMapping]];
         /*
-        [RKRelationshipMapping relationshipMappingFromKeyPath:@"ServerInfoResult"
-                                                    toKeyPath:@"keyValueList"
-                                                  withMapping:kvMapping];
-        */
-        
+         [RKRelationshipMapping relationshipMappingFromKeyPath:@"ServerInfoResult"
+         toKeyPath:@"keyValueList"
+         withMapping:kvMapping];
+         */
         
         NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
         RKResponseDescriptor *serverInfoDescriptor = [RKResponseDescriptor
@@ -77,28 +73,26 @@ static KTServerInfo *_sharedServerInfo;
                                                       keyPath:@"ServerInfoResult"
                                                       statusCodes:statusCodes];
         
-        
         [_usedManager addResponseDescriptorsFromArray:@[ serverInfoDescriptor ]];
-        
-        
     }
     
     return _mapping;
 }
 
--(void)loadWithSuccess:(void (^)(KTServerInfo *))success failure:(void (^)(NSError *))failure {
+-(void)loadWithSuccess:(void (^)(KTServerInfo *))success
+               failure:(void (^)(NSError *))failure {
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTServerInfo mappingWithManager:manager];
     
     /*
-    if (_isLoading) {
-        [self waitUnitlLoad];
-        if (success) {
-            success(self);
-        }
-        return;
-    }
-    */
+     if (_isLoading) {
+     [self waitUnitlLoad];
+     if (success) {
+     success(self);
+     }
+     return;
+     }
+     */
     
     _isLoading = YES;
     [manager getObject:_sharedServerInfo path:@"serverinfo" parameters:nil
@@ -108,34 +102,31 @@ static KTServerInfo *_sharedServerInfo;
                    [self.keyValueList addObjectsFromArray:mappingResult.array];
                    
                    // Key Value liste austauschen
-                   _keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
-                   _isLoaded = YES;
-                   _isLoading = NO;
+                   self->_keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
+                   self->_isLoaded = YES;
+                   self->_isLoading = NO;
                    
                    if (success) {
                        success(self);
                    }
                    
                } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                   _isLoaded = NO;
-                   _isLoading = NO;
-                    NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
+                   self->_isLoaded = NO;
+                   self->_isLoading = NO;
+                   NSError *transcodedError = [KTManager translateErrorFromResponse:operation.HTTPRequestOperation.response error:error];
                    
                    if (failure) {
                        failure(transcodedError);
                    }
-
-                   
                }];
-    
 }
 
 /// Loads the serverinfo and waits until return
--(void)reload{
+-(void)reload {
     if (!_isLoading) {
         _isLoaded = NO;
         _isLoading = YES;
-    
+        
         RKObjectManager *manager = [RKObjectManager sharedManager];
         [KTServerInfo mappingWithManager:manager];
         
@@ -143,25 +134,21 @@ static KTServerInfo *_sharedServerInfo;
         [manager getObject:nil path:@"serverinfo" parameters:nil
                    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                        // Key Value liste austauschen
-                    _keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
-                       _isLoaded = YES;
-                       _isLoading = NO;
+                       self->_keyValueList = [NSMutableArray arrayWithArray:mappingResult.array];
+                       self->_isLoaded = YES;
+                       self->_isLoading = NO;
                    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                       _isLoaded = NO;
-                       _isLoading = NO;
+                       self->_isLoaded = NO;
+                       self->_isLoading = NO;
                    }];
-
-        
         [self waitUnitlLoad];
     }
-    
-    
 }
 
 
 /// Wait until request comnples
 /// No async here, case the values matters
--(void)waitUnitlLoad{
+-(void)waitUnitlLoad {
     // Do some polling to wait for the connections to complete
 #define POLL_INTERVAL 0.2 // 200ms
 #define N_SEC_TO_POLL 30.0 // poll for 30s
@@ -182,14 +169,13 @@ static KTServerInfo *_sharedServerInfo;
     if (pollCount== MAX_POLL_COUNT) {
         NSLog(@"Loading Error!");
     }
-    
 }
 
 /**
  Extract the values from the key value list
  @param key The key to retrive it's value
  */
--(id)valueForKey:(NSString *)key{
+-(id)valueForKey:(NSString *)key {
     
     for (KTKeyValue *kv in self.keyValueList) {
         if ([kv.key compare:key options:NSCaseInsensitiveSearch] == NSOrderedSame) {
@@ -198,11 +184,12 @@ static KTServerInfo *_sharedServerInfo;
     }
     return nil;
 }
+
 /**
  Returns a Boolean value
-  @param key The key to retrive it's boolean value
+ @param key The key to retrive it's boolean value
  */
--(BOOL)boolValueForKey:(NSString *)key{
+-(BOOL)boolValueForKey:(NSString *)key {
     
     for (KTKeyValue *kv in self.keyValueList) {
         if ([kv.key compare:key options:NSCaseInsensitiveSearch] == NSOrderedSame) {
@@ -220,36 +207,35 @@ static KTServerInfo *_sharedServerInfo;
             };
             
             return NO;
-            
         }
     }
     
     return NO;
 }
 
-+(instancetype)serverInfo{
++(instancetype)serverInfo {
     return [KTServerInfo sharedServerInfo];
 }
 
--(NSString*)serverID{
+-(NSString*)serverID {
     
     return [self valueForKey:@"ServerID"];
 }
 
--(BOOL)isIndexServerEnabled{
+-(BOOL)isIndexServerEnabled {
     return [self boolValueForKey:@"Supports Index Server"];
 }
 
 
--(NSString *)databaseVersion{
+-(NSString *)databaseVersion {
     return [self valueForKey:@"keytech database version"];
 }
 
--(NSString *)APIVersion{
+-(NSString *)APIVersion {
     return [self valueForKey:@"API version"];
 }
 
--(NSString *)licencedCompany{
+-(NSString *)licencedCompany {
     return [self valueForKey:@"LicensedCompany"];
 }
 

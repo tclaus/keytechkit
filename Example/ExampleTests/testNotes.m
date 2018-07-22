@@ -63,6 +63,7 @@
         
     } failure:^(NSError *error) {
         XCTFail(@"Failed with error: %@",error);
+        [expectation fulfill];
     }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {

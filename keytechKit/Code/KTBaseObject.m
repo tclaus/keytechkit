@@ -8,9 +8,7 @@
 
 #import "KTBaseObject.h"
 
-
 @implementation KTBaseObject
-
 
 #pragma mark Helper Functions
 
@@ -22,3 +20,6 @@
 }
 
 @end
+
+
+

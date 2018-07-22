@@ -16,8 +16,8 @@
 
 @interface testClasses : XCTestCase
 
-
 @end
+
 
 /**
  Tests keytech classes: Classlayouts / Bom Layouts, Lister configuration
@@ -28,7 +28,6 @@
     NSString* elementKeyWithStructure;
     NSString* classKey;
     TestDefaults *_testdefaults;
-    
 }
 
 - (void)setUp
@@ -38,34 +37,35 @@
     _testdefaults =[[TestDefaults alloc]init];
     [_testdefaults setUp];
     _webservice = [KTManager sharedManager];
-    elementKeyWithStructure = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API}
+    elementKeyWithStructure = @"3DMISC_SLDASM:2220"; //* Element with structure on Test API
     classKey = @"3DMISC_SLDASM";
-  
-    
 }
 
 - (void)tearDown
 {
- 
     // Put teardown code here; it will be run once, after the last test case.
     [super tearDown];
 }
 
+-(void)runTest{
+    
+}
 
 
 /// Gets a full classlist
--(void)testGetClasslist{
+-(void)testGetClasslist
+{
 
     __block NSArray *_results;
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"Classlist Loaded"];
-    
     
     [KTClasses loadClassListSuccess:^(NSArray<KTClass*> *classList) {
         _results = classList;
         [expectation fulfill];
         
     } failure:^(NSError *error) {
+        XCTFail("Failed loading claslist");
         [expectation fulfill];
         
     }];
@@ -76,7 +76,6 @@
     XCTAssertNotNil(_results,@"Classlist should not be nil");
     XCTAssert((_results.count>0),@"Classlist should have at least one class");
               
-
 }
 
 -(void)testGetClass{
@@ -89,8 +88,8 @@
                         _class = ktclass;
                         [expectation fulfill];
                     } failure:^(NSError *error) {
+                        XCTFail("Failed loading claslist by key");
                         [expectation fulfill];
-                        
                     }];
     
     [self waitForExpectationsWithTimeout:30 handler:nil];

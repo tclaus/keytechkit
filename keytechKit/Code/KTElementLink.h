@@ -12,6 +12,7 @@
 @class KTElement;
 
 NS_ASSUME_NONNULL_BEGIN
+
 /**
  Represents a simple Parent-Child relationship between elements in its structure
  */
@@ -38,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
  Saves a new link to a parent element.  
  */
 -(void)saveLink:(void (^)(KTElement *childElement))success failure:(void (^)(NSError * error))failure;
+
 /**
  Deletes an existing link
  */

@@ -27,34 +27,34 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
-    _searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
+    _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     _searchController.searchResultsUpdater = self;
     self.tableView.tableHeaderView = _searchController.searchBar;
     
     self.definesPresentationContext = YES;
     
-    // Start connecting to keytech service
-    
+    _searchController.searchBar.text = @"dampf";
+ 
+    [self initializeKeytechAPI];
+}
+
+-(void)initializeKeytechAPI {
     NSString *serverURL = @"https://demo.keytech.de";
     NSString *username = @"jgrant";
     // No password so far
     
     // Setup credentials
     [KTManager sharedManager].servername = serverURL;
-    [KTManager sharedManager].username =username;
+    [KTManager sharedManager].username = username;
     [[KTManager sharedManager] synchronizeServerCredentials];
-    
-    _searchController.searchBar.text = @"dampf";
-    
-    
 }
 
 -(void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     
     KTPagedObject *paging = [KTPagedObject initWithPage:1
                                                    size:10];
-    
-    if (searchController.searchBar.text.length>1) {
+
+    if (searchController.searchBar.text.length > 1) {
         KTQuery *query = [[KTQuery alloc]init];
         [query queryByText:searchController.searchBar.text           // a text based search
                     fields:nil                  // no special fields
@@ -62,16 +62,18 @@
                     reload:false                //
                      paged:paging               // use a paging object
                    success:^(NSArray *results) {
+                       
+                        NSLog(@"Loaded a resultset");
                        // results is a array with KTElement Objects in it
                        _objects = results;
                        [self.tableView reloadData];
                    }
                    failure:^(NSError* error){
                        // Progress the error
+                       NSLog(@"Failure reading from API: %@", error);
                    }];
     }
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;

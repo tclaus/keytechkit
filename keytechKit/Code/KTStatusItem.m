@@ -16,12 +16,12 @@
 static RKObjectMapping* _mapping;
 static RKObjectManager *_usedManager;
 
-+(NSInteger)version{
++(NSInteger)version {
     return 1; // Dev notice: Increment if definition if header changes
 }
 
 // Sets the JSON mapping
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (_usedManager !=manager){
         _usedManager = manager;
@@ -30,45 +30,37 @@ static RKObjectManager *_usedManager;
         [_mapping addAttributeMappingsFromDictionary:@{@"ImageName":@"statusImageName",
                                                        @"Restriction":@"statusRestriction",
                                                        @"StatusID":@"statusID"
-                                                    }];
+                                                       }];
         RKResponseDescriptor *statusResponse = [RKResponseDescriptor responseDescriptorWithMapping:_mapping
-                                             method:RKRequestMethodGET
-                                        pathPattern:nil keyPath:@"StatusList"
-                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-
+                                                                                            method:RKRequestMethodGET
+                                                                                       pathPattern:nil keyPath:@"StatusList"
+                                                                                       statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+        
         [_usedManager addResponseDescriptor:statusResponse];
-        
-        
     }
-    
     return _mapping;
 }
 
--(void)encodeWithCoder:(NSCoder *)aCoder{
+-(void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.statusImageName forKey:@"statusImageName"];
     [aCoder encodeObject:self.statusRestriction forKey:@"statusRestriction"];
     [aCoder encodeObject:self.statusID forKey:@"statusID"];
-    
-    
 }
 
--(instancetype)initWithCoder:(NSCoder *)aDecoder{
+-(instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
         self.statusImageName = [aDecoder decodeObjectForKey:@"statusImageName"];
         self.statusRestriction = [aDecoder decodeObjectForKey:@"statusRestriction"];
         self.statusID = [aDecoder decodeObjectForKey:@"statusID"];
-        
     }
     return self;
 }
 
-+(void)loadStatusListSuccess:(void (^)(NSArray <KTStatusItem*> *))success
-                     failure:(void (^)(NSError *))failure{
++(void)loadStatusListSuccess:(void (^)(NSArray <KTStatusItem*>*)) success
+                     failure:(void (^)(NSError*)) failure {
     
-    
-    
-     RKObjectManager *manager = [RKObjectManager sharedManager];
+    RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTStatusItem mappingWithManager:manager];
     
     [manager getObjectsAtPath:@"status" parameters:nil
@@ -83,11 +75,9 @@ static RKObjectManager *_usedManager;
                               failure(transcodedError);
                           }
                       }];
-    
-    
 }
 
--(NSString*)description{
+-(NSString*)description {
     return [NSString stringWithFormat:@"\"%@\" with restriction (%@) ",self.statusID, self.statusRestriction];
 }
 

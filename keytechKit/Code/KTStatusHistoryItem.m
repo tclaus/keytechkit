@@ -15,9 +15,8 @@ static RKObjectMapping* _mapping = nil;
 static RKObjectManager *_usedManager;
 
 
-
 /// Stets the object mapping
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (_usedManager !=manager){
         _usedManager = manager;
@@ -37,31 +36,28 @@ static RKObjectManager *_usedManager;
                                                  pathPattern:nil
                                                      keyPath:@"StatusHistoryEntries"
                                                  statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
-        
     }
-    
     return _mapping;
 }
 
 /*
  Konstruiert eine Liste von Benutzern, die den Statuswechsel unterschrieren haben
  */
--(NSString*)signedByList{
+-(NSString*)signedByList {
     NSString* _usersList;
     _usersList = [[self.historySignedBy valueForKey:@"signedByLong"] componentsJoinedByString:@" "];
     return  _usersList;
 }
 
--(NSDate*)lastSignedAt{
+-(NSDate*)lastSignedAt {
     KTSignedBy* signedBy = (self.historySignedBy).lastObject;
     return  signedBy.signedAt;
-    
 }
 
 /*
  Debugger Output
  */
--(NSString *)description{
+-(NSString *)description {
     return [NSString stringWithFormat:@"From: %@ To: %@",self.historySourceStatus,self.historyTargetStatus];
 }
 

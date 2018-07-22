@@ -16,7 +16,7 @@ static RKObjectManager *_usedManager;
 
 
 // Sets the JSON mapping
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (_usedManager !=manager){
         _usedManager = manager;

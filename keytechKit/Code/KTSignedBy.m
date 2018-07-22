@@ -27,7 +27,6 @@ static RKObjectManager *_usedManager;
         
     }
     return _mapping;
-
 }
 
 @end

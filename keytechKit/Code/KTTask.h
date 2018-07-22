@@ -15,7 +15,6 @@
  */
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
-
 @property (nonatomic,copy) NSString* assignedUserName;
 @property (nonatomic,copy) NSString* assignedUserNameLong;
 /**

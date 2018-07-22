@@ -13,7 +13,7 @@
 #import "KTElement.h"
 
 /**
- Represents a hierachically link to a object. 
+ Represents a hierachically link to a object.
  Object can be an element a query or any other object type. Target Links are represented by its linkID
  */
 @interface KTTargetLink : NSObject
@@ -25,7 +25,7 @@
 +(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager;
 
 /**
-Gets the unique link ID
+ Gets the unique link ID
  */
 @property (nonatomic) NSInteger parentID;
 

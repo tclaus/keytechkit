@@ -15,7 +15,7 @@ static RKObjectMapping* _mapping = nil; /** contains the mapping*/
 static RKObjectManager *_usedManager;
 
 /// Stets the object mapping
-+(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager{
++(RKObjectMapping*)mappingWithManager:(RKObjectManager*)manager {
     
     if (_usedManager !=manager){
         _usedManager = manager;
@@ -33,14 +33,11 @@ static RKObjectManager *_usedManager;
                                                  pathPattern:nil
                                                      keyPath:@"TargetLinks"
                                                  statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
-        
-        
     }
-    
     return _mapping;
 }
 
--(NSString*) itemClassKey{
+-(NSString*) itemClassKey {
     NSArray *components=[self.targetElementKey componentsSeparatedByString:@":"];
     
     if(components.count>=2)
@@ -49,17 +46,16 @@ static RKObjectManager *_usedManager;
     return self.targetElementKey;
 }
 
--(NSString*) itemClassType{
+-(NSString*) itemClassType {
     
     if ([self.itemClassKey rangeOfString:@"_MI"].location !=NSNotFound) return @"MI";
     if ([self.itemClassKey rangeOfString:@"_FD"].location !=NSNotFound) return @"FD";
     if ([self.itemClassKey rangeOfString:@"_WF"].location !=NSNotFound) return @"FD";
     
     return @"DO";
-    
 }
 
--(void)setValue:(id)value forKey:(NSString *)key{
+-(void)setValue:(id)value forKey:(NSString *)key {
     [super setValue:value forKey:key];
     
     // für leere Keys ein "nil" erzwingen
@@ -70,14 +66,11 @@ static RKObjectManager *_usedManager;
     }
 }
 
-
-
-
 /**
  Helps debugging output
  */
--(NSString*)debugDescription{
-    return [NSString stringWithFormat:@"%@, %@",self.entryName,self.targetElementKey];
+-(NSString*)debugDescription {
+    return [NSString stringWithFormat:@"<%@: %p> Name: '%@', Target: %@",[self class], self,self.entryName,self.targetElementKey];
 }
 
 @end

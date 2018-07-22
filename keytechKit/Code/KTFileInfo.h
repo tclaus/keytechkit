@@ -68,11 +68,11 @@ typedef NS_ENUM(NSInteger, FileStorageType) {
 
 /**
  Short filename is the filename without the ElementName. Shortend usually after the Divider '-+-' in filenames.
-*/
- @property (nonatomic,readonly) NSString* shortFileName;
+ */
+@property (nonatomic,readonly) NSString* shortFileName;
 
 /**
- A text representation of the file Type : MASTER, PREVIEW, QuickPreview, OLEREF, 
+ A text representation of the file Type : MASTER, PREVIEW, QuickPreview, OLEREF,
  */
 @property (nonatomic) FileStorageType fileStorageType;
 
@@ -91,27 +91,25 @@ typedef NS_ENUM(NSInteger, FileStorageType) {
  */
 @property (readonly) BOOL isLocalLoaded;
 
-
 /**
-When file is loaded a local URL is returned. Nil otherwise
+ When file is loaded a local URL is returned. Nil otherwise
  */
 @property (readonly) NSURL *localFileURL;
 
 #pragma mark Methods
 
 /**
-  Loads the remote file to a temporary store
+ Loads the remote file to a temporary store
  */
 -(void)loadRemoteFile;
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 /**
  Saves a file in a background task
-  @param fileURL The local URL to the file to upload
+ @param fileURL The local URL to the file to upload
  */
 -(void)saveFileInBackground:(NSURL *)fileURL;
 #endif
-
 
 /**
  Stores this file to API. Uses the delegate to inform about progress
@@ -124,7 +122,7 @@ When file is loaded a local URL is returned. Nil otherwise
         failure:(void(^)(NSError *error))failure;
 
 /**
- Delets this file from API. 
+ Delets this file from API.
  A valid elementKey property is needed to set to this object first.
  @param success A block to execute after delete of file succeeds.
  @param failure A block to execute after delete fails
@@ -158,6 +156,7 @@ When file is loaded a local URL is returned. Nil otherwise
  @param totalBytesWritten The total ammout of bytes to receive
  */
 -(void)fileInfo:(KTFileInfo*)fileInfo downloadProgress:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten;
+
 /**
  Send periodiacally to notify upload progress
  @param fileInfo The fileinfo object who sends the update.
@@ -169,7 +168,7 @@ When file is loaded a local URL is returned. Nil otherwise
 @optional
 /**
  Sends a response that a file was uploaded
-  @param fileInfo The fileinfo object who sends the update.
+ @param fileInfo The fileinfo object who sends the update.
  */
 -(void)FinishedUploadWithFileInfo:(KTFileInfo*)fileInfo;
 

@@ -47,19 +47,15 @@ NSTimeInterval _timeOut = 25;
     return fixtureURL;
 }
 
-
 - (void)setUp
 {
     [super setUp];
     [TestDefaults initialize];
     // Put setup code here; it will be run once, before the first test case.
     webservice = [KTManager sharedManager];
-    elementKeyWithStructure= @"3DMISC_SLDASM:500308"; //* "Steamroller"
+    elementKeyWithStructure = @"3DMISC_SLDASM:500308"; //* "Steamroller"
     
     fixtureBundle = [NSBundle bundleForClass:[testFileManagement class]];
-    
-    
-
     
 }
 
@@ -72,7 +68,7 @@ NSTimeInterval _timeOut = 25;
 
 #pragma mark Getting data collections
 /**
- Observes for  KVO value changing
+ Observes for KVO value changing
  */
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     awaitingResponse = NO;
@@ -94,11 +90,7 @@ NSTimeInterval _timeOut = 25;
     }
 }
 
-
 #pragma mark The Tests
-
-
-
 
 -(void)testUploadFileInBackground
 {
@@ -106,9 +98,8 @@ NSTimeInterval _timeOut = 25;
     KTElement *element = [KTElement elementWithElementKey:@"MISC_FILE"];
     XCTestExpectation *elementFileExpectation = [self expectationWithDescription:@"File Loaded"];
     
-    
     [element saveItem:^(KTElement *element) {
-        [elementFileExpectation fulfill];
+        
         
         KTFileInfo *newFile = [KTFileInfo fileInfoWithElement:element];
         newFile.fileName = @"Aerial04.jpg";
@@ -117,23 +108,20 @@ NSTimeInterval _timeOut = 25;
         NSURL *fileURL = [self urlForFixture:@"Aerial04.jpg"];
         [newFile saveFile:fileURL success:^{
             // do nothing
+            [elementFileExpectation fulfill];
         } failure:^(NSError * _Nonnull error) {
             // Do nothing
+            [elementFileExpectation fulfill];
         }];
         
         //
     } failure:^(NSError *error) {
+        XCTFail("Failed saving element");
         [elementFileExpectation fulfill];
         
     }];
     
-    
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Failed uploading a file: %@",error);
-        }
-        
-    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
     
 }
 
@@ -142,22 +130,20 @@ NSTimeInterval _timeOut = 25;
 */
 - (void)testElementHasFiles
 {
-    KTElement* element = [[KTElement alloc]initWithElementKey:elementKeyWithStructure];
-    
+    KTElement* element = [[KTElement alloc] initWithElementKey:elementKeyWithStructure];
     
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Filelist Loaded"];
     
     [element loadFileListSuccess:^(NSArray *itemsList) {
-        [documentOpenExpectation fulfill];
+        
         XCTAssertNotNil(itemsList, @"Filelist list should not be nil");
         XCTAssertTrue(itemsList.count>0, @"Filelist list should have some items");
         XCTAssertTrue(element.itemFilesList.count>0,@"Element property should not be empty");
-        
+        [documentOpenExpectation fulfill];
         
     } failure:^(NSError *error) {
-        [documentOpenExpectation fulfill];
         XCTFail(@"Failed loading filelist: %@",error);
-        
+        [documentOpenExpectation fulfill];
     }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
@@ -180,16 +166,15 @@ NSTimeInterval _timeOut = 25;
     XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"Filelist Loaded"];
     
     [element loadFileListSuccess:^(NSArray *itemsList) {
-        [documentOpenExpectation fulfill];
+        
         XCTAssertNotNil(itemsList, @"Filelist list should not be nil");
         XCTAssertTrue(itemsList.count>0, @"Filelist list should have some items");
         XCTAssertTrue(element.itemFilesList.count>0,@"Element property should not be empty");
-        
+        [documentOpenExpectation fulfill];
         
     } failure:^(NSError *error) {
-        [documentOpenExpectation fulfill];
         XCTFail(@"Failed loading filelist: %@",error);
-        
+        [documentOpenExpectation fulfill];
     }];
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
