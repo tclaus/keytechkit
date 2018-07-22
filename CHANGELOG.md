@@ -1,3 +1,8 @@
+# 0.2.7
+* Refactored a lot 
+* Added and refactored tests
+* Added search with parameters
+* Added get parametric searches
 
 # 0.2.3
 * Improved Example project.
