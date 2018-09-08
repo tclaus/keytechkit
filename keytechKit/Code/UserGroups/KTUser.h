@@ -39,8 +39,8 @@
                   failure:(void(^)(NSError* error))failure;
 
 /**
- Loads a list of server side stored queries. These ware queries definied in the keytech database by a client or admin controlled
- @param paramaters A dictionary with query paraneters: withSystemQueries= files,elements,all,none; ignoreTypes=Attributes, none
+ Loads a list of server side stored queries. These are queries definied in the keytech database by a client or admin controlled
+ @param parameters A dictionary with query paraneters: withSystemQueries= files,elements,all,none; ignoreTypes=Attributes, none
  @param success Called after the user object is successfully loaded
  @param failure Called when the user object could not be loaded. The error object will have a localized error message
  */

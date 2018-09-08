@@ -217,7 +217,7 @@ static RKObjectManager *_usedManager;
     
     NSString *resourcePath = [NSString stringWithFormat:@"user/%@/queries",self.userKey];
     
-    [manager getObjectsAtPath:resourcePath parameters:nil
+    [manager getObjectsAtPath:resourcePath parameters:parameters
                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                           
                           self.queries = mappingResult.array;
