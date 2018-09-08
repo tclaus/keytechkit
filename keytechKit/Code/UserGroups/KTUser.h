@@ -37,6 +37,16 @@
  */
 -(void)loadQueriesSuccess:(void(^)(NSArray <KTTargetLink*> *targetLinks))success
                   failure:(void(^)(NSError* error))failure;
+
+/**
+ Loads a list of server side stored queries. These ware queries definied in the keytech database by a client or admin controlled
+ @param paramaters A dictionary with query paraneters: withSystemQueries= files,elements,all,none; ignoreTypes=Attributes, none
+ @param success Called after the user object is successfully loaded
+ @param failure Called when the user object could not be loaded. The error object will have a localized error message
+ */
+-(void)loadQueriesWithParameters:(NSDictionary*) parameters success:(void (^)(NSArray <KTTargetLink*> *)) success
+                         failure:(void (^)(NSError *)) failure;
+
 /**
  Loads a structured list of favorite (KTTargetLink) elements
  @param success Called after the user object is successfully loaded

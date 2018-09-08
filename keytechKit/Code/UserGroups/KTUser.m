@@ -205,6 +205,12 @@ static RKObjectManager *_usedManager;
 -(void)loadQueriesSuccess:(void (^)(NSArray <KTTargetLink*> *)) success
                   failure:(void (^)(NSError *)) failure {
     
+    [self loadQueriesWithParameters:nil success:success failure:failure];
+}
+
+-(void)loadQueriesWithParameters:(NSDictionary*) parameters success:(void (^)(NSArray <KTTargetLink*> *)) success
+                  failure:(void (^)(NSError *)) failure {
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [KTTargetLink mappingWithManager:manager];
     

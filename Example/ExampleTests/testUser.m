@@ -133,6 +133,49 @@ static KTManager  *_webservice;
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+-(void)testUserQueriesWithSystemQueries {
+    
+    // Systemqueries are a keytech special: queries can return a files list or or SQL queries.
+    // Interestingly: If type 'elements' is enabled also queries assigned by an admin are shown
+    
+    
+    XCTestExpectation *loadUserExpectation = [self expectationWithDescription:@"load user"];
+    
+    __block KTUser * jgrantUser;
+    
+    [KTUser loadUserWithKey:@"jgrant"success:^(KTUser *user) {
+        jgrantUser = user;
+        [loadUserExpectation fulfill];
+    } failure:^(NSError *error) {
+        XCTFail(@"Could not load a test user for loading queries");
+        [loadUserExpectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+    
+    XCTestExpectation *loadFavorites = [self expectationWithDescription:@"load queries"];
+    if (jgrantUser) {
+        
+        NSDictionary *parameters =  @{@"withSystemQueries" : @"ALL", @"ignoretypes":@"attributes"};
+        
+        [jgrantUser loadQueriesWithParameters:parameters success:^(NSArray <KTTargetLink*> *targetLinks) {
+            if (!targetLinks) {
+                XCTFail(@"Queries Links was empty");
+            } else {
+                // OK
+            }
+            [loadFavorites fulfill];
+            
+        } failure:^(NSError *error) {
+            
+            XCTFail(@"Queries loaded with errors");
+            [loadFavorites fulfill];
+        }];
+    }
+    
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
 /**
 Tests user defined custom queries, some are with parameters
 */
